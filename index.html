@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Badland FR — Serveur DayZ Officiel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c0392b;
+    --red-dark: #922b21;
+    --red-glow: rgba(192,57,43,0.4);
+    --gold: #d4ac0d;
+    --bg: #0a0a08;
+    --bg2: #111110;
+    --bg3: #1a1a17;
+    --text: #e8e0d0;
+    --text-muted: #8a8070;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--red); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--text);
+  }
+  .nav-logo span { color: var(--red); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-cta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--red);
+    color: #fff;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--red-dark); }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(10,10,8,0.3) 0%, rgba(10,10,8,0.7) 60%, rgba(10,10,8,1) 100%),
+      url('bg_hero.svg') center/cover no-repeat;
+    filter: saturate(0.4) brightness(0.7);
+  }
+  .hero-content { position: relative; z-index: 2; padding: 0 1rem; }
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .hero-tag::before, .hero-tag::after {
+    content: ''; display: block; width: 40px; height: 1px; background: var(--red);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 12vw, 130px);
+    letter-spacing: 6px;
+    line-height: .9;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(0,0,0,.8);
+    margin-bottom: 1rem;
+  }
+  .hero-title span { color: var(--red); }
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(16px, 3vw, 22px);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+  }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    background: var(--red); color: #fff;
+    padding: 14px 36px; border: none; cursor: pointer;
+    text-decoration: none; transition: all .2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+  .btn-secondary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+    background: transparent; color: var(--text);
+    padding: 13px 36px;
+    border: 1px solid rgba(255,255,255,0.2);
+    cursor: pointer; text-decoration: none; transition: all .2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-secondary:hover { border-color: var(--red); color: var(--red); }
+  .hero-scroll {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-muted); animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-8px)} }
+  .hero-scroll::after {
+    content:''; width:1px; height:30px; background: linear-gradient(to bottom, var(--text-muted), transparent);
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: center; flex-wrap: wrap;
+    padding: 0;
+  }
+  .stat-item {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 1.5rem 3rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px; letter-spacing: 2px; color: var(--red);
+  }
+  .stat-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-muted); margin-top: 2px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 0; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--red); margin-bottom: .75rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content:''; display:block; width:24px; height:1px; background:var(--red); }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    letter-spacing: 3px; line-height: 1;
+    color: #fff; margin-bottom: 1rem;
+  }
+  .section-title span { color: var(--red); }
+  .section-desc {
+    font-size: 16px; line-height: 1.8;
+    color: var(--text-muted); max-width: 640px;
+    margin-bottom: 3rem;
+  }
+
+  /* ── PRÉSENTATION ── */
+  #presentation { background: var(--bg); }
+  .pres-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center;
+  }
+  .pres-image {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+  }
+  .pres-image img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(0.5) brightness(0.8);
+    transition: filter .4s;
+  }
+  .pres-image:hover img { filter: saturate(0.8) brightness(1); }
+  .pres-image::after {
+    content: ''; position: absolute; inset: 0;
+    border: 2px solid var(--red);
+    transform: translate(10px, 10px);
+    pointer-events: none;
+  }
+  .feature-list { list-style: none; margin-top: 2rem; }
+  .feature-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px; color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .feature-list li::before {
+    content: '▸'; color: var(--red); flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* ── INFOS SERVEUR ── */
+  #serveur { background: var(--bg2); }
+  .info-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;
+  }
+  .info-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative; overflow: hidden;
+    transition: border-color .2s, transform .2s;
+  }
+  .info-card:hover { border-color: var(--red); transform: translateY(-4px); }
+  .info-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: var(--red); transform: scaleX(0);
+    transform-origin: left; transition: transform .3s;
+  }
+  .info-card:hover::before { transform: scaleX(1); }
+  .card-icon { font-size: 28px; margin-bottom: 1rem; }
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; letter-spacing: 2px; text-transform: uppercase;
+    color: #fff; margin-bottom: .5rem;
+  }
+  .card-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 2px; color: var(--red);
+  }
+  .card-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-top: .5rem; }
+
+  /* ── RÈGLEMENT ── */
+  #reglement { background: var(--bg); }
+  .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .rule-block {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--red);
+    padding: 1.5rem;
+  }
+  .rule-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px; color: rgba(192,57,43,0.15);
+    line-height: 1; margin-bottom: -.5rem;
+  }
+  .rule-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; letter-spacing: 2px; text-transform: uppercase;
+    color: #fff; margin-bottom: .5rem;
+  }
+  .rule-text { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ── ÉVÉNEMENTS ── */
+  #evenements { background: var(--bg2); }
+  .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .event-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform .2s, border-color .2s;
+  }
+  .event-card:hover { transform: translateY(-6px); border-color: var(--red); }
+  .event-img {
+    height: 180px;
+    background: linear-gradient(135deg, #1a1a17 0%, #2a1510 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; overflow: hidden;
+  }
+  .event-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, var(--bg3) 100%);
+  }
+  .event-rarity {
+    position: absolute; top: 12px; right: 12px; z-index: 2;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 3px 8px;
+  }
+  .rarity-rare { background: #922b21; color: #fff; }
+  .rarity-epic { background: #6c3483; color: #fff; }
+  .rarity-common { background: #1a5276; color: #fff; }
+  .event-body { padding: 1.25rem; }
+  .event-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; letter-spacing: 1px; text-transform: uppercase;
+    color: #fff; margin-bottom: .5rem;
+  }
+  .event-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
+  .event-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .event-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+    background: rgba(192,57,43,0.15); color: var(--red);
+    border: 1px solid rgba(192,57,43,0.3);
+    padding: 3px 8px;
+  }
+
+  /* ── GALERIE ── */
+  #galerie { background: var(--bg); }
+  .gallery-note {
+    background: var(--bg2);
+    border: 1px dashed rgba(192,57,43,0.4);
+    border-left: 3px solid var(--red);
+    padding: 1.5rem 2rem;
+    font-size: 14px; color: var(--text-muted); line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .gallery-note strong { color: var(--text); }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 12px;
+  }
+  .gallery-slot {
+    background: var(--bg3);
+    border: 1px dashed var(--border);
+    aspect-ratio: 16/9;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 8px;
+    color: var(--text-muted); font-size: 13px;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 2px; text-transform: uppercase;
+    cursor: pointer; transition: border-color .2s;
+  }
+  .gallery-slot:first-child { grid-column: span 2; }
+  .gallery-slot:hover { border-color: rgba(192,57,43,0.5); }
+  .gallery-slot .slot-icon { font-size: 32px; opacity: .3; }
+
+  /* ── INSCRIPTION ── */
+  #inscription { background: var(--bg2); }
+  .register-wrap {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+  }
+  .register-info { }
+  .discord-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #5865F2; color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 14px 28px; text-decoration: none;
+    border: none; cursor: pointer;
+    transition: background .2s, transform .2s;
+    margin-top: 1.5rem;
+  }
+  .discord-btn:hover { background: #4752c4; transform: translateY(-2px); }
+  .discord-icon { font-size: 20px; }
+  .register-form {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 2rem;
+  }
+  .form-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; letter-spacing: 2px; text-transform: uppercase;
+    color: #fff; margin-bottom: 1.5rem;
+    padding-bottom: 1rem; border-bottom: 1px solid var(--border);
+  }
+  .form-group { margin-bottom: 1.25rem; }
+  label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 6px;
+  }
+  input[type=text], input[type=email], input[type=password], select {
+    width: 100%; padding: 10px 14px;
+    background: var(--bg2); border: 1px solid var(--border);
+    color: var(--text); font-family: 'Barlow', sans-serif; font-size: 14px;
+    outline: none; transition: border-color .2s;
+    -webkit-appearance: none;
+  }
+  input:focus, select:focus { border-color: var(--red); }
+  select option { background: var(--bg2); }
+  .form-privacy {
+    font-size: 12px; color: var(--text-muted); line-height: 1.6;
+    background: rgba(192,57,43,0.08);
+    border-left: 2px solid var(--red);
+    padding: .75rem 1rem; margin-bottom: 1.5rem;
+  }
+  .form-privacy strong { color: var(--red); }
+  .form-submit {
+    width: 100%;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px; letter-spacing: 3px; text-transform: uppercase;
+    background: var(--red); color: #fff;
+    padding: 13px; border: none; cursor: pointer;
+    transition: background .2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .form-submit:hover { background: var(--red-dark); }
+
+  /* ── OUVERTURE ── */
+  #ouverture { background: var(--bg); }
+  .opening-wrap {
+    text-align: center; max-width: 700px; margin: 0 auto;
+  }
+  .countdown {
+    display: flex; justify-content: center; gap: 2rem;
+    margin: 3rem 0;
+  }
+  .cd-item { text-align: center; }
+  .cd-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px; line-height: 1;
+    color: var(--red);
+    text-shadow: 0 0 40px var(--red-glow);
+  }
+  .cd-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .cd-sep {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px; color: var(--border); line-height: 1;
+  }
+  .opening-date {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 4px;
+    color: var(--gold); margin-bottom: .5rem;
+  }
+  .opening-note { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 3rem 0;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 4px; color: var(--text);
+    margin-bottom: .5rem;
+  }
+  .footer-logo span { color: var(--red); }
+  .footer-links { display: flex; justify-content: center; gap: 2rem; margin: 1.5rem 0; flex-wrap: wrap; }
+  .footer-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-muted); text-decoration: none; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--red); }
+  .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fadeUp .8s ease both; }
+  .hero-tag   { animation-delay: .1s; }
+  .hero-title { animation-delay: .3s; }
+  .hero-subtitle { animation-delay: .5s; }
+  .hero-btns  { animation-delay: .7s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .pres-grid, .rules-grid, .register-wrap { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-slot:first-child { grid-column: span 2; }
+    .stat-item { padding: 1rem 1.5rem; }
+    .countdown { gap: 1rem; }
+    .cd-num { font-size: 48px; }
+    .cd-sep { font-size: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-logo">BADLAND <span>FR</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">Qui sommes-nous</a></li>
+    <li><a href="#presentation">Serveur</a></li>
+    <li><a href="#about">Qui sommes-nous</a>
+    <a href="#map">Map</a></li>
+    <li><a href="#reglement">Règlement</a></li>
+    <li><a href="#evenements">Événements</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#staff">Staff</a></li>
+    <li><a href="#inscription">Inscription</a></li>
+    <li><a href="#soutenir">Don</a></li>
+  </ul>
+  <a href="#inscription" class="nav-cta">Rejoindre</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Serveur Console — Badlands DLC 2026</div>
+    <h1 class="hero-title">BADLAND<br><span>FR</span></h1>
+    <p class="hero-subtitle">Le serveur DayZ qui redéfinit la survie</p>
+    <div class="hero-btns">
+      <a href="#inscription" class="btn-primary">Créer un compte</a>
+      <a href="#presentation" class="btn-secondary">Découvrir le serveur</a>
+    </div>
+  </div>
+  <div class="hero-scroll">Défiler</div>
+</section>
+
+<!-- ── STATS BAR ── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">60</span>
+    <span class="stat-lbl">Joueurs max</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">x3</span>
+    <span class="stat-lbl">Loot multiplié</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">2H</span>
+    <span class="stat-lbl">Cycle de jour</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">30'</span>
+    <span class="stat-lbl">Cycle de nuit</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">24/7</span>
+    <span class="stat-lbl">Disponibilité</span>
+  </div>
+</div>
+
+
+<!-- ── QUI SOMMES-NOUS ── -->
+<section id="about" style="background:var(--bg); padding:6rem 0;">
+  <div class="container">
+    <div class="section-label">À propos de nous</div>
+    <h2 class="section-title">QUI <span>SOMMES-NOUS</span> ?</h2>
+    <p class="section-desc">Tout ce que vous devez savoir sur la communauté Badland FR avant de nous rejoindre.</p>
+
+    <!-- Bloc principal accueil -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2.5rem;">
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);padding:2rem;">
+        <div style="font-size:36px;margin-bottom:1rem;">🌍</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:17px;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:.75rem;">Une communauté ouverte à tous</div>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">
+          Badland FR est un serveur <strong style="color:var(--text);">friendly et bienveillant</strong>. Peu importe d'où vous venez, votre nationalité, votre niveau de jeu ou votre expérience sur DayZ — tout le monde est le bienvenu ici. Nous accueillons aussi bien les débutants que les vétérans.
+        </p>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-top:.75rem;">
+          Notre seule exigence : le <strong style="color:var(--text);">respect</strong>. Envers les joueurs, le staff et la communauté en général.
+        </p>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--gold);padding:2rem;">
+        <div style="font-size:36px;margin-bottom:1rem;">🤝</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:17px;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:.75rem;">Pas d'entretien, pas de prise de tête</div>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8;">
+          Ici, pas de processus de sélection compliqué, pas d'entretien vocal obligatoire, pas de dossier à remplir. Vous lisez le règlement, vous le respectez, et vous jouez. Simple comme ça.
+        </p>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-top:.75rem;">
+          La seule étape : rejoindre la <strong style="color:var(--gold);">liste d'attente (waitlist)</strong> sur notre Discord en suivant la procédure ci-dessous.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Valeurs -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:3rem;">
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--red);font-size:18px;flex-shrink:0;margin-top:2px;">▸</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:3px;">Bienveillance</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Ambiance saine et respectueuse pour tous les joueurs</div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--red);font-size:18px;flex-shrink:0;margin-top:2px;">▸</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:3px;">Accessibilité</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Ouvert à tous les niveaux et toutes les nationalités</div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--red);font-size:18px;flex-shrink:0;margin-top:2px;">▸</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:3px;">Transparence</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Règles claires, admins disponibles et à l'écoute</div>
+        </div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:10px;align-items:flex-start;">
+        <span style="color:var(--red);font-size:18px;flex-shrink:0;margin-top:2px;">▸</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:3px;">Passion</div>
+          <div style="font-size:12px;color:var(--text-muted);line-height:1.6;">Une équipe de passionnés qui améliore le serveur en continu</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Procédure Waitlist -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--red);padding:2rem;margin-bottom:2rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;letter-spacing:3px;text-transform:uppercase;color:#fff;margin-bottom:1.5rem;display:flex;align-items:center;gap:10px;">
+        <span style="color:var(--red);">📋</span> Comment rejoindre la Waitlist
+      </div>
+
+      <!-- Étapes -->
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;">1</div>
+          <div style="padding-top:6px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:3px;">Rejoindre le Discord</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Cliquez sur le bouton Discord en bas de cette page et rejoignez notre serveur officiel.</div>
+            <a href="https://discord.gg/AzPjjK5jSf" target="_blank" style="display:inline-block;margin-top:6px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#5865F2;text-decoration:none;border-bottom:1px solid #5865F2;">→ discord.gg/AzPjjK5jSf</a>
+          </div>
+        </div>
+
+        <div style="width:1px;height:20px;background:var(--border);margin-left:18px;"></div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;">2</div>
+          <div style="padding-top:6px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:3px;">Lire le règlement</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Rendez-vous dans le salon <strong style="color:var(--text);">#règlement</strong> et lisez attentivement toutes les règles du serveur. C'est obligatoire avant toute inscription.</div>
+          </div>
+        </div>
+
+        <div style="width:1px;height:20px;background:var(--border);margin-left:18px;"></div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;">3</div>
+          <div style="padding-top:6px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:3px;">Aller dans le salon Waitlist</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Rendez-vous dans le salon <strong style="color:var(--text);">#waitlist</strong> sur le Discord.</div>
+          </div>
+        </div>
+
+        <div style="width:1px;height:20px;background:var(--border);margin-left:18px;"></div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:18px;color:#000;">4</div>
+          <div style="padding-top:6px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:3px;">Utiliser la commande /PSN</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Tapez la commande slash suivante avec votre pseudo PlayStation Network :</div>
+            <div style="margin-top:10px;background:var(--bg);border:1px solid var(--border);border-left:3px solid var(--gold);padding:.75rem 1rem;font-family:'Share Tech Mono',monospace;font-size:15px;color:var(--gold);letter-spacing:1px;">
+              /psn VotrePseudoPSN
+            </div>
+            <div style="font-size:12px;color:var(--text-muted);margin-top:6px;">Exemple : <code style="color:var(--gold);">/psn GreyFox_Survivor</code></div>
+          </div>
+        </div>
+
+        <div style="width:1px;height:20px;background:var(--border);margin-left:18px;"></div>
+
+        <div style="display:flex;gap:16px;align-items:flex-start;">
+          <div style="width:36px;height:36px;border-radius:50%;background:#27ae60;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;">✓</div>
+          <div style="padding-top:6px;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:#27ae60;margin-bottom:3px;">Et c'est tout !</div>
+            <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Le staff vous donnera accès au serveur dès que possible. Pas d'entretien, pas d'attente interminable. Bienvenue sur Badland FR !</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA Discord -->
+    <div style="text-align:center;">
+      <a href="https://discord.gg/AzPjjK5jSf" target="_blank" class="discord-btn" style="display:inline-flex;align-items:center;gap:12px;background:#5865F2;color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:16px;letter-spacing:2px;text-transform:uppercase;padding:14px 36px;text-decoration:none;transition:all .2s;">
+        💬 Rejoindre et s'inscrire sur Discord
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PRÉSENTATION ── -->
+<section id="presentation">
+  <div class="container">
+    <div class="pres-grid">
+      <div>
+        <div class="section-label">À propos du serveur</div>
+        <h2 class="section-title">BIENVENUE SUR <span>BADLAND FR</span></h2>
+        <p class="section-desc">
+          Un serveur DayZ console pensé pour l'expérience complète. Loot x3, véhicules intacts, zones dangereuses et événements uniques. La survie n'a jamais été aussi intense.
+        </p>
+        <ul class="feature-list">
+          <li>Loot multiplié x3 sur les armes, munitions et matériel de construction</li>
+          <li>Tous les véhicules spawnent complets, intacts, avec provisions à bord</li>
+          <li>Zones militaires Tier 1 à Tier 4 avec progression logique du danger</li>
+          <li>Zone contaminée permanente sur l'île de la prison — NBC obligatoire</li>
+          <li>Mallettes secrètes dans les crashs avec loot ultra-rare à l'intérieur</li>
+          <li>Cycle jour/nuit dynamique : journée longue, nuit courte</li>
+          <li>Chaque spawn joueur avec équipement de survie de base complet</li>
+          <li>Base building facilité — outils et matériaux partout sur la map</li>
+        </ul>
+      </div>
+      <div class="pres-image">
+        <img src="bg_section.svg" alt="Badland FR" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── MAP BADLANDS ── -->
+<section id="map" style="background:var(--bg2); padding:6rem 0;">
+  <div class="container">
+    <div class="section-label">Nouvelle map DLC 2026</div>
+    <h2 class="section-title">MAP <span>NASDARA</span> — DLC BADLANDS</h2>
+    <p class="section-desc">La map <strong style="color:#fff;">Nasdara</strong> est la nouvelle carte du DLC <strong style="color:var(--red);">Badlands</strong>, la 3ème grande extension officielle de Bohemia Interactive. Notre serveur <strong style="color:var(--red);">Badland FR</strong> est nommé en hommage à ce DLC et sera prêt dès sa sortie.</p>
+
+    <!-- Bannière "À venir" -->
+    <div style="background:linear-gradient(135deg,#1a1008,#100808);border:1px solid rgba(212,172,13,0.3);border-left:4px solid var(--gold);padding:1rem 1.5rem;margin-bottom:3rem;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:20px;">⏳</span>
+      <div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">DLC Badlands — Date de sortie non confirmée</span>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">La map Nasdara n'est pas encore disponible. Bohemia Interactive n'a pas communiqué de date précise. Notre serveur Badland FR sera opérationnel dès le jour de la sortie officielle.</p>
+      </div>
+    </div>
+
+
+    <!-- Explication nom serveur -->
+    <div style="background:var(--bg3);border:1px solid rgba(212,172,13,0.2);padding:1.5rem 2rem;margin-bottom:3rem;display:flex;gap:16px;align-items:flex-start;">
+      <span style="font-size:28px;flex-shrink:0;">💡</span>
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;">Pourquoi "Badland FR" ?</p>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">
+          Notre serveur porte le nom <strong style="color:#fff;">Badland FR</strong> en référence directe au DLC officiel <strong style="color:var(--red);">DayZ Badlands</strong> annoncé par Bohemia Interactive. La map intégrée dans ce DLC s'appelle <strong style="color:#fff;">Nasdara</strong> — un désert de 267 km² situé à l'ouest de Chernarus. Dès que le DLC sera disponible, notre serveur basculera sur cette map. En attendant, suivez les annonces officielles sur notre Discord !
+        </p>
+      </div>
+    </div>
+
+    <!-- Stats map -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:3rem;">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--gold);padding:1.25rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--gold);letter-spacing:2px;">267</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">km² de map</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">La plus grande map officielle DayZ</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--red);padding:1.25rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--red);letter-spacing:2px;">3ème</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Extension officielle</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Après Livonia et Frostline</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid #3498db;padding:1.25rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#3498db;letter-spacing:2px;">2026</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Sortie prévue</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">PC, PlayStation, Xbox</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid #27ae60;padding:1.25rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#27ae60;letter-spacing:2px;">&lt;25$</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Prix DLC</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Prix officiel annoncé</div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:3rem;">
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Le lore</p>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:1rem;">
+          Nasdara est une province fictive du Moyen-Orient, située à l'ouest de Chernarus, à la frontière du Takistan. Chaque coin de terre raconte l'histoire d'invasions ratées, de villes abandonnées et du silence qui a suivi des décennies de guerre.
+        </p>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.8;">
+          L'infection a tout remis à zéro. Ce qui reste — villes en ruines, bases militaires soviétiques, raffineries pétrolières, champs de sable — n'attend plus que vous pour y écrire une nouvelle histoire.
+        </p>
+      </div>
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1rem;">Le défi</p>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:1rem;">
+          Oubliez le froid de Frostline. Ici, c'est la chaleur et la sécheresse qui vous tuent. L'eau est aussi précieuse que les munitions. Les puits doivent être reconstruits pour survivre.
+        </p>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.8;">
+          Des variants d'infectés adaptés au désert, une faune hostile unique (serpents, scorpions…) et un climat aride printanier redéfinissent complètement les règles de la survie.
+        </p>
+      </div>
+    </div>
+
+    <!-- Features grid -->
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Ce que Badlands apporte</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem;margin-bottom:3rem;">
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🏜️</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Environnement désertique</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Terres craquelées, plaines de sable, chaînes de montagnes. Tempêtes de sable et chaleur extrême.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">💧</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Gestion de l'hydratation</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">L'eau est rare. Puits à reconstruire, réservoirs à trouver. La soif est letale.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🏚️</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Villes & ruines de guerre</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Cités abandonnées de style Moyen-Orient, bases soviétiques, raffineries pétrolières.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🧟</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Infectés du désert</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Nouveaux variants d'infectés adaptés au climat aride et à l'environnement de guerre.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🔫</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Loot & armes régionaux</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Nouvelles armes, tenues et équipements propres à la région de Nasdara.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🚗</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Nouveaux véhicules</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Véhicules adaptés au désert attendus : buggys, pickups, quads pour traverser les dunes.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🏗️</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Système de reconstruction</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Nouveau mécanisme inédit : reconstruire des structures (puits, bâtiments) pour survivre.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🐍</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Faune hostile</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Serpents, scorpions et autres créatures du désert hostiles. La faune devient un danger supplémentaire.</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;">
+        <span style="font-size:24px;flex-shrink:0;">🎨</span>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px;">Graphismes améliorés</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;">Toutes les maps DayZ bénéficieront de nouveaux terrains et une meilleure fusion des textures.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Timeline -->
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Roadmap officielle</p>
+    <div style="display:flex;flex-wrap:wrap;gap:0;">
+      <div style="flex:1;min-width:180px;background:var(--bg3);border:1px solid rgba(212,172,13,0.3);border-left:3px solid var(--gold);padding:1rem 1.25rem;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--gold);letter-spacing:2px;">Juin 2025</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">Annonce officielle par Bohemia Interactive</div>
+      </div>
+      <div style="flex:1;min-width:180px;background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--text-muted);padding:1rem 1.25rem;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--text-muted);letter-spacing:2px;">Patch 1.29</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">Préparation du moteur — terrains et optimisations</div>
+      </div>
+      <div style="flex:1;min-width:180px;background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--text-muted);padding:1rem 1.25rem;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--text-muted);letter-spacing:2px;">2026</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">Sortie du DLC Badlands — PC, Xbox, PlayStation</div>
+      </div>
+      <div style="flex:1;min-width:180px;background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.4);border-left:3px solid var(--red);padding:1rem 1.25rem;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);letter-spacing:2px;">J+0</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px;">Serveur <strong style="color:var(--red);">Badland FR</strong> opérationnel dès le lancement</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── INFOS SERVEUR ── -->
+<section id="serveur">
+  <div class="container">
+    <div class="section-label">Configuration</div>
+    <h2 class="section-title">INFOS <span>SERVEUR</span></h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="card-icon">🗺️</div>
+        <div class="card-title">Map</div>
+        <div class="card-val">Nasdara</div>
+        <div class="card-desc">La nouvelle map DayZ Badlands — 267 km² de désert aride, la plus grande map officielle de l'histoire de DayZ.</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">🎮</div>
+        <div class="card-title">Plateforme</div>
+        <div class="card-val">Console</div>
+        <div class="card-desc">Serveur 100% console — PS4, PS5, Xbox One, Xbox Series. Aucun mod requis.</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">🌅</div>
+        <div class="card-title">Cycle jour/nuit</div>
+        <div class="card-val">2H / 30'</div>
+        <div class="card-desc">Journée de 2 heures réelles pour explorer, nuit de 30 minutes pour l'immersion sans frustration.</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">👥</div>
+        <div class="card-title">Joueurs</div>
+        <div class="card-val">60 MAX</div>
+        <div class="card-desc">60 survivants maximum en simultané pour un équilibre parfait entre rencontres et liberté.</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">📦</div>
+        <div class="card-title">Loot</div>
+        <div class="card-val">x3</div>
+        <div class="card-desc">Armes, munitions, outils de construction — tout est multiplié par 3. Trouver du matos n'est plus une corvée.</div>
+      </div>
+      <div class="info-card">
+        <div class="card-icon">🚗</div>
+        <div class="card-title">Véhicules</div>
+        <div class="card-val">20 — 30</div>
+        <div class="card-desc">Tous les véhicules spawnent intacts avec portières, batterie, phares et 4 gourdes d'eau à bord.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RÈGLEMENT ── -->
+<section id="reglement">
+  <div class="container">
+    <div class="section-label">Règlement officiel</div>
+    <h2 class="section-title">LES <span>RÈGLES</span></h2>
+    <p class="section-desc">Le respect des règles garantit une expérience agréable pour tous. Toute violation entraîne un avertissement ou un bannissement définitif.</p>
+    <div class="rules-grid">
+      <div class="rule-block">
+        <div class="rule-num">01</div>
+        <div class="rule-title">Respect des joueurs</div>
+        <div class="rule-text">Le harcèlement, les insultes, le racisme et toute forme de discrimination sont strictement interdits. Dans le jeu comme sur le Discord. Tuez les joueurs, pas les personnes.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-num">02</div>
+        <div class="rule-title">Zéro cheating / exploit</div>
+        <div class="rule-text">L'utilisation de bugs, glitchs, ou tout avantage non prévu est interdite. Duplication d'items, wall glitch, exploitation de la physique — bannissement immédiat et définitif.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-num">03</div>
+        <div class="rule-title">Pas de camping spawn</div>
+        <div class="rule-text">Il est interdit de surveiller et d'éliminer systématiquement les nouveaux joueurs aux zones de spawn. Laissez les survivants une chance de s'équiper avant tout affrontement.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-num">04</div>
+        <div class="rule-title">Destruction de base limitée</div>
+        <div class="rule-text">Le raiding de bases est autorisé. En revanche, la destruction gratuite de structures sans intention de looter est interdite. Volez, ne sabotez pas.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-num">05</div>
+        <div class="rule-title">Pas d'abus de radio</div>
+        <div class="rule-text">L'utilisation du chat vocal global pour perturber, spammer ou diffuser du contenu inapproprié est interdite. Les communications en jeu doivent rester dans l'esprit du jeu.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-num">06</div>
+        <div class="rule-title">Discord obligatoire</div>
+        <div class="rule-text">L'inscription sur notre Discord est requise pour jouer sur le serveur. C'est là que se font les annonces, la gestion des litiges et les inscriptions aux événements.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-num">07</div>
+        <div class="rule-title">Signalement des bugs</div>
+        <div class="rule-text">Tout bug ou comportement anormal doit être signalé aux admins via le Discord. Exploiter un bug sans le signaler est considéré comme du cheating.</div>
+      </div>
+      <div class="rule-block">
+        <div class="rule-num">08</div>
+        <div class="rule-title">Décisions des admins finales</div>
+        <div class="rule-text">Les décisions prises par l'équipe d'administration sont définitives. Contestation possible via ticket Discord dans un délai de 48h. Aucun débat en jeu ou en chat public.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ÉVÉNEMENTS ── -->
+<section id="evenements">
+  <div class="container">
+    <div class="section-label">Événements spéciaux</div>
+    <h2 class="section-title">SUR LE <span>TERRAIN</span></h2>
+    <p class="section-desc">Des événements organisés régulièrement par les admins pour pimenter la vie sur Chernarus. Certains sont planifiés, d'autres surviennent sans prévenir.</p>
+    <div class="events-grid">
+
+      <div class="event-card">
+        <div class="event-img">
+          🚁
+          <span class="event-rarity rarity-rare">Rare</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Crash d'hélicoptère</div>
+          <div class="event-desc">Un hélico militaire s'écrase aléatoirement sur la map. 15+ zombies soldats sécurisent le site. Une mallette secrète (15% de chance) peut contenir du loot ultra-rare : SVD, M4, gros chargeurs, grenades.</div>
+          <div class="event-tags">
+            <span class="event-tag">Aléatoire</span>
+            <span class="event-tag">15+ zombies</span>
+            <span class="event-tag">Mallette rare</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-img">
+          ☢️
+          <span class="event-rarity rarity-epic">Zone NBC</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Île de la prison — Zone contaminée</div>
+          <div class="event-desc">L'île de Storozh est une zone contaminée permanente. 85+ zombies dont des NBC. Tenue complète NBC obligatoire. En récompense : M4A1, AKM Drum 75 balles, M79 lance-grenade, grenades chimiques et explosives.</div>
+          <div class="event-tags">
+            <span class="event-tag">Permanent</span>
+            <span class="event-tag">NBC requis</span>
+            <span class="event-tag">85+ zombies</span>
+            <span class="event-tag">Loot top tier</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-img">
+          🏆
+          <span class="event-rarity rarity-epic">Admin event</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Tournoi de survie</div>
+          <div class="event-desc">Organisé par les admins. Tous les joueurs démarrent au même endroit, sans équipement. Le dernier survivant remporte une récompense exclusive en jeu. Annoncé 24h à l'avance sur le Discord.</div>
+          <div class="event-tags">
+            <span class="event-tag">Planifié</span>
+            <span class="event-tag">Discord requis</span>
+            <span class="event-tag">Récompense</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-img">
+          🚛
+          <span class="event-rarity rarity-common">Régulier</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Convoi militaire abandonné</div>
+          <div class="event-desc">Un convoi de camions militaires apparaît sur la map, escorté de zombies soldats. Les camions sont chargés de matériel de construction, outils, planches et rondins. 15+ zombies à neutraliser.</div>
+          <div class="event-tags">
+            <span class="event-tag">Aléatoire</span>
+            <span class="event-tag">Construction</span>
+            <span class="event-tag">15+ zombies</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-img">
+          🔑
+          <span class="event-rarity rarity-epic">Rare</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">La chasse à la mallette</div>
+          <div class="event-desc">Seulement 5 clés de mallette existent sur la map entière (Tier 3 uniquement). Une peut aussi se trouver dans un véhicule de police (5% de chance). Trouver la clé, puis la mallette... puis survivre.</div>
+          <div class="event-tags">
+            <span class="event-tag">5 clés max</span>
+            <span class="event-tag">Tier 3</span>
+            <span class="event-tag">Compétitif</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-img">
+          🌙
+          <span class="event-rarity rarity-rare">Nocturne</span>
+        </div>
+        <div class="event-body">
+          <div class="event-title">Raid nocturne</div>
+          <div class="event-desc">Organisé de nuit par les admins. Une base désignée doit être prise d'assaut par une équipe attaquante face aux défenseurs. Rôles distribués la veille via Discord. NVG fortement conseillés.</div>
+          <div class="event-tags">
+            <span class="event-tag">Planifié</span>
+            <span class="event-tag">Équipes</span>
+            <span class="event-tag">NVG conseillé</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERIE ── -->
+<section id="galerie">
+  <div class="container">
+    <div class="section-label">Captures du serveur</div>
+    <h2 class="section-title">GALERIE <span>PHOTOS</span></h2>
+    <div class="gallery-note">
+      <strong>📸 Espace réservé aux screenshots.</strong> Remplacez les emplacements ci-dessous par vos propres captures d'écran du serveur. Format recommandé : 1920×1080 ou 16/9. Renommez vos fichiers <code>screen1.jpg</code>, <code>screen2.jpg</code>, etc. et placez-les dans le même dossier que ce fichier HTML. Remplacez ensuite les balises <code>&lt;div class="gallery-slot"&gt;</code> par des balises <code>&lt;img src="screen1.jpg"&gt;</code>.
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-slot">
+        <div class="slot-icon">📷</div>
+        <span>Screenshot principal — 1920×1080</span>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-icon">📷</div>
+        <span>Screenshot 2</span>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-icon">📷</div>
+        <span>Screenshot 3</span>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-icon">📷</div>
+        <span>Screenshot 4</span>
+      </div>
+      <div class="gallery-slot">
+        <div class="slot-icon">📷</div>
+        <span>Screenshot 5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSCRIPTION ── -->
+<section id="inscription">
+  <div class="container">
+    <div class="register-wrap">
+      <div class="register-info">
+        <div class="section-label">Rejoindre la communauté</div>
+        <h2 class="section-title">CRÉER UN <span>COMPTE</span></h2>
+        <p class="section-desc">Rejoignez notre communauté, participez aux événements, signalez les bugs et restez informé des dernières mises à jour du serveur.</p>
+
+        <p style="font-size:14px; color:var(--text-muted); line-height:1.7; margin-bottom:1.5rem;">
+          Notre Discord est le cœur de la communauté. C'est là que vous trouverez les annonces en temps réel, les inscriptions aux événements, le support admin et les échanges entre survivants.
+        </p>
+
+        <a href="https://discord.gg/AzPjjK5jSf" target="_blank" class="discord-btn">
+          <span class="discord-icon">💬</span>
+          Rejoindre le Discord
+        </a>
+
+        <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--border);">
+          <p style="font-family:'Barlow Condensed',sans-serif; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:.75rem;">Ce que vous trouverez sur le Discord :</p>
+          <ul class="feature-list">
+            <li>Annonces des événements et mises à jour serveur</li>
+            <li>Système de ticket pour les litiges et signalements</li>
+            <li>Recrutement pour les équipes et alliances</li>
+            <li>Galerie de screenshots de la communauté</li>
+            <li>Classements et statistiques des joueurs</li>
+          </ul>
+        </div>
+      </div>
+
+      <div>
+        <div class="register-form">
+          <div class="form-title">⚙ Créer un compte</div>
+          <div class="form-privacy">
+            <strong>🔒 Votre vie privée est protégée.</strong> Aucune information personnelle requise. Pas de nom réel, pas de carte d'identité, pas de paiement. Juste un pseudo et un mot de passe.
+          </div>
+          <div class="form-group">
+            <label for="pseudo">Pseudo en jeu</label>
+            <input type="text" id="pseudo" placeholder="Ex: SurvivorChernarus" maxlength="20">
+          </div>
+          <div class="form-group">
+            <label for="email">Adresse e-mail</label>
+            <input type="email" id="email" placeholder="Pour récupérer votre compte uniquement">
+          </div>
+          <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" placeholder="Minimum 8 caractères">
+          </div>
+          <div class="form-group">
+            <label for="platform">Plateforme</label>
+            <select id="platform">
+              <option value="">Choisir votre plateforme</option>
+              <option>PlayStation 4</option>
+              <option>PlayStation 5</option>
+              <option>Xbox One</option>
+              <option>Xbox Series X/S</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="rules">Règlement</label>
+            <div style="display:flex;align-items:flex-start;gap:10px;margin-top:4px;">
+              <input type="checkbox" id="rules" style="width:auto;margin-top:3px;">
+              <label for="rules" style="font-size:13px;letter-spacing:0;text-transform:none;color:var(--text-muted);margin-bottom:0;">J'ai lu et j'accepte le règlement du serveur</label>
+            </div>
+          </div>
+          <button class="form-submit" onclick="handleRegister()">Créer mon compte</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUVERTURE ── -->
+<section id="ouverture">
+  <div class="container">
+    <div class="opening-wrap">
+      <div class="section-label" style="justify-content:center;">Date d'ouverture</div>
+      <h2 class="section-title">OUVERTURE <span>OFFICIELLE</span></h2>
+      <div class="opening-date" id="open-date">— À DÉFINIR —</div>
+      <div class="countdown">
+        <div class="cd-item">
+          <div class="cd-num" id="cd-days">--</div>
+          <div class="cd-lbl">Jours</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-item">
+          <div class="cd-num" id="cd-hours">--</div>
+          <div class="cd-lbl">Heures</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-item">
+          <div class="cd-num" id="cd-mins">--</div>
+          <div class="cd-lbl">Minutes</div>
+        </div>
+        <div class="cd-sep">:</div>
+        <div class="cd-item">
+          <div class="cd-num" id="cd-secs">--</div>
+          <div class="cd-lbl">Secondes</div>
+        </div>
+      </div>
+      <p class="opening-note">
+        La date d'ouverture sera annoncée sur le Discord. Inscrivez-vous dès maintenant pour être notifié en priorité et participer aux tests pré-lancement.<br><br>
+        <strong style="color:var(--gold);">Pour modifier la date :</strong> dans le code HTML, cherchez la variable <code style="color:var(--red);">OPENING_DATE</code> et remplacez-la par votre date au format <code>YYYY/MM/DD HH:MM</code>.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ── STAFF ── -->
+<section id="staff" style="background:var(--bg); padding:6rem 0;">
+  <div class="container">
+    <div class="section-label">L'équipe</div>
+    <h2 class="section-title">NOTRE <span>STAFF</span></h2>
+    <p class="section-desc">Une équipe passionnée et disponible pour garantir la meilleure expérience possible sur Badland FR.</p>
+
+    <!-- FONDATEUR -->
+    <div style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:var(--gold);"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);">Fondateur</span>
+        <div style="flex:1;height:1px;background:rgba(212,172,13,0.2);"></div>
+      </div>
+      <div style="display:flex;justify-content:center;">
+        <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.3);border-top:3px solid var(--gold);padding:2rem;text-align:center;width:220px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
+          <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:3px solid var(--gold);box-shadow:0 0 20px rgba(212,172,13,0.3);">
+            <img src="staff_greyfox.png" alt="Grey Fox" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-bottom:2px;">Grey Fox</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;">Fondateur</div>
+          <div style="font-size:12px;color:var(--text-muted);">zzgalaxywolf93</div>
+          <div style="margin-top:.75rem;">
+            <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🌟 Fondateur</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMINISTRATEURS -->
+    <div style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:var(--red);"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red);">Administrateurs</span>
+        <div style="flex:1;height:1px;background:rgba(192,57,43,0.2);"></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;">
+
+        <div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:2rem;text-align:center;width:200px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
+          <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:2px solid var(--red);box-shadow:0 0 16px rgba(192,57,43,0.25);">
+            <img src="staff_adminbadlands.png" alt="Admin Badlands" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;margin-bottom:2px;">Admin Badlands</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.75rem;">Administrateur</div>
+          <div style="font-size:12px;color:var(--text-muted);">Admin Badlands#6760</div>
+          <div style="margin-top:.75rem;">
+            <span style="background:rgba(192,57,43,0.15);color:var(--red);border:1px solid rgba(192,57,43,0.3);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🔴 Admin</span>
+          </div>
+        </div>
+
+        <!-- Placeholder admin supplémentaire -->
+        <div style="background:var(--bg2);border:1px dashed rgba(192,57,43,0.2);border-top:3px solid rgba(192,57,43,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
+          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(192,57,43,0.2);">?</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Administrateur</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- MODÉRATEURS -->
+    <div style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:#e67e22;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#e67e22;">Modérateurs</span>
+        <div style="flex:1;height:1px;background:rgba(230,126,34,0.2);"></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;">
+
+        <div style="background:var(--bg2);border:1px solid rgba(230,126,34,0.3);border-top:3px solid #e67e22;padding:2rem;text-align:center;width:200px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
+          <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:2px solid #e67e22;box-shadow:0 0 16px rgba(230,126,34,0.2);">
+            <img src="staff_rbxz90.png" alt="RBXZ90" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+          </div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;margin-bottom:2px;">RBXZ90</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#e67e22;margin-bottom:.75rem;">Modérateur</div>
+          <div style="font-size:12px;color:var(--text-muted);">rbx90</div>
+          <div style="margin-top:.75rem;">
+            <span style="background:rgba(230,126,34,0.15);color:#e67e22;border:1px solid rgba(230,126,34,0.3);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🟠 Modérateur</span>
+          </div>
+        </div>
+
+        <!-- Placeholders modérateurs -->
+        <div style="background:var(--bg2);border:1px dashed rgba(230,126,34,0.2);border-top:3px solid rgba(230,126,34,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
+          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(230,126,34,0.2);">?</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Modérateur</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- HELPERS -->
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:#27ae60;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#27ae60;">Helpers</span>
+        <div style="flex:1;height:1px;background:rgba(39,174,96,0.2);"></div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;">
+
+        <!-- 3 placeholders helpers -->
+        <div style="background:var(--bg2);border:1px dashed rgba(39,174,96,0.2);border-top:3px solid rgba(39,174,96,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
+          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(39,174,96,0.2);">?</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Helper</div>
+        </div>
+        <div style="background:var(--bg2);border:1px dashed rgba(39,174,96,0.2);border-top:3px solid rgba(39,174,96,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
+          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(39,174,96,0.2);">?</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Helper</div>
+        </div>
+        <div style="background:var(--bg2);border:1px dashed rgba(39,174,96,0.2);border-top:3px solid rgba(39,174,96,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
+          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(39,174,96,0.2);">?</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Helper</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Recrutement -->
+    <div style="margin-top:3rem;text-align:center;">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--red);padding:1.5rem 2rem;display:inline-block;max-width:600px;text-align:left;">
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;">📢 Recrutement ouvert</p>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">Vous souhaitez rejoindre l'équipe Badland FR ? Rendez-vous sur notre Discord et ouvrez un ticket de candidature. Nous recherchons des personnes sérieuses, disponibles et passionnées par DayZ.</p>
+        <a href="https://discord.gg/AzPjjK5jSf" target="_blank" style="display:inline-block;margin-top:1rem;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:2px;">Postuler sur Discord →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SOUTENIR ── -->
+<section id="soutenir" style="background:var(--bg2); padding:4rem 0;">
+  <div class="container" style="text-align:center; max-width:700px; margin:0 auto;">
+    <div class="section-label" style="justify-content:center;">Soutenir le serveur</div>
+    <h2 class="section-title">NOUS <span>SOUTENIR</span></h2>
+    <p style="font-size:16px; color:var(--text-muted); line-height:1.8; margin-bottom:2rem;">
+      Le serveur est entièrement gratuit et le restera toujours. Si vous souhaitez nous aider à couvrir les frais d'hébergement et à améliorer l'expérience de jeu, un don est toujours le bienvenu. Aucune obligation, aucune contrepartie en jeu.
+    </p>
+    <div style="background:var(--bg3); border:1px solid var(--border); border-left:3px solid var(--gold); padding:1.25rem 1.5rem; margin-bottom:2rem; text-align:left; font-size:14px; color:var(--text-muted); line-height:1.7;">
+      <strong style="color:var(--gold);">💛 Transparence totale.</strong> Les dons servent uniquement à payer l'hébergement du serveur et du site. Aucun avantage en jeu n'est accordé aux donateurs — l'équité entre joueurs est une priorité absolue.
+    </div>
+    <a href="https://paypal.me/Zzgalaxy933" target="_blank" style="
+      display:inline-flex; align-items:center; gap:12px;
+      background:#003087; color:#fff;
+      font-family:'Barlow Condensed',sans-serif;
+      font-size:16px; letter-spacing:2px; text-transform:uppercase;
+      padding:14px 36px; text-decoration:none;
+      transition:background .2s, transform .2s;
+      clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+    " onmouseover="this.style.background='#002060'; this.style.transform='translateY(-2px)'"
+       onmouseout="this.style.background='#003087'; this.style.transform='none'">
+      💳 Faire un don via PayPal
+    </a>
+    <p style="font-size:12px; color:var(--text-muted); margin-top:1rem; opacity:.6;">Paiement sécurisé via PayPal — aucune info bancaire stockée sur ce site</p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">BADLAND <span>FR</span></div>
+  <div class="footer-links">
+    <a href="#presentation">Présentation</a>
+    <a href="#reglement">Règlement</a>
+    <a href="#evenements">Événements</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#staff">Staff</a>
+    <a href="#inscription">Inscription</a>
+    <a href="#soutenir">Don</a>
+    <a href="https://discord.gg/AzPjjK5jSf" target="_blank">Discord</a>
+  </div>
+  <p class="footer-copy">Badland FR — Serveur non officiel. DayZ est une marque de Bohemia Interactive. Ce site est créé par et pour la communauté.</p>
+</footer>
+
+<script>
+// ── COUNTDOWN ──
+// Modifiez OPENING_DATE pour définir votre date d'ouverture
+const OPENING_DATE = '2025/06/01 20:00';
+
+function updateCountdown() {
+  const target = new Date(OPENING_DATE.replace(/\//g,'-'));
+  const now = new Date();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    document.getElementById('open-date').textContent = 'SERVEUR OUVERT !';
+    return;
+  }
+
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+
+  document.getElementById('cd-days').textContent  = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+
+  const opts = { day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' };
+  document.getElementById('open-date').textContent = target.toLocaleDateString('fr-FR', opts).toUpperCase();
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── REGISTER ──
+function handleRegister() {
+  const pseudo   = document.getElementById('pseudo').value.trim();
+  const email    = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const platform = document.getElementById('platform').value;
+  const rules    = document.getElementById('rules').checked;
+
+  if (!pseudo)    { alert('Veuillez entrer un pseudo.'); return; }
+  if (!email)     { alert('Veuillez entrer une adresse e-mail.'); return; }
+  if (password.length < 8) { alert('Le mot de passe doit faire au moins 8 caractères.'); return; }
+  if (!platform)  { alert('Veuillez choisir votre plateforme.'); return; }
+  if (!rules)     { alert('Vous devez accepter le règlement pour continuer.'); return; }
+
+  alert('✅ Compte créé avec succès ! \n\nBienvenue ' + pseudo + ' !\nRejoignez notre Discord pour finaliser votre inscription et recevoir votre rôle de survivant.');
+}
+
+// ── SMOOTH NAV HIGHLIGHT ──
+const sections = document.querySelectorAll('section[id], div[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--red)' : '';
+  });
+});
+</script>
+</body>
+</html>
