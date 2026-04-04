@@ -1458,11 +1458,12 @@ function renderPriorities() {
     rows += '<td style="font-size:11px;">' + new Date(p.purchasedAt).toLocaleDateString('fr-FR') + '</td>';
     rows += '<td style="font-size:11px;">' + expiresDate.toLocaleDateString('fr-FR') + '</td>';
     rows += '<td style="color:' + statusColor + ';font-weight:600;">' + statusText + '</td>';
-    rows += '<td><div style="display:flex;gap:4px;">';
+    rows += '<td><div style="display:flex;gap:4px;flex-wrap:wrap;">';
     if (isActive) {
-      rows += '<button class="bt br" onclick="revokeP(' + p.id + ')" style="padding:4px 8px;font-size:10px;">Révoquer</button>';
+      rows += '<button class="bt br" onclick="revokeP(' + p.id + ')" style="padding:4px 8px;font-size:10px;">Revoquer</button>';
       rows += '<button class="bt bg" onclick="extendP(' + p.id + ')" style="padding:4px 8px;font-size:10px;">+1 mois</button>';
     }
+    rows += '<button class="bt bgr" onclick="deleteP(' + p.id + ')" style="padding:4px 8px;font-size:10px;">Supprimer</button>';
     rows += '</div></td>';
     rows += '</tr>';
   }
@@ -1477,6 +1478,15 @@ function revokeP(id) {
   }
   localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
   renderPriorities();
+}
+
+function deleteP(id) {
+  if (!confirm('Supprimer definitivement cette priorite ?')) return;
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  priorities = priorities.filter(function(p){ return p.id !== id; });
+  localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+  renderPriorities();
+  ok2('opt', 'Priorite supprimee !');
 }
 
 function extendP(id) {
@@ -1497,12 +1507,12 @@ function extendP(id) {
 window.addEventListener('storage',function(){la();});
 window.addEventListener('focus',function(){la();});
 
-// Polling priorités toutes les 2s
+// Polling toutes les secondes
 var lastPt = localStorage.getItem('badlandfr_priorities');
 setInterval(function(){
   var cur = localStorage.getItem('badlandfr_priorities');
   if(cur !== lastPt){ lastPt = cur; try{renderPriorities();}catch(e){} }
-}, 2000);
+}, 500);
 </script>
 </body>
 </html>

@@ -1537,12 +1537,12 @@
       </div>
 
       <div style="background:var(--bg2);border:1px solid rgba(39,174,96,0.4);border-top:3px solid var(--green);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;">
-        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Populaire</div>
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;white-space:nowrap;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);">⭐ Populaire</div>
         <div id="promo-badge-pack200" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">200 CREDITS</div>
         <div id="promo-price-pack200" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);">8.00€</span></div>
-        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Aventurier (200 cr)</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Aventurier</div>
         <button onclick="addToCartPromo('200 Credits','8.00',200,'pack200')" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
@@ -1556,7 +1556,7 @@
       </div>
 
       <div style="background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.5);border-top:3px solid var(--red);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;">
-        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Meilleur prix</div>
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;white-space:nowrap;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);">🏆 Meilleur prix</div>
         <div id="promo-badge-pack1000" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">💎</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">1000 CREDITS</div>
@@ -2591,33 +2591,42 @@ function renderGallery() {
 function renderPromos() {
   var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
   var packs = ['pack100','pack200','pack500','pack1000'];
-  var basePrices = { pack100:'4.00', pack200:'8.00', pack500:'15.00', pack1000:'25.00' };
+  var basePrices = { pack100: 4.00, pack200: 8.00, pack500: 15.00, pack1000: 25.00 };
+  var baseColors = { pack100: 'var(--red)', pack200: 'var(--green)', pack500: 'var(--gold)', pack1000: 'var(--red)' };
 
   for (var i = 0; i < packs.length; i++) {
     var packId = packs[i];
-    var badge = document.getElementById('promo-badge-'+packId);
-    var priceEl = document.getElementById('promo-price-'+packId);
+    var badge  = document.getElementById('promo-badge-' + packId);
+    var priceEl = document.getElementById('promo-price-' + packId);
     var pr = promos[packId];
+    var base = basePrices[packId];
+    var col  = baseColors[packId];
 
     if (pr && pr.active) {
       // Badge
-      if (badge) { badge.textContent = pr.label; badge.style.display = 'block'; }
+      if (badge) { badge.textContent = '🎁 ' + pr.label; badge.style.display = 'block'; }
       // Prix
       if (priceEl) {
         var html = '';
-        if (pr.discountPct && pr.newPrice) {
-          html += '<span style="text-decoration:line-through;color:var(--text-muted);font-size:22px;margin-right:6px;">' + basePrices[packId] + '€</span>';
-          html += '<span style="color:var(--green);font-family:Bebas Neue,sans-serif;font-size:36px;">' + pr.newPrice + '€</span>';
-          html += '<span style="background:var(--green);color:#fff;font-family:Barlow Condensed,sans-serif;font-size:12px;letter-spacing:1px;padding:2px 8px;margin-left:6px;vertical-align:middle;">-' + pr.discountPct + '%</span>';
+        if (pr.discountPct && parseInt(pr.discountPct) > 0) {
+          var pct = parseInt(pr.discountPct);
+          var newP = (base * (1 - pct / 100)).toFixed(2);
+          // Prix barré en rouge
+          html += '<div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">';
+          html += '<span style="text-decoration:line-through;color:var(--red);font-family:Bebas Neue,sans-serif;font-size:28px;">' + base.toFixed(2) + '€</span>';
+          html += '<span style="background:var(--red);color:#fff;font-family:Barlow Condensed,sans-serif;font-size:13px;letter-spacing:1px;padding:3px 8px;border-radius:2px;">-' + pct + '%</span>';
+          html += '</div>';
+          // Nouveau prix en vert
+          html += '<div style="font-family:Bebas Neue,sans-serif;font-size:42px;color:#27ae60;">' + newP + '€</div>';
         } else {
-          html += '<span style="font-family:Bebas Neue,sans-serif;font-size:36px;color:var(--red);">' + basePrices[packId] + '€</span>';
+          html = '<span style="font-family:Bebas Neue,sans-serif;font-size:36px;color:' + col + ';">' + base.toFixed(2) + '€</span>';
         }
         priceEl.innerHTML = html;
       }
     } else {
       if (badge) badge.style.display = 'none';
       if (priceEl) {
-        priceEl.innerHTML = '<span style="font-family:Bebas Neue,sans-serif;font-size:36px;color:var(--red);">' + basePrices[packId] + '€</span>';
+        priceEl.innerHTML = '<span style="font-family:Bebas Neue,sans-serif;font-size:36px;color:' + col + ';">' + base.toFixed(2) + '€</span>';
       }
     }
   }
@@ -2627,19 +2636,24 @@ function renderPromos() {
 function addToCartPromo(name, price, credits, packId) {
   var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
   var bonus = 0;
-  var finalPrice = price;
+  var finalPrice = parseFloat(price);
   var displayName = name;
+  var basePrices = { pack100: 4.00, pack200: 8.00, pack500: 15.00, pack1000: 25.00 };
 
   if (promos[packId] && promos[packId].active) {
     var pr = promos[packId];
     if (pr.bonusCredits) bonus = parseInt(pr.bonusCredits) || 0;
-    if (pr.discountPct && pr.newPrice) finalPrice = pr.newPrice;
+    if (pr.discountPct && parseInt(pr.discountPct) > 0) {
+      var pct = parseInt(pr.discountPct);
+      var base = basePrices[packId] || parseFloat(price);
+      finalPrice = parseFloat((base * (1 - pct / 100)).toFixed(2));
+      displayName += ' [-' + pct + '%]';
+    }
   }
 
   var totalCredits = credits + bonus;
   if (bonus > 0) displayName += ' (+' + bonus + ' cr bonus)';
-  if (finalPrice !== price) displayName += ' [PROMO -' + promos[packId].discountPct + '%]';
-  addToCart(displayName, finalPrice, totalCredits);
+  addToCart(displayName, finalPrice.toFixed(2), totalCredits);
 }
 
 // Init
@@ -2767,6 +2781,7 @@ setInterval(function() {
 window.addEventListener('storage', function(e) {
   if (e.key === 'badlandfr_staff') renderStaff();
   if (e.key === 'badlandfr_opening_date') updateCountdown();
+  if (e.key === 'badlandfr_promos') renderPromos();
 });
 </script>
 
