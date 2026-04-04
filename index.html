@@ -1525,49 +1525,53 @@
 
     <!-- PACKS DE CREDITS -->
     <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Packs de credits</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-bottom:3rem;">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:3rem;">
 
-      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--text-muted);padding:1.5rem;text-align:center;transition:transform .2s,border-color .2s;">
-        <div id="promo-badge-pack100" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
+      <!-- Pack Starter -->
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--text-muted);padding:1.5rem;text-align:center;position:relative;">
         <div style="font-size:32px;margin-bottom:.75rem;">🪙</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">100 CREDITS</div>
-        <div id="promo-price-pack100" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);">4.00€</span></div></div>
+        <div id="promo-price-pack100" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);">4.00€</span></div>
+        <div id="promo-badge-pack100" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Starter</div>
-        <button onclick="addToCartPromo('100 Credits','4.00',100,'pack100')" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('100 Credits','4.00',100,'pack100')" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Ajouter au panier</button>
       </div>
 
-      <div style="background:var(--bg2);border:1px solid rgba(39,174,96,0.4);border-top:3px solid var(--green);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;">
+      <!-- Pack Aventurier - Populaire -->
+      <div style="background:var(--bg2);border:1px solid rgba(39,174,96,0.4);border-top:3px solid var(--green);padding:1.5rem;text-align:center;position:relative;">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;white-space:nowrap;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);">⭐ Populaire</div>
-        <div id="promo-badge-pack200" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">200 CREDITS</div>
         <div id="promo-price-pack200" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);">8.00€</span></div>
+        <div id="promo-badge-pack200" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Aventurier</div>
-        <button onclick="addToCartPromo('200 Credits','8.00',200,'pack200')" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('200 Credits','8.00',200,'pack200')" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Ajouter au panier</button>
       </div>
 
-      <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.4);border-top:3px solid var(--gold);padding:1.5rem;text-align:center;transition:transform .2s;">
-        <div id="promo-badge-pack500" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
+      <!-- Pack Survivant -->
+      <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.4);border-top:3px solid var(--gold);padding:1.5rem;text-align:center;position:relative;">
         <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙🪙</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">500 CREDITS</div>
         <div id="promo-price-pack500" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);">15.00€</span></div>
+        <div id="promo-badge-pack500" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Survivant</div>
-        <button onclick="addToCartPromo('500 Credits','15.00',500,'pack500')" style="width:100%;padding:10px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('500 Credits','15.00',500,'pack500')" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Ajouter au panier</button>
       </div>
 
-      <div style="background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.5);border-top:3px solid var(--red);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;">
+      <!-- Pack Elite - Meilleur prix -->
+      <div style="background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.5);border-top:3px solid var(--red);padding:1.5rem;text-align:center;position:relative;">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;white-space:nowrap;clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);">🏆 Meilleur prix</div>
-        <div id="promo-badge-pack1000" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">💎</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">1000 CREDITS</div>
-        <div id="promo-price-pack1000" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);">25.00€</span></div></div>
+        <div id="promo-price-pack1000" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);">25.00€</span></div>
+        <div id="promo-badge-pack1000" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Elite</div>
-        <button onclick="addToCartPromo('1000 Credits','25.00',1000,'pack1000')" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('1000 Credits','25.00',1000,'pack1000')" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Ajouter au panier</button>
       </div>
 
     </div>
 
-    <!-- SERVICES EN JEUX -->
+        <!-- SERVICES EN JEUX -->
     <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Services en jeu (payer avec vos credits)</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:3rem;">
 
