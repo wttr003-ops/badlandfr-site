@@ -1023,6 +1023,20 @@ function loadSavedStaff() {
   var container = document.getElementById('stl');
   if (!container) return;
 
+  // Mettre à jour les membres FIXES (Grey Fox, Admin Badlands, RBXZ90) si modifiés
+  var fixedIds = ['sif', 'sia', 'sir'];
+  for (var fi = 0; fi < staffList.length; fi++) {
+    var m = staffList[fi];
+    if (fixedIds.indexOf(m.id) !== -1) {
+      var nmEl = document.getElementById('nm-' + m.id);
+      var rlEl = document.getElementById('rl-' + m.id);
+      var imgEl = document.getElementById('img-' + m.id);
+      if (nmEl) nmEl.textContent = m.pseudo;
+      if (rlEl) rlEl.textContent = m.role + (m.discord ? ' — ' + m.discord : '');
+      if (imgEl && m.avatar) imgEl.src = m.avatar;
+    }
+  }
+
   // Supprimer les membres dynamiques existants (id commence par sti)
   var toRemove = [];
   var children = container.children;

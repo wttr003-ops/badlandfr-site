@@ -2701,11 +2701,17 @@ function makePlaceholderCard(borderColor, role) {
 function renderStaff() {
   var stored = JSON.parse(localStorage.getItem('badlandfr_staff') || '[]');
 
-  // Membres fixes toujours présents
+  // Membres fixes toujours présents (avec possibilité de surcharge depuis localStorage)
   var baseStaff = [
     { id:'sia', pseudo:'Admin Badlands', role:'Administrateur', discord:'Admin Badlands#6760', avatar:'staff_default.svg' },
     { id:'sir', pseudo:'RBXZ90', role:'Moderateur', discord:'rbx90', avatar:'staff_default.svg' }
   ];
+  // Grey Fox : charger depuis localStorage si modifié, sinon valeur par défaut
+  var greyfoxStored = null;
+  for (var gi = 0; gi < stored.length; gi++) {
+    if (stored[gi].id === 'sif') { greyfoxStored = stored[gi]; break; }
+  }
+  var greyfoxData = greyfoxStored || { id:'sif', pseudo:'Grey Fox', role:'Fondateur', discord:'zzgalaxywolf93', avatar:'staff_greyfox.png' };
 
   // Fusionner: les stored écrasent les base si même id, sinon s'ajoutent
   var allStaff = [];
@@ -2733,6 +2739,21 @@ function renderStaff() {
   var devs     = allStaff.filter(function(m){ return m.role === 'Developpeur'; });
   var mods     = allStaff.filter(function(m){ return m.role === 'Moderateur'; });
   var helpers  = allStaff.filter(function(m){ return m.role === 'Helper'; });
+
+  // Carte Grey Fox dynamique
+  var gfContainer = document.getElementById('fondateur-card-container');
+  if (gfContainer) {
+    var gfAvatar = greyfoxData.avatar || 'staff_greyfox.png';
+    gfContainer.innerHTML = '<div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.3);border-top:3px solid var(--gold);padding:2rem;text-align:center;width:220px;">' +
+      '<div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:3px solid var(--gold);box-shadow:0 0 20px rgba(212,172,13,0.3);">' +
+      '<img src="' + gfAvatar + '" alt="Grey Fox" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>' +
+      '</div>' +
+      '<div style="font-family:Bebas Neue,sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-bottom:2px;">' + greyfoxData.pseudo + '</div>' +
+      '<div style="font-family:Barlow Condensed,sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;">' + greyfoxData.role + '</div>' +
+      '<div style="font-size:12px;color:var(--text-muted);">' + (greyfoxData.discord || 'zzgalaxywolf93') + '</div>' +
+      '<div style="margin-top:.75rem;"><span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:Barlow Condensed,sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🌟 Fondateur</span></div>' +
+      '</div>';
+  }
 
   var adminEl   = document.getElementById('staff-admin-list');
   var devEl     = document.getElementById('staff-dev-list');
