@@ -99,6 +99,7 @@ textarea.fi{min-height:100px;}
       <div class="sl" onclick="sw('co',this)"><span>💬</span> Commentaires</div>
       <div class="sl" onclick="sw('vp',this)"><span>⭐</span> VIP</div>
       <div class="sl" onclick="sw('pv',this)"><span>💀</span> Classement PvP</div>
+      <div class="sl" onclick="sw('pt',this)"><span>🏳️</span> Priorités actives</div>
       <div class="sc">Site</div>
       <div class="sl" onclick="sw('gl',this)"><span>🖼️</span> Galerie photos</div>
       <div class="sl" onclick="sw('pr',this)"><span>🎁</span> Promotions</div>
@@ -408,6 +409,24 @@ textarea.fi{min-height:100px;}
         <div class="fb">
           <h3>Classement actuel</h3>
           <div id="pvp-admin-list"><p style="font-size:13px;color:var(--mu);">Aucun joueur.</p></div>
+        </div>
+      </div>
+
+      <!-- PRIORITÉS -->
+      <div class="pn" id="ppt">
+        <div class="sh"><h2>PRIORITÉS <span>ACTIVES</span></h2></div>
+        <div class="sr">
+          <div class="sc2" style="border-top-color:var(--gn);"><div class="sn" style="color:var(--gn);" id="pt-active">0</div><div class="sl2">Actives</div></div>
+          <div class="sc2" style="border-top-color:var(--mu);"><div class="sn" style="color:var(--mu);" id="pt-expired">0</div><div class="sl2">Expirées</div></div>
+        </div>
+        <div class="fb">
+          <h3>Toutes les priorités</h3>
+          <div style="overflow-x:auto;">
+            <table class="tbl">
+              <thead><tr><th>Joueur</th><th>Type</th><th>PSN(s)</th><th>Achetée le</th><th>Expire le</th><th>Statut</th><th>Action</th></tr></thead>
+              <tbody id="pt-tbody"></tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -1294,6 +1313,93 @@ function delPvp(id) {
   var players = (JSON.parse(localStorage.getItem('badlandfr_pvp') || '[]')).filter(function(p){ return p.id !== id; });
   localStorage.setItem('badlandfr_pvp', JSON.stringify(players));
   renderPvpAdmin();
+}
+
+
+// ── PRIORITÉS ──
+function renderPriorities() {
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  var now = new Date();
+
+  // Auto-expirer
+  var changed = false;
+  for (var i = 0; i < priorities.length; i++) {
+    if (priorities[i].status === 'active' && new Date(priorities[i].expiresAt) <= now) {
+      priorities[i].status = 'expired'; changed = true;
+    }
+  }
+  if (changed) localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+
+  var active = priorities.filter(function(p){ return p.status === 'active'; }).length;
+  var expired = priorities.filter(function(p){ return p.status === 'expired'; }).length;
+  var eA = document.getElementById('pt-active'); if(eA) eA.textContent = active;
+  var eE = document.getElementById('pt-expired'); if(eE) eE.textContent = expired;
+
+  var tbody = document.getElementById('pt-tbody');
+  if (!tbody) return;
+  if (!priorities.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--mu);">Aucune priorité.</td></tr>';
+    return;
+  }
+
+  // Trier : actives en premier
+  priorities.sort(function(a, b) {
+    if (a.status === 'active' && b.status !== 'active') return -1;
+    if (b.status === 'active' && a.status !== 'active') return 1;
+    return new Date(b.purchasedAt) - new Date(a.purchasedAt);
+  });
+
+  var rows = '';
+  for (var j = 0; j < priorities.length; j++) {
+    var p = priorities[j];
+    var isActive = p.status === 'active';
+    var expiresDate = new Date(p.expiresAt);
+    var daysLeft = Math.ceil((expiresDate - now) / 86400000);
+    var statusColor = isActive ? '#27ae60' : 'var(--mu)';
+    var statusText = isActive ? ('Actif (' + daysLeft + 'j restants)') : 'Expiré';
+    var typeLabel = p.type === 'solo' ? '🏳️ Solo' : '👥 Faction';
+
+    rows += '<tr>';
+    rows += '<td style="color:var(--tx);font-weight:500;">' + (p.pseudo||'—') + '</td>';
+    rows += '<td>' + typeLabel + '</td>';
+    rows += '<td style="font-size:11px;color:var(--gold);">' + (p.psns ? p.psns.join(', ') : '—') + '</td>';
+    rows += '<td style="font-size:11px;">' + new Date(p.purchasedAt).toLocaleDateString('fr-FR') + '</td>';
+    rows += '<td style="font-size:11px;">' + expiresDate.toLocaleDateString('fr-FR') + '</td>';
+    rows += '<td style="color:' + statusColor + ';font-weight:600;">' + statusText + '</td>';
+    rows += '<td><div style="display:flex;gap:4px;">';
+    if (isActive) {
+      rows += '<button class="bt br" onclick="revokeP(' + p.id + ')" style="padding:4px 8px;font-size:10px;">Révoquer</button>';
+      rows += '<button class="bt bg" onclick="extendP(' + p.id + ')" style="padding:4px 8px;font-size:10px;">+1 mois</button>';
+    }
+    rows += '</div></td>';
+    rows += '</tr>';
+  }
+  tbody.innerHTML = rows;
+}
+
+function revokeP(id) {
+  if (!confirm('Révoquer cette priorité ?')) return;
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  for (var i = 0; i < priorities.length; i++) {
+    if (priorities[i].id === id) { priorities[i].status = 'expired'; break; }
+  }
+  localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+  renderPriorities();
+}
+
+function extendP(id) {
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  for (var i = 0; i < priorities.length; i++) {
+    if (priorities[i].id === id) {
+      var d = new Date(priorities[i].expiresAt);
+      d.setMonth(d.getMonth() + 1);
+      priorities[i].expiresAt = d.toISOString();
+      break;
+    }
+  }
+  localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+  renderPriorities();
+  ok2('osf', 'Priorité étendue d\'un mois !');
 }
 
 window.addEventListener('storage',function(){la();});

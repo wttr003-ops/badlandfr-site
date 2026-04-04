@@ -1554,7 +1554,7 @@
           <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Place prioritaire sur le serveur. PSN de votre choix.</div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">150 🪙</span>
-            <button onclick="addToCart('Priorite Solo','cr:150',150)" data-price="150" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+            <button onclick="orderPriority('solo')" data-price="150" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
           </div>
         </div>
       </div>
@@ -1566,7 +1566,7 @@
           <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Place prioritaire pour votre faction. PSN de chaque membre.</div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
             <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">200 🪙</span>
-            <button onclick="addToCart('Priorite Faction','cr:200',200)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+            <button onclick="orderPriority('faction')" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
           </div>
         </div>
       </div>
@@ -1774,9 +1774,12 @@ function handleRegister() {
 
   // Sauvegarder le compte
   const accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var discordIdVal = document.getElementById('discord-id') ? document.getElementById('discord-id').value.trim() : '';
   accounts.push({
     id: Date.now(),
-    pseudo, email,
+    pseudo: pseudo, email: email,
+    passwordHash: password,
+    discordId: discordIdVal,
     platform: document.getElementById('platform').value,
     date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' })
   });
@@ -2818,6 +2821,185 @@ window.addEventListener('storage', function(e) {
   if (e.key === 'badlandfr_vips') renderVip();
   if (e.key === 'badlandfr_pvp') renderPvpLeaderboard();
 });
+</script>
+
+
+<!-- ── MODAL PRIORITÉ SOLO ── -->
+<div id="modal-priority-solo" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:600;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);padding:2rem;width:100%;max-width:440px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff;margin-bottom:.5rem;">PRIORITÉ <span style="color:var(--red);">SOLO</span></h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.5rem;">150 crédits — Durée : <strong style="color:var(--gold);">1 mois</strong></p>
+    <div style="margin-bottom:1.25rem;">
+      <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px;">Votre PSN <span style="color:var(--red);">*</span></label>
+      <input type="text" id="psn-solo" placeholder="Votre identifiant PSN" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;">
+    </div>
+    <div id="solo-error" style="color:var(--red);font-size:13px;margin-bottom:1rem;display:none;"></div>
+    <div style="display:flex;gap:.75rem;">
+      <button onclick="confirmPriority('solo')" style="flex:1;padding:12px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Confirmer — 150 🪙</button>
+      <button onclick="closeModal('modal-priority-solo')" style="padding:12px 20px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL PRIORITÉ FACTION ── -->
+<div id="modal-priority-faction" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:600;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);padding:2rem;width:100%;max-width:480px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff;margin-bottom:.5rem;">PRIORITÉ <span style="color:var(--red);">FACTION</span></h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.5rem;">200 crédits — 5 joueurs max — Durée : <strong style="color:var(--gold);">1 mois</strong></p>
+    <div id="faction-psn-fields">
+      <div style="margin-bottom:.75rem;">
+        <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:4px;">PSN Joueur 1 <span style="color:var(--red);">*</span></label>
+        <input type="text" id="psn-f1" placeholder="PSN obligatoire" style="width:100%;padding:9px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;">
+      </div>
+      <div style="margin-bottom:.75rem;">
+        <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:4px;">PSN Joueur 2</label>
+        <input type="text" id="psn-f2" placeholder="Optionnel" style="width:100%;padding:9px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;">
+      </div>
+      <div style="margin-bottom:.75rem;">
+        <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:4px;">PSN Joueur 3</label>
+        <input type="text" id="psn-f3" placeholder="Optionnel" style="width:100%;padding:9px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;">
+      </div>
+      <div style="margin-bottom:.75rem;">
+        <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:4px;">PSN Joueur 4</label>
+        <input type="text" id="psn-f4" placeholder="Optionnel" style="width:100%;padding:9px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;">
+      </div>
+      <div style="margin-bottom:1.25rem;">
+        <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:4px;">PSN Joueur 5</label>
+        <input type="text" id="psn-f5" placeholder="Optionnel" style="width:100%;padding:9px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;">
+      </div>
+    </div>
+    <div id="faction-error" style="color:var(--red);font-size:13px;margin-bottom:1rem;display:none;"></div>
+    <div style="display:flex;gap:.75rem;">
+      <button onclick="confirmPriority('faction')" style="flex:1;padding:12px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Confirmer — 200 🪙</button>
+      <button onclick="closeModal('modal-priority-faction')" style="padding:12px 20px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── SYSTÈME PRIORITÉS ──
+function orderPriority(type) {
+  var user = getCurrentUser();
+  if (!user) {
+    alert('Vous devez être connecté pour acheter une priorité !');
+    document.getElementById('inscription').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
+  // Vérifier crédits
+  var cost = type === 'solo' ? 150 : 200;
+  var bal = getUserCredits(user.pseudo);
+  if (bal < cost) {
+    alert('Crédits insuffisants !\n\nSolde : ' + bal + ' 🪙\nNécessaire : ' + cost + ' 🪙\n\nAchetez des crédits dans la boutique.');
+    return;
+  }
+
+  // Vérifier si déjà une priorité active
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  var now = new Date();
+  var existing = priorities.filter(function(p) {
+    return p.pseudo === user.pseudo && new Date(p.expiresAt) > now && p.status === 'active';
+  });
+  if (existing.length > 0) {
+    alert('Vous avez déjà une priorité active jusqu\'au ' + new Date(existing[0].expiresAt).toLocaleDateString('fr-FR') + ' !');
+    return;
+  }
+
+  var modalId = type === 'solo' ? 'modal-priority-solo' : 'modal-priority-faction';
+  document.getElementById(modalId).style.display = 'flex';
+}
+
+function confirmPriority(type) {
+  var user = getCurrentUser();
+  var cost = type === 'solo' ? 150 : 200;
+  var errEl = document.getElementById(type === 'solo' ? 'solo-error' : 'faction-error');
+
+  var psns = [];
+  if (type === 'solo') {
+    var p1 = document.getElementById('psn-solo').value.trim();
+    if (!p1) { errEl.textContent = 'Veuillez entrer votre PSN !'; errEl.style.display = 'block'; return; }
+    psns = [p1];
+  } else {
+    var p1f = document.getElementById('psn-f1').value.trim();
+    if (!p1f) { errEl.textContent = 'Le PSN du joueur 1 est obligatoire !'; errEl.style.display = 'block'; return; }
+    psns = [p1f];
+    ['psn-f2','psn-f3','psn-f4','psn-f5'].forEach(function(id) {
+      var v = document.getElementById(id).value.trim();
+      if (v) psns.push(v);
+    });
+  }
+
+  errEl.style.display = 'none';
+
+  // Déduire les crédits
+  var creds = JSON.parse(localStorage.getItem('badlandfr_credits') || '{}');
+  if (!creds[user.pseudo]) creds[user.pseudo] = { balance: 0 };
+  var before = creds[user.pseudo].balance;
+  creds[user.pseudo].balance = Math.max(0, before - cost);
+  creds[user.pseudo].lastMove = new Date().toLocaleString('fr-FR');
+  localStorage.setItem('badlandfr_credits', JSON.stringify(creds));
+
+  // Historique crédits
+  var hist = JSON.parse(localStorage.getItem('badlandfr_credits_history') || '[]');
+  hist.unshift({ pseudo: user.pseudo, amount: -cost, reason: 'Achat Priorité ' + (type === 'solo' ? 'Solo' : 'Faction'), before: before, after: creds[user.pseudo].balance, date: new Date().toLocaleString('fr-FR') });
+  localStorage.setItem('badlandfr_credits_history', JSON.stringify(hist));
+
+  // Calculer expiration (1 mois)
+  var now = new Date();
+  var expires = new Date(now);
+  expires.setMonth(expires.getMonth() + 1);
+
+  // Enregistrer la priorité
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  priorities.push({
+    id: Date.now(),
+    pseudo: user.pseudo,
+    type: type,
+    psns: psns,
+    purchasedAt: now.toISOString(),
+    expiresAt: expires.toISOString(),
+    status: 'active'
+  });
+  localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+
+  // Enregistrer commande
+  var orders = JSON.parse(localStorage.getItem('badlandfr_orders') || '[]');
+  orders.unshift({
+    id: Date.now(),
+    pseudo: user.pseudo,
+    items: 'Priorité ' + (type === 'solo' ? 'Solo' : 'Faction') + ' — PSN: ' + psns.join(', '),
+    totalEur: null,
+    totalCr: cost,
+    status: 'confirme',
+    date: new Date().toLocaleString('fr-FR')
+  });
+  localStorage.setItem('badlandfr_orders', JSON.stringify(orders));
+
+  // Fermer modal et reset
+  var modalId = type === 'solo' ? 'modal-priority-solo' : 'modal-priority-faction';
+  closeModal(modalId);
+  if (type === 'solo') document.getElementById('psn-solo').value = '';
+  else { ['psn-f1','psn-f2','psn-f3','psn-f4','psn-f5'].forEach(function(id){ document.getElementById(id).value=''; }); }
+
+  updateNavProfile();
+  alert('✅ Priorité ' + (type === 'solo' ? 'Solo' : 'Faction') + ' activée !\n\nPSN enregistré(s) : ' + psns.join(', ') + '\nExpire le : ' + expires.toLocaleDateString('fr-FR') + '\nSolde restant : ' + creds[user.pseudo].balance + ' 🪙\n\nUn admin va traiter votre demande prochainement.');
+}
+
+// Vérifier et expirer les priorités automatiquement
+function checkExpiredPriorities() {
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  var now = new Date();
+  var changed = false;
+  for (var i = 0; i < priorities.length; i++) {
+    if (priorities[i].status === 'active' && new Date(priorities[i].expiresAt) <= now) {
+      priorities[i].status = 'expired';
+      changed = true;
+    }
+  }
+  if (changed) localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+}
+checkExpiredPriorities();
+setInterval(checkExpiredPriorities, 60000); // Check chaque minute
 </script>
 
 </body>
