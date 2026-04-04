@@ -551,7 +551,15 @@
           <span style="font-size:13px;color:var(--text-muted);">Mes crédits</span>
           <span id="menu-credits" style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);">0 🪙</span>
         </div>
-        <a href="#boutique" onclick="closeProfileMenu()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">🛒 Boutique</a>
+        <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <span style="font-size:13px;color:var(--text-muted);">🛒 Panier</span>
+            <span id="menu-cart-count" style="font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--red);">0 article</span>
+          </div>
+          <div id="menu-cart-items" style="font-size:11px;color:var(--text-muted);max-height:80px;overflow-y:auto;"></div>
+          <button onclick="closeProfileMenu();toggleCart();" style="width:100%;margin-top:6px;padding:6px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Voir le panier</button>
+        </div>
+        <a href="#boutique" onclick="closeProfileMenu()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">🏪 Boutique</a>
         <a href="#profil-section" onclick="openProfileEdit()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">⚙️ Mon profil</a>
         <div onclick="logoutUser()" style="padding:.75rem 1rem;font-size:13px;color:var(--red);cursor:pointer;transition:background .2s;" onmouseover="this.style.background='rgba(192,57,43,0.1)'" onmouseout="this.style.background='transparent'">🚪 Déconnexion</div>
       </div>
@@ -1232,7 +1240,15 @@
 
       <div>
         <div class="register-form">
-          <div class="form-title">⚙ Créer un compte</div>
+          <!-- Onglets -->
+    <div style="display:flex;margin-bottom:1.5rem;border-bottom:1px solid var(--border);">
+      <button id="tab-register" onclick="switchTab('register')" style="flex:1;padding:10px;background:transparent;border:none;border-bottom:2px solid var(--red);color:#fff;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;">Créer un compte</button>
+      <button id="tab-login" onclick="switchTab('login')" style="flex:1;padding:10px;background:transparent;border:none;border-bottom:2px solid transparent;color:var(--text-muted);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;">Se connecter</button>
+    </div>
+
+    <!-- FORMULAIRE INSCRIPTION -->
+    <div id="form-register">
+    <div class="form-title">⚙ Créer un compte</div>
           <div class="form-privacy">
             <strong>🔒 Votre vie privée est protégée.</strong> Aucune information personnelle requise. Pas de nom réel, pas de carte d'identité, pas de paiement. Juste un pseudo et un mot de passe.
           </div>
@@ -1271,6 +1287,22 @@
             </div>
           </div>
           <button class="form-submit" onclick="handleRegister()">Créer mon compte</button>
+    </div><!-- /form-register -->
+
+    <!-- FORMULAIRE CONNEXION -->
+    <div id="form-login" style="display:none;">
+      <div class="form-title">🔑 Se connecter</div>
+      <div class="form-group">
+        <label>Pseudo en jeu</label>
+        <input type="text" id="login-pseudo" placeholder="Votre pseudo">
+      </div>
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" id="login-password" placeholder="Votre mot de passe">
+      </div>
+      <div id="login-error" style="color:var(--red);font-size:13px;margin-bottom:1rem;display:none;"></div>
+      <button class="form-submit" onclick="handleLogin()" style="background:var(--gold);color:#000;">Se connecter</button>
+    </div>
         </div>
       </div>
     </div>
@@ -2001,7 +2033,93 @@ window.handleRegister = function() {
 };
 
 // Init au chargement
+initAdminAccount();
 updateNavProfile();
+updateCartMenu();
+
+// ── ONGLETS CONNEXION/INSCRIPTION ──
+function switchTab(tab) {
+  var reg = document.getElementById('form-register');
+  var log = document.getElementById('form-login');
+  var tbr = document.getElementById('tab-register');
+  var tbl = document.getElementById('tab-login');
+  if (tab === 'register') {
+    reg.style.display = 'block'; log.style.display = 'none';
+    tbr.style.borderBottomColor = 'var(--red)'; tbr.style.color = '#fff';
+    tbl.style.borderBottomColor = 'transparent'; tbl.style.color = 'var(--text-muted)';
+  } else {
+    reg.style.display = 'none'; log.style.display = 'block';
+    tbl.style.borderBottomColor = 'var(--red)'; tbl.style.color = '#fff';
+    tbr.style.borderBottomColor = 'transparent'; tbr.style.color = 'var(--text-muted)';
+  }
+}
+
+// ── CONNEXION ──
+function handleLogin() {
+  var pseudo   = document.getElementById('login-pseudo').value.trim();
+  var password = document.getElementById('login-password').value;
+  var errEl    = document.getElementById('login-error');
+
+  if (!pseudo || !password) {
+    errEl.textContent = 'Veuillez remplir tous les champs.';
+    errEl.style.display = 'block'; return;
+  }
+
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var acc = accounts.find(function(a) {
+    return a.pseudo.toLowerCase() === pseudo.toLowerCase();
+  });
+
+  if (!acc) {
+    errEl.textContent = 'Compte introuvable. Vérifiez votre pseudo.';
+    errEl.style.display = 'block'; return;
+  }
+  if (acc.passwordHash && acc.passwordHash !== password) {
+    errEl.textContent = 'Mot de passe incorrect.';
+    errEl.style.display = 'block'; return;
+  }
+
+  errEl.style.display = 'none';
+  localStorage.setItem('badlandfr_current_user', JSON.stringify({
+    pseudo: acc.pseudo, email: acc.email,
+    platform: acc.platform, avatar: acc.avatar || ''
+  }));
+  updateNavProfile();
+  document.getElementById('login-pseudo').value = '';
+  document.getElementById('login-password').value = '';
+
+  if (acc.mustChangePassword) {
+    setTimeout(function(){ document.getElementById('modal-changepwd').style.display = 'flex'; }, 300);
+  } else {
+    alert('Bienvenue ' + acc.pseudo + ' !');
+  }
+}
+
+// ── MISE À JOUR PANIER DANS LE MENU PROFIL ──
+function updateCartMenu() {
+  var countEl = document.getElementById('menu-cart-count');
+  var itemsEl = document.getElementById('menu-cart-items');
+  if (!countEl || !itemsEl) return;
+
+  var cart = JSON.parse(localStorage.getItem('badlandfr_cart') || '[]');
+  countEl.textContent = cart.length + (cart.length > 1 ? ' articles' : ' article');
+
+  if (!cart.length) {
+    itemsEl.innerHTML = '<span style="color:var(--text-muted);">Panier vide</span>';
+    return;
+  }
+  var h = '';
+  for (var i = 0; i < cart.length; i++) {
+    var it = cart[i];
+    var price = typeof it.price === 'string' && it.price.startsWith('cr:')
+      ? it.credits + ' cr' : it.price + ' EUR';
+    h += '<div style="display:flex;justify-content:space-between;padding:2px 0;">';
+    h += '<span>' + it.name + '</span>';
+    h += '<span style="color:var(--gold);">' + price + '</span></div>';
+  }
+  itemsEl.innerHTML = h;
+}
+
 </script>
 
 
@@ -2028,13 +2146,10 @@ updateNavProfile();
 </div>
 
 <script>
-// ── COMPTE STEVEN ──
-initAdminAccount();
-
 // ── PANIER ──
 var cart = JSON.parse(localStorage.getItem('badlandfr_cart') || '[]');
 
-function saveCart() { localStorage.setItem('badlandfr_cart', JSON.stringify(cart)); }
+function saveCart() { localStorage.setItem('badlandfr_cart', JSON.stringify(cart)); updateCartMenu(); }
 
 function addToCart(name, price, credits) {
   var user = getCurrentUser();
@@ -2043,9 +2158,26 @@ function addToCart(name, price, credits) {
     document.getElementById('inscription').scrollIntoView({behavior:'smooth'});
     return;
   }
+  // Vérif crédits suffisants pour services en jeu
+  if (typeof price === 'string' && price.startsWith('cr:')) {
+    var bal = getUserCredits(user.pseudo);
+    // Calculer total déjà dans le panier en crédits
+    var cartData = JSON.parse(localStorage.getItem('badlandfr_cart') || '[]');
+    var cartCr = 0;
+    for (var i = 0; i < cartData.length; i++) {
+      if (typeof cartData[i].price === 'string' && cartData[i].price.startsWith('cr:')) {
+        cartCr += cartData[i].credits;
+      }
+    }
+    if (bal < credits + cartCr) {
+      alert('Crédits insuffisants !\n\nSolde : ' + bal + ' 🪙\nNécessaire : ' + (credits + cartCr) + ' 🪙\n\nAchetez des crédits dans la boutique.');
+      return;
+    }
+  }
   cart.push({ name: name, price: price, credits: credits, id: Date.now() });
   saveCart();
   updateCartUI();
+  updateCartMenu();
   showCartNotif(name);
 }
 
@@ -2075,6 +2207,7 @@ function toggleCart() {
     modal.style.display = 'none';
   } else {
     renderCartModal();
+    updateCartMenu();
     modal.style.display = 'flex';
   }
 }
