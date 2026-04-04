@@ -36,8 +36,7 @@ nav{background:var(--bg2);border-bottom:1px solid var(--bo);padding:0 2rem;displ
 .sc2{background:var(--bg2);border:1px solid var(--bo);border-top:2px solid var(--red);padding:1.25rem;text-align:center;}
 .sn{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--red);}
 .sl2{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mu);margin-top:2px;}
-.pn{display:none;}
-.pn.on{display:block;}
+.pn{display:none;}.pn.on{display:block;}
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--bo);}
 .sh h2{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#fff;}
 .sh h2 span{color:var(--red);}
@@ -51,35 +50,38 @@ textarea.fi{min-height:100px;}
 .bt{font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;padding:10px 22px;border:none;cursor:pointer;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);}
 .br{background:var(--red);color:#fff;}.br:hover{background:var(--rd);}
 .bg{background:var(--gn);color:#fff;}.bg:hover{background:#219a52;}
-.bo2{background:var(--gold);color:#000;}
+.bo2{background:var(--gold);color:#000;}.bo2:hover{background:#b8960b;}
 .bgr{background:var(--bg3);color:var(--mu);border:1px solid var(--bo);}.bgr:hover{color:#fff;}
 .om{background:rgba(39,174,96,.1);border:1px solid rgba(39,174,96,.3);border-left:3px solid var(--gn);padding:.75rem 1rem;font-size:13px;color:#27ae60;margin-bottom:1rem;display:none;}
-.tb{width:100%;border-collapse:collapse;font-size:14px;}
-.tb th{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mu);text-align:left;padding:.75rem 1rem;border-bottom:1px solid var(--bo);background:var(--bg2);}
-.tb td{padding:.75rem 1rem;border-bottom:1px solid var(--bo);color:var(--mu);}
-.tb tr:hover td{background:rgba(255,255,255,0.02);}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mu);text-align:left;padding:.6rem .75rem;border-bottom:1px solid var(--bo);background:var(--bg2);}
+.tbl td{padding:.6rem .75rem;border-bottom:1px solid var(--bo);color:var(--mu);}
+.tbl tr:hover td{background:rgba(255,255,255,0.02);}
 .ui{background:var(--bg3);border:1px solid var(--bo);border-left:3px solid var(--red);padding:1rem 1.25rem;margin-bottom:.75rem;display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;}
 .sti{background:var(--bg3);border:1px solid var(--bo);padding:1rem 1.25rem;margin-bottom:.75rem;display:flex;align-items:center;gap:1rem;}
-.sa{width:44px;height:44px;border-radius:50%;background:var(--bg2);flex-shrink:0;overflow:hidden;border:2px solid var(--bo);}
-.sa img{width:100%;height:100%;object-fit:cover;}
-.hl{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--bo);font-size:13px;flex-wrap:wrap;gap:.5rem;}
+.sav{width:44px;height:44px;border-radius:50%;background:var(--bg2);flex-shrink:0;overflow:hidden;border:2px solid var(--bo);}
+.sav img{width:100%;height:100%;object-fit:cover;}
+.hl{display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid var(--bo);font-size:12px;flex-wrap:wrap;gap:.5rem;}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:600;align-items:center;justify-content:center;}
+.mbox{background:var(--bg2);border:1px solid var(--bo);border-top:3px solid var(--gold);padding:2rem;width:100%;max-width:440px;position:relative;max-height:90vh;overflow-y:auto;}
 </style>
 </head>
 <body>
 <div id="ls">
   <div class="lb">
     <h1>BADLAND <span>FR</span></h1>
-    <p>Acces reserve Administration</p>
-    <input type="password" id="pwd" class="pi" placeholder="mot de passe" onkeydown="if(event.key==='Enter')cl()">
+    <p>Administration</p>
+    <input type="password" id="pwd" class="pi" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')cl()">
     <button class="lbtn" onclick="cl()">Connexion</button>
     <div class="lerr" id="le">Mot de passe incorrect</div>
   </div>
 </div>
+
 <div id="ap">
   <nav>
     <div class="nl">BADLAND <span>FR</span> Admin</div>
     <div style="display:flex;align-items:center;gap:1rem;">
-      <span style="font-size:13px;color:var(--mu);">Connecte: <strong style="color:var(--gold);">Grey Fox</strong></span>
+      <span style="font-size:13px;color:var(--mu);">Grey Fox <span style="color:var(--gold);">Fondateur</span></span>
       <button class="ob" onclick="lo()">Deconnexion</button>
     </div>
   </nav>
@@ -91,64 +93,89 @@ textarea.fi{min-height:100px;}
       <div class="sl" onclick="sw('up',this)"><span>📢</span> Mises a jour</div>
       <div class="sl" onclick="sw('sf',this)"><span>👥</span> Staff</div>
       <div class="sc">Communaute</div>
-      <div class="sl" onclick="sw('ac',this)"><span>🎮</span> Comptes</div>
+      <div class="sl" onclick="sw('ac',this)"><span>🎮</span> Comptes joueurs</div>
       <div class="sl" onclick="sw('cr',this)"><span>🪙</span> Credits</div>
+      <div class="sl" onclick="sw('sh',this)"><span>🛒</span> Historique achats</div>
       <div class="sc">Site</div>
       <div class="sl" onclick="window.open('index.html','_blank')"><span>🌐</span> Voir le site</div>
     </div>
+
     <div class="ac2">
 
+      <!-- DASHBOARD -->
       <div class="pn on" id="pdb">
         <div class="sh"><h2>VUE D <span>ENSEMBLE</span></h2></div>
         <div class="sr">
           <div class="sc2"><div class="sn" id="dac">0</div><div class="sl2">Comptes</div></div>
-          <div class="sc2" style="border-top-color:var(--gold);"><div class="sn" style="color:var(--gold);" id="dup">0</div><div class="sl2">MAJ</div></div>
-          <div class="sc2" style="border-top-color:var(--gn);"><div class="sn" style="color:var(--gn);" id="dsf">3</div><div class="sl2">Staff</div></div>
-          <div class="sc2" style="border-top-color:#3498db;"><div class="sn" style="color:#3498db;">24/7</div><div class="sl2">Serveur</div></div>
+          <div class="sc2" style="border-top-color:var(--gold);"><div class="sn" style="color:var(--gold);" id="dup">0</div><div class="sl2">MAJ publiees</div></div>
+          <div class="sc2" style="border-top-color:var(--gn);"><div class="sn" style="color:var(--gn);" id="dcr">0</div><div class="sl2">Credits distrib.</div></div>
+          <div class="sc2" style="border-top-color:#e67e22;"><div class="sn" style="color:#e67e22;" id="dsh">0</div><div class="sl2">Achats</div></div>
         </div>
-        <div class="fb"><h3>Dernieres inscriptions</h3><div id="drc"><p style="font-size:13px;color:var(--mu);">Aucun compte.</p></div></div>
+        <div class="fb"><h3>Dernieres inscriptions</h3><div id="drc"><p style="font-size:13px;color:var(--mu);">Aucun.</p></div></div>
         <div class="fb" style="border-left:3px solid var(--gold);"><h3>Actions rapides</h3>
           <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
             <button class="bt br" onclick="sw('up',null)">Publier MAJ</button>
-            <button class="bt bo2" onclick="sw('sf',null)">Gerer staff</button>
-            <button class="bt bgr" onclick="sw('ac',null)">Voir comptes</button>
+            <button class="bt bo2" onclick="sw('sf',null)">Staff</button>
+            <button class="bt bgr" onclick="sw('ac',null)">Comptes</button>
             <button class="bt bgr" onclick="sw('cr',null)">Credits</button>
+            <button class="bt bgr" onclick="sw('sh',null)">Achats</button>
           </div>
         </div>
       </div>
 
+      <!-- MISES À JOUR -->
       <div class="pn" id="pup">
         <div class="sh"><h2>MISES A <span>JOUR</span></h2></div>
         <div class="om" id="oup">Publiee !</div>
         <div class="fb"><h3>Publier</h3>
-          <div class="fr"><label>Titre</label><input type="text" id="ut" class="fi" placeholder="Titre de la mise a jour"></div>
+          <div class="fr"><label>Titre</label><input type="text" id="ut" class="fi" placeholder="Titre"></div>
           <div class="fr"><label>Type</label><select id="uty" class="fi"><option>Mise a jour serveur</option><option>Evenement</option><option>Maintenance</option><option>Annonce</option><option>Correctif</option></select></div>
-          <div class="fr"><label>Description</label><textarea id="ud" class="fi" placeholder="Description..."></textarea></div>
+          <div class="fr"><label>Description</label><textarea id="ud" class="fi"></textarea></div>
           <button class="bt br" onclick="pu()">Publier</button>
         </div>
         <div class="fb"><h3>Publiees</h3><div id="ul"><p style="font-size:13px;color:var(--mu);">Aucune.</p></div></div>
       </div>
 
+      <!-- STAFF -->
       <div class="pn" id="psf">
         <div class="sh"><h2>GESTION DU <span>STAFF</span></h2></div>
-        <div class="om" id="osf">Membre ajoute !</div>
+        <div class="om" id="osf">OK !</div>
         <div class="fb"><h3>Ajouter</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-            <div class="fr"><label>Pseudo</label><input type="text" id="stp" class="fi" placeholder="Pseudo"></div>
-            <div class="fr"><label>Discord</label><input type="text" id="std" class="fi" placeholder="pseudo#0000"></div>
+            <div class="fr"><label>Pseudo</label><input type="text" id="stp" class="fi"></div>
+            <div class="fr"><label>Discord</label><input type="text" id="std" class="fi"></div>
           </div>
           <div class="fr"><label>Role</label><select id="str" class="fi"><option>Administrateur</option><option>Moderateur</option><option>Helper</option></select></div>
-          <button class="bt bg" onclick="as()">Ajouter</button>
+          <button class="bt bg" onclick="ast()">Ajouter</button>
         </div>
         <div class="fb"><h3>Membres</h3>
           <div id="stl">
-            <div class="sti"><div class="sa"><img src="staff_greyfox.png" alt="GF"></div><div style="flex:1;"><div style="font-size:16px;color:#fff;">Grey Fox</div><div style="font-size:12px;color:var(--mu);">Fondateur zzgalaxywolf93</div></div><span style="font-size:11px;color:var(--gold);">FONDATEUR</span></div>
-            <div class="sti" id="sia"><div class="sa"><img src="staff_default.svg" alt="AB"></div><div style="flex:1;"><div style="font-size:16px;color:#fff;">Admin Badlands</div><div style="font-size:12px;color:var(--mu);">Administrateur</div></div><button class="bt bgr" onclick="rs('sia')" style="padding:6px 12px;font-size:11px;">Retirer</button></div>
-            <div class="sti" id="sir"><div class="sa"><img src="staff_default.svg" alt="RB"></div><div style="flex:1;"><div style="font-size:16px;color:#fff;">RBXZ90</div><div style="font-size:12px;color:var(--mu);">Moderateur</div></div><button class="bt bgr" onclick="rs('sir')" style="padding:6px 12px;font-size:11px;">Retirer</button></div>
+            <div class="sti" id="sif">
+              <div class="sav"><img src="staff_greyfox.png" id="img-sif" alt="GF"></div>
+              <div style="flex:1;"><div id="nm-sif" style="font-size:16px;color:#fff;">Grey Fox</div><div id="rl-sif" style="font-size:12px;color:var(--mu);">Fondateur — zzgalaxywolf93</div></div>
+              <button class="bt bo2" onclick="edi('sif','Grey Fox','Fondateur','zzgalaxywolf93','staff_greyfox.png')" style="padding:6px 10px;font-size:11px;">Modifier</button>
+            </div>
+            <div class="sti" id="sia">
+              <div class="sav"><img src="staff_default.svg" id="img-sia" alt="AB"></div>
+              <div style="flex:1;"><div id="nm-sia" style="font-size:16px;color:#fff;">Admin Badlands</div><div id="rl-sia" style="font-size:12px;color:var(--mu);">Administrateur</div></div>
+              <div style="display:flex;gap:4px;">
+                <button class="bt bo2" onclick="edi('sia','Admin Badlands','Administrateur','','staff_default.svg')" style="padding:6px 10px;font-size:11px;">Modifier</button>
+                <button class="bt bgr" onclick="rst('sia')" style="padding:6px 10px;font-size:11px;">Retirer</button>
+              </div>
+            </div>
+            <div class="sti" id="sir">
+              <div class="sav"><img src="staff_default.svg" id="img-sir" alt="RB"></div>
+              <div style="flex:1;"><div id="nm-sir" style="font-size:16px;color:#fff;">RBXZ90</div><div id="rl-sir" style="font-size:12px;color:var(--mu);">Moderateur</div></div>
+              <div style="display:flex;gap:4px;">
+                <button class="bt bo2" onclick="edi('sir','RBXZ90','Moderateur','rbx90','staff_default.svg')" style="padding:6px 10px;font-size:11px;">Modifier</button>
+                <button class="bt bgr" onclick="rst('sir')" style="padding:6px 10px;font-size:11px;">Retirer</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
+      <!-- COMPTES -->
       <div class="pn" id="pac">
         <div class="sh"><h2>COMPTES <span>JOUEURS</span></h2></div>
         <div class="sr">
@@ -157,19 +184,28 @@ textarea.fi{min-height:100px;}
           <div class="sc2" style="border-top-color:#3498db;"><div class="sn" style="color:#3498db;" id="axb">0</div><div class="sl2">Xbox</div></div>
           <div class="sc2" style="border-top-color:var(--mu);"><div class="sn" style="color:var(--mu);" id="ap4">0</div><div class="sl2">PS4</div></div>
         </div>
-        <div class="fb"><h3>Liste</h3><div style="overflow-x:auto;"><table class="tb"><thead><tr><th>#</th><th>Pseudo</th><th>Email</th><th>Plateforme</th><th>Date</th><th>Action</th></tr></thead><tbody id="atb"><tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--mu);">Aucun.</td></tr></tbody></table></div></div>
+        <div class="fb"><h3>Liste des comptes</h3>
+          <input type="text" id="ac-s" oninput="ra()" placeholder="Rechercher..." class="fi" style="max-width:300px;margin-bottom:1rem;">
+          <div style="overflow-x:auto;">
+            <table class="tbl">
+              <thead><tr><th>#</th><th>Pseudo</th><th>ID Discord</th><th>Plateforme</th><th>Credits</th><th>Date</th><th>Actions</th></tr></thead>
+              <tbody id="atb"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
+      <!-- CREDITS -->
       <div class="pn" id="pcr">
         <div class="sh"><h2>GESTION DES <span>CREDITS</span></h2></div>
-        <div class="om" id="ocr">Credits mis a jour !</div>
+        <div class="om" id="ocr">OK !</div>
         <div class="sr">
           <div class="sc2" style="border-top-color:var(--gold);"><div class="sn" style="color:var(--gold);" id="crt">0</div><div class="sl2">Total distribues</div></div>
           <div class="sc2" style="border-top-color:var(--gn);"><div class="sn" style="color:var(--gn);" id="crp">0</div><div class="sl2">Joueurs actifs</div></div>
         </div>
         <div class="fb"><h3>Ajouter / Retirer</h3>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;align-items:end;">
-            <div class="fr" style="margin:0;"><label>Pseudo</label><input type="text" id="cpp" class="fi" placeholder="Pseudo" list="cdl"><datalist id="cdl"></datalist></div>
+            <div class="fr" style="margin:0;"><label>Pseudo</label><input type="text" id="cpp" class="fi" list="cdl"><datalist id="cdl"></datalist></div>
             <div class="fr" style="margin:0;"><label>Montant</label><input type="number" id="cam" class="fi" placeholder="100 ou -50"></div>
             <div class="fr" style="margin:0;"><label>Raison</label><input type="text" id="cra" class="fi" placeholder="Achat PayPal"></div>
           </div>
@@ -179,7 +215,7 @@ textarea.fi{min-height:100px;}
           </div>
         </div>
         <div class="fb"><h3>Credits rapides</h3>
-          <div class="fr"><label>Pseudo cible</label><input type="text" id="cqp" class="fi" placeholder="Pseudo" list="cdl" style="max-width:300px;"></div>
+          <div class="fr"><label>Pseudo</label><input type="text" id="cqp" class="fi" placeholder="Pseudo" list="cdl" style="max-width:300px;"></div>
           <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
             <button class="bt bg" onclick="qc(50)">+50</button>
             <button class="bt bg" onclick="qc(100)">+100</button>
@@ -192,44 +228,488 @@ textarea.fi{min-height:100px;}
         </div>
         <div class="fb"><h3>Tous les joueurs</h3>
           <input type="text" id="cs" oninput="rc()" placeholder="Rechercher..." class="fi" style="max-width:300px;margin-bottom:1rem;">
-          <div style="overflow-x:auto;"><table class="tb"><thead><tr><th>#</th><th>Pseudo</th><th>Plateforme</th><th>Credits</th><th>Dernier mvt</th><th>Actions</th></tr></thead><tbody id="ctb"><tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--mu);">Aucun joueur.</td></tr></tbody></table></div>
+          <div style="overflow-x:auto;">
+            <table class="tbl">
+              <thead><tr><th>#</th><th>Pseudo</th><th>Plateforme</th><th>Credits</th><th>Dernier mvt</th><th>Actions</th></tr></thead>
+              <tbody id="ctb"></tbody>
+            </table>
+          </div>
         </div>
-        <div class="fb"><h3>Historique</h3><div id="ch"><p style="font-size:13px;color:var(--mu);">Aucune transaction.</p></div></div>
+        <div class="fb"><h3>Historique transactions</h3><div id="ch2"></div></div>
+      </div>
+
+      <!-- HISTORIQUE ACHATS -->
+      <div class="pn" id="psh">
+        <div class="sh"><h2>HISTORIQUE <span>ACHATS</span></h2></div>
+        <div class="sr">
+          <div class="sc2" style="border-top-color:#e67e22;"><div class="sn" style="color:#e67e22;" id="sh-total">0</div><div class="sl2">Total commandes</div></div>
+          <div class="sc2" style="border-top-color:var(--gn);"><div class="sn" style="color:var(--gn);" id="sh-euros">0.00</div><div class="sl2">Total euros</div></div>
+          <div class="sc2" style="border-top-color:var(--gold);"><div class="sn" style="color:var(--gold);" id="sh-credits">0</div><div class="sl2">Total credits vendus</div></div>
+        </div>
+        <div class="fb"><h3>Toutes les commandes</h3>
+          <input type="text" id="sh-s" oninput="rsh()" placeholder="Rechercher un joueur..." class="fi" style="max-width:300px;margin-bottom:1rem;">
+          <div style="overflow-x:auto;">
+            <table class="tbl">
+              <thead><tr><th>#</th><th>Joueur</th><th>ID Discord</th><th>Articles</th><th>Total</th><th>Statut</th><th>Date</th><th>Action</th></tr></thead>
+              <tbody id="sh-tbody"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
 </div>
+
+<!-- MODAL EDITION -->
+<div class="modal" id="emod">
+  <div class="mbox">
+    <button onclick="cem()" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--mu);font-size:20px;cursor:pointer;">x</button>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:#fff;margin-bottom:1.5rem;" id="em-title">MODIFIER</h2>
+    <input type="hidden" id="em-id"><input type="hidden" id="em-type">
+    <div class="fr"><label>Pseudo</label><input type="text" id="em-pseudo" class="fi"></div>
+    <div class="fr" id="em-rr"><label>Role</label><select id="em-role" class="fi"><option>Fondateur</option><option>Administrateur</option><option>Moderateur</option><option>Helper</option></select></div>
+    <div class="fr" id="em-dr"><label>Discord</label><input type="text" id="em-discord" class="fi"></div>
+    <div class="fr"><label>Photo (URL image)</label><input type="text" id="em-avatar" class="fi" placeholder="https://..." oninput="pav()"></div>
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:1rem;" id="em-prev-row">
+      <div id="em-prev" style="width:48px;height:48px;border-radius:50%;overflow:hidden;border:2px solid var(--bo);background:var(--bg3);"></div>
+      <span style="font-size:12px;color:var(--mu);">Apercu de la photo</span>
+    </div>
+    <div class="fr" id="em-didr"><label>ID Discord</label><input type="text" id="em-discordid" class="fi" placeholder="123456789..."></div>
+    <div class="fr" id="em-plr"><label>Plateforme</label><select id="em-platform" class="fi"><option>PlayStation 5</option><option>PlayStation 4</option><option>Xbox One</option><option>Xbox Series X/S</option></select></div>
+    <div style="display:flex;gap:.75rem;">
+      <button class="bt bg" onclick="sav()" style="flex:1;">Sauvegarder</button>
+      <button class="bt bgr" onclick="cem()">Annuler</button>
+    </div>
+  </div>
+</div>
+
 <script>
 var PWD = "BadlandFR2026";
-function cl(){if(document.getElementById('pwd').value===PWD){document.getElementById('ls').style.display='none';document.getElementById('ap').style.display='block';la();}else{var e=document.getElementById('le');e.style.display='block';document.getElementById('pwd').value='';setTimeout(function(){e.style.display='none';},3000);}}
+
+// Clés localStorage IDENTIQUES à index.html
+var K = {
+  accounts: 'badlandfr_accounts',
+  credits:  'badlandfr_credits',
+  crHist:   'badlandfr_credits_history',
+  updates:  'badlandfr_updates',
+  cart:     'badlandfr_cart',
+  orders:   'badlandfr_orders'
+};
+
+function g(k){try{return JSON.parse(localStorage.getItem(k)||'null');}catch(e){return null;}}
+function s(k,v){localStorage.setItem(k,JSON.stringify(v));}
+function ok2(id,msg){var e=document.getElementById(id);if(!e)return;e.textContent=msg;e.style.display='block';setTimeout(function(){e.style.display='none';},4000);}
+
+function cl(){
+  if(document.getElementById('pwd').value===PWD){
+    document.getElementById('ls').style.display='none';
+    document.getElementById('ap').style.display='block';
+    la();
+  }else{
+    var e=document.getElementById('le');e.style.display='block';
+    document.getElementById('pwd').value='';
+    setTimeout(function(){e.style.display='none';},3000);
+  }
+}
 function lo(){document.getElementById('ap').style.display='none';document.getElementById('ls').style.display='flex';document.getElementById('pwd').value='';}
-function sw(n,el){document.querySelectorAll('.pn').forEach(function(p){p.classList.remove('on');});document.querySelectorAll('.sl').forEach(function(l){l.classList.remove('ac');});document.getElementById('p'+n).classList.add('on');if(el)el.classList.add('ac');}
-function lsg(k){try{return JSON.parse(localStorage.getItem('badlandfr_'+k)||'null');}catch(e){return null;}}
-function lss(k,v){localStorage.setItem('badlandfr_'+k,JSON.stringify(v));}
-function ok(id,msg){var e=document.getElementById(id);if(!e)return;e.textContent=msg;e.style.display='block';setTimeout(function(){e.style.display='none';},4000);}
-function us(){var u=lsg('updates')||[];var du=document.getElementById('dup');if(du)du.textContent=u.length;var st=document.querySelectorAll('#stl .sti').length;var ds=document.getElementById('dsf');if(ds)ds.textContent=st;}
-function pu(){var t=document.getElementById('ut').value.trim();var d=document.getElementById('ud').value.trim();var ty=document.getElementById('uty').value;if(!t||!d){alert('Remplis titre et description !');return;}var l=lsg('updates')||[];l.unshift({id:Date.now(),title:t,desc:d,type:ty,date:new Date().toLocaleString('fr-FR')});lss('updates',l);document.getElementById('ut').value='';document.getElementById('ud').value='';ok('oup','Publiee !');ru();us();}
-function ru(){var l=lsg('updates')||[];var c=document.getElementById('ul');if(!c)return;var du=document.getElementById('dup');if(du)du.textContent=l.length;if(!l.length){c.innerHTML='<p style="font-size:13px;color:var(--mu);">Aucune.</p>';return;}var h='';for(var i=0;i<l.length;i++){var u=l[i];h+='<div class="ui"><div style="flex:1;"><div style="font-size:16px;color:#fff;">'+u.type+' '+u.title+'</div><div style="font-size:13px;color:var(--mu);margin-top:4px;">'+u.desc+'</div><div style="font-size:11px;color:var(--mu);margin-top:4px;">'+u.date+'</div></div><button class="bt bgr" onclick="du2('+u.id+')" style="padding:6px 12px;font-size:11px;flex-shrink:0;">Suppr</button></div>';}c.innerHTML=h;}
-function du2(id){if(!confirm('Supprimer ?'))return;var l=(lsg('updates')||[]).filter(function(u){return u.id!==id;});lss('updates',l);ru();us();}
-function as(){var p=document.getElementById('stp').value.trim();var d=document.getElementById('std').value.trim();var r=document.getElementById('str').value;if(!p){alert('Pseudo requis !');return;}var id='sti'+Date.now();var item=document.createElement('div');item.className='sti';item.id=id;item.innerHTML='<div class="sa"><img src="staff_default.svg"></div><div style="flex:1;"><div style="font-size:16px;color:#fff;">'+p+'</div><div style="font-size:12px;color:var(--mu);">'+r+(d?' '+d:'')+'</div></div><button class="bt bgr" onclick="rs(\''+id+'\')" style="padding:6px 12px;font-size:11px;">Retirer</button>';document.getElementById('stl').appendChild(item);document.getElementById('stp').value='';document.getElementById('std').value='';ok('osf','Membre ajoute !');us();}
-function rs(id){if(!confirm('Retirer ?'))return;var e=document.getElementById(id);if(e)e.remove();us();}
-function ra(){var a=lsg('accounts')||[];var t=document.getElementById('atb');var da=document.getElementById('dac');var at=document.getElementById('att');if(da)da.textContent=a.length;if(at)at.textContent=a.length;var p5=0,p4=0,xb=0;for(var i=0;i<a.length;i++){var pl=a[i].platform||'';if(pl==='PlayStation 5')p5++;else if(pl==='PlayStation 4')p4++;else if(pl.indexOf('Xbox')!==-1)xb++;}var e5=document.getElementById('ap5');if(e5)e5.textContent=p5;var e4=document.getElementById('ap4');if(e4)e4.textContent=p4;var ex=document.getElementById('axb');if(ex)ex.textContent=xb;if(!t)return;if(!a.length){t.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--mu);">Aucun.</td></tr>';var dr=document.getElementById('drc');if(dr)dr.innerHTML='<p style="font-size:13px;color:var(--mu);">Aucun.</p>';return;}var rows='';for(var j=0;j<a.length;j++){var ac=a[j];rows+='<tr><td>'+(j+1)+'</td><td style="color:var(--tx);">'+ac.pseudo+'</td><td>'+(ac.email||'-')+'</td><td>'+(ac.platform||'-')+'</td><td>'+(ac.date||'-')+'</td><td><button class="bt bgr" onclick="da2('+ac.id+')" style="padding:4px 10px;font-size:11px;">Suppr</button></td></tr>';}t.innerHTML=rows;var rec=a.slice(-5).reverse();var dr2=document.getElementById('drc');if(dr2){var dh='';for(var k=0;k<rec.length;k++){var r2=rec[k];dh+='<div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--bo);font-size:13px;"><span style="color:var(--tx);">'+r2.pseudo+'</span><span style="color:var(--mu);">'+(r2.platform||'')+' '+(r2.date||'')+'</span></div>';}dr2.innerHTML=dh;}}
-function da2(id){if(!confirm('Supprimer ?'))return;var l=(lsg('accounts')||[]).filter(function(a){return a.id!==id;});lss('accounts',l);ra();}
-function gc(){return lsg('credits')||{};}
-function sc2(c){lss('credits',c);}
-function gh(){return lsg('ch')||[];}
-function sh2(h){lss('ch',h);}
-function apc(){var p=document.getElementById('cpp').value.trim();var am=parseInt(document.getElementById('cam').value);var r=document.getElementById('cra').value.trim()||'Admin';if(!p){alert('Pseudo requis !');return;}if(isNaN(am)||am===0){alert('Montant invalide !');return;}var c=gc();if(!c[p])c[p]={balance:0,platform:'',lastMove:''};var b=c[p].balance;c[p].balance=Math.max(0,b+am);c[p].lastMove=new Date().toLocaleString('fr-FR');sc2(c);var h=gh();h.unshift({pseudo:p,amount:am,reason:r,before:b,after:c[p].balance,date:new Date().toLocaleString('fr-FR')});if(h.length>100)h=h.slice(0,100);sh2(h);document.getElementById('cpp').value='';document.getElementById('cam').value='';document.getElementById('cra').value='';var sign=am>0?'+':'';ok('ocr',sign+am+' cr pour '+p+' solde:'+c[p].balance);rc();rch();ucs();}
-function qc(am){var p=document.getElementById('cqp').value.trim();if(!p){alert('Pseudo requis !');return;}document.getElementById('cpp').value=p;document.getElementById('cam').value=am;document.getElementById('cra').value='Credit rapide';apc();}
-function rpc(){var p=document.getElementById('cpp').value.trim();if(!p){alert('Pseudo requis !');return;}if(!confirm('Remettre a 0 ?'))return;var c=gc();if(c[p]){var h=gh();h.unshift({pseudo:p,amount:-(c[p].balance),reason:'Remise a zero',before:c[p].balance,after:0,date:new Date().toLocaleString('fr-FR')});sh2(h);c[p].balance=0;c[p].lastMove=new Date().toLocaleString('fr-FR');sc2(c);}rc();rch();ucs();}
-function rc(){var a=lsg('accounts')||[];var c=gc();var se=document.getElementById('cs');var s=se?se.value.toLowerCase():'';var t=document.getElementById('ctb');if(!t)return;var dl=document.getElementById('cdl');if(dl){var dlh='';for(var k=0;k<a.length;k++)dlh+='<option value="'+a[k].pseudo+'">';dl.innerHTML=dlh;}var f=[];for(var i=0;i<a.length;i++){if(!s||a[i].pseudo.toLowerCase().indexOf(s)!==-1)f.push(a[i]);}if(!f.length){t.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--mu);">Aucun.</td></tr>';return;}var rows='';for(var j=0;j<f.length;j++){var ac=f[j];var bal=c[ac.pseudo]?c[ac.pseudo].balance:0;var last=c[ac.pseudo]?c[ac.pseudo].lastMove:'-';var col=bal>=200?'var(--gold)':bal>=100?'#27ae60':'var(--mu)';var ps=ac.pseudo.replace(/"/g,'&quot;');rows+='<tr><td>'+(j+1)+'</td><td style="color:var(--tx);">'+ac.pseudo+'</td><td>'+(ac.platform||'-')+'</td><td style="color:'+col+';font-size:18px;">'+bal+'</td><td style="font-size:12px;">'+last+'</td><td><div style="display:flex;gap:4px;"><button class="bt bg" data-p="'+ps+'" data-a="50" onclick="ic(this)" style="padding:4px 8px;font-size:11px;">+50</button><button class="bt bg" data-p="'+ps+'" data-a="100" onclick="ic(this)" style="padding:4px 8px;font-size:11px;">+100</button><button class="bt bgr" data-p="'+ps+'" data-a="-50" onclick="ic(this)" style="padding:4px 8px;font-size:11px;">-50</button></div></td></tr>';}t.innerHTML=rows;}
+function sw(n,el){
+  document.querySelectorAll('.pn').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.sl').forEach(function(l){l.classList.remove('ac');});
+  document.getElementById('p'+n).classList.add('on');
+  if(el)el.classList.add('ac');
+}
+
+// ── MISES À JOUR ──
+function pu(){
+  var t=document.getElementById('ut').value.trim();
+  var d=document.getElementById('ud').value.trim();
+  var ty=document.getElementById('uty').value;
+  if(!t||!d){alert('Titre et description requis !');return;}
+  var l=g(K.updates)||[];
+  l.unshift({id:Date.now(),title:t,desc:d,type:ty,date:new Date().toLocaleString('fr-FR')});
+  s(K.updates,l);
+  document.getElementById('ut').value='';document.getElementById('ud').value='';
+  ok2('oup','Publiee !');ru();us();
+}
+function ru(){
+  var l=g(K.updates)||[];
+  var c=document.getElementById('ul');
+  if(!c)return;
+  var du=document.getElementById('dup');if(du)du.textContent=l.length;
+  if(!l.length){c.innerHTML='<p style="font-size:13px;color:var(--mu);">Aucune.</p>';return;}
+  var h='';
+  for(var i=0;i<l.length;i++){
+    var u=l[i];
+    h+='<div class="ui"><div style="flex:1;"><div style="font-size:15px;color:#fff;">'+u.type+' — '+u.title+'</div>';
+    h+='<div style="font-size:13px;color:var(--mu);margin-top:4px;">'+u.desc+'</div>';
+    h+='<div style="font-size:11px;color:var(--mu);margin-top:4px;">'+u.date+'</div></div>';
+    h+='<button class="bt bgr" onclick="du2('+u.id+')" style="padding:6px 10px;font-size:11px;flex-shrink:0;">Suppr</button></div>';
+  }
+  c.innerHTML=h;
+}
+function du2(id){
+  if(!confirm('Supprimer ?'))return;
+  var l=(g(K.updates)||[]).filter(function(u){return u.id!==id;});
+  s(K.updates,l);ru();us();
+}
+
+// ── STAFF ──
+function ast(){
+  var p=document.getElementById('stp').value.trim();
+  var d=document.getElementById('std').value.trim();
+  var r=document.getElementById('str').value;
+  if(!p){alert('Pseudo requis !');return;}
+  var id='sti'+Date.now();
+  var item=document.createElement('div');
+  item.className='sti';item.id=id;
+  item.innerHTML='<div class="sav"><img src="staff_default.svg" id="img-'+id+'" alt="'+p+'"></div>'+
+    '<div style="flex:1;"><div id="nm-'+id+'" style="font-size:16px;color:#fff;">'+p+'</div>'+
+    '<div id="rl-'+id+'" style="font-size:12px;color:var(--mu);">'+r+(d?' — '+d:'')+'</div></div>'+
+    '<div style="display:flex;gap:4px;">'+
+    '<button class="bt bo2" onclick="edi(\''+id+'\',\''+p+'\',\''+r+'\',\''+d+'\',\'staff_default.svg\')" style="padding:6px 10px;font-size:11px;">Modifier</button>'+
+    '<button class="bt bgr" onclick="rst(\''+id+'\')" style="padding:6px 10px;font-size:11px;">Retirer</button>'+
+    '</div>';
+  document.getElementById('stl').appendChild(item);
+  document.getElementById('stp').value='';document.getElementById('std').value='';
+  ok2('osf','Membre ajoute !');us();
+}
+function rst(id){
+  if(!confirm('Retirer ?'))return;
+  var e=document.getElementById(id);if(e)e.remove();us();
+}
+
+// ── COMPTES ──
+function ra(){
+  var a=g(K.accounts)||[];
+  var creds=g(K.credits)||{};
+  var search=document.getElementById('ac-s')?document.getElementById('ac-s').value.toLowerCase():'';
+  var filtered=a.filter(function(ac){return !search||ac.pseudo.toLowerCase().indexOf(search)!==-1;});
+
+  // Stats
+  var da=document.getElementById('dac');if(da)da.textContent=a.length;
+  var at=document.getElementById('att');if(at)at.textContent=a.length;
+  var p5=0,p4=0,xb=0;
+  for(var i=0;i<a.length;i++){
+    var pl=a[i].platform||'';
+    if(pl==='PlayStation 5')p5++;
+    else if(pl==='PlayStation 4')p4++;
+    else if(pl.indexOf('Xbox')!==-1)xb++;
+  }
+  var e5=document.getElementById('ap5');if(e5)e5.textContent=p5;
+  var e4=document.getElementById('ap4');if(e4)e4.textContent=p4;
+  var ex=document.getElementById('axb');if(ex)ex.textContent=xb;
+
+  // Tableau
+  var tbody=document.getElementById('atb');
+  if(!tbody)return;
+  if(!filtered.length){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:2rem;color:var(--mu);">Aucun compte inscrit.</td></tr>';
+  }else{
+    var rows='';
+    for(var j=0;j<filtered.length;j++){
+      var ac=filtered[j];
+      var bal=creds[ac.pseudo]?creds[ac.pseudo].balance:0;
+      var ccolor=bal>=200?'var(--gold)':bal>=50?'#27ae60':'var(--mu)';
+      rows+='<tr>';
+      rows+='<td>'+(j+1)+'</td>';
+      rows+='<td style="color:var(--tx);font-weight:500;">'+ac.pseudo+'</td>';
+      rows+='<td style="font-family:monospace;font-size:11px;color:var(--gold);">'+(ac.discordId||'—')+'</td>';
+      rows+='<td>'+(ac.platform||'—')+'</td>';
+      rows+='<td style="color:'+ccolor+';font-weight:600;">'+bal+'</td>';
+      rows+='<td style="font-size:11px;">'+(ac.date||'—')+'</td>';
+      rows+='<td><div style="display:flex;gap:4px;">';
+      rows+='<button class="bt bo2" onclick="edp('+ac.id+')" style="padding:4px 8px;font-size:10px;">Modifier</button>';
+      rows+='<button class="bt bgr" onclick="dac2('+ac.id+')" style="padding:4px 8px;font-size:10px;">Suppr</button>';
+      rows+='</div></td>';
+      rows+='</tr>';
+    }
+    tbody.innerHTML=rows;
+  }
+
+  // Dashboard recent
+  var dr=document.getElementById('drc');
+  if(dr){
+    if(!a.length){dr.innerHTML='<p style="font-size:13px;color:var(--mu);">Aucun compte.</p>';}
+    else{
+      var rec=a.slice(-5).reverse();var dh='';
+      for(var k=0;k<rec.length;k++){
+        var r2=rec[k];
+        dh+='<div style="display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--bo);font-size:13px;">';
+        dh+='<span style="color:var(--tx);">'+r2.pseudo+'</span>';
+        dh+='<span style="color:var(--mu);">'+(r2.platform||'')+' — '+(r2.date||'')+'</span></div>';
+      }
+      dr.innerHTML=dh;
+    }
+  }
+
+  // Datalist credits
+  var dl=document.getElementById('cdl');
+  if(dl){var dlh='';for(var m=0;m<a.length;m++)dlh+='<option value="'+a[m].pseudo+'">';dl.innerHTML=dlh;}
+}
+
+function dac2(id){
+  if(!confirm('Supprimer ce compte ?'))return;
+  var l=(g(K.accounts)||[]).filter(function(a){return a.id!==id;});
+  s(K.accounts,l);ra();
+}
+
+// ── CRÉDITS ──
+function apc(){
+  var pseudo=document.getElementById('cpp').value.trim();
+  var amount=parseInt(document.getElementById('cam').value);
+  var reason=document.getElementById('cra').value.trim()||'Admin';
+  if(!pseudo){alert('Pseudo requis !');return;}
+  if(isNaN(amount)||amount===0){alert('Montant invalide !');return;}
+  var creds=g(K.credits)||{};
+  if(!creds[pseudo])creds[pseudo]={balance:0,platform:'',lastMove:''};
+  var before=creds[pseudo].balance;
+  creds[pseudo].balance=Math.max(0,before+amount);
+  creds[pseudo].lastMove=new Date().toLocaleString('fr-FR');
+  s(K.credits,creds);
+  var hist=g(K.crHist)||[];
+  hist.unshift({pseudo:pseudo,amount:amount,reason:reason,before:before,after:creds[pseudo].balance,date:new Date().toLocaleString('fr-FR')});
+  if(hist.length>200)hist=hist.slice(0,200);
+  s(K.crHist,hist);
+  document.getElementById('cpp').value='';document.getElementById('cam').value='';document.getElementById('cra').value='';
+  var sign=amount>0?'+':'';
+  ok2('ocr',sign+amount+' cr pour '+pseudo+' — solde: '+creds[pseudo].balance);
+  rc();rch();ucs();ra();
+}
+function qc(amount){
+  var pseudo=document.getElementById('cqp').value.trim();
+  if(!pseudo){alert('Pseudo requis !');return;}
+  document.getElementById('cpp').value=pseudo;
+  document.getElementById('cam').value=amount;
+  document.getElementById('cra').value='Credit rapide';
+  apc();
+}
+function rpc(){
+  var pseudo=document.getElementById('cpp').value.trim();
+  if(!pseudo){alert('Pseudo requis !');return;}
+  if(!confirm('Remettre a 0 ?'))return;
+  var creds=g(K.credits)||{};
+  if(creds[pseudo]){
+    var hist=g(K.crHist)||[];
+    hist.unshift({pseudo:pseudo,amount:-(creds[pseudo].balance),reason:'Remise a zero admin',before:creds[pseudo].balance,after:0,date:new Date().toLocaleString('fr-FR')});
+    s(K.crHist,hist);
+    creds[pseudo].balance=0;creds[pseudo].lastMove=new Date().toLocaleString('fr-FR');
+    s(K.credits,creds);
+  }
+  rc();rch();ucs();
+}
+function rc(){
+  var a=g(K.accounts)||[];
+  var creds=g(K.credits)||{};
+  var search=document.getElementById('cs')?document.getElementById('cs').value.toLowerCase():'';
+  var tbody=document.getElementById('ctb');if(!tbody)return;
+  var filtered=a.filter(function(ac){return !search||ac.pseudo.toLowerCase().indexOf(search)!==-1;});
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--mu);">Aucun.</td></tr>';return;}
+  var rows='';
+  for(var j=0;j<filtered.length;j++){
+    var ac=filtered[j];
+    var bal=creds[ac.pseudo]?creds[ac.pseudo].balance:0;
+    var last=creds[ac.pseudo]?creds[ac.pseudo].lastMove:'-';
+    var col=bal>=200?'var(--gold)':bal>=100?'#27ae60':'var(--mu)';
+    var ps=ac.pseudo.replace(/"/g,'&quot;');
+    rows+='<tr><td>'+(j+1)+'</td><td style="color:var(--tx);">'+ac.pseudo+'</td>';
+    rows+='<td style="color:'+col+';font-weight:600;">'+bal+'</td>';
+    rows+='<td style="font-size:11px;">'+last+'</td>';
+    rows+='<td><div style="display:flex;gap:4px;">';
+    rows+='<button class="bt bg" data-p="'+ps+'" data-a="50" onclick="ic(this)" style="padding:4px 6px;font-size:10px;">+50</button>';
+    rows+='<button class="bt bg" data-p="'+ps+'" data-a="100" onclick="ic(this)" style="padding:4px 6px;font-size:10px;">+100</button>';
+    rows+='<button class="bt bgr" data-p="'+ps+'" data-a="-50" onclick="ic(this)" style="padding:4px 6px;font-size:10px;">-50</button>';
+    rows+='</div></td></tr>';
+  }
+  tbody.innerHTML=rows;
+}
 function ic(btn){document.getElementById('cqp').value=btn.getAttribute('data-p');qc(parseInt(btn.getAttribute('data-a')));}
-function rch(){var h=gh();var c=document.getElementById('ch');if(!c)return;if(!h.length){c.innerHTML='<p style="font-size:13px;color:var(--mu);">Aucune.</p>';return;}var html='';var sh=h.slice(0,30);for(var i=0;i<sh.length;i++){var t=sh[i];var col=t.amount>=0?'#27ae60':'var(--red)';var sg=t.amount>=0?'+':'';html+='<div class="hl"><div style="display:flex;align-items:center;gap:10px;"><span style="color:'+col+';font-size:18px;">'+sg+t.amount+'</span><div><span style="color:var(--tx);">'+t.pseudo+'</span> <span style="color:var(--mu);">'+t.reason+'</span></div></div><div style="color:var(--mu);font-size:11px;">'+t.before+' to '+t.after+' '+t.date+'</div></div>';}c.innerHTML=html;}
-function ucs(){var c=gc();var tot=0,rich=0;var keys=Object.keys(c);for(var i=0;i<keys.length;i++){tot+=c[keys[i]].balance;if(c[keys[i]].balance>0)rich++;}var e1=document.getElementById('crt');if(e1)e1.textContent=tot;var e2=document.getElementById('crp');if(e2)e2.textContent=rich;}
-function syn(){var a=lsg('accounts')||[];var c=gc();var upd=false;for(var i=0;i<a.length;i++){var ac=a[i];if(!c[ac.pseudo]){c[ac.pseudo]={balance:100,platform:ac.platform||'',lastMove:ac.date||''};var h=gh();h.unshift({pseudo:ac.pseudo,amount:100,reason:'Bonus inscription',before:0,after:100,date:ac.date||''});sh2(h);upd=true;}}if(upd)sc2(c);}
-function la(){syn();ru();ra();rc();rch();ucs();us();}
-window.addEventListener('storage',la);
+function rch(){
+  var hist=g(K.crHist)||[];
+  var c=document.getElementById('ch2');if(!c)return;
+  if(!hist.length){c.innerHTML='<p style="font-size:13px;color:var(--mu);">Aucune transaction.</p>';return;}
+  var h='';
+  for(var i=0;i<Math.min(hist.length,50);i++){
+    var t=hist[i];
+    var col=t.amount>=0?'#27ae60':'var(--red)';
+    var sg=t.amount>=0?'+':'';
+    h+='<div class="hl"><div style="display:flex;align-items:center;gap:10px;">';
+    h+='<span style="color:'+col+';font-size:16px;font-weight:600;">'+sg+t.amount+'</span>';
+    h+='<div><span style="color:var(--tx);">'+t.pseudo+'</span> <span style="color:var(--mu);">— '+t.reason+'</span></div>';
+    h+='</div><div style="color:var(--mu);font-size:11px;">'+t.before+' → '+t.after+' | '+t.date+'</div></div>';
+  }
+  c.innerHTML=h;
+}
+function ucs(){
+  var creds=g(K.credits)||{};
+  var tot=0,rich=0;
+  var keys=Object.keys(creds);
+  for(var i=0;i<keys.length;i++){tot+=creds[keys[i]].balance;if(creds[keys[i]].balance>0)rich++;}
+  var e1=document.getElementById('crt');if(e1)e1.textContent=tot;
+  var e2=document.getElementById('crp');if(e2)e2.textContent=rich;
+  var e3=document.getElementById('dcr');if(e3)e3.textContent=tot;
+}
+
+// ── HISTORIQUE ACHATS ──
+function rsh(){
+  var orders=g(K.orders)||[];
+  var search=document.getElementById('sh-s')?document.getElementById('sh-s').value.toLowerCase():'';
+  var filtered=orders.filter(function(o){return !search||(o.pseudo&&o.pseudo.toLowerCase().indexOf(search)!==-1);});
+  var tbody=document.getElementById('sh-tbody');if(!tbody)return;
+
+  var totalEur=0,totalCr=0;
+  for(var i=0;i<orders.length;i++){
+    if(orders[i].totalEur)totalEur+=parseFloat(orders[i].totalEur)||0;
+    if(orders[i].totalCr)totalCr+=parseInt(orders[i].totalCr)||0;
+  }
+  var se=document.getElementById('sh-total');if(se)se.textContent=orders.length;
+  var seur=document.getElementById('sh-euros');if(seur)seur.textContent=totalEur.toFixed(2);
+  var scr=document.getElementById('sh-credits');if(scr)scr.textContent=totalCr;
+  var dsh=document.getElementById('dsh');if(dsh)dsh.textContent=orders.length;
+
+  if(!filtered.length){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;padding:2rem;color:var(--mu);">Aucune commande.</td></tr>';return;}
+  var rows='';
+  for(var j=0;j<filtered.length;j++){
+    var o=filtered[j];
+    var scol=o.status==='confirme'?'#27ae60':o.status==='annule'?'var(--red)':'var(--gold)';
+    rows+='<tr>';
+    rows+='<td>'+(j+1)+'</td>';
+    rows+='<td style="color:var(--tx);">'+(o.pseudo||'—')+'</td>';
+    rows+='<td style="font-family:monospace;font-size:11px;color:var(--gold);">'+(o.discordId||'—')+'</td>';
+    rows+='<td style="font-size:12px;">'+(o.items||'—')+'</td>';
+    rows+='<td>'+(o.totalEur?o.totalEur+'€':'')+(o.totalCr?' '+o.totalCr+' cr':'')+'</td>';
+    rows+='<td style="color:'+scol+';font-weight:600;">'+(o.status||'en attente')+'</td>';
+    rows+='<td style="font-size:11px;">'+(o.date||'—')+'</td>';
+    rows+='<td><div style="display:flex;gap:4px;">';
+    rows+='<button class="bt bg" onclick="cfo('+o.id+')" style="padding:4px 6px;font-size:10px;">Confirmer</button>';
+    rows+='<button class="bt br" onclick="cano('+o.id+')" style="padding:4px 6px;font-size:10px;">Annuler</button>';
+    rows+='</div></td>';
+    rows+='</tr>';
+  }
+  tbody.innerHTML=rows;
+}
+function cfo(id){
+  var orders=g(K.orders)||[];
+  for(var i=0;i<orders.length;i++){if(orders[i].id===id){orders[i].status='confirme';break;}}
+  s(K.orders,orders);rsh();ok2('osf','Commande confirmee !');
+}
+function cano(id){
+  var orders=g(K.orders)||[];
+  for(var i=0;i<orders.length;i++){if(orders[i].id===id){orders[i].status='annule';break;}}
+  s(K.orders,orders);rsh();
+}
+
+// ── STATS GÉNÉRALES ──
+function us(){
+  var upds=g(K.updates)||[];
+  var du=document.getElementById('dup');if(du)du.textContent=upds.length;
+}
+
+// ── EDITION STAFF / JOUEUR ──
+function edi(id,pseudo,role,discord,avatar){
+  document.getElementById('em-title').textContent='MODIFIER STAFF';
+  document.getElementById('em-id').value=id;
+  document.getElementById('em-type').value='staff';
+  document.getElementById('em-pseudo').value=pseudo;
+  document.getElementById('em-role').value=role;
+  document.getElementById('em-discord').value=discord;
+  document.getElementById('em-avatar').value=avatar||'';
+  document.getElementById('em-rr').style.display='block';
+  document.getElementById('em-dr').style.display='block';
+  document.getElementById('em-didr').style.display='none';
+  document.getElementById('em-plr').style.display='none';
+  pav();
+  document.getElementById('emod').style.display='flex';
+}
+function edp(id){
+  var a=g(K.accounts)||[];
+  var ac=null;for(var i=0;i<a.length;i++){if(a[i].id===id){ac=a[i];break;}}
+  if(!ac)return;
+  document.getElementById('em-title').textContent='MODIFIER JOUEUR';
+  document.getElementById('em-id').value=id;
+  document.getElementById('em-type').value='player';
+  document.getElementById('em-pseudo').value=ac.pseudo;
+  document.getElementById('em-role').value='';
+  document.getElementById('em-discord').value='';
+  document.getElementById('em-avatar').value=ac.avatar||'';
+  document.getElementById('em-discordid').value=ac.discordId||'';
+  document.getElementById('em-platform').value=ac.platform||'PlayStation 5';
+  document.getElementById('em-rr').style.display='none';
+  document.getElementById('em-dr').style.display='none';
+  document.getElementById('em-didr').style.display='block';
+  document.getElementById('em-plr').style.display='block';
+  pav();
+  document.getElementById('emod').style.display='flex';
+}
+function pav(){
+  var url=document.getElementById('em-avatar').value.trim();
+  var prev=document.getElementById('em-prev');
+  if(!prev)return;
+  if(url){prev.innerHTML='<img src="'+url+'" style="width:100%;height:100%;object-fit:cover;">';}
+  else{prev.innerHTML='';}
+}
+function sav(){
+  var type=document.getElementById('em-type').value;
+  var id=document.getElementById('em-id').value;
+  var pseudo=document.getElementById('em-pseudo').value.trim();
+  var avatar=document.getElementById('em-avatar').value.trim();
+
+  if(type==='staff'){
+    var role=document.getElementById('em-role').value;
+    var discord=document.getElementById('em-discord').value.trim();
+    var el=document.getElementById(id);if(!el){cem();return;}
+    var img=document.getElementById('img-'+id);
+    if(img&&avatar)img.src=avatar;
+    var nm=document.getElementById('nm-'+id);if(nm&&pseudo)nm.textContent=pseudo;
+    var rl=document.getElementById('rl-'+id);if(rl)rl.textContent=role+(discord?' — '+discord:'');
+    ok2('osf','Staff mis a jour !');
+  }else{
+    var pid=parseInt(id);
+    var discordId=document.getElementById('em-discordid').value.trim();
+    var platform=document.getElementById('em-platform').value;
+    var accounts=g(K.accounts)||[];
+    for(var i=0;i<accounts.length;i++){
+      if(accounts[i].id===pid){
+        if(pseudo)accounts[i].pseudo=pseudo;
+        if(avatar)accounts[i].avatar=avatar;
+        if(discordId)accounts[i].discordId=discordId;
+        if(platform)accounts[i].platform=platform;
+        break;
+      }
+    }
+    s(K.accounts,accounts);
+    ra();ok2('osf','Joueur mis a jour !');
+  }
+  cem();
+}
+function cem(){document.getElementById('emod').style.display='none';}
+
+// ── INIT ──
+function syn(){
+  var a=g(K.accounts)||[];
+  var creds=g(K.credits)||{};
+  var updated=false;
+  for(var i=0;i<a.length;i++){
+    var ac=a[i];
+    if(!creds[ac.pseudo]){
+      creds[ac.pseudo]={balance:100,platform:ac.platform||'',lastMove:ac.date||''};
+      var hist=g(K.crHist)||[];
+      hist.unshift({pseudo:ac.pseudo,amount:100,reason:'Bonus inscription',before:0,after:100,date:ac.date||''});
+      s(K.crHist,hist);
+      updated=true;
+    }
+  }
+  if(updated)s(K.credits,creds);
+}
+
+function la(){
+  syn();
+  ru();ra();rc();rch();rsh();
+  ucs();us();
+}
+
+window.addEventListener('storage',function(){la();});
+window.addEventListener('focus',function(){la();});
 </script>
 </body>
 </html>

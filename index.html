@@ -52,7 +52,7 @@
     color: var(--text);
   }
   .nav-logo span { color: var(--red); }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links { display: flex; gap: 1.2rem; list-style: none; }
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px;
@@ -515,18 +515,13 @@
 <nav>
   <div class="nav-logo">BADLAND <span>FR</span></div>
   <ul class="nav-links">
-    <li><a href="#about">Qui sommes-nous</a></li>
+    <li><a href="#about">Communauté</a></li>
     <li><a href="#presentation">Serveur</a></li>
+    <li><a href="#map">Map</a></li>
     <li><a href="#updates">Mises à jour</a></li>
-    <li><a href="#about">Qui sommes-nous</a>
-    <a href="#updates">Mises à jour</a>
-    <a href="#map">Map</a></li>
-    <li><a href="#reglement">Règlement</a></li>
     <li><a href="#evenements">Événements</a></li>
-    <li><a href="#galerie">Galerie</a></li>
     <li><a href="#boutique">Boutique</a></li>
     <li><a href="#staff">Staff</a></li>
-    <li><a href="#inscription">Inscription</a></li>
     <li><a href="#soutenir">Don</a></li>
   </ul>
   <div id="nav-auth">
@@ -1254,6 +1249,11 @@
             <input type="password" id="password" placeholder="Minimum 8 caractères">
           </div>
           <div class="form-group">
+            <label for="discord-id">ID Discord <span style="color:var(--red);">*</span></label>
+            <input type="text" id="discord-id" placeholder="Ex: 123456789012345678" maxlength="20" pattern="[0-9]+" title="Entrez uniquement les chiffres de votre ID Discord">
+            <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Pour trouver votre ID : Discord → Paramètres → Apparence → activer Mode développeur → clic droit sur votre pseudo → Copier l'identifiant</div>
+          </div>
+          <div class="form-group">
             <label for="platform">Plateforme</label>
             <select id="platform">
               <option value="">Choisir votre plateforme</option>
@@ -1620,8 +1620,8 @@
         <span style="font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);">Total</span>
         <span id="cart-total-val" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);"></span>
       </div>
-      <a id="cart-paypal-btn" href="https://paypal.me/Zzgalaxy933" target="_blank" style="display:block;width:100%;padding:13px;background:#003087;color:#fff;text-align:center;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;margin-bottom:.75rem;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);">💳 Payer via PayPal</button>
-      <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.6;">Apres paiement, envoyez une capture du paiement dans le Discord. Les credits seront credites sous 24h.</p>
+      <button onclick="checkout()" style="display:block;width:100%;padding:13px;background:#003087;color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;margin-bottom:.75rem;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);">💳 Valider et payer via PayPal</button>
+      <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.6;">Apres paiement, envoyez une capture dans le Discord. Credits credites sous 24h.</p>
     </div>
   </div>
 </div>
@@ -1952,12 +1952,14 @@ window.handleRegister = function() {
   var email     = document.getElementById('email').value.trim();
   var password  = document.getElementById('password').value;
   var platform  = document.getElementById('platform').value;
+  var discordId = document.getElementById('discord-id').value.trim();
   var rules     = document.getElementById('rules').checked;
 
   if (!pseudo) { alert('Veuillez entrer un pseudo.'); return; }
   if (!email)  { alert('Veuillez entrer une adresse e-mail.'); return; }
   if (password.length < 8) { alert('Le mot de passe doit faire au moins 8 caractères.'); return; }
   if (!platform) { alert('Veuillez choisir votre plateforme.'); return; }
+  if (!discordId || !/^[0-9]{17,20}$/.test(discordId)) { alert('Veuillez entrer un ID Discord valide (17-20 chiffres).\n\nComment le trouver : Discord → Paramètres → Apparence → Mode développeur → Clic droit sur votre pseudo → Copier l\'identifiant'); return; }
   if (!rules)    { alert('Vous devez accepter le règlement pour continuer.'); return; }
 
   var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
@@ -1969,7 +1971,7 @@ window.handleRegister = function() {
 
   var newAccount = {
     id: Date.now(), pseudo: pseudo, email: email,
-    platform: platform,
+    platform: platform, discordId: discordId,
     date: new Date().toLocaleString('fr-FR', { day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' })
   };
   accounts.push(newAccount);
@@ -2175,6 +2177,60 @@ function saveNewPassword() {
   localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
   document.getElementById('modal-changepwd').style.display = 'none';
   alert('Mot de passe change avec succes !');
+}
+
+
+function checkout() {
+  var user = getCurrentUser();
+  if (!user) { alert('Connectez-vous pour passer commande !'); return; }
+  if (!cart.length) { alert('Panier vide !'); return; }
+
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var acc = accounts.find(function(a){ return a.pseudo === user.pseudo; });
+  var discordId = acc ? (acc.discordId || '') : '';
+
+  var totalEur = 0, totalCr = 0;
+  var itemNames = [];
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    itemNames.push(item.name);
+    if (typeof item.price === 'string' && item.price.startsWith('cr:')) {
+      totalCr += item.credits;
+    } else {
+      totalEur += parseFloat(item.price) || 0;
+    }
+  }
+
+  // Sauvegarder la commande
+  var orders = JSON.parse(localStorage.getItem('badlandfr_orders') || '[]');
+  var order = {
+    id: Date.now(),
+    pseudo: user.pseudo,
+    discordId: discordId,
+    items: itemNames.join(', '),
+    totalEur: totalEur > 0 ? totalEur.toFixed(2) : null,
+    totalCr: totalCr > 0 ? totalCr : null,
+    status: 'en attente',
+    date: new Date().toLocaleString('fr-FR')
+  };
+  orders.unshift(order);
+  localStorage.setItem('badlandfr_orders', JSON.stringify(orders));
+
+  // Vider le panier
+  cart = [];
+  saveCart();
+  updateCartUI();
+  closeModal('modal-cart');
+
+  // Rediriger vers PayPal si paiement en euros
+  if (totalEur > 0) {
+    var msg = 'Commande enregistree !\n\nTotal : ' + totalEur.toFixed(2) + 'EUR\nArticles : ' + itemNames.join(', ') + '\n\nVous allez etre redirige vers PayPal.';
+    alert(msg);
+    window.open('https://paypal.me/Zzgalaxy933/' + totalEur.toFixed(2) + 'EUR', '_blank');
+  } else {
+    alert('Commande enregistree !\n\nTotal : ' + totalCr + ' credits\nArticles : ' + itemNames.join(', ') + '\n\nEnvoyez un message dans le Discord pour finaliser.');
+    window.open('https://discord.gg/AzPjjK5jSf', '_blank');
+  }
 }
 
 // Init panier
