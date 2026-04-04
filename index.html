@@ -1343,7 +1343,7 @@
         <div style="flex:1;height:1px;background:rgba(212,172,13,0.2);"></div>
       </div>
       <div style="display:flex;justify-content:center;">
-        <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.3);border-top:3px solid var(--gold);padding:2rem;text-align:center;width:220px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
+        <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.3);border-top:3px solid var(--gold);padding:2rem;text-align:center;width:220px;transition:transform .2s;">
           <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:3px solid var(--gold);box-shadow:0 0 20px rgba(212,172,13,0.3);">
             <img src="staff_greyfox.png" alt="Grey Fox" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
           </div>
@@ -1527,42 +1527,42 @@
     <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Packs de credits</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-bottom:3rem;">
 
-      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--text-muted);padding:1.5rem;text-align:center;transition:transform .2s,border-color .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderTopColor='var(--red)'" onmouseout="this.style.transform='none';this.style.borderTopColor='var(--text-muted)'">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--text-muted);padding:1.5rem;text-align:center;transition:transform .2s,border-color .2s;">
         <div id="promo-badge-pack100" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">100 CREDITS</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">4.00€</div>
+        <div id="promo-price-pack100" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);">4.00€</span></div></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Starter</div>
-        <button onclick="addToCart('100 Credits','4.00',100)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('100 Credits','4.00',100,'pack100')" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
-      <div style="background:var(--bg2);border:1px solid rgba(39,174,96,0.4);border-top:3px solid var(--green);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+      <div style="background:var(--bg2);border:1px solid rgba(39,174,96,0.4);border-top:3px solid var(--green);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Populaire</div>
         <div id="promo-badge-pack200" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">200 CREDITS</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);margin:.5rem 0;">8.00€</div>
+        <div id="promo-price-pack200" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);">8.00€</span></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Aventurier (200 cr)</div>
-        <button onclick="addToCart('200 Credits','8.00',200)" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('200 Credits','8.00',200,'pack200')" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
-      <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.4);border-top:3px solid var(--gold);padding:1.5rem;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+      <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.4);border-top:3px solid var(--gold);padding:1.5rem;text-align:center;transition:transform .2s;">
         <div id="promo-badge-pack500" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙🪙</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">500 CREDITS</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);margin:.5rem 0;">25.00€</div>
+        <div id="promo-price-pack500" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);">15.00€</span></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Survivant</div>
-        <button onclick="addToCart('500 Credits','15.00',500)" style="width:100%;padding:10px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('500 Credits','15.00',500,'pack500')" style="width:100%;padding:10px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
-      <div style="background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.5);border-top:3px solid var(--red);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+      <div style="background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.5);border-top:3px solid var(--red);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Meilleur prix</div>
         <div id="promo-badge-pack1000" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">💎</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">1000 CREDITS</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">25.00€</div>
+        <div id="promo-price-pack1000" style="margin:.5rem 0;"><span style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);">25.00€</span></div></div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Elite</div>
-        <button onclick="addToCart('1000 Credits','25.00',1000)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCartPromo('1000 Credits','25.00',1000,'pack1000')" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
     </div>
@@ -2591,27 +2591,55 @@ function renderGallery() {
 function renderPromos() {
   var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
   var packs = ['pack100','pack200','pack500','pack1000'];
+  var basePrices = { pack100:'4.00', pack200:'8.00', pack500:'15.00', pack1000:'25.00' };
+
   for (var i = 0; i < packs.length; i++) {
-    var badge = document.getElementById('promo-badge-' + packs[i]);
-    if (!badge) continue;
-    if (promos[packs[i]] && promos[packs[i]].active) {
-      badge.textContent = '🎁 ' + promos[packs[i]].label;
-      badge.style.display = 'block';
+    var packId = packs[i];
+    var badge = document.getElementById('promo-badge-'+packId);
+    var priceEl = document.getElementById('promo-price-'+packId);
+    var pr = promos[packId];
+
+    if (pr && pr.active) {
+      // Badge
+      if (badge) { badge.textContent = pr.label; badge.style.display = 'block'; }
+      // Prix
+      if (priceEl) {
+        var html = '';
+        if (pr.discountPct && pr.newPrice) {
+          html += '<span style="text-decoration:line-through;color:var(--text-muted);font-size:22px;margin-right:6px;">' + basePrices[packId] + '€</span>';
+          html += '<span style="color:var(--green);font-family:Bebas Neue,sans-serif;font-size:36px;">' + pr.newPrice + '€</span>';
+          html += '<span style="background:var(--green);color:#fff;font-family:Barlow Condensed,sans-serif;font-size:12px;letter-spacing:1px;padding:2px 8px;margin-left:6px;vertical-align:middle;">-' + pr.discountPct + '%</span>';
+        } else {
+          html += '<span style="font-family:Bebas Neue,sans-serif;font-size:36px;color:var(--red);">' + basePrices[packId] + '€</span>';
+        }
+        priceEl.innerHTML = html;
+      }
     } else {
-      badge.style.display = 'none';
+      if (badge) badge.style.display = 'none';
+      if (priceEl) {
+        priceEl.innerHTML = '<span style="font-family:Bebas Neue,sans-serif;font-size:36px;color:var(--red);">' + basePrices[packId] + '€</span>';
+      }
     }
   }
 }
 
+
 function addToCartPromo(name, price, credits, packId) {
   var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
   var bonus = 0;
-  if (promos[packId] && promos[packId].active && promos[packId].bonusCredits) {
-    bonus = parseInt(promos[packId].bonusCredits) || 0;
+  var finalPrice = price;
+  var displayName = name;
+
+  if (promos[packId] && promos[packId].active) {
+    var pr = promos[packId];
+    if (pr.bonusCredits) bonus = parseInt(pr.bonusCredits) || 0;
+    if (pr.discountPct && pr.newPrice) finalPrice = pr.newPrice;
   }
+
   var totalCredits = credits + bonus;
-  var displayName = bonus > 0 ? name + ' (+' + bonus + ' bonus)' : name;
-  addToCart(displayName, price, totalCredits);
+  if (bonus > 0) displayName += ' (+' + bonus + ' cr bonus)';
+  if (finalPrice !== price) displayName += ' [PROMO -' + promos[packId].discountPct + '%]';
+  addToCart(displayName, finalPrice, totalCredits);
 }
 
 // Init

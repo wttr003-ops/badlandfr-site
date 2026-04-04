@@ -292,52 +292,65 @@ textarea.fi{min-height:100px;}
       <div class="pn" id="ppr">
         <div class="sh"><h2>GESTION DES <span>PROMOTIONS</span></h2></div>
         <div class="om" id="opr">Promo mise a jour !</div>
-        <p style="font-size:13px;color:var(--mu);margin-bottom:1.5rem;">Activez une promo sur un pack pour offrir des credits bonus. Le badge s'affiche automatiquement sur le site.</p>
+        <p style="font-size:13px;color:var(--mu);margin-bottom:1.5rem;">Pour chaque pack, tu peux activer une reduction en % ET/OU des credits bonus. Les deux peuvent etre actifs en meme temps.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+
+          <!-- Pack 100 -->
           <div class="fb">
-            <h3>100 Credits — Pack Starter</h3>
+            <h3>100 Credits — Pack Starter <span style="font-size:11px;color:var(--mu);">Prix de base : 4.00€</span></h3>
+            <div class="fr"><label>Reduction % (barre le prix)</label><input type="number" id="pr-100-pct" class="fi" placeholder="Ex: 25" min="1" max="90"></div>
             <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-100-bonus" class="fi" placeholder="Ex: 50"></div>
-            <div class="fr"><label>Message badge</label><input type="text" id="pr-100-label" class="fi" placeholder="Ex: +50 OFFERTS"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-100-label" class="fi" placeholder="Ex: -25% ou +50 OFFERTS"></div>
             <div style="display:flex;gap:.75rem;">
               <button class="bt bg" onclick="setPromo('pack100')">Activer</button>
-              <button class="bt br" onclick="delPromo('pack100')">Désactiver</button>
+              <button class="bt br" onclick="delPromo('pack100')">Desactiver</button>
             </div>
-            <div id="pr-100-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+            <div id="pr-100-status" style="font-size:12px;margin-top:.5rem;"></div>
           </div>
+
+          <!-- Pack 200 -->
           <div class="fb">
-            <h3>200 Credits — Pack Aventurier</h3>
+            <h3>200 Credits — Pack Aventurier <span style="font-size:11px;color:var(--mu);">Prix de base : 8.00€</span></h3>
+            <div class="fr"><label>Reduction % (barre le prix)</label><input type="number" id="pr-200-pct" class="fi" placeholder="Ex: 25" min="1" max="90"></div>
             <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-200-bonus" class="fi" placeholder="Ex: 50"></div>
-            <div class="fr"><label>Message badge</label><input type="text" id="pr-200-label" class="fi" placeholder="Ex: +50 OFFERTS"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-200-label" class="fi" placeholder="Ex: -25% ou +50 OFFERTS"></div>
             <div style="display:flex;gap:.75rem;">
               <button class="bt bg" onclick="setPromo('pack200')">Activer</button>
-              <button class="bt br" onclick="delPromo('pack200')">Désactiver</button>
+              <button class="bt br" onclick="delPromo('pack200')">Desactiver</button>
             </div>
-            <div id="pr-200-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+            <div id="pr-200-status" style="font-size:12px;margin-top:.5rem;"></div>
           </div>
+
+          <!-- Pack 500 -->
           <div class="fb">
-            <h3>500 Credits — Pack Survivant</h3>
+            <h3>500 Credits — Pack Survivant <span style="font-size:11px;color:var(--mu);">Prix de base : 15.00€</span></h3>
+            <div class="fr"><label>Reduction % (barre le prix)</label><input type="number" id="pr-500-pct" class="fi" placeholder="Ex: 25" min="1" max="90"></div>
             <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-500-bonus" class="fi" placeholder="Ex: 100"></div>
-            <div class="fr"><label>Message badge</label><input type="text" id="pr-500-label" class="fi" placeholder="Ex: +100 OFFERTS"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-500-label" class="fi" placeholder="Ex: -25% ou +100 OFFERTS"></div>
             <div style="display:flex;gap:.75rem;">
               <button class="bt bg" onclick="setPromo('pack500')">Activer</button>
-              <button class="bt br" onclick="delPromo('pack500')">Désactiver</button>
+              <button class="bt br" onclick="delPromo('pack500')">Desactiver</button>
             </div>
-            <div id="pr-500-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+            <div id="pr-500-status" style="font-size:12px;margin-top:.5rem;"></div>
           </div>
+
+          <!-- Pack 1000 -->
           <div class="fb">
-            <h3>1000 Credits — Pack Elite</h3>
+            <h3>1000 Credits — Pack Elite <span style="font-size:11px;color:var(--mu);">Prix de base : 25.00€</span></h3>
+            <div class="fr"><label>Reduction % (barre le prix)</label><input type="number" id="pr-1000-pct" class="fi" placeholder="Ex: 25" min="1" max="90"></div>
             <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-1000-bonus" class="fi" placeholder="Ex: 200"></div>
-            <div class="fr"><label>Message badge</label><input type="text" id="pr-1000-label" class="fi" placeholder="Ex: +200 OFFERTS"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-1000-label" class="fi" placeholder="Ex: -25% ou +200 OFFERTS"></div>
             <div style="display:flex;gap:.75rem;">
               <button class="bt bg" onclick="setPromo('pack1000')">Activer</button>
-              <button class="bt br" onclick="delPromo('pack1000')">Désactiver</button>
+              <button class="bt br" onclick="delPromo('pack1000')">Desactiver</button>
             </div>
-            <div id="pr-1000-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+            <div id="pr-1000-status" style="font-size:12px;margin-top:.5rem;"></div>
           </div>
+
         </div>
       </div>
 
-      <!-- DATE OUVERTURE -->
+            <!-- DATE OUVERTURE -->
       <div class="pn" id="pod">
         <div class="sh"><h2>DATE D' <span>OUVERTURE</span></h2></div>
         <div class="om" id="ood">Date mise a jour sur le site !</div>
@@ -1167,19 +1180,34 @@ function delPhoto(id) {
 // ── PROMOTIONS ──
 function setPromo(packId) {
   var num = packId.replace('pack','');
-  var bonus = parseInt(document.getElementById('pr-' + num + '-bonus').value) || 0;
-  var label = document.getElementById('pr-' + num + '-label').value.trim();
-  if (!bonus || !label) { alert('Remplis le bonus et le message !'); return; }
+  var pct   = parseInt(document.getElementById('pr-'+num+'-pct').value) || 0;
+  var bonus = parseInt(document.getElementById('pr-'+num+'-bonus').value) || 0;
+  var label = document.getElementById('pr-'+num+'-label').value.trim();
+  if (!pct && !bonus) { alert('Entre au moins une reduction % ou des credits bonus !'); return; }
+  if (!label) { alert('Entre un message pour le badge !'); return; }
   var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
-  promos[packId] = { active: true, bonusCredits: bonus, label: label, since: new Date().toLocaleString('fr-FR') };
+  var basePrices = { pack100: 4.00, pack200: 8.00, pack500: 15.00, pack1000: 25.00 };
+  var base = basePrices[packId] || 0;
+  var newPrice = pct > 0 ? (base * (1 - pct/100)).toFixed(2) : null;
+  promos[packId] = {
+    active: true,
+    discountPct: pct || 0,
+    bonusCredits: bonus || 0,
+    newPrice: newPrice,
+    label: label,
+    since: new Date().toLocaleString('fr-FR')
+  };
   localStorage.setItem('badlandfr_promos', JSON.stringify(promos));
-  ok2('opr', 'Promo ' + packId + ' activee : +' + bonus + ' credits bonus !');
+  var msg = packId + ' active : ';
+  if (pct) msg += '-' + pct + '% (nouveau prix : ' + newPrice + 'EUR) ';
+  if (bonus) msg += '+' + bonus + ' credits bonus';
+  ok2('opr', msg);
   renderPromosAdmin();
 }
 
 function delPromo(packId) {
   var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
-  if (promos[packId]) { promos[packId].active = false; }
+  if (promos[packId]) promos[packId].active = false;
   localStorage.setItem('badlandfr_promos', JSON.stringify(promos));
   ok2('opr', 'Promo desactivee.');
   renderPromosAdmin();
@@ -1190,12 +1218,23 @@ function renderPromosAdmin() {
   var packs = ['100','200','500','1000'];
   for (var i = 0; i < packs.length; i++) {
     var n = packs[i];
-    var el = document.getElementById('pr-' + n + '-status');
+    var el = document.getElementById('pr-'+n+'-status');
     if (!el) continue;
-    var pr = promos['pack' + n];
+    var pr = promos['pack'+n];
     if (pr && pr.active) {
-      el.textContent = 'ACTIVE : +' + pr.bonusCredits + ' cr — "' + pr.label + '"';
+      var txt = 'ACTIVE : ';
+      if (pr.discountPct) txt += '-' + pr.discountPct + '% → ' + pr.newPrice + 'EUR ';
+      if (pr.bonusCredits) txt += '+' + pr.bonusCredits + ' cr bonus ';
+      txt += '— "' + pr.label + '"';
+      el.textContent = txt;
       el.style.color = '#27ae60';
+      // Remplir les champs avec les valeurs actuelles
+      var pctEl = document.getElementById('pr-'+n+'-pct');
+      var bonusEl = document.getElementById('pr-'+n+'-bonus');
+      var labelEl = document.getElementById('pr-'+n+'-label');
+      if (pctEl && pr.discountPct) pctEl.value = pr.discountPct;
+      if (bonusEl && pr.bonusCredits) bonusEl.value = pr.bonusCredits;
+      if (labelEl && pr.label) labelEl.value = pr.label;
     } else {
       el.textContent = 'Aucune promo active';
       el.style.color = 'var(--mu)';
