@@ -2614,22 +2614,31 @@ function makePlaceholderCard(borderColor, role) {
 function renderStaff() {
   var stored = JSON.parse(localStorage.getItem('badlandfr_staff') || '[]');
 
-  // Membres fixes de base
+  // Membres fixes toujours présents
   var baseStaff = [
     { id:'sia', pseudo:'Admin Badlands', role:'Administrateur', discord:'Admin Badlands#6760', avatar:'staff_default.svg' },
     { id:'sir', pseudo:'RBXZ90', role:'Moderateur', discord:'rbx90', avatar:'staff_default.svg' }
   ];
 
-  // Fusionner base + stored (éviter doublons par id)
-  var allStaff = baseStaff.slice();
-  for (var i = 0; i < stored.length; i++) {
-    var exists = allStaff.find(function(m){ return m.id === stored[i].id; });
-    if (!exists) allStaff.push(stored[i]);
-    else {
-      // Mettre à jour le membre de base si modifié
-      for (var j = 0; j < allStaff.length; j++) {
-        if (allStaff[j].id === stored[i].id) { allStaff[j] = stored[i]; break; }
-      }
+  // Fusionner: les stored écrasent les base si même id, sinon s'ajoutent
+  var allStaff = [];
+  var storedIds = stored.map(function(m){ return m.id; });
+  
+  // Ajouter les membres de base non remplacés
+  for (var b = 0; b < baseStaff.length; b++) {
+    var idx = storedIds.indexOf(baseStaff[b].id);
+    if (idx >= 0) {
+      allStaff.push(stored[idx]); // version modifiée
+    } else {
+      allStaff.push(baseStaff[b]); // version originale
+    }
+  }
+  
+  // Ajouter les nouveaux membres (pas dans baseStaff)
+  var baseIds = baseStaff.map(function(m){ return m.id; });
+  for (var s = 0; s < stored.length; s++) {
+    if (baseIds.indexOf(stored[s].id) === -1) {
+      allStaff.push(stored[s]);
     }
   }
 

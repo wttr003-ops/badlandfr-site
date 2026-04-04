@@ -357,10 +357,6 @@ textarea.fi{min-height:100px;}
       </div>
 
       <!-- VIP -->
-      <div class="pn" id="pvp2">
-        <!-- sera utilisé pour PvP plus bas -->
-      </div>
-
       <div class="pn" id="pvp">
         <div class="sh"><h2>GESTION <span>VIP</span></h2></div>
         <div class="om" id="ovp">VIP mis a jour !</div>
@@ -460,12 +456,14 @@ function s(k,v){localStorage.setItem(k,JSON.stringify(v));}
 function ok2(id,msg){var e=document.getElementById(id);if(!e)return;e.textContent=msg;e.style.display='block';setTimeout(function(){e.style.display='none';},4000);}
 
 function cl(){
-  if(document.getElementById('pwd').value===PWD){
+  var val = document.getElementById('pwd').value;
+  if(val === PWD){
     document.getElementById('ls').style.display='none';
     document.getElementById('ap').style.display='block';
-    la();
+    try { la(); } catch(err) { console.error('Erreur la():', err); }
   }else{
-    var e=document.getElementById('le');e.style.display='block';
+    var e=document.getElementById('le');
+    e.style.display='block';
     document.getElementById('pwd').value='';
     setTimeout(function(){e.style.display='none';},3000);
   }
@@ -514,23 +512,77 @@ function du2(id){
 
 // ── STAFF ──
 function ast(){
-  var p=document.getElementById('stp').value.trim();
-  var d=document.getElementById('std').value.trim();
-  var r=document.getElementById('str').value;
-  if(!p){alert('Pseudo requis !');return;}
-  var id='sti'+Date.now();
-  var item=document.createElement('div');
-  item.className='sti';item.id=id;
-  item.innerHTML='<div class="sav"><img src="staff_default.svg" id="img-'+id+'" alt="'+p+'"></div>'+
-    '<div style="flex:1;"><div id="nm-'+id+'" style="font-size:16px;color:#fff;">'+p+'</div>'+
-    '<div id="rl-'+id+'" style="font-size:12px;color:var(--mu);">'+r+(d?' — '+d:'')+'</div></div>'+
-    '<div style="display:flex;gap:4px;">'+
-    '<button class="bt bo2" onclick="edi(\''+id+'\',\''+p+'\',\''+r+'\',\''+d+'\',\'staff_default.svg\')" style="padding:6px 10px;font-size:11px;">Modifier</button>'+
-    '<button class="bt bgr" onclick="rst(\''+id+'\')" style="padding:6px 10px;font-size:11px;">Retirer</button>'+
-    '</div>';
+  var p = document.getElementById('stp').value.trim();
+  var d = document.getElementById('std').value.trim();
+  var r = document.getElementById('str').value;
+  if(!p){ alert('Pseudo requis !'); return; }
+  var id = 'sti' + Date.now();
+
+  // Sauvegarder dans localStorage
+  var staffList = JSON.parse(localStorage.getItem('badlandfr_staff') || '[]');
+  staffList.push({ id: id, pseudo: p, discord: d, role: r, avatar: 'staff_default.svg' });
+  localStorage.setItem('badlandfr_staff', JSON.stringify(staffList));
+
+  // Créer l'élément DOM sans innerHTML complexe
+  var item = document.createElement('div');
+  item.className = 'sti';
+  item.id = id;
+
+  var av = document.createElement('div');
+  av.className = 'sav';
+  var img = document.createElement('img');
+  img.src = 'staff_default.svg';
+  img.id = 'img-' + id;
+  av.appendChild(img);
+
+  var info = document.createElement('div');
+  info.style.flex = '1';
+  var nm = document.createElement('div');
+  nm.id = 'nm-' + id;
+  nm.style.cssText = 'font-size:16px;color:#fff;';
+  nm.textContent = p;
+  var rl = document.createElement('div');
+  rl.id = 'rl-' + id;
+  rl.style.cssText = 'font-size:12px;color:var(--mu);';
+  rl.textContent = r + (d ? ' — ' + d : '');
+  info.appendChild(nm);
+  info.appendChild(rl);
+
+  var btns = document.createElement('div');
+  btns.style.cssText = 'display:flex;gap:4px;';
+
+  var btnMod = document.createElement('button');
+  btnMod.className = 'bt bo2';
+  btnMod.style.cssText = 'padding:6px 10px;font-size:11px;';
+  btnMod.textContent = 'Modifier';
+  btnMod.setAttribute('data-id', id);
+  btnMod.setAttribute('data-pseudo', p);
+  btnMod.setAttribute('data-role', r);
+  btnMod.setAttribute('data-discord', d);
+  btnMod.setAttribute('data-avatar', 'staff_default.svg');
+  btnMod.onclick = function() {
+    var b = this;
+    edi(b.getAttribute('data-id'), b.getAttribute('data-pseudo'), b.getAttribute('data-role'), b.getAttribute('data-discord'), b.getAttribute('data-avatar'));
+  };
+
+  var btnRet = document.createElement('button');
+  btnRet.className = 'bt bgr';
+  btnRet.style.cssText = 'padding:6px 10px;font-size:11px;';
+  btnRet.textContent = 'Retirer';
+  btnRet.setAttribute('data-id', id);
+  btnRet.onclick = function() { rst(this.getAttribute('data-id')); };
+
+  btns.appendChild(btnMod);
+  btns.appendChild(btnRet);
+  item.appendChild(av);
+  item.appendChild(info);
+  item.appendChild(btns);
+
   document.getElementById('stl').appendChild(item);
-  document.getElementById('stp').value='';document.getElementById('std').value='';
-  ok2('osf','Membre ajoute !');us();
+  document.getElementById('stp').value = '';
+  document.getElementById('std').value = '';
+  ok2('osf', 'Membre ajouté ! Visible sur le site.');
+  us();
 }
 function rst(id){
   if(!confirm('Retirer ce membre du staff ?'))return;
@@ -899,38 +951,95 @@ function syn(){
 }
 
 function la(){
-  syn();
-  ru();ra();rc();rch();rsh();rco();
-  renderGalleryAdmin();renderPromosAdmin();loadOpeningDate();
-  loadSavedStaff();renderVipAdmin();renderPvpAdmin();
-  ucs();us();
+  try { syn(); } catch(e) { console.error('syn:', e); }
+  try { ru(); } catch(e) { console.error('ru:', e); }
+  try { ra(); } catch(e) { console.error('ra:', e); }
+  try { rc(); } catch(e) { console.error('rc:', e); }
+  try { rch(); } catch(e) { console.error('rch:', e); }
+  try { rsh(); } catch(e) { console.error('rsh:', e); }
+  try { rco(); } catch(e) { console.error('rco:', e); }
+  try { renderGalleryAdmin(); } catch(e) { console.error('gallery:', e); }
+  try { renderPromosAdmin(); } catch(e) { console.error('promos:', e); }
+  try { loadOpeningDate(); } catch(e) { console.error('opendate:', e); }
+  try { loadSavedStaff(); } catch(e) { console.error('staff:', e); }
+  try { renderVipAdmin(); } catch(e) { console.error('vip:', e); }
+  try { renderPvpAdmin(); } catch(e) { console.error('pvp:', e); }
+  try { ucs(); us(); } catch(e) { console.error('stats:', e); }
 }
 
 function loadSavedStaff() {
-  var staffList=JSON.parse(localStorage.getItem('badlandfr_staff')||'[]');
-  var container=document.getElementById('stl');
-  if(!container)return;
-  // Supprimer les membres dynamiques déjà affichés (garder les fixes)
-  var dynamic=container.querySelectorAll('[id^="sti"]');
-  for(var i=0;i<dynamic.length;i++)dynamic[i].remove();
-  // Réafficher
-  for(var j=0;j<staffList.length;j++){
-    var m=staffList[j];
-    var item=document.createElement('div');
-    item.className='sti';item.id=m.id;
-    item.innerHTML='<div class="sav"><img src="'+(m.avatar||'staff_default.svg')+'" id="img-'+m.id+'" alt="'+m.pseudo+'"></div>'+
-      '<div style="flex:1;"><div id="nm-'+m.id+'" style="font-size:16px;color:#fff;">'+m.pseudo+'</div>'+
-      '<div id="rl-'+m.id+'" style="font-size:12px;color:var(--mu);">'+m.role+(m.discord?' — '+m.discord:'')+'</div></div>'+
-      '<div style="display:flex;gap:4px;">'+
-      '<button class="bt bo2" onclick="edi(''+m.id+'',''+m.pseudo+'',''+m.role+'',''+(m.discord||'')+'',''+(m.avatar||'staff_default.svg')+'')" style="padding:6px 10px;font-size:11px;">Modifier</button>'+
-      '<button class="bt bgr" onclick="rst(''+m.id+'')" style="padding:6px 10px;font-size:11px;">Retirer</button>'+
-      '</div>';
+  var staffList = JSON.parse(localStorage.getItem('badlandfr_staff') || '[]');
+  var container = document.getElementById('stl');
+  if (!container) return;
+
+  // Supprimer les membres dynamiques existants (id commence par sti)
+  var toRemove = [];
+  var children = container.children;
+  for (var i = 0; i < children.length; i++) {
+    if (children[i].id && children[i].id.indexOf('sti') === 0) {
+      toRemove.push(children[i]);
+    }
+  }
+  for (var j = 0; j < toRemove.length; j++) toRemove[j].remove();
+
+  // Recréer chaque membre
+  for (var k = 0; k < staffList.length; k++) {
+    var m = staffList[k];
+    var item = document.createElement('div');
+    item.className = 'sti';
+    item.id = m.id;
+
+    var av = document.createElement('div');
+    av.className = 'sav';
+    var img = document.createElement('img');
+    img.src = m.avatar || 'staff_default.svg';
+    img.id = 'img-' + m.id;
+    av.appendChild(img);
+
+    var info = document.createElement('div');
+    info.style.flex = '1';
+    var nm = document.createElement('div');
+    nm.id = 'nm-' + m.id;
+    nm.style.cssText = 'font-size:16px;color:#fff;';
+    nm.textContent = m.pseudo;
+    var rl = document.createElement('div');
+    rl.id = 'rl-' + m.id;
+    rl.style.cssText = 'font-size:12px;color:var(--mu);';
+    rl.textContent = m.role + (m.discord ? ' — ' + m.discord : '');
+    info.appendChild(nm);
+    info.appendChild(rl);
+
+    var btns = document.createElement('div');
+    btns.style.cssText = 'display:flex;gap:4px;';
+
+    var btnMod = document.createElement('button');
+    btnMod.className = 'bt bo2';
+    btnMod.style.cssText = 'padding:6px 10px;font-size:11px;';
+    btnMod.textContent = 'Modifier';
+    btnMod.setAttribute('data-id', m.id);
+    btnMod.setAttribute('data-pseudo', m.pseudo);
+    btnMod.setAttribute('data-role', m.role);
+    btnMod.setAttribute('data-discord', m.discord || '');
+    btnMod.setAttribute('data-avatar', m.avatar || 'staff_default.svg');
+    btnMod.onclick = function() {
+      edi(this.getAttribute('data-id'), this.getAttribute('data-pseudo'), this.getAttribute('data-role'), this.getAttribute('data-discord'), this.getAttribute('data-avatar'));
+    };
+
+    var btnRet = document.createElement('button');
+    btnRet.className = 'bt bgr';
+    btnRet.style.cssText = 'padding:6px 10px;font-size:11px;';
+    btnRet.textContent = 'Retirer';
+    btnRet.setAttribute('data-id', m.id);
+    btnRet.onclick = function() { rst(this.getAttribute('data-id')); };
+
+    btns.appendChild(btnMod);
+    btns.appendChild(btnRet);
+    item.appendChild(av);
+    item.appendChild(info);
+    item.appendChild(btns);
     container.appendChild(item);
   }
 }
-
-
-
 function rco() {
   var comments = JSON.parse(localStorage.getItem('badlandfr_comments') || '[]');
   var ct = document.getElementById('co-total'); if(ct) ct.textContent = comments.length;
@@ -977,19 +1086,39 @@ function renderGalleryAdmin() {
   var photos = JSON.parse(localStorage.getItem('badlandfr_gallery') || '[]');
   var c = document.getElementById('gl-list');
   if (!c) return;
-  if (!photos.length) { c.innerHTML = '<p style="font-size:13px;color:var(--mu);">Aucune photo.</p>'; return; }
-  var h = '';
+  if (!photos.length) {
+    c.innerHTML = '<p style="font-size:13px;color:var(--mu);">Aucune photo.</p>';
+    return;
+  }
+  // Vider le container
+  c.innerHTML = '';
   for (var i = 0; i < photos.length; i++) {
     var p = photos[i];
-    h += '<div style="display:flex;align-items:center;gap:12px;padding:.75rem 0;border-bottom:1px solid var(--bo);">';
-    h += '<img src="' + p.url + '" style="width:80px;height:50px;object-fit:cover;border:1px solid var(--bo);" onerror="this.style.display='none'">';
-    h += '<div style="flex:1;font-size:13px;color:var(--tx);">' + (p.caption || 'Sans légende') + '</div>';
-    h += '<button class="bt br" onclick="delPhoto(' + p.id + ')" style="padding:4px 10px;font-size:11px;">Suppr</button>';
-    h += '</div>';
-  }
-  c.innerHTML = h;
-}
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:12px;padding:.75rem 0;border-bottom:1px solid var(--bo);';
 
+    var img = document.createElement('img');
+    img.src = p.url;
+    img.style.cssText = 'width:80px;height:50px;object-fit:cover;border:1px solid var(--bo);';
+    img.onerror = function(){ this.style.display = 'none'; };
+
+    var caption = document.createElement('div');
+    caption.style.cssText = 'flex:1;font-size:13px;color:var(--tx);';
+    caption.textContent = p.caption || 'Sans legende';
+
+    var btn = document.createElement('button');
+    btn.className = 'bt br';
+    btn.style.cssText = 'padding:4px 10px;font-size:11px;';
+    btn.textContent = 'Suppr';
+    btn.setAttribute('data-id', p.id);
+    btn.onclick = function(){ delPhoto(parseInt(this.getAttribute('data-id'))); };
+
+    row.appendChild(img);
+    row.appendChild(caption);
+    row.appendChild(btn);
+    c.appendChild(row);
+  }
+}
 function delPhoto(id) {
   if (!confirm('Supprimer cette photo ?')) return;
   var photos = (JSON.parse(localStorage.getItem('badlandfr_gallery') || '[]')).filter(function(p){ return p.id !== id; });
