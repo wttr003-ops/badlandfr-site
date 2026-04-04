@@ -517,16 +517,51 @@
   <ul class="nav-links">
     <li><a href="#about">Qui sommes-nous</a></li>
     <li><a href="#presentation">Serveur</a></li>
+    <li><a href="#updates">Mises à jour</a></li>
     <li><a href="#about">Qui sommes-nous</a>
+    <a href="#updates">Mises à jour</a>
     <a href="#map">Map</a></li>
     <li><a href="#reglement">Règlement</a></li>
     <li><a href="#evenements">Événements</a></li>
     <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#boutique">Boutique</a></li>
     <li><a href="#staff">Staff</a></li>
     <li><a href="#inscription">Inscription</a></li>
     <li><a href="#soutenir">Don</a></li>
   </ul>
-  <a href="#inscription" class="nav-cta">Rejoindre</a>
+  <div id="nav-auth">
+    <!-- Affiché si non connecté -->
+    <a href="#inscription" class="nav-cta" id="btn-rejoindre">Rejoindre</a>
+    <!-- Affiché si connecté -->
+    <div id="user-profile" style="display:none;position:relative;">
+      <div id="profile-btn" onclick="toggleProfileMenu()" style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 12px;border:1px solid var(--border);transition:border-color .2s;" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div id="profile-avatar" style="width:32px;height:32px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;overflow:hidden;">
+          <img id="profile-avatar-img" src="" style="width:100%;height:100%;object-fit:cover;display:none;">
+          <span id="profile-avatar-letter">?</span>
+        </div>
+        <div>
+          <div id="profile-pseudo" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;color:#fff;line-height:1;"></div>
+          <div id="profile-credits" style="font-size:11px;color:var(--gold);line-height:1;margin-top:2px;">0 🪙</div>
+        </div>
+        <span style="color:var(--text-muted);font-size:10px;">▼</span>
+      </div>
+      <!-- Menu déroulant -->
+      <div id="profile-menu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--red);min-width:200px;z-index:200;">
+        <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);">
+          <div style="font-size:12px;color:var(--text-muted);">Connecté en tant que</div>
+          <div id="menu-pseudo" style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;"></div>
+          <div id="menu-platform" style="font-size:11px;color:var(--text-muted);"></div>
+        </div>
+        <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:13px;color:var(--text-muted);">Mes crédits</span>
+          <span id="menu-credits" style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);">0 🪙</span>
+        </div>
+        <a href="#boutique" onclick="closeProfileMenu()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">🛒 Boutique</a>
+        <a href="#profil-section" onclick="openProfileEdit()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">⚙️ Mon profil</a>
+        <div onclick="logoutUser()" style="padding:.75rem 1rem;font-size:13px;color:var(--red);cursor:pointer;transition:background .2s;" onmouseover="this.style.background='rgba(192,57,43,0.1)'" onmouseout="this.style.background='transparent'">🚪 Déconnexion</div>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <!-- ── HERO ── -->
@@ -1121,8 +1156,24 @@
   </div>
 </section>
 
+
+<!-- ── MISES À JOUR ── -->
+<section id="updates" style="background:var(--bg2); padding:6rem 0;">
+  <div class="container">
+    <div class="section-label">Actualités du serveur</div>
+    <h2 class="section-title">MISES À <span>JOUR</span></h2>
+    <p class="section-desc">Toutes les dernières mises à jour, événements et annonces du serveur Badland FR.</p>
+
+    <div id="updates-public-list">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--text-muted);padding:1.5rem 2rem;text-align:center;">
+        <p style="font-size:14px;color:var(--text-muted);">⏳ Aucune mise à jour publiée pour l'instant. Revenez bientôt !</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── GALERIE ── -->
-<section id="galerie">
+<section id="galerie" style="padding-bottom: 8rem;">
   <div class="container">
     <div class="section-label">Captures du serveur</div>
     <h2 class="section-title">GALERIE <span>PHOTOS</span></h2>
@@ -1304,7 +1355,7 @@
 
         <div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:2rem;text-align:center;width:200px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
           <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:2px solid var(--red);box-shadow:0 0 16px rgba(192,57,43,0.25);">
-            <img src="staff_adminbadlands.png" alt="Admin Badlands" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+            <img src="staff_default.svg" alt="Admin Badlands" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
           </div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;margin-bottom:2px;">Admin Badlands</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.75rem;">Administrateur</div>
@@ -1335,7 +1386,7 @@
 
         <div style="background:var(--bg2);border:1px solid rgba(230,126,34,0.3);border-top:3px solid #e67e22;padding:2rem;text-align:center;width:200px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
           <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:2px solid #e67e22;box-shadow:0 0 16px rgba(230,126,34,0.2);">
-            <img src="staff_rbxz90.png" alt="RBXZ90" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
+            <img src="staff_default.svg" alt="RBXZ90" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
           </div>
           <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;margin-bottom:2px;">RBXZ90</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#e67e22;margin-bottom:.75rem;">Modérateur</div>
@@ -1423,6 +1474,158 @@
   </div>
 </section>
 
+
+<!-- ── MAGASIN ── -->
+<section id="boutique" style="background:var(--bg); padding:6rem 0;">
+  <div class="container">
+    <div class="section-label">Boutique</div>
+    <h2 class="section-title">MAGASIN DE <span>CREDITS</span></h2>
+    <p class="section-desc">Achetez des credits pour debloquer des avantages exclusifs sur le serveur. Paiement via PayPal apres validation de votre panier.</p>
+
+    <!-- Info paiement -->
+    <div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid var(--gold);padding:1rem 1.5rem;margin-bottom:3rem;display:flex;gap:12px;align-items:flex-start;">
+      <span style="font-size:20px;flex-shrink:0;">💡</span>
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">Comment ca marche ?</p>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;">Ajoutez des articles a votre panier, passez commande et effectuez votre paiement via PayPal. Les credits seront ajoutes manuellement par l'equipe admin apres confirmation du paiement. Aucun avantage en jeu direct — equite garantie pour tous.</p>
+      </div>
+    </div>
+
+    <!-- PACKS DE CREDITS -->
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Packs de credits</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-bottom:3rem;">
+
+      <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--text-muted);padding:1.5rem;text-align:center;transition:transform .2s,border-color .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderTopColor='var(--red)'" onmouseout="this.style.transform='none';this.style.borderTopColor='var(--text-muted)'">
+        <div style="font-size:32px;margin-bottom:.75rem;">🪙</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">100 Credits</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">2.50€</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Starter</div>
+        <button onclick="addToCart('100 Credits','2.50',100)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(39,174,96,0.4);border-top:3px solid var(--green);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Populaire</div>
+        <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">250 Credits</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);margin:.5rem 0;">5.00€</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Aventurier</div>
+        <button onclick="addToCart('250 Credits','5.00',250)" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.4);border-top:3px solid var(--gold);padding:1.5rem;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙🪙</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">500 Credits</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);margin:.5rem 0;">9.00€</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Survivant</div>
+        <button onclick="addToCart('500 Credits','9.00',500)" style="width:100%;padding:10px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.5);border-top:3px solid var(--red);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Meilleur prix</div>
+        <div style="font-size:32px;margin-bottom:.75rem;">💎</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">1000 Credits</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">15.00€</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Elite</div>
+        <button onclick="addToCart('1000 Credits','15.00',1000)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+      </div>
+
+    </div>
+
+    <!-- SERVICES EN JEUX -->
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Services en jeu (payer avec vos credits)</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:3rem;">
+
+      <div style="background:var(--bg2);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:28px;flex-shrink:0;">🏳️</span>
+        <div style="flex:1;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Priorite Joueur Solo</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Place prioritaire sur le serveur. PSN de votre choix.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">50 🪙</span>
+            <button onclick="addToCart('Priorite Solo','cr:50',50)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:28px;flex-shrink:0;">👥</span>
+        <div style="flex:1;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Priorite Faction (5 joueurs max)</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Place prioritaire pour votre faction. PSN de chaque membre.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">150 🪙</span>
+            <button onclick="addToCart('Priorite Faction','cr:150',150)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:28px;flex-shrink:0;">🏗️</span>
+        <div style="flex:1;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Modelisation de base</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Materiaux de construction deposes a votre base.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">200 🪙</span>
+            <button onclick="addToCart('Modelisation base','cr:200',200)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:28px;flex-shrink:0;">🚗</span>
+        <div style="flex:1;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Spawn vehicule</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Un vehicule spawn a votre position. Modele au choix.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">230 🪙</span>
+            <button onclick="addToCart('Spawn vehicule','cr:230',230)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg2);border:1px solid var(--border);padding:1.25rem;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:28px;flex-shrink:0;">🎽</span>
+        <div style="flex:1;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Kit equipement complet</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Tenue militaire + gilet + armement au choix. Pas d'explosifs.</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">350 🪙</span>
+            <button onclick="addToCart('Kit equipement','cr:350',350)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PANIER FLOTTANT -->
+    <div id="cart-float" style="display:none;position:fixed;bottom:2rem;right:2rem;z-index:300;">
+      <button onclick="toggleCart()" style="background:var(--red);color:#fff;border:none;cursor:pointer;padding:14px 20px;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:2px;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(192,57,43,0.4);">
+        🛒 Panier <span id="cart-count" style="background:#fff;color:var(--red);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;">0</span>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── MODAL PANIER ── -->
+<div id="modal-cart" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:flex-start;justify-content:flex-end;padding:1rem;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);padding:2rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;margin-top:60px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#fff;">MON <span style="color:var(--red);">PANIER</span></h2>
+      <button onclick="closeModal('modal-cart')" style="background:transparent;border:none;color:var(--text-muted);font-size:24px;cursor:pointer;">✕</button>
+    </div>
+    <div id="cart-items"><p style="font-size:13px;color:var(--text-muted);">Panier vide.</p></div>
+    <div id="cart-total" style="display:none;border-top:1px solid var(--border);padding-top:1rem;margin-top:1rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);">Total</span>
+        <span id="cart-total-val" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);"></span>
+      </div>
+      <a id="cart-paypal-btn" href="https://paypal.me/Zzgalaxy933" target="_blank" style="display:block;width:100%;padding:13px;background:#003087;color:#fff;text-align:center;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;margin-bottom:.75rem;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);">💳 Payer via PayPal</button>
+      <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.6;">Apres paiement, envoyez une capture du paiement dans le Discord. Les credits seront credites sous 24h.</p>
+    </div>
+  </div>
+</div>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-logo">BADLAND <span>FR</span></div>
@@ -1436,6 +1639,7 @@
     <a href="#soutenir">Don</a>
     <a href="https://discord.gg/AzPjjK5jSf" target="_blank">Discord</a>
   </div>
+  <a href="admin.html" style="display:block;font-size:11px;color:rgba(255,255,255,0.08);text-decoration:none;margin-bottom:1rem;letter-spacing:1px;" onmouseover="this.style.color='rgba(255,255,255,0.2)'" onmouseout="this.style.color='rgba(255,255,255,0.08)'">⚙</a>
   <p class="footer-copy">Badland FR — Serveur non officiel. DayZ est une marque de Bohemia Interactive. Ce site est créé par et pour la communauté.</p>
 </footer>
 
@@ -1488,7 +1692,24 @@ function handleRegister() {
   if (!platform)  { alert('Veuillez choisir votre plateforme.'); return; }
   if (!rules)     { alert('Vous devez accepter le règlement pour continuer.'); return; }
 
+  // Sauvegarder le compte
+  const accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  accounts.push({
+    id: Date.now(),
+    pseudo, email,
+    platform: document.getElementById('platform').value,
+    date: new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' })
+  });
+  localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
+
   alert('✅ Compte créé avec succès ! \n\nBienvenue ' + pseudo + ' !\nRejoignez notre Discord pour finaliser votre inscription et recevoir votre rôle de survivant.');
+  
+  // Reset form
+  document.getElementById('pseudo').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('platform').value = '';
+  document.getElementById('rules').checked = false;
 }
 
 // ── SMOOTH NAV HIGHLIGHT ──
@@ -1504,5 +1725,462 @@ window.addEventListener('scroll', () => {
   });
 });
 </script>
+
+
+
+
+<script>
+function loadPublicUpdates() {
+  var updates = JSON.parse(localStorage.getItem('badlandfr_updates') || '[]');
+  var container = document.getElementById('updates-public-list');
+  if (!container) return;
+
+  if (!updates.length) {
+    container.innerHTML = '<div style="background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--text-muted);padding:1.5rem 2rem;text-align:center;"><p style="font-size:14px;color:var(--text-muted);">\u23F3 Aucune mise \u00e0 jour publi\u00e9e pour l\'instant. Revenez bient\u00f4t !</p></div>';
+    return;
+  }
+
+  var html = '';
+  for (var i = 0; i < updates.length; i++) {
+    var u = updates[i];
+    html += '<div style="background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--red);padding:1.5rem 2rem;margin-bottom:1rem;">';
+    html += '<div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.75rem;">';
+    html += '<div>';
+    html += '<span style="background:rgba(192,57,43,0.15);color:var(--red);border:1px solid rgba(192,57,43,0.3);font-family:\'Barlow Condensed\',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;margin-right:8px;">' + u.type + '</span>';
+    html += '<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:18px;letter-spacing:1px;color:#fff;">' + u.title + '</span>';
+    html += '</div>';
+    html += '<span style="font-family:\'Share Tech Mono\',monospace;font-size:11px;color:var(--text-muted);flex-shrink:0;">\uD83D\uDCC5 ' + u.date + '</span>';
+    html += '</div>';
+    html += '<p style="font-size:14px;color:var(--text-muted);line-height:1.8;white-space:pre-line;">' + u.desc + '</p>';
+    html += '</div>';
+  }
+  container.innerHTML = html;
+}
+loadPublicUpdates();
+window.addEventListener('storage', loadPublicUpdates);
+</script>
+
+
+<!-- ── MODAL PROFIL ── -->
+<div id="modal-profil" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);padding:2rem;width:100%;max-width:460px;position:relative;">
+    <button onclick="closeModal('modal-profil')" style="position:absolute;top:1rem;right:1rem;background:transparent;border:none;color:var(--text-muted);font-size:20px;cursor:pointer;">✕</button>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:#fff;margin-bottom:1.5rem;">MON <span style="color:var(--red);">PROFIL</span></h2>
+
+    <!-- Avatar -->
+    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+      <div id="modal-avatar-preview" style="width:64px;height:64px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;overflow:hidden;flex-shrink:0;border:2px solid var(--border);">
+        <img id="modal-avatar-img" src="" style="width:100%;height:100%;object-fit:cover;display:none;">
+        <span id="modal-avatar-letter">?</span>
+      </div>
+      <div>
+        <label style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:4px;">Photo de profil (URL)</label>
+        <input type="text" id="input-avatar-url" placeholder="https://..." oninput="previewAvatar()" style="width:100%;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;">
+        <div style="font-size:11px;color:var(--text-muted);margin-top:3px;">Colle l'URL d'une image (Discord, Imgur...)</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:1rem;">
+      <label style="font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px;">Pseudo en jeu</label>
+      <input type="text" id="input-new-pseudo" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;">
+    </div>
+
+    <div style="background:var(--bg3);border:1px solid var(--border);padding:1rem;margin-bottom:1.5rem;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:13px;color:var(--text-muted);">Mes crédits</span>
+        <span id="modal-credits-val" style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">0 🪙</span>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-top:4px;">Les crédits sont attribués par les admins après confirmation de paiement.</div>
+    </div>
+
+    <button onclick="saveProfile()" style="width:100%;padding:13px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);">Sauvegarder</button>
+  </div>
+</div>
+
+<script>
+// =====================================================
+// GESTION PROFIL JOUEUR
+// =====================================================
+
+function getCurrentUser() {
+  try { return JSON.parse(localStorage.getItem('badlandfr_current_user')); } catch { return null; }
+}
+
+function getUserCredits(pseudo) {
+  var credits = JSON.parse(localStorage.getItem('badlandfr_credits') || '{}');
+  return credits[pseudo] ? credits[pseudo].balance : 0;
+}
+
+function updateNavProfile() {
+  var user = getCurrentUser();
+  var btn = document.getElementById('btn-rejoindre');
+  var prof = document.getElementById('user-profile');
+
+  if (!user) {
+    if (btn) btn.style.display = '';
+    if (prof) prof.style.display = 'none';
+    return;
+  }
+
+  if (btn) btn.style.display = 'none';
+  if (prof) prof.style.display = '';
+
+  var letter = user.pseudo ? user.pseudo[0].toUpperCase() : '?';
+  var credits = getUserCredits(user.pseudo);
+
+  document.getElementById('profile-avatar-letter').textContent = letter;
+  document.getElementById('profile-pseudo').textContent = user.pseudo;
+  document.getElementById('profile-credits').textContent = credits + ' 🪙';
+  document.getElementById('menu-pseudo').textContent = user.pseudo;
+  document.getElementById('menu-platform').textContent = user.platform || '';
+  document.getElementById('menu-credits').textContent = credits + ' 🪙';
+
+  if (user.avatar) {
+    var img = document.getElementById('profile-avatar-img');
+    img.src = user.avatar;
+    img.style.display = 'block';
+    document.getElementById('profile-avatar-letter').style.display = 'none';
+  }
+}
+
+function toggleProfileMenu() {
+  var menu = document.getElementById('profile-menu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+function closeProfileMenu() {
+  var menu = document.getElementById('profile-menu');
+  if (menu) menu.style.display = 'none';
+}
+
+function openProfileEdit() {
+  closeProfileMenu();
+  var user = getCurrentUser();
+  if (!user) return;
+
+  document.getElementById('input-new-pseudo').value = user.pseudo || '';
+  document.getElementById('input-avatar-url').value = user.avatar || '';
+  document.getElementById('modal-credits-val').textContent = getUserCredits(user.pseudo) + ' 🪙';
+
+  if (user.avatar) {
+    document.getElementById('modal-avatar-img').src = user.avatar;
+    document.getElementById('modal-avatar-img').style.display = 'block';
+    document.getElementById('modal-avatar-letter').style.display = 'none';
+  } else {
+    document.getElementById('modal-avatar-letter').textContent = user.pseudo ? user.pseudo[0].toUpperCase() : '?';
+    document.getElementById('modal-avatar-img').style.display = 'none';
+    document.getElementById('modal-avatar-letter').style.display = '';
+  }
+
+  document.getElementById('modal-profil').style.display = 'flex';
+}
+
+function previewAvatar() {
+  var url = document.getElementById('input-avatar-url').value.trim();
+  var img = document.getElementById('modal-avatar-img');
+  var letter = document.getElementById('modal-avatar-letter');
+  if (url) {
+    img.src = url;
+    img.style.display = 'block';
+    letter.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    letter.style.display = '';
+  }
+}
+
+function saveProfile() {
+  var user = getCurrentUser();
+  if (!user) return;
+  var newPseudo = document.getElementById('input-new-pseudo').value.trim();
+  var newAvatar = document.getElementById('input-avatar-url').value.trim();
+
+  if (newPseudo) user.pseudo = newPseudo;
+  if (newAvatar) user.avatar = newAvatar;
+
+  localStorage.setItem('badlandfr_current_user', JSON.stringify(user));
+  closeModal('modal-profil');
+  
+// ── COMPTE ADMIN STEVEN (créé automatiquement) ──
+function initAdminAccount() {
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var exists = accounts.find(function(a){ return a.pseudo === 'Steven'; });
+  if (!exists) {
+    accounts.unshift({
+      id: 999999,
+      pseudo: 'Steven',
+      email: 'admin@badlandfr.com',
+      platform: 'Admin',
+      date: new Date().toLocaleString('fr-FR'),
+      isAdmin: true,
+      mustChangePassword: true,
+      passwordHash: 'steven'
+    });
+    localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
+    var credits = JSON.parse(localStorage.getItem('badlandfr_credits') || '{}');
+    if (!credits['Steven']) {
+      credits['Steven'] = { balance: 9999, platform: 'Admin', lastMove: new Date().toLocaleString('fr-FR') };
+      localStorage.setItem('badlandfr_credits', JSON.stringify(credits));
+    }
+  }
+}
+initAdminAccount();
+updateNavProfile();
+  alert('✅ Profil mis à jour !');
+}
+
+function logoutUser() {
+  localStorage.removeItem('badlandfr_current_user');
+  closeProfileMenu();
+  updateNavProfile();
+}
+
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+// Fermer menu si clic dehors
+document.addEventListener('click', function(e) {
+  var prof = document.getElementById('user-profile');
+  if (prof && !prof.contains(e.target)) closeProfileMenu();
+});
+
+// ── CONNEXION APRÈS INSCRIPTION ──
+var _origHandleRegister = window.handleRegister;
+window.handleRegister = function() {
+  var pseudo    = document.getElementById('pseudo').value.trim();
+  var email     = document.getElementById('email').value.trim();
+  var password  = document.getElementById('password').value;
+  var platform  = document.getElementById('platform').value;
+  var rules     = document.getElementById('rules').checked;
+
+  if (!pseudo) { alert('Veuillez entrer un pseudo.'); return; }
+  if (!email)  { alert('Veuillez entrer une adresse e-mail.'); return; }
+  if (password.length < 8) { alert('Le mot de passe doit faire au moins 8 caractères.'); return; }
+  if (!platform) { alert('Veuillez choisir votre plateforme.'); return; }
+  if (!rules)    { alert('Vous devez accepter le règlement pour continuer.'); return; }
+
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+
+  // Vérifier si pseudo déjà pris
+  if (accounts.find(function(a) { return a.pseudo.toLowerCase() === pseudo.toLowerCase(); })) {
+    alert('❌ Ce pseudo est déjà utilisé !'); return;
+  }
+
+  var newAccount = {
+    id: Date.now(), pseudo: pseudo, email: email,
+    platform: platform,
+    date: new Date().toLocaleString('fr-FR', { day:'2-digit', month:'long', year:'numeric', hour:'2-digit', minute:'2-digit' })
+  };
+  accounts.push(newAccount);
+  localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
+
+  // 100 crédits offerts
+  var credits = JSON.parse(localStorage.getItem('badlandfr_credits') || '{}');
+  if (!credits[pseudo]) {
+    credits[pseudo] = { balance: 100, platform: platform, lastMove: newAccount.date };
+    var hist = JSON.parse(localStorage.getItem('badlandfr_credits_history') || '[]');
+    hist.unshift({ pseudo: pseudo, amount: 100, reason: '🎁 Bonus inscription', before: 0, after: 100, date: newAccount.date, by: 'Système' });
+    localStorage.setItem('badlandfr_credits_history', JSON.stringify(hist));
+    localStorage.setItem('badlandfr_credits', JSON.stringify(credits));
+  }
+
+  // Connecter automatiquement
+  localStorage.setItem('badlandfr_current_user', JSON.stringify({ pseudo: pseudo, email: email, platform: platform, avatar: '' }));
+  updateNavProfile();
+
+  document.getElementById('pseudo').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('platform').value = '';
+  document.getElementById('rules').checked = false;
+
+  alert('✅ Compte créé ! Bienvenue ' + pseudo + ' !\n🪙 100 crédits offerts à la création de compte !\nRejoignez notre Discord pour finaliser votre inscription.');
+};
+
+// Init au chargement
+updateNavProfile();
+</script>
+
+
+<!-- ── MODAL CHANGEMENT MOT DE PASSE ── -->
+<div id="modal-changepwd" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:600;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--gold);padding:2rem;width:100%;max-width:420px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff;margin-bottom:.5rem;">CHANGER DE <span style="color:var(--gold);">MOT DE PASSE</span></h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.5rem;">Pour des raisons de securite, vous devez definir un nouveau mot de passe.</p>
+    <div style="margin-bottom:1rem;">
+      <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px;">Mot de passe actuel</label>
+      <input type="password" id="cp-current" placeholder="Mot de passe actuel" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;">
+    </div>
+    <div style="margin-bottom:1rem;">
+      <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px;">Nouveau mot de passe</label>
+      <input type="password" id="cp-new" placeholder="Nouveau mot de passe (8 car. min)" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;">
+    </div>
+    <div style="margin-bottom:1.5rem;">
+      <label style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:6px;">Confirmer le nouveau mot de passe</label>
+      <input type="password" id="cp-confirm" placeholder="Confirmer" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;">
+    </div>
+    <div id="cp-error" style="color:var(--red);font-size:13px;margin-bottom:1rem;display:none;"></div>
+    <button onclick="saveNewPassword()" style="width:100%;padding:13px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);">Confirmer le changement</button>
+  </div>
+</div>
+
+<script>
+// ── COMPTE STEVEN ──
+initAdminAccount();
+
+// ── PANIER ──
+var cart = JSON.parse(localStorage.getItem('badlandfr_cart') || '[]');
+
+function saveCart() { localStorage.setItem('badlandfr_cart', JSON.stringify(cart)); }
+
+function addToCart(name, price, credits) {
+  var user = getCurrentUser();
+  if (!user) {
+    alert('Vous devez etre connecte pour utiliser le panier !');
+    document.getElementById('inscription').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  cart.push({ name: name, price: price, credits: credits, id: Date.now() });
+  saveCart();
+  updateCartUI();
+  showCartNotif(name);
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(function(i){ return i.id !== id; });
+  saveCart();
+  updateCartUI();
+  renderCartModal();
+}
+
+function updateCartUI() {
+  var count = cart.length;
+  var floatBtn = document.getElementById('cart-float');
+  var countEl = document.getElementById('cart-count');
+  if (floatBtn) floatBtn.style.display = count > 0 ? 'block' : 'none';
+  if (countEl) countEl.textContent = count;
+  var navCredits = document.getElementById('profile-credits');
+  if (navCredits) {
+    var user = getCurrentUser();
+    if (user) navCredits.textContent = getUserCredits(user.pseudo) + ' 🪙' + (count > 0 ? ' | 🛒 ' + count : '');
+  }
+}
+
+function toggleCart() {
+  var modal = document.getElementById('modal-cart');
+  if (modal.style.display === 'flex') {
+    modal.style.display = 'none';
+  } else {
+    renderCartModal();
+    modal.style.display = 'flex';
+  }
+}
+
+function renderCartModal() {
+  var container = document.getElementById('cart-items');
+  var totalEl = document.getElementById('cart-total');
+  var totalVal = document.getElementById('cart-total-val');
+  var paypalBtn = document.getElementById('cart-paypal-btn');
+
+  if (!cart.length) {
+    container.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:2rem 0;">Votre panier est vide.</p>';
+    if (totalEl) totalEl.style.display = 'none';
+    return;
+  }
+
+  var html = '';
+  var totalEuros = 0;
+  var totalCredits = 0;
+  var isCreditPurchase = false;
+
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var priceDisplay = '';
+    if (typeof item.price === 'string' && item.price.startsWith('cr:')) {
+      priceDisplay = item.credits + ' credits';
+      totalCredits += item.credits;
+      isCreditPurchase = true;
+    } else {
+      priceDisplay = item.price + ' EUR';
+      totalEuros += parseFloat(item.price);
+    }
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:.75rem 0;border-bottom:1px solid var(--border);">';
+    html += '<div><div style="font-size:14px;color:var(--text);">' + item.name + '</div>';
+    html += '<div style="font-size:12px;color:var(--text-muted);">' + priceDisplay + '</div></div>';
+    html += '<button onclick="removeFromCart(' + item.id + ')" style="background:transparent;border:none;color:var(--red);cursor:pointer;font-size:18px;">✕</button>';
+    html += '</div>';
+  }
+
+  container.innerHTML = html;
+  if (totalEl) totalEl.style.display = 'block';
+
+  if (totalEuros > 0 && totalCredits > 0) {
+    if (totalVal) totalVal.textContent = totalEuros.toFixed(2) + 'EUR + ' + totalCredits + ' cr';
+  } else if (totalEuros > 0) {
+    if (totalVal) totalVal.textContent = totalEuros.toFixed(2) + ' EUR';
+    if (paypalBtn) paypalBtn.href = 'https://paypal.me/Zzgalaxy933/' + totalEuros.toFixed(2) + 'EUR';
+  } else {
+    if (totalVal) totalVal.textContent = totalCredits + ' credits';
+    if (paypalBtn) paypalBtn.textContent = '📋 Envoyer la demande sur Discord';
+    if (paypalBtn) paypalBtn.href = 'https://discord.gg/AzPjjK5jSf';
+  }
+}
+
+function showCartNotif(name) {
+  var n = document.createElement('div');
+  n.style.cssText = 'position:fixed;bottom:6rem;right:2rem;background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--green);padding:.75rem 1.25rem;font-size:13px;color:var(--text);z-index:400;animation:fadeUp .3s ease;';
+  n.textContent = '✅ ' + name + ' ajoute au panier !';
+  document.body.appendChild(n);
+  setTimeout(function(){ n.remove(); }, 2500);
+}
+
+// ── CHANGEMENT MOT DE PASSE ──
+function checkMustChangePwd() {
+  var user = getCurrentUser();
+  if (!user) return;
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var acc = accounts.find(function(a){ return a.pseudo === user.pseudo; });
+  if (acc && acc.mustChangePassword) {
+    setTimeout(function(){
+      document.getElementById('modal-changepwd').style.display = 'flex';
+    }, 1000);
+  }
+}
+
+function saveNewPassword() {
+  var current = document.getElementById('cp-current').value;
+  var newPwd = document.getElementById('cp-new').value;
+  var confirm = document.getElementById('cp-confirm').value;
+  var errEl = document.getElementById('cp-error');
+  var user = getCurrentUser();
+
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var acc = accounts.find(function(a){ return a.pseudo === user.pseudo; });
+
+  if (!acc || current !== acc.passwordHash) {
+    errEl.textContent = 'Mot de passe actuel incorrect !';
+    errEl.style.display = 'block'; return;
+  }
+  if (newPwd.length < 6) {
+    errEl.textContent = 'Le nouveau mot de passe doit faire au moins 6 caracteres.';
+    errEl.style.display = 'block'; return;
+  }
+  if (newPwd !== confirm) {
+    errEl.textContent = 'Les mots de passe ne correspondent pas !';
+    errEl.style.display = 'block'; return;
+  }
+  acc.passwordHash = newPwd;
+  acc.mustChangePassword = false;
+  localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
+  document.getElementById('modal-changepwd').style.display = 'none';
+  alert('Mot de passe change avec succes !');
+}
+
+// Init panier
+updateCartUI();
+setTimeout(checkMustChangePwd, 500);
+</script>
+
 </body>
 </html>
