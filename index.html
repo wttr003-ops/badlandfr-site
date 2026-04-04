@@ -2975,9 +2975,10 @@ function confirmPriority(type) {
   expires.setMonth(expires.getMonth() + 1);
 
   // Enregistrer la priorité
+  var priorityId = Date.now();
   var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
   priorities.push({
-    id: Date.now(),
+    id: priorityId,
     pseudo: user.pseudo,
     type: type,
     psns: psns,
@@ -2990,7 +2991,7 @@ function confirmPriority(type) {
   // Enregistrer commande
   var orders = JSON.parse(localStorage.getItem('badlandfr_orders') || '[]');
   orders.unshift({
-    id: Date.now(),
+    id: priorityId + 1,
     pseudo: user.pseudo,
     items: 'Priorité ' + (type === 'solo' ? 'Solo' : 'Faction') + ' — PSN: ' + psns.join(', '),
     totalEur: null,
@@ -3007,6 +3008,8 @@ function confirmPriority(type) {
   else { ['psn-f1','psn-f2','psn-f3','psn-f4','psn-f5'].forEach(function(id){ document.getElementById(id).value=''; }); }
 
   updateNavProfile();
+  // Forcer le rafraîchissement immédiat de l'affichage
+  if (typeof renderPrioritiesOnSite === 'function') renderPrioritiesOnSite();
   alert('✅ Priorité ' + (type === 'solo' ? 'Solo' : 'Faction') + ' activée !\n\nPSN enregistré(s) : ' + psns.join(', ') + '\nExpire le : ' + expires.toLocaleDateString('fr-FR') + '\nSolde restant : ' + creds[user.pseudo].balance + ' 🪙\n\nUn admin va traiter votre demande prochainement.');
 }
 
@@ -3123,6 +3126,71 @@ setInterval(function() {
 window.addEventListener('storage', function(e) {
   if (e.key === 'badlandfr_priorities') renderPrioritiesOnSite();
 });
+</script>
+
+
+<script>
+// ── MIGRATION: récupérer les anciennes commandes de priorité ──
+function migratePriorityOrders() {
+  var orders = JSON.parse(localStorage.getItem('badlandfr_orders') || '[]');
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  var existingIds = priorities.map(function(p){ return p.id; });
+  var changed = false;
+
+  for (var i = 0; i < orders.length; i++) {
+    var o = orders[i];
+    // Détecter les commandes de priorité
+    if (!o.items) continue;
+    var isPrio = o.items.indexOf('Priorité') !== -1 || o.items.indexOf('Priorite') !== -1;
+    if (!isPrio) continue;
+    
+    // Vérifier si déjà dans priorities (par pseudo+date proche)
+    var alreadyExists = false;
+    for (var j = 0; j < priorities.length; j++) {
+      if (priorities[j].pseudo === o.pseudo) {
+        alreadyExists = true; break;
+      }
+    }
+    if (alreadyExists) continue;
+
+    // Détecter le type
+    var type = o.items.indexOf('Faction') !== -1 || o.items.indexOf('faction') !== -1 ? 'faction' : 'solo';
+    
+    // Extraire les PSN depuis le texte de la commande
+    var psns = [];
+    var psnMatch = o.items.match(/PSN[:\s]+(.+)$/i);
+    if (psnMatch) {
+      psns = psnMatch[1].split(',').map(function(p){ return p.trim(); }).filter(function(p){ return p; });
+    }
+
+    // Calculer l'expiration depuis la date d'achat
+    var purchasedAt = o.date ? new Date(o.date.split('/').reverse().join('-').replace(' à ', 'T') + ':00') : new Date();
+    if (isNaN(purchasedAt.getTime())) purchasedAt = new Date();
+    var expiresAt = new Date(purchasedAt);
+    expiresAt.setMonth(expiresAt.getMonth() + 1);
+    
+    var now = new Date();
+    var status = expiresAt > now ? 'active' : 'expired';
+
+    priorities.push({
+      id: o.id ? o.id - 2 : Date.now() + i,
+      pseudo: o.pseudo,
+      type: type,
+      psns: psns,
+      purchasedAt: purchasedAt.toISOString(),
+      expiresAt: expiresAt.toISOString(),
+      status: status,
+      migratedFromOrder: true
+    });
+    changed = true;
+  }
+
+  if (changed) {
+    localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+    if (typeof renderPrioritiesOnSite === 'function') renderPrioritiesOnSite();
+  }
+}
+migratePriorityOrders();
 </script>
 
 </body>

@@ -1457,6 +1457,13 @@ function extendP(id) {
 
 window.addEventListener('storage',function(){la();});
 window.addEventListener('focus',function(){la();});
+
+// Polling priorités toutes les 2s
+var lastPt = localStorage.getItem('badlandfr_priorities');
+setInterval(function(){
+  var cur = localStorage.getItem('badlandfr_priorities');
+  if(cur !== lastPt){ lastPt = cur; try{renderPriorities();}catch(e){} }
+}, 2000);
 </script>
 </body>
 </html>
