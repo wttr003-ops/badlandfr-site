@@ -522,6 +522,7 @@
     <li><a href="#evenements">Événements</a></li>
     <li><a href="#boutique">Boutique</a></li>
     <li><a href="#staff">Staff</a></li>
+    <li><a href="#communaute">Communauté</a></li>
     <li><a href="#soutenir">Don</a></li>
   </ul>
   <div id="nav-auth">
@@ -1180,29 +1181,11 @@
   <div class="container">
     <div class="section-label">Captures du serveur</div>
     <h2 class="section-title">GALERIE <span>PHOTOS</span></h2>
-    <div class="gallery-note">
-      <strong>📸 Espace réservé aux screenshots.</strong> Remplacez les emplacements ci-dessous par vos propres captures d'écran du serveur. Format recommandé : 1920×1080 ou 16/9. Renommez vos fichiers <code>screen1.jpg</code>, <code>screen2.jpg</code>, etc. et placez-les dans le même dossier que ce fichier HTML. Remplacez ensuite les balises <code>&lt;div class="gallery-slot"&gt;</code> par des balises <code>&lt;img src="screen1.jpg"&gt;</code>.
-    </div>
-    <div class="gallery-grid">
+
+    <div class="gallery-grid" id="gallery-grid">
       <div class="gallery-slot">
         <div class="slot-icon">📷</div>
-        <span>Screenshot principal — 1920×1080</span>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-icon">📷</div>
-        <span>Screenshot 2</span>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-icon">📷</div>
-        <span>Screenshot 3</span>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-icon">📷</div>
-        <span>Screenshot 4</span>
-      </div>
-      <div class="gallery-slot">
-        <div class="slot-icon">📷</div>
-        <span>Screenshot 5</span>
+        <span>Photos à venir...</span>
       </div>
     </div>
   </div>
@@ -1338,8 +1321,7 @@
         </div>
       </div>
       <p class="opening-note">
-        La date d'ouverture sera annoncée sur le Discord. Inscrivez-vous dès maintenant pour être notifié en priorité et participer aux tests pré-lancement.<br><br>
-        <strong style="color:var(--gold);">Pour modifier la date :</strong> dans le code HTML, cherchez la variable <code style="color:var(--red);">OPENING_DATE</code> et remplacez-la par votre date au format <code>YYYY/MM/DD HH:MM</code>.
+        La date d'ouverture sera annoncée sur notre Discord. Inscrivez-vous dès maintenant pour être notifié en priorité et participer aux tests pré-lancement !
       </p>
     </div>
   </div>
@@ -1355,7 +1337,7 @@
     <p class="section-desc">Une équipe passionnée et disponible pour garantir la meilleure expérience possible sur Badland FR.</p>
 
     <!-- FONDATEUR -->
-    <div style="margin-bottom:3rem;">
+    <div style="margin-bottom:3rem;" id="staff-fondateur-section">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
         <div style="width:3px;height:24px;background:var(--gold);"></div>
         <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);">Fondateur</span>
@@ -1369,9 +1351,7 @@
           <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:#fff;margin-bottom:2px;">Grey Fox</div>
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;">Fondateur</div>
           <div style="font-size:12px;color:var(--text-muted);">zzgalaxywolf93</div>
-          <div style="margin-top:.75rem;">
-            <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🌟 Fondateur</span>
-          </div>
+          <div style="margin-top:.75rem;"><span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🌟 Fondateur</span></div>
         </div>
       </div>
     </div>
@@ -1383,28 +1363,17 @@
         <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red);">Administrateurs</span>
         <div style="flex:1;height:1px;background:rgba(192,57,43,0.2);"></div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;">
+      <div id="staff-admin-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;"></div>
+    </div>
 
-        <div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:2rem;text-align:center;width:200px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
-          <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:2px solid var(--red);box-shadow:0 0 16px rgba(192,57,43,0.25);">
-            <img src="staff_default.svg" alt="Admin Badlands" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-          </div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;margin-bottom:2px;">Admin Badlands</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.75rem;">Administrateur</div>
-          <div style="font-size:12px;color:var(--text-muted);">Admin Badlands#6760</div>
-          <div style="margin-top:.75rem;">
-            <span style="background:rgba(192,57,43,0.15);color:var(--red);border:1px solid rgba(192,57,43,0.3);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🔴 Admin</span>
-          </div>
-        </div>
-
-        <!-- Placeholder admin supplémentaire -->
-        <div style="background:var(--bg2);border:1px dashed rgba(192,57,43,0.2);border-top:3px solid rgba(192,57,43,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
-          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(192,57,43,0.2);">?</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Administrateur</div>
-        </div>
-
+    <!-- DÉVELOPPEURS -->
+    <div style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:#3498db;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#3498db;">Développeurs</span>
+        <div style="flex:1;height:1px;background:rgba(52,152,219,0.2);"></div>
       </div>
+      <div id="staff-dev-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;"></div>
     </div>
 
     <!-- MODÉRATEURS -->
@@ -1414,71 +1383,78 @@
         <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#e67e22;">Modérateurs</span>
         <div style="flex:1;height:1px;background:rgba(230,126,34,0.2);"></div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;">
-
-        <div style="background:var(--bg2);border:1px solid rgba(230,126,34,0.3);border-top:3px solid #e67e22;padding:2rem;text-align:center;width:200px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">
-          <div style="width:80px;height:80px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:2px solid #e67e22;box-shadow:0 0 16px rgba(230,126,34,0.2);">
-            <img src="staff_default.svg" alt="RBXZ90" style="width:100%;height:100%;object-fit:cover;object-position:center top;"/>
-          </div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#fff;margin-bottom:2px;">RBXZ90</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#e67e22;margin-bottom:.75rem;">Modérateur</div>
-          <div style="font-size:12px;color:var(--text-muted);">rbx90</div>
-          <div style="margin-top:.75rem;">
-            <span style="background:rgba(230,126,34,0.15);color:#e67e22;border:1px solid rgba(230,126,34,0.3);font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;">🟠 Modérateur</span>
-          </div>
-        </div>
-
-        <!-- Placeholders modérateurs -->
-        <div style="background:var(--bg2);border:1px dashed rgba(230,126,34,0.2);border-top:3px solid rgba(230,126,34,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
-          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(230,126,34,0.2);">?</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Modérateur</div>
-        </div>
-
-      </div>
+      <div id="staff-mod-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;"></div>
     </div>
 
     <!-- HELPERS -->
-    <div>
+    <div style="margin-bottom:3rem;">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
         <div style="width:3px;height:24px;background:#27ae60;"></div>
         <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#27ae60;">Helpers</span>
         <div style="flex:1;height:1px;background:rgba(39,174,96,0.2);"></div>
       </div>
-      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;">
-
-        <!-- 3 placeholders helpers -->
-        <div style="background:var(--bg2);border:1px dashed rgba(39,174,96,0.2);border-top:3px solid rgba(39,174,96,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
-          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(39,174,96,0.2);">?</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Helper</div>
-        </div>
-        <div style="background:var(--bg2);border:1px dashed rgba(39,174,96,0.2);border-top:3px solid rgba(39,174,96,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
-          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(39,174,96,0.2);">?</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Helper</div>
-        </div>
-        <div style="background:var(--bg2);border:1px dashed rgba(39,174,96,0.2);border-top:3px solid rgba(39,174,96,0.3);padding:2rem;text-align:center;width:200px;opacity:.5;">
-          <div style="width:80px;height:80px;border-radius:50%;background:var(--bg3);margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;font-size:28px;border:2px dashed rgba(39,174,96,0.2);">?</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-muted);">À recruter</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:4px;">Helper</div>
-        </div>
-
-      </div>
+      <div id="staff-helper-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;"></div>
     </div>
 
     <!-- Recrutement -->
     <div style="margin-top:3rem;text-align:center;">
       <div style="background:var(--bg2);border:1px solid var(--border);border-left:3px solid var(--red);padding:1.5rem 2rem;display:inline-block;max-width:600px;text-align:left;">
         <p style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:.5rem;">📢 Recrutement ouvert</p>
-        <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">Vous souhaitez rejoindre l'équipe Badland FR ? Rendez-vous sur notre Discord et ouvrez un ticket de candidature. Nous recherchons des personnes sérieuses, disponibles et passionnées par DayZ.</p>
+        <p style="font-size:14px;color:var(--text-muted);line-height:1.7;">Vous souhaitez rejoindre l'équipe Badland FR ? Rendez-vous sur notre Discord et ouvrez un ticket de candidature.</p>
         <a href="https://discord.gg/AzPjjK5jSf" target="_blank" style="display:inline-block;margin-top:1rem;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--red);text-decoration:none;border-bottom:1px solid var(--red);padding-bottom:2px;">Postuler sur Discord →</a>
+      </div>
+    </div>
+
+    <!-- ── VIP PREMIUM ── -->
+    <div style="margin-top:4rem;margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:var(--gold);"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);">⭐ VIP Premium</span>
+        <div style="flex:1;height:1px;background:rgba(212,172,13,0.2);"></div>
+      </div>
+      <div id="vip-premium-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.25rem;">
+        <div style="font-size:13px;color:var(--text-muted);text-align:center;padding:2rem;">Aucun VIP Premium pour l'instant.</div>
+      </div>
+    </div>
+
+    <!-- ── VIP BASIQUE ── -->
+    <div style="margin-bottom:4rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:#95a5a6;"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:#95a5a6;">🎖️ VIP</span>
+        <div style="flex:1;height:1px;background:rgba(149,165,166,0.2);"></div>
+      </div>
+      <div id="vip-basic-list" style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.25rem;">
+        <div style="font-size:13px;color:var(--text-muted);text-align:center;padding:2rem;">Aucun VIP pour l'instant.</div>
+      </div>
+    </div>
+
+    <!-- ── CLASSEMENT PVP ── -->
+    <div style="margin-bottom:2rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:var(--red);"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red);">💀 Classement PvP</span>
+        <div style="flex:1;height:1px;background:rgba(192,57,43,0.2);"></div>
+      </div>
+      <div style="background:var(--bg2);border:1px solid var(--border);overflow:hidden;">
+        <!-- En-tête tableau -->
+        <div style="display:grid;grid-template-columns:60px 1fr 100px 100px 100px 100px;padding:.75rem 1rem;background:var(--bg3);border-bottom:1px solid var(--border);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);">#</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);">Joueur</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-align:center;">Kills</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-align:center;">Morts</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-align:center;">Ratio K/D</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);text-align:center;">Statut</div>
+        </div>
+        <!-- Lignes classement -->
+        <div id="pvp-leaderboard">
+          <div style="padding:2rem;text-align:center;font-size:13px;color:var(--text-muted);">Le classement sera disponible à l'ouverture du serveur.</div>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
-
 <!-- ── SOUTENIR ── -->
 <section id="soutenir" style="background:var(--bg2); padding:4rem 0;">
   <div class="container" style="text-align:center; max-width:700px; margin:0 auto;">
@@ -1528,37 +1504,41 @@
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.25rem;margin-bottom:3rem;">
 
       <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--text-muted);padding:1.5rem;text-align:center;transition:transform .2s,border-color .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderTopColor='var(--red)'" onmouseout="this.style.transform='none';this.style.borderTopColor='var(--text-muted)'">
+        <div id="promo-badge-pack100" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">100 Credits</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">2.50€</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">100 CREDITS</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">4.00€</div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Starter</div>
-        <button onclick="addToCart('100 Credits','2.50',100)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCart('100 Credits','4.00',100)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
       <div style="background:var(--bg2);border:1px solid rgba(39,174,96,0.4);border-top:3px solid var(--green);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Populaire</div>
+        <div id="promo-badge-pack200" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">250 Credits</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);margin:.5rem 0;">5.00€</div>
-        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Aventurier</div>
-        <button onclick="addToCart('250 Credits','5.00',250)" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">200 CREDITS</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--green);margin:.5rem 0;">8.00€</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Aventurier (200 cr)</div>
+        <button onclick="addToCart('200 Credits','8.00',200)" style="width:100%;padding:10px;background:var(--green);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
       <div style="background:var(--bg2);border:1px solid rgba(212,172,13,0.4);border-top:3px solid var(--gold);padding:1.5rem;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
+        <div id="promo-badge-pack500" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">🪙🪙🪙</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">500 Credits</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);margin:.5rem 0;">9.00€</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">500 CREDITS</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--gold);margin:.5rem 0;">25.00€</div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Survivant</div>
-        <button onclick="addToCart('500 Credits','9.00',500)" style="width:100%;padding:10px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCart('500 Credits','15.00',500)" style="width:100%;padding:10px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
       <div style="background:linear-gradient(135deg,#1a0a08,#100808);border:1px solid rgba(192,57,43,0.5);border-top:3px solid var(--red);padding:1.5rem;text-align:center;position:relative;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">
         <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 12px;text-transform:uppercase;">Meilleur prix</div>
+        <div id="promo-badge-pack1000" style="display:none;background:var(--gold);color:#000;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 10px;text-transform:uppercase;margin-bottom:.5rem;"></div>
         <div style="font-size:32px;margin-bottom:.75rem;">💎</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">1000 Credits</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">15.00€</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:#fff;">1000 CREDITS</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:36px;color:var(--red);margin:.5rem 0;">25.00€</div>
         <div style="font-size:12px;color:var(--text-muted);margin-bottom:1rem;">Pack Elite</div>
-        <button onclick="addToCart('1000 Credits','15.00',1000)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
+        <button onclick="addToCart('1000 Credits','25.00',1000)" style="width:100%;padding:10px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;">Ajouter au panier</button>
       </div>
 
     </div>
@@ -1573,8 +1553,8 @@
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Priorite Joueur Solo</div>
           <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Place prioritaire sur le serveur. PSN de votre choix.</div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">50 🪙</span>
-            <button onclick="addToCart('Priorite Solo','cr:50',50)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">150 🪙</span>
+            <button onclick="addToCart('Priorite Solo','cr:150',150)" data-price="150" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
           </div>
         </div>
       </div>
@@ -1585,8 +1565,8 @@
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Priorite Faction (5 joueurs max)</div>
           <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Place prioritaire pour votre faction. PSN de chaque membre.</div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">150 🪙</span>
-            <button onclick="addToCart('Priorite Faction','cr:150',150)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">200 🪙</span>
+            <button onclick="addToCart('Priorite Faction','cr:200',200)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
           </div>
         </div>
       </div>
@@ -1597,8 +1577,8 @@
           <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;margin-bottom:3px;">Modelisation de base</div>
           <div style="font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:.75rem;">Materiaux de construction deposes a votre base.</div>
           <div style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">200 🪙</span>
-            <button onclick="addToCart('Modelisation base','cr:200',200)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);">250 🪙</span>
+            <button onclick="addToCart('Modelisation base','cr:250',250)" style="padding:8px 16px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Ajouter</button>
           </div>
         </div>
       </div>
@@ -1653,10 +1633,72 @@
         <span id="cart-total-val" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--red);"></span>
       </div>
       <button onclick="checkout()" style="display:block;width:100%;padding:13px;background:#003087;color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;margin-bottom:.75rem;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);">💳 Valider et payer via PayPal</button>
-      <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.6;">Apres paiement, envoyez une capture dans le Discord. Credits credites sous 24h.</p>
+      <p style="font-size:11px;color:var(--text-muted);text-align:center;line-height:1.6;">Votre commande est enregistrée. L'admin validera votre paiement et vos crédits seront ajoutés automatiquement.</p>
     </div>
   </div>
 </div>
+
+
+<!-- ── COMMUNAUTÉ ── -->
+<section id="communaute" style="background:var(--bg2); padding:6rem 0;">
+  <div class="container">
+    <div class="section-label">Notre communauté</div>
+    <h2 class="section-title">LA <span>COMMUNAUTÉ</span></h2>
+
+    <!-- Stats communauté -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:3rem;">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--red);padding:1.5rem;text-align:center;">
+        <div id="community-count" style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--red);letter-spacing:2px;">0</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Joueurs inscrits</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--gold);padding:1.5rem;text-align:center;">
+        <div id="community-comments" style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--gold);letter-spacing:2px;">0</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Commentaires</div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid #27ae60;padding:1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:52px;color:#27ae60;letter-spacing:2px;">24/7</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Serveur actif</div>
+      </div>
+    </div>
+
+    <!-- Zone commentaires -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+
+      <!-- Formulaire -->
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Laisser un commentaire</p>
+        <div id="comment-login-msg" style="display:none;background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--red);padding:1rem;font-size:13px;color:var(--text-muted);margin-bottom:1rem;">
+          Vous devez être <a href="#inscription" style="color:var(--red);">connecté</a> pour laisser un commentaire.
+        </div>
+        <div id="comment-form">
+          <div style="margin-bottom:1rem;">
+            <textarea id="comment-text" placeholder="Partagez votre expérience sur Badland FR..." style="width:100%;padding:12px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:'Barlow',sans-serif;font-size:14px;outline:none;resize:vertical;min-height:100px;transition:border-color .2s;" onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:1rem;">
+            <span style="font-size:13px;color:var(--text-muted);">Note :</span>
+            <div id="star-rating" style="display:flex;gap:4px;">
+              <span onclick="setRating(1)" class="star" style="font-size:24px;cursor:pointer;color:var(--text-muted);">★</span>
+              <span onclick="setRating(2)" class="star" style="font-size:24px;cursor:pointer;color:var(--text-muted);">★</span>
+              <span onclick="setRating(3)" class="star" style="font-size:24px;cursor:pointer;color:var(--text-muted);">★</span>
+              <span onclick="setRating(4)" class="star" style="font-size:24px;cursor:pointer;color:var(--text-muted);">★</span>
+              <span onclick="setRating(5)" class="star" style="font-size:24px;cursor:pointer;color:var(--text-muted);">★</span>
+            </div>
+          </div>
+          <button onclick="submitComment()" style="padding:12px 28px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);">Publier</button>
+        </div>
+      </div>
+
+      <!-- Liste commentaires -->
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:1.25rem;">Avis de la communauté</p>
+        <div id="comments-list" style="max-height:400px;overflow-y:auto;">
+          <p style="font-size:13px;color:var(--text-muted);">Aucun commentaire pour l'instant. Soyez le premier !</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ── FOOTER ── -->
 <footer>
@@ -2355,13 +2397,25 @@ function checkout() {
   updateCartUI();
   closeModal('modal-cart');
 
-  // Rediriger vers PayPal si paiement en euros
   if (totalEur > 0) {
-    var msg = 'Commande enregistree !\n\nTotal : ' + totalEur.toFixed(2) + 'EUR\nArticles : ' + itemNames.join(', ') + '\n\nVous allez etre redirige vers PayPal.';
-    alert(msg);
+    // Paiement euros -> PayPal + commande en attente
+    alert('Commande #' + order.id + ' enregistree !\n\nTotal : ' + totalEur.toFixed(2) + 'EUR\nArticles : ' + itemNames.join(', ') + '\n\nVous allez etre redirige vers PayPal. Vos credits seront ajoutes apres confirmation de votre paiement par l\'admin.');
     window.open('https://paypal.me/Zzgalaxy933/' + totalEur.toFixed(2) + 'EUR', '_blank');
   } else {
-    alert('Commande enregistree !\n\nTotal : ' + totalCr + ' credits\nArticles : ' + itemNames.join(', ') + '\n\nEnvoyez un message dans le Discord pour finaliser.');
+    // Paiement credits -> déduire immédiatement + confirmer
+    var creds = JSON.parse(localStorage.getItem('badlandfr_credits') || '{}');
+    if (!creds[user.pseudo]) creds[user.pseudo] = { balance: 0 };
+    var before = creds[user.pseudo].balance;
+    creds[user.pseudo].balance = Math.max(0, before - totalCr);
+    creds[user.pseudo].lastMove = new Date().toLocaleString('fr-FR');
+    localStorage.setItem('badlandfr_credits', JSON.stringify(creds));
+    // Historique
+    var hist = JSON.parse(localStorage.getItem('badlandfr_credits_history') || '[]');
+    hist.unshift({ pseudo: user.pseudo, amount: -totalCr, reason: 'Achat boutique: ' + itemNames.join(', '), before: before, after: creds[user.pseudo].balance, date: new Date().toLocaleString('fr-FR') });
+    localStorage.setItem('badlandfr_credits_history', JSON.stringify(hist));
+    // Màj affichage
+    updateNavProfile();
+    alert('Achat confirme ! -' + totalCr + ' credits\n\nArticles : ' + itemNames.join(', ') + '\n\nSolde restant : ' + creds[user.pseudo].balance + ' credits\n\nUn admin va traiter votre commande prochainement.');
     window.open('https://discord.gg/AzPjjK5jSf', '_blank');
   }
 }
@@ -2369,6 +2423,369 @@ function checkout() {
 // Init panier
 updateCartUI();
 setTimeout(checkMustChangePwd, 500);
+</script>
+
+
+<script>
+// ── COMPTEUR JOUEURS ──
+function updateCommunityCount() {
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var el = document.getElementById('community-count');
+  if (el) el.textContent = accounts.length;
+  var comments = JSON.parse(localStorage.getItem('badlandfr_comments') || '[]');
+  var cel = document.getElementById('community-comments');
+  if (cel) cel.textContent = comments.length;
+}
+
+// ── ÉTOILES ──
+var currentRating = 5;
+function setRating(n) {
+  currentRating = n;
+  var stars = document.querySelectorAll('.star');
+  for (var i = 0; i < stars.length; i++) {
+    stars[i].style.color = i < n ? 'var(--gold)' : 'var(--text-muted)';
+  }
+}
+setRating(5);
+
+// ── AFFICHER/CACHER FORMULAIRE SELON CONNEXION ──
+function updateCommentForm() {
+  var user = getCurrentUser();
+  var msg = document.getElementById('comment-login-msg');
+  var form = document.getElementById('comment-form');
+  if (!user) {
+    if (msg) msg.style.display = 'block';
+    if (form) form.style.display = 'none';
+  } else {
+    if (msg) msg.style.display = 'none';
+    if (form) form.style.display = 'block';
+  }
+}
+
+// ── PUBLIER COMMENTAIRE ──
+function submitComment() {
+  var user = getCurrentUser();
+  if (!user) { alert('Connectez-vous pour commenter !'); return; }
+  var text = document.getElementById('comment-text').value.trim();
+  if (!text) { alert('Écrivez un commentaire !'); return; }
+  if (text.length < 10) { alert('Commentaire trop court (10 caractères min).'); return; }
+
+  var comments = JSON.parse(localStorage.getItem('badlandfr_comments') || '[]');
+  comments.unshift({
+    id: Date.now(),
+    pseudo: user.pseudo,
+    avatar: user.avatar || '',
+    text: text,
+    rating: currentRating,
+    date: new Date().toLocaleString('fr-FR')
+  });
+  localStorage.setItem('badlandfr_comments', JSON.stringify(comments));
+  document.getElementById('comment-text').value = '';
+  setRating(5);
+  renderComments();
+  updateCommunityCount();
+  alert('Commentaire publié ! Merci 🎮');
+}
+
+// ── AFFICHER COMMENTAIRES ──
+function renderComments() {
+  var comments = JSON.parse(localStorage.getItem('badlandfr_comments') || '[]');
+  var container = document.getElementById('comments-list');
+  if (!container) return;
+
+  if (!comments.length) {
+    container.innerHTML = '<p style="font-size:13px;color:var(--text-muted);">Aucun commentaire pour l\'instant. Soyez le premier !</p>';
+    return;
+  }
+
+  var h = '';
+  for (var i = 0; i < comments.length; i++) {
+    var c = comments[i];
+    var stars = '';
+    for (var s = 1; s <= 5; s++) {
+      stars += '<span style="color:' + (s <= c.rating ? 'var(--gold)' : 'rgba(255,255,255,0.15)') + ';font-size:14px;">★</span>';
+    }
+    var avatarHtml = c.avatar
+      ? '<img src="' + c.avatar + '" style="width:100%;height:100%;object-fit:cover;">'
+      : '<span style="font-family:Bebas Neue,sans-serif;font-size:18px;color:#fff;">' + c.pseudo[0].toUpperCase() + '</span>';
+
+    h += '<div style="background:var(--bg3);border:1px solid var(--border);padding:1rem;margin-bottom:.75rem;">';
+    h += '<div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem;">';
+    h += '<div style="width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;">' + avatarHtml + '</div>';
+    h += '<div><div style="font-family:Barlow Condensed,sans-serif;font-size:15px;color:#fff;">' + c.pseudo + '</div>';
+    h += '<div style="display:flex;gap:2px;">' + stars + '</div></div>';
+    h += '<span style="margin-left:auto;font-size:11px;color:var(--text-muted);">' + c.date + '</span>';
+    h += '</div>';
+    h += '<p style="font-size:13px;color:var(--text-muted);line-height:1.6;">' + c.text + '</p>';
+    h += '</div>';
+  }
+  container.innerHTML = h;
+}
+
+// Init
+updateCommunityCount();
+renderComments();
+updateCommentForm();
+</script>
+
+
+<script>
+// ── GALERIE DYNAMIQUE ──
+function renderGallery() {
+  var photos = JSON.parse(localStorage.getItem('badlandfr_gallery') || '[]');
+  var grid = document.getElementById('gallery-grid');
+  if (!grid) return;
+
+  if (!photos.length) {
+    grid.innerHTML = '<div class="gallery-slot" style="grid-column:span 3;"><div class="slot-icon">📷</div><span>Aucune photo pour l\'instant — revenez bientôt !</span></div>';
+    return;
+  }
+
+  var h = '';
+  for (var i = 0; i < photos.length; i++) {
+    var p = photos[i];
+    var span = i === 0 ? 'grid-column:span 2;' : '';
+    h += '<div style="' + span + 'aspect-ratio:16/9;overflow:hidden;background:var(--bg3);">';
+    h += '<img src="' + p.url + '" alt="' + (p.caption || 'Screenshot Badland FR') + '" style="width:100%;height:100%;object-fit:cover;transition:transform .3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">';
+    h += '</div>';
+  }
+  grid.innerHTML = h;
+}
+
+// ── PROMOS DYNAMIQUES ──
+function renderPromos() {
+  var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
+  var packs = ['pack100','pack200','pack500','pack1000'];
+  for (var i = 0; i < packs.length; i++) {
+    var badge = document.getElementById('promo-badge-' + packs[i]);
+    if (!badge) continue;
+    if (promos[packs[i]] && promos[packs[i]].active) {
+      badge.textContent = '🎁 ' + promos[packs[i]].label;
+      badge.style.display = 'block';
+    } else {
+      badge.style.display = 'none';
+    }
+  }
+}
+
+function addToCartPromo(name, price, credits, packId) {
+  var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
+  var bonus = 0;
+  if (promos[packId] && promos[packId].active && promos[packId].bonusCredits) {
+    bonus = parseInt(promos[packId].bonusCredits) || 0;
+  }
+  var totalCredits = credits + bonus;
+  var displayName = bonus > 0 ? name + ' (+' + bonus + ' bonus)' : name;
+  addToCart(displayName, price, totalCredits);
+}
+
+// Init
+renderGallery();
+renderPromos();
+</script>
+
+
+<script>
+// ── STAFF DYNAMIQUE ──
+function makeStaffCard(member, borderColor, badgeColor, badgeText, icon) {
+  var avatar = member.avatar && member.avatar !== 'staff_default.svg'
+    ? '<img src="' + member.avatar + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">'
+    : (member.avatar === 'staff_greyfox.png'
+      ? '<img src="staff_greyfox.png" style="width:100%;height:100%;object-fit:cover;">'
+      : '<span style="font-family:Bebas Neue,sans-serif;font-size:28px;color:#fff;">' + (member.pseudo||'?')[0].toUpperCase() + '</span>');
+
+  return '<div style="background:var(--bg2);border:1px solid rgba(' + borderColor + ',0.3);border-top:3px solid rgb(' + borderColor + ');padding:1.5rem;text-align:center;width:180px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-6px)'" onmouseout="this.style.transform='none'">' +
+    '<div style="width:72px;height:72px;border-radius:50%;overflow:hidden;margin:0 auto 1rem;border:2px solid rgb(' + borderColor + ');display:flex;align-items:center;justify-content:center;background:var(--bg3);">' + avatar + '</div>' +
+    '<div style="font-family:Bebas Neue,sans-serif;font-size:18px;letter-spacing:2px;color:#fff;margin-bottom:2px;">' + (member.pseudo||'Inconnu') + '</div>' +
+    '<div style="font-family:Barlow Condensed,sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgb(' + borderColor + ');margin-bottom:.5rem;">' + (member.role||'') + '</div>' +
+    (member.discord ? '<div style="font-size:11px;color:var(--text-muted);">' + member.discord + '</div>' : '') +
+    '<div style="margin-top:.75rem;"><span style="background:rgba(' + borderColor + ',0.15);color:rgb(' + borderColor + ');border:1px solid rgba(' + borderColor + ',0.3);font-family:Barlow Condensed,sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">' + icon + ' ' + badgeText + '</span></div>' +
+    '</div>';
+}
+
+function makePlaceholderCard(borderColor, role) {
+  return '<div style="background:var(--bg2);border:1px dashed rgba(' + borderColor + ',0.2);border-top:3px solid rgba(' + borderColor + ',0.3);padding:1.5rem;text-align:center;width:180px;opacity:.4;">' +
+    '<div style="width:72px;height:72px;border-radius:50%;margin:0 auto 1rem;border:2px dashed rgba(' + borderColor + ',0.2);display:flex;align-items:center;justify-content:center;font-size:24px;color:rgba(' + borderColor + ',0.3);">?</div>' +
+    '<div style="font-family:Barlow Condensed,sans-serif;font-size:14px;color:var(--text-muted);">À recruter</div>' +
+    '<div style="font-size:11px;color:var(--text-muted);">' + role + '</div>' +
+    '</div>';
+}
+
+function renderStaff() {
+  var stored = JSON.parse(localStorage.getItem('badlandfr_staff') || '[]');
+
+  // Membres fixes de base
+  var baseStaff = [
+    { id:'sia', pseudo:'Admin Badlands', role:'Administrateur', discord:'Admin Badlands#6760', avatar:'staff_default.svg' },
+    { id:'sir', pseudo:'RBXZ90', role:'Moderateur', discord:'rbx90', avatar:'staff_default.svg' }
+  ];
+
+  // Fusionner base + stored (éviter doublons par id)
+  var allStaff = baseStaff.slice();
+  for (var i = 0; i < stored.length; i++) {
+    var exists = allStaff.find(function(m){ return m.id === stored[i].id; });
+    if (!exists) allStaff.push(stored[i]);
+    else {
+      // Mettre à jour le membre de base si modifié
+      for (var j = 0; j < allStaff.length; j++) {
+        if (allStaff[j].id === stored[i].id) { allStaff[j] = stored[i]; break; }
+      }
+    }
+  }
+
+  var admins   = allStaff.filter(function(m){ return m.role === 'Administrateur'; });
+  var devs     = allStaff.filter(function(m){ return m.role === 'Developpeur'; });
+  var mods     = allStaff.filter(function(m){ return m.role === 'Moderateur'; });
+  var helpers  = allStaff.filter(function(m){ return m.role === 'Helper'; });
+
+  var adminEl   = document.getElementById('staff-admin-list');
+  var devEl     = document.getElementById('staff-dev-list');
+  var modEl     = document.getElementById('staff-mod-list');
+  var helperEl  = document.getElementById('staff-helper-list');
+
+  if (adminEl) {
+    var h = '';
+    for (var i = 0; i < admins.length; i++) h += makeStaffCard(admins[i], '192,57,43', '192,57,43', 'Admin', '🔴');
+    h += makePlaceholderCard('192,57,43', 'Administrateur');
+    adminEl.innerHTML = h;
+  }
+
+  if (devEl) {
+    var h = '';
+    for (var i = 0; i < devs.length; i++) h += makeStaffCard(devs[i], '52,152,219', '52,152,219', 'Dev', '🔵');
+    h += makePlaceholderCard('52,152,219', 'Développeur');
+    devEl.innerHTML = h;
+  }
+
+  if (modEl) {
+    var h = '';
+    for (var i = 0; i < mods.length; i++) h += makeStaffCard(mods[i], '230,126,34', '230,126,34', 'Mod', '🟠');
+    h += makePlaceholderCard('230,126,34', 'Modérateur');
+    modEl.innerHTML = h;
+  }
+
+  if (helperEl) {
+    var h = '';
+    for (var i = 0; i < helpers.length; i++) h += makeStaffCard(helpers[i], '39,174,96', '39,174,96', 'Helper', '🟢');
+    if (!helpers.length) {
+      h += makePlaceholderCard('39,174,96', 'Helper');
+      h += makePlaceholderCard('39,174,96', 'Helper');
+      h += makePlaceholderCard('39,174,96', 'Helper');
+    }
+    helperEl.innerHTML = h;
+  }
+}
+
+renderStaff();
+window.addEventListener('storage', function(e) {
+  if (e.key === 'badlandfr_staff') renderStaff();
+});
+</script>
+
+
+<script>
+// ── VIP DYNAMIQUE ──
+function makeVipCard(member, isPremium) {
+  var borderColor = isPremium ? 'var(--gold)' : '#95a5a6';
+  var borderRgb = isPremium ? '212,172,13' : '149,165,166';
+  var badge = isPremium ? '⭐ VIP Premium' : '🎖️ VIP';
+  var avatar = member.avatar
+    ? '<img src="' + member.avatar + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentNode.innerHTML='<span style=font-family:Bebas Neue,sans-serif;font-size:22px;color:#fff;>' + (member.pseudo||'?')[0].toUpperCase() + '</span>'">'
+    : '<span style="font-family:Bebas Neue,sans-serif;font-size:22px;color:#fff;">' + (member.pseudo||'?')[0].toUpperCase() + '</span>';
+
+  return '<div style="background:var(--bg2);border:1px solid rgba(' + borderRgb + ',0.4);border-top:3px solid ' + borderColor + ';padding:1.25rem;text-align:center;width:160px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">' +
+    '<div style="width:60px;height:60px;border-radius:50%;overflow:hidden;margin:0 auto .75rem;border:2px solid ' + borderColor + ';display:flex;align-items:center;justify-content:center;background:var(--bg3);">' + avatar + '</div>' +
+    '<div style="font-family:Bebas Neue,sans-serif;font-size:16px;letter-spacing:1px;color:#fff;margin-bottom:2px;">' + (member.pseudo||'?') + '</div>' +
+    '<div style="font-size:11px;color:' + borderColor + ';font-family:Barlow Condensed,sans-serif;letter-spacing:1px;text-transform:uppercase;">' + badge + '</div>' +
+    (member.since ? '<div style="font-size:10px;color:var(--text-muted);margin-top:3px;">Depuis ' + member.since + '</div>' : '') +
+    '</div>';
+}
+
+function renderVip() {
+  var vips = JSON.parse(localStorage.getItem('badlandfr_vips') || '[]');
+  var premiums = vips.filter(function(v){ return v.type === 'premium'; });
+  var basics   = vips.filter(function(v){ return v.type === 'basic'; });
+
+  var pEl = document.getElementById('vip-premium-list');
+  var bEl = document.getElementById('vip-basic-list');
+
+  if (pEl) {
+    if (!premiums.length) {
+      pEl.innerHTML = '<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:2rem;width:100%;">Aucun VIP Premium pour l\'instant.</div>';
+    } else {
+      var h = '';
+      for (var i = 0; i < premiums.length; i++) h += makeVipCard(premiums[i], true);
+      pEl.innerHTML = h;
+    }
+  }
+
+  if (bEl) {
+    if (!basics.length) {
+      bEl.innerHTML = '<div style="font-size:13px;color:var(--text-muted);text-align:center;padding:2rem;width:100%;">Aucun VIP pour l\'instant.</div>';
+    } else {
+      var h = '';
+      for (var i = 0; i < basics.length; i++) h += makeVipCard(basics[i], false);
+      bEl.innerHTML = h;
+    }
+  }
+}
+
+// ── CLASSEMENT PVP DYNAMIQUE ──
+function renderPvpLeaderboard() {
+  var players = JSON.parse(localStorage.getItem('badlandfr_pvp') || '[]');
+  var el = document.getElementById('pvp-leaderboard');
+  if (!el) return;
+
+  if (!players.length) {
+    el.innerHTML = '<div style="padding:2rem;text-align:center;font-size:13px;color:var(--text-muted);">Le classement sera disponible à l\'ouverture du serveur.</div>';
+    return;
+  }
+
+  // Trier par kills décroissant
+  players.sort(function(a, b){ return (b.kills||0) - (a.kills||0); });
+
+  var h = '';
+  for (var i = 0; i < players.length; i++) {
+    var p = players[i];
+    var kills = parseInt(p.kills) || 0;
+    var deaths = parseInt(p.deaths) || 0;
+    var kd = deaths > 0 ? (kills / deaths).toFixed(2) : kills > 0 ? kills + '.00' : '0.00';
+    var kdColor = parseFloat(kd) >= 2 ? 'var(--gold)' : parseFloat(kd) >= 1 ? '#27ae60' : 'var(--text-muted)';
+
+    var rankStyle = '';
+    var rankDisplay = '#' + (i + 1);
+    if (i === 0) { rankStyle = 'color:var(--gold);font-size:20px;'; rankDisplay = '🥇'; }
+    else if (i === 1) { rankStyle = 'color:#95a5a6;font-size:18px;'; rankDisplay = '🥈'; }
+    else if (i === 2) { rankStyle = 'color:#cd7f32;font-size:18px;'; rankDisplay = '🥉'; }
+
+    var rowBg = i === 0 ? 'background:rgba(212,172,13,0.05);' : '';
+
+    h += '<div style="display:grid;grid-template-columns:60px 1fr 100px 100px 100px 100px;padding:.75rem 1rem;border-bottom:1px solid var(--border);align-items:center;' + rowBg + '">';
+    h += '<div style="font-family:Bebas Neue,sans-serif;font-size:16px;' + rankStyle + '">' + rankDisplay + '</div>';
+    h += '<div style="display:flex;align-items:center;gap:8px;">';
+    if (p.avatar) {
+      h += '<div style="width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;"><img src="' + p.avatar + '" style="width:100%;height:100%;object-fit:cover;"></div>';
+    } else {
+      h += '<div style="width:32px;height:32px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:14px;color:#fff;flex-shrink:0;">' + (p.pseudo||'?')[0].toUpperCase() + '</div>';
+    }
+    h += '<span style="color:#fff;font-family:Barlow Condensed,sans-serif;font-size:15px;">' + (p.pseudo||'?') + '</span>';
+    if (p.vip) h += '<span style="font-size:10px;background:rgba(212,172,13,0.2);color:var(--gold);padding:1px 6px;border-radius:2px;">VIP</span>';
+    h += '</div>';
+    h += '<div style="text-align:center;font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--red);">' + kills + '</div>';
+    h += '<div style="text-align:center;font-family:Bebas Neue,sans-serif;font-size:20px;color:var(--text-muted);">' + deaths + '</div>';
+    h += '<div style="text-align:center;font-family:Bebas Neue,sans-serif;font-size:20px;color:' + kdColor + ';">' + kd + '</div>';
+    h += '<div style="text-align:center;font-size:12px;color:' + (p.status === 'actif' ? '#27ae60' : 'var(--text-muted)') + ';">' + (p.status || 'Inactif') + '</div>';
+    h += '</div>';
+  }
+  el.innerHTML = h;
+}
+
+renderVip();
+renderPvpLeaderboard();
+window.addEventListener('storage', function(e) {
+  if (e.key === 'badlandfr_vips') renderVip();
+  if (e.key === 'badlandfr_pvp') renderPvpLeaderboard();
+});
 </script>
 
 </body>

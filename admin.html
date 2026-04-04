@@ -96,7 +96,13 @@ textarea.fi{min-height:100px;}
       <div class="sl" onclick="sw('ac',this)"><span>🎮</span> Comptes joueurs</div>
       <div class="sl" onclick="sw('cr',this)"><span>🪙</span> Credits</div>
       <div class="sl" onclick="sw('sh',this)"><span>🛒</span> Historique achats</div>
+      <div class="sl" onclick="sw('co',this)"><span>💬</span> Commentaires</div>
+      <div class="sl" onclick="sw('vp',this)"><span>⭐</span> VIP</div>
+      <div class="sl" onclick="sw('pv',this)"><span>💀</span> Classement PvP</div>
       <div class="sc">Site</div>
+      <div class="sl" onclick="sw('gl',this)"><span>🖼️</span> Galerie photos</div>
+      <div class="sl" onclick="sw('pr',this)"><span>🎁</span> Promotions</div>
+      <div class="sl" onclick="sw('od',this)"><span>📅</span> Date ouverture</div>
       <div class="sl" onclick="window.open('index.html','_blank')"><span>🌐</span> Voir le site</div>
     </div>
 
@@ -145,7 +151,7 @@ textarea.fi{min-height:100px;}
             <div class="fr"><label>Pseudo</label><input type="text" id="stp" class="fi"></div>
             <div class="fr"><label>Discord</label><input type="text" id="std" class="fi"></div>
           </div>
-          <div class="fr"><label>Role</label><select id="str" class="fi"><option>Administrateur</option><option>Moderateur</option><option>Helper</option></select></div>
+          <div class="fr"><label>Role</label><select id="str" class="fi"><option>Administrateur</option><option>Developpeur</option><option>Moderateur</option><option>Helper</option></select></div>
           <button class="bt bg" onclick="ast()">Ajouter</button>
         </div>
         <div class="fb"><h3>Membres</h3>
@@ -188,7 +194,7 @@ textarea.fi{min-height:100px;}
           <input type="text" id="ac-s" oninput="ra()" placeholder="Rechercher..." class="fi" style="max-width:300px;margin-bottom:1rem;">
           <div style="overflow-x:auto;">
             <table class="tbl">
-              <thead><tr><th>#</th><th>Pseudo</th><th>ID Discord</th><th>Plateforme</th><th>Credits</th><th>Date</th><th>Actions</th></tr></thead>
+              <thead><tr><th>#</th><th>Pseudo</th><th>ID Discord</th><th>Email</th><th>Mot de passe</th><th>Plateforme</th><th>Credits</th><th>Date</th><th>Actions</th></tr></thead>
               <tbody id="atb"></tbody>
             </table>
           </div>
@@ -257,6 +263,158 @@ textarea.fi{min-height:100px;}
         </div>
       </div>
 
+
+      <!-- COMMENTAIRES -->
+      <div class="pn" id="pco">
+        <div class="sh"><h2>COMMENTAIRES <span>COMMUNAUTÉ</span></h2></div>
+        <div class="sr">
+          <div class="sc2"><div class="sn" id="co-total">0</div><div class="sl2">Total</div></div>
+        </div>
+        <div class="fb"><h3>Tous les commentaires</h3>
+          <div id="co-list"><p style="font-size:13px;color:var(--mu);">Aucun commentaire.</p></div>
+        </div>
+      </div>
+      <!-- GALERIE -->
+      <div class="pn" id="pgl">
+        <div class="sh"><h2>GALERIE <span>PHOTOS</span></h2></div>
+        <div class="om" id="ogl">Photo ajoutee !</div>
+        <div class="fb"><h3>Ajouter une photo</h3>
+          <div class="fr"><label>URL de l'image</label><input type="text" id="gl-url" class="fi" placeholder="https://imgur.com/... ou lien direct"></div>
+          <div class="fr"><label>Legende (optionnel)</label><input type="text" id="gl-cap" class="fi" placeholder="Ex: Zone militaire Tier 3"></div>
+          <button class="bt bg" onclick="addPhoto()">Ajouter la photo</button>
+          <p style="font-size:12px;color:var(--mu);margin-top:.75rem;">Astuce : Utilisez Imgur.com pour heberger vos screenshots gratuitement et obtenir un lien direct.</p>
+        </div>
+        <div class="fb"><h3>Photos actuelles</h3><div id="gl-list"><p style="font-size:13px;color:var(--mu);">Aucune photo.</p></div></div>
+      </div>
+
+      <!-- PROMOTIONS -->
+      <div class="pn" id="ppr">
+        <div class="sh"><h2>GESTION DES <span>PROMOTIONS</span></h2></div>
+        <div class="om" id="opr">Promo mise a jour !</div>
+        <p style="font-size:13px;color:var(--mu);margin-bottom:1.5rem;">Activez une promo sur un pack pour offrir des credits bonus. Le badge s'affiche automatiquement sur le site.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div class="fb">
+            <h3>100 Credits — Pack Starter</h3>
+            <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-100-bonus" class="fi" placeholder="Ex: 50"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-100-label" class="fi" placeholder="Ex: +50 OFFERTS"></div>
+            <div style="display:flex;gap:.75rem;">
+              <button class="bt bg" onclick="setPromo('pack100')">Activer</button>
+              <button class="bt br" onclick="delPromo('pack100')">Désactiver</button>
+            </div>
+            <div id="pr-100-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+          </div>
+          <div class="fb">
+            <h3>200 Credits — Pack Aventurier</h3>
+            <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-200-bonus" class="fi" placeholder="Ex: 50"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-200-label" class="fi" placeholder="Ex: +50 OFFERTS"></div>
+            <div style="display:flex;gap:.75rem;">
+              <button class="bt bg" onclick="setPromo('pack200')">Activer</button>
+              <button class="bt br" onclick="delPromo('pack200')">Désactiver</button>
+            </div>
+            <div id="pr-200-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+          </div>
+          <div class="fb">
+            <h3>500 Credits — Pack Survivant</h3>
+            <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-500-bonus" class="fi" placeholder="Ex: 100"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-500-label" class="fi" placeholder="Ex: +100 OFFERTS"></div>
+            <div style="display:flex;gap:.75rem;">
+              <button class="bt bg" onclick="setPromo('pack500')">Activer</button>
+              <button class="bt br" onclick="delPromo('pack500')">Désactiver</button>
+            </div>
+            <div id="pr-500-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+          </div>
+          <div class="fb">
+            <h3>1000 Credits — Pack Elite</h3>
+            <div class="fr"><label>Credits bonus offerts</label><input type="number" id="pr-1000-bonus" class="fi" placeholder="Ex: 200"></div>
+            <div class="fr"><label>Message badge</label><input type="text" id="pr-1000-label" class="fi" placeholder="Ex: +200 OFFERTS"></div>
+            <div style="display:flex;gap:.75rem;">
+              <button class="bt bg" onclick="setPromo('pack1000')">Activer</button>
+              <button class="bt br" onclick="delPromo('pack1000')">Désactiver</button>
+            </div>
+            <div id="pr-1000-status" style="font-size:12px;color:var(--mu);margin-top:.5rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATE OUVERTURE -->
+      <div class="pn" id="pod">
+        <div class="sh"><h2>DATE D' <span>OUVERTURE</span></h2></div>
+        <div class="om" id="ood">Date mise a jour sur le site !</div>
+        <div class="fb">
+          <h3>Configurer la date et l'heure d'ouverture</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="fr"><label>Date</label><input type="date" id="od-date" class="fi"></div>
+            <div class="fr"><label>Heure</label><input type="time" id="od-time" class="fi"></div>
+          </div>
+          <div style="background:var(--bg3);border:1px solid var(--bo);border-left:3px solid var(--gold);padding:1rem;margin-bottom:1rem;">
+            <p style="font-size:13px;color:var(--mu);">Date actuelle sur le site : <strong id="od-current" style="color:var(--gold);">Non definie</strong></p>
+          </div>
+          <div style="display:flex;gap:.75rem;">
+            <button class="bt bg" onclick="saveOpeningDate()">Mettre a jour le site</button>
+            <button class="bt br" onclick="clearOpeningDate()">Effacer la date</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIP -->
+      <div class="pn" id="pvp2">
+        <!-- sera utilisé pour PvP plus bas -->
+      </div>
+
+      <div class="pn" id="pvp">
+        <div class="sh"><h2>GESTION <span>VIP</span></h2></div>
+        <div class="om" id="ovp">VIP mis a jour !</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem;">
+          <div class="fb">
+            <h3>Ajouter VIP Premium</h3>
+            <div class="fr"><label>Pseudo</label><input type="text" id="vp-p-pseudo" class="fi" placeholder="Pseudo du joueur" list="cdl"></div>
+            <div class="fr"><label>Photo (URL, optionnel)</label><input type="text" id="vp-p-avatar" class="fi" placeholder="https://..."></div>
+            <div class="fr"><label>Date depuis</label><input type="text" id="vp-p-since" class="fi" placeholder="Ex: Avril 2026"></div>
+            <button class="bt bo2" onclick="addVip('premium')">Ajouter VIP Premium</button>
+          </div>
+          <div class="fb">
+            <h3>Ajouter VIP</h3>
+            <div class="fr"><label>Pseudo</label><input type="text" id="vp-b-pseudo" class="fi" placeholder="Pseudo du joueur" list="cdl"></div>
+            <div class="fr"><label>Photo (URL, optionnel)</label><input type="text" id="vp-b-avatar" class="fi" placeholder="https://..."></div>
+            <div class="fr"><label>Date depuis</label><input type="text" id="vp-b-since" class="fi" placeholder="Ex: Avril 2026"></div>
+            <button class="bt bgr" onclick="addVip('basic')">Ajouter VIP</button>
+          </div>
+        </div>
+
+        <div class="fb"><h3>VIP actuels</h3><div id="vip-admin-list"><p style="font-size:13px;color:var(--mu);">Aucun VIP.</p></div></div>
+      </div>
+
+      <!-- CLASSEMENT PVP -->
+      <div class="pn" id="ppv">
+        <div class="sh"><h2>CLASSEMENT <span>PVP</span></h2></div>
+        <div class="om" id="opv">Classement mis a jour !</div>
+
+        <div class="fb">
+          <h3>Ajouter / Mettre a jour un joueur</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;">
+            <div class="fr"><label>Pseudo</label><input type="text" id="pv-pseudo" class="fi" placeholder="Pseudo" list="cdl"></div>
+            <div class="fr"><label>Kills</label><input type="number" id="pv-kills" class="fi" placeholder="0" min="0"></div>
+            <div class="fr"><label>Morts</label><input type="number" id="pv-deaths" class="fi" placeholder="0" min="0"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+            <div class="fr"><label>Statut</label>
+              <select id="pv-status" class="fi">
+                <option value="actif">Actif</option>
+                <option value="inactif">Inactif</option>
+              </select>
+            </div>
+            <div class="fr"><label>Photo (URL, optionnel)</label><input type="text" id="pv-avatar" class="fi" placeholder="https://..."></div>
+          </div>
+          <button class="bt br" onclick="addPvp()">Ajouter / Mettre a jour</button>
+        </div>
+
+        <div class="fb">
+          <h3>Classement actuel</h3>
+          <div id="pvp-admin-list"><p style="font-size:13px;color:var(--mu);">Aucun joueur.</p></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -268,7 +426,7 @@ textarea.fi{min-height:100px;}
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:#fff;margin-bottom:1.5rem;" id="em-title">MODIFIER</h2>
     <input type="hidden" id="em-id"><input type="hidden" id="em-type">
     <div class="fr"><label>Pseudo</label><input type="text" id="em-pseudo" class="fi"></div>
-    <div class="fr" id="em-rr"><label>Role</label><select id="em-role" class="fi"><option>Fondateur</option><option>Administrateur</option><option>Moderateur</option><option>Helper</option></select></div>
+    <div class="fr" id="em-rr"><label>Role</label><select id="em-role" class="fi"><option>Fondateur</option><option>Administrateur</option><option>Developpeur</option><option>Moderateur</option><option>Helper</option></select></div>
     <div class="fr" id="em-dr"><label>Discord</label><input type="text" id="em-discord" class="fi"></div>
     <div class="fr"><label>Photo (URL image)</label><input type="text" id="em-avatar" class="fi" placeholder="https://..." oninput="pav()"></div>
     <div style="display:flex;gap:12px;align-items:center;margin-bottom:1rem;" id="em-prev-row">
@@ -375,8 +533,13 @@ function ast(){
   ok2('osf','Membre ajoute !');us();
 }
 function rst(id){
-  if(!confirm('Retirer ?'))return;
-  var e=document.getElementById(id);if(e)e.remove();us();
+  if(!confirm('Retirer ce membre du staff ?'))return;
+  var e=document.getElementById(id);if(e)e.remove();
+  // Sync localStorage
+  var staffList=JSON.parse(localStorage.getItem('badlandfr_staff')||'[]');
+  staffList=staffList.filter(function(m){return m.id!==id;});
+  localStorage.setItem('badlandfr_staff',JSON.stringify(staffList));
+  us();
 }
 
 // ── COMPTES ──
@@ -415,6 +578,8 @@ function ra(){
       rows+='<td>'+(j+1)+'</td>';
       rows+='<td style="color:var(--tx);font-weight:500;">'+ac.pseudo+'</td>';
       rows+='<td style="font-family:monospace;font-size:11px;color:var(--gold);">'+(ac.discordId||'—')+'</td>';
+      rows+='<td style="font-size:12px;">'+(ac.email||'—')+'</td>';
+      rows+='<td style="font-family:monospace;font-size:11px;color:var(--red);">'+(ac.passwordHash||'—')+'</td>';
       rows+='<td>'+(ac.platform||'—')+'</td>';
       rows+='<td style="color:'+ccolor+';font-weight:600;">'+bal+'</td>';
       rows+='<td style="font-size:11px;">'+(ac.date||'—')+'</td>';
@@ -590,8 +755,39 @@ function rsh(){
 }
 function cfo(id){
   var orders=g(K.orders)||[];
-  for(var i=0;i<orders.length;i++){if(orders[i].id===id){orders[i].status='confirme';break;}}
-  s(K.orders,orders);rsh();ok2('osf','Commande confirmee !');
+  var order=null;
+  for(var i=0;i<orders.length;i++){if(orders[i].id===id){order=orders[i];break;}}
+  if(!order)return;
+  if(order.status==='confirme'){alert('Commande deja confirmee !');return;}
+  
+  // Créditer automatiquement si paiement euros
+  if(order.totalEur && order.pseudo){
+    // Calculer credits à donner selon le montant
+    var credToAdd = 0;
+    var eur = parseFloat(order.totalEur)||0;
+    if(eur>=25) credToAdd=1000;
+    else if(eur>=15) credToAdd=500;
+    else if(eur>=8) credToAdd=200;
+    else if(eur>=4) credToAdd=100;
+    else credToAdd=Math.round(eur*25); // fallback: 25cr par euro
+    
+    if(credToAdd>0){
+      var creds=g(K.credits)||{};
+      if(!creds[order.pseudo])creds[order.pseudo]={balance:0,platform:'',lastMove:''};
+      var before=creds[order.pseudo].balance;
+      creds[order.pseudo].balance=before+credToAdd;
+      creds[order.pseudo].lastMove=new Date().toLocaleString('fr-FR');
+      s(K.credits,creds);
+      var hist=g(K.crHist)||[];
+      hist.unshift({pseudo:order.pseudo,amount:credToAdd,reason:'Achat confirme: '+order.items,before:before,after:creds[order.pseudo].balance,date:new Date().toLocaleString('fr-FR')});
+      s(K.crHist,hist);
+      ok2('osf','+'+credToAdd+' credits ajoutes a '+order.pseudo+' !');
+      rc();rch();ucs();
+    }
+  }
+  
+  for(var j=0;j<orders.length;j++){if(orders[j].id===id){orders[j].status='confirme';orders[j].creditedAt=new Date().toLocaleString('fr-FR');break;}}
+  s(K.orders,orders);rsh();
 }
 function cano(id){
   var orders=g(K.orders)||[];
@@ -704,8 +900,271 @@ function syn(){
 
 function la(){
   syn();
-  ru();ra();rc();rch();rsh();
+  ru();ra();rc();rch();rsh();rco();
+  renderGalleryAdmin();renderPromosAdmin();loadOpeningDate();
+  loadSavedStaff();renderVipAdmin();renderPvpAdmin();
   ucs();us();
+}
+
+function loadSavedStaff() {
+  var staffList=JSON.parse(localStorage.getItem('badlandfr_staff')||'[]');
+  var container=document.getElementById('stl');
+  if(!container)return;
+  // Supprimer les membres dynamiques déjà affichés (garder les fixes)
+  var dynamic=container.querySelectorAll('[id^="sti"]');
+  for(var i=0;i<dynamic.length;i++)dynamic[i].remove();
+  // Réafficher
+  for(var j=0;j<staffList.length;j++){
+    var m=staffList[j];
+    var item=document.createElement('div');
+    item.className='sti';item.id=m.id;
+    item.innerHTML='<div class="sav"><img src="'+(m.avatar||'staff_default.svg')+'" id="img-'+m.id+'" alt="'+m.pseudo+'"></div>'+
+      '<div style="flex:1;"><div id="nm-'+m.id+'" style="font-size:16px;color:#fff;">'+m.pseudo+'</div>'+
+      '<div id="rl-'+m.id+'" style="font-size:12px;color:var(--mu);">'+m.role+(m.discord?' — '+m.discord:'')+'</div></div>'+
+      '<div style="display:flex;gap:4px;">'+
+      '<button class="bt bo2" onclick="edi(''+m.id+'',''+m.pseudo+'',''+m.role+'',''+(m.discord||'')+'',''+(m.avatar||'staff_default.svg')+'')" style="padding:6px 10px;font-size:11px;">Modifier</button>'+
+      '<button class="bt bgr" onclick="rst(''+m.id+'')" style="padding:6px 10px;font-size:11px;">Retirer</button>'+
+      '</div>';
+    container.appendChild(item);
+  }
+}
+
+
+
+function rco() {
+  var comments = JSON.parse(localStorage.getItem('badlandfr_comments') || '[]');
+  var ct = document.getElementById('co-total'); if(ct) ct.textContent = comments.length;
+  var c = document.getElementById('co-list'); if(!c) return;
+  if(!comments.length){c.innerHTML='<p style="font-size:13px;color:var(--mu);">Aucun.</p>';return;}
+  var h='';
+  for(var i=0;i<comments.length;i++){
+    var cm=comments[i];
+    var stars='';for(var s=1;s<=5;s++)stars+='<span style="color:'+(s<=cm.rating?'var(--gold)':'var(--mu)')+'">★</span>';
+    h+='<div class="hl" style="flex-direction:column;align-items:flex-start;gap:4px;padding:.75rem 0;">';
+    h+='<div style="display:flex;align-items:center;gap:8px;width:100%;">';
+    h+='<strong style="color:var(--tx);">'+cm.pseudo+'</strong> '+stars;
+    h+='<span style="margin-left:auto;font-size:11px;color:var(--mu);">'+cm.date+'</span>';
+    h+='<button class="bt br" onclick="delComment('+cm.id+')" style="padding:3px 8px;font-size:10px;">Suppr</button>';
+    h+='</div>';
+    h+='<p style="font-size:13px;color:var(--mu);">'+cm.text+'</p>';
+    h+='</div>';
+  }
+  c.innerHTML=h;
+}
+function delComment(id){
+  if(!confirm('Supprimer ce commentaire ?'))return;
+  var l=(JSON.parse(localStorage.getItem('badlandfr_comments')||'[]')).filter(function(c){return c.id!==id;});
+  localStorage.setItem('badlandfr_comments',JSON.stringify(l));
+  rco();
+}
+
+
+// ── GALERIE ──
+function addPhoto() {
+  var url = document.getElementById('gl-url').value.trim();
+  var cap = document.getElementById('gl-cap').value.trim();
+  if (!url) { alert('URL requise !'); return; }
+  var photos = JSON.parse(localStorage.getItem('badlandfr_gallery') || '[]');
+  photos.push({ id: Date.now(), url: url, caption: cap });
+  localStorage.setItem('badlandfr_gallery', JSON.stringify(photos));
+  document.getElementById('gl-url').value = '';
+  document.getElementById('gl-cap').value = '';
+  ok2('ogl', 'Photo ajoutee !');
+  renderGalleryAdmin();
+}
+
+function renderGalleryAdmin() {
+  var photos = JSON.parse(localStorage.getItem('badlandfr_gallery') || '[]');
+  var c = document.getElementById('gl-list');
+  if (!c) return;
+  if (!photos.length) { c.innerHTML = '<p style="font-size:13px;color:var(--mu);">Aucune photo.</p>'; return; }
+  var h = '';
+  for (var i = 0; i < photos.length; i++) {
+    var p = photos[i];
+    h += '<div style="display:flex;align-items:center;gap:12px;padding:.75rem 0;border-bottom:1px solid var(--bo);">';
+    h += '<img src="' + p.url + '" style="width:80px;height:50px;object-fit:cover;border:1px solid var(--bo);" onerror="this.style.display='none'">';
+    h += '<div style="flex:1;font-size:13px;color:var(--tx);">' + (p.caption || 'Sans légende') + '</div>';
+    h += '<button class="bt br" onclick="delPhoto(' + p.id + ')" style="padding:4px 10px;font-size:11px;">Suppr</button>';
+    h += '</div>';
+  }
+  c.innerHTML = h;
+}
+
+function delPhoto(id) {
+  if (!confirm('Supprimer cette photo ?')) return;
+  var photos = (JSON.parse(localStorage.getItem('badlandfr_gallery') || '[]')).filter(function(p){ return p.id !== id; });
+  localStorage.setItem('badlandfr_gallery', JSON.stringify(photos));
+  renderGalleryAdmin();
+}
+
+// ── PROMOTIONS ──
+function setPromo(packId) {
+  var num = packId.replace('pack','');
+  var bonus = parseInt(document.getElementById('pr-' + num + '-bonus').value) || 0;
+  var label = document.getElementById('pr-' + num + '-label').value.trim();
+  if (!bonus || !label) { alert('Remplis le bonus et le message !'); return; }
+  var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
+  promos[packId] = { active: true, bonusCredits: bonus, label: label, since: new Date().toLocaleString('fr-FR') };
+  localStorage.setItem('badlandfr_promos', JSON.stringify(promos));
+  ok2('opr', 'Promo ' + packId + ' activee : +' + bonus + ' credits bonus !');
+  renderPromosAdmin();
+}
+
+function delPromo(packId) {
+  var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
+  if (promos[packId]) { promos[packId].active = false; }
+  localStorage.setItem('badlandfr_promos', JSON.stringify(promos));
+  ok2('opr', 'Promo desactivee.');
+  renderPromosAdmin();
+}
+
+function renderPromosAdmin() {
+  var promos = JSON.parse(localStorage.getItem('badlandfr_promos') || '{}');
+  var packs = ['100','200','500','1000'];
+  for (var i = 0; i < packs.length; i++) {
+    var n = packs[i];
+    var el = document.getElementById('pr-' + n + '-status');
+    if (!el) continue;
+    var pr = promos['pack' + n];
+    if (pr && pr.active) {
+      el.textContent = 'ACTIVE : +' + pr.bonusCredits + ' cr — "' + pr.label + '"';
+      el.style.color = '#27ae60';
+    } else {
+      el.textContent = 'Aucune promo active';
+      el.style.color = 'var(--mu)';
+    }
+  }
+}
+
+// ── DATE OUVERTURE ──
+function saveOpeningDate() {
+  var date = document.getElementById('od-date').value;
+  var time = document.getElementById('od-time').value || '20:00';
+  if (!date) { alert('Choisissez une date !'); return; }
+  var formatted = date + ' ' + time;
+  localStorage.setItem('badlandfr_opening_date', formatted);
+  ok2('ood', 'Date mise a jour : ' + formatted);
+  loadOpeningDate();
+}
+
+function clearOpeningDate() {
+  if (!confirm('Effacer la date ?')) return;
+  localStorage.removeItem('badlandfr_opening_date');
+  ok2('ood', 'Date effacee.');
+  loadOpeningDate();
+}
+
+function loadOpeningDate() {
+  var d = localStorage.getItem('badlandfr_opening_date');
+  var el = document.getElementById('od-current');
+  if (el) el.textContent = d || 'Non definie';
+}
+
+
+// ── VIP ADMIN ──
+function addVip(type) {
+  var prefix = type === 'premium' ? 'vp-p' : 'vp-b';
+  var pseudo = document.getElementById(prefix + '-pseudo').value.trim();
+  var avatar = document.getElementById(prefix + '-avatar').value.trim();
+  var since  = document.getElementById(prefix + '-since').value.trim();
+  if (!pseudo) { alert('Pseudo requis !'); return; }
+  var vips = JSON.parse(localStorage.getItem('badlandfr_vips') || '[]');
+  // Supprimer si déjà présent
+  vips = vips.filter(function(v){ return v.pseudo.toLowerCase() !== pseudo.toLowerCase(); });
+  vips.push({ id: Date.now(), pseudo: pseudo, avatar: avatar, since: since, type: type });
+  localStorage.setItem('badlandfr_vips', JSON.stringify(vips));
+  document.getElementById(prefix + '-pseudo').value = '';
+  document.getElementById(prefix + '-avatar').value = '';
+  document.getElementById(prefix + '-since').value = '';
+  ok2('ovp', pseudo + ' ajouté en VIP ' + (type === 'premium' ? 'Premium' : '') + ' !');
+  renderVipAdmin();
+}
+
+function renderVipAdmin() {
+  var vips = JSON.parse(localStorage.getItem('badlandfr_vips') || '[]');
+  var c = document.getElementById('vip-admin-list');
+  if (!c) return;
+  if (!vips.length) { c.innerHTML = '<p style="font-size:13px;color:var(--mu);">Aucun VIP.</p>'; return; }
+  var h = '';
+  for (var i = 0; i < vips.length; i++) {
+    var v = vips[i];
+    var col = v.type === 'premium' ? 'var(--gold)' : '#95a5a6';
+    h += '<div class="hl" style="align-items:center;">';
+    h += '<div style="display:flex;align-items:center;gap:10px;">';
+    h += '<span style="color:' + col + ';font-size:16px;">' + (v.type === 'premium' ? '⭐' : '🎖️') + '</span>';
+    h += '<strong style="color:var(--tx);">' + v.pseudo + '</strong>';
+    h += '<span style="font-size:11px;color:var(--mu);">' + (v.type === 'premium' ? 'VIP Premium' : 'VIP') + (v.since ? ' — ' + v.since : '') + '</span>';
+    h += '</div>';
+    h += '<button class="bt br" onclick="delVip(' + v.id + ')" style="padding:4px 10px;font-size:11px;">Retirer</button>';
+    h += '</div>';
+  }
+  c.innerHTML = h;
+}
+
+function delVip(id) {
+  if (!confirm('Retirer ce VIP ?')) return;
+  var vips = (JSON.parse(localStorage.getItem('badlandfr_vips') || '[]')).filter(function(v){ return v.id !== id; });
+  localStorage.setItem('badlandfr_vips', JSON.stringify(vips));
+  renderVipAdmin();
+}
+
+// ── PVP ADMIN ──
+function addPvp() {
+  var pseudo  = document.getElementById('pv-pseudo').value.trim();
+  var kills   = parseInt(document.getElementById('pv-kills').value) || 0;
+  var deaths  = parseInt(document.getElementById('pv-deaths').value) || 0;
+  var status  = document.getElementById('pv-status').value;
+  var avatar  = document.getElementById('pv-avatar').value.trim();
+  if (!pseudo) { alert('Pseudo requis !'); return; }
+  var players = JSON.parse(localStorage.getItem('badlandfr_pvp') || '[]');
+  // Màj si existe déjà
+  var found = false;
+  for (var i = 0; i < players.length; i++) {
+    if (players[i].pseudo.toLowerCase() === pseudo.toLowerCase()) {
+      players[i].kills = kills; players[i].deaths = deaths;
+      players[i].status = status; if (avatar) players[i].avatar = avatar;
+      found = true; break;
+    }
+  }
+  if (!found) players.push({ id: Date.now(), pseudo: pseudo, kills: kills, deaths: deaths, status: status, avatar: avatar });
+  localStorage.setItem('badlandfr_pvp', JSON.stringify(players));
+  document.getElementById('pv-pseudo').value = '';
+  document.getElementById('pv-kills').value = '';
+  document.getElementById('pv-deaths').value = '';
+  document.getElementById('pv-avatar').value = '';
+  ok2('opv', pseudo + ' mis a jour dans le classement !');
+  renderPvpAdmin();
+}
+
+function renderPvpAdmin() {
+  var players = JSON.parse(localStorage.getItem('badlandfr_pvp') || '[]');
+  var c = document.getElementById('pvp-admin-list');
+  if (!c) return;
+  if (!players.length) { c.innerHTML = '<p style="font-size:13px;color:var(--mu);">Aucun joueur.</p>'; return; }
+  players.sort(function(a, b){ return (b.kills||0) - (a.kills||0); });
+  var h = '';
+  for (var i = 0; i < players.length; i++) {
+    var p = players[i];
+    var kd = (p.deaths||0) > 0 ? ((p.kills||0) / p.deaths).toFixed(2) : (p.kills||0) + '.00';
+    h += '<div class="hl">';
+    h += '<div style="display:flex;align-items:center;gap:10px;">';
+    h += '<span style="color:var(--mu);font-size:14px;">#' + (i+1) + '</span>';
+    h += '<strong style="color:var(--tx);">' + p.pseudo + '</strong>';
+    h += '<span style="color:var(--red);">' + (p.kills||0) + ' kills</span>';
+    h += '<span style="color:var(--mu);">' + (p.deaths||0) + ' morts</span>';
+    h += '<span style="color:var(--gold);">K/D: ' + kd + '</span>';
+    h += '</div>';
+    h += '<button class="bt br" onclick="delPvp(' + p.id + ')" style="padding:4px 10px;font-size:11px;">Suppr</button>';
+    h += '</div>';
+  }
+  c.innerHTML = h;
+}
+
+function delPvp(id) {
+  if (!confirm('Supprimer ce joueur du classement ?')) return;
+  var players = (JSON.parse(localStorage.getItem('badlandfr_pvp') || '[]')).filter(function(p){ return p.id !== id; });
+  localStorage.setItem('badlandfr_pvp', JSON.stringify(players));
+  renderPvpAdmin();
 }
 
 window.addEventListener('storage',function(){la();});
