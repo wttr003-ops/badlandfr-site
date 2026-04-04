@@ -419,6 +419,25 @@ textarea.fi{min-height:100px;}
           <div class="sc2" style="border-top-color:var(--gn);"><div class="sn" style="color:var(--gn);" id="pt-active">0</div><div class="sl2">Actives</div></div>
           <div class="sc2" style="border-top-color:var(--mu);"><div class="sn" style="color:var(--mu);" id="pt-expired">0</div><div class="sl2">Expirées</div></div>
         </div>
+        <div class="om" id="opt">Priorité ajoutée !</div>
+
+        <!-- Ajout manuel -->
+        <div class="fb">
+          <h3>Ajouter une priorité manuellement</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:end;">
+            <div class="fr" style="margin:0;"><label>Pseudo du joueur</label><input type="text" id="pt-pseudo" class="fi" placeholder="Pseudo" list="cdl"></div>
+            <div class="fr" style="margin:0;"><label>Type</label>
+              <select id="pt-type" class="fi">
+                <option value="solo">Solo</option>
+                <option value="faction">Faction</option>
+              </select>
+            </div>
+          </div>
+          <div class="fr" style="margin-top:1rem;"><label>PSN(s) — séparés par des virgules</label><input type="text" id="pt-psns" class="fi" placeholder="Ex: PSN1, PSN2, PSN3"></div>
+          <div class="fr"><label>Durée (jours)</label><input type="number" id="pt-days" class="fi" value="30" min="1"></div>
+          <button class="bt bg" onclick="addPriorityAdmin()">Ajouter la priorité</button>
+        </div>
+
         <div class="fb">
           <h3>Toutes les priorités</h3>
           <div style="overflow-x:auto;">
@@ -1317,6 +1336,40 @@ function delPvp(id) {
 
 
 // ── PRIORITÉS ──
+
+function addPriorityAdmin() {
+  var pseudo = document.getElementById('pt-pseudo').value.trim();
+  var type   = document.getElementById('pt-type').value;
+  var psnsRaw = document.getElementById('pt-psns').value.trim();
+  var days   = parseInt(document.getElementById('pt-days').value) || 30;
+  if (!pseudo) { alert('Pseudo requis !'); return; }
+  if (!psnsRaw) { alert('Au moins un PSN requis !'); return; }
+
+  var psns = psnsRaw.split(',').map(function(p){ return p.trim(); }).filter(function(p){ return p; });
+  var now = new Date();
+  var expires = new Date(now);
+  expires.setDate(expires.getDate() + days);
+
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  priorities.push({
+    id: Date.now(),
+    pseudo: pseudo,
+    type: type,
+    psns: psns,
+    purchasedAt: now.toISOString(),
+    expiresAt: expires.toISOString(),
+    status: 'active',
+    addedByAdmin: true
+  });
+  localStorage.setItem('badlandfr_priorities', JSON.stringify(priorities));
+
+  document.getElementById('pt-pseudo').value = '';
+  document.getElementById('pt-psns').value = '';
+  document.getElementById('pt-days').value = '30';
+  ok2('opt', pseudo + ' — priorité ' + type + ' ajoutée pour ' + days + ' jours !');
+  renderPriorities();
+}
+
 function renderPriorities() {
   var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
   var now = new Date();

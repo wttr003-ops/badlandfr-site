@@ -1429,6 +1429,31 @@
       </div>
     </div>
 
+    <!-- ── PRIORITÉS ACTIVES ── -->
+    <div style="margin-bottom:3rem;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
+        <div style="width:3px;height:24px;background:var(--red);"></div>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--red);">🏳️ Joueurs Prioritaires</span>
+        <div style="flex:1;height:1px;background:rgba(192,57,43,0.2);"></div>
+      </div>
+
+      <!-- Priorités Solo -->
+      <div style="margin-bottom:2rem;">
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Solo</p>
+        <div id="priority-solo-list" style="display:flex;flex-wrap:wrap;gap:1rem;">
+          <div style="font-size:13px;color:var(--text-muted);padding:1rem;">Aucune priorité solo active.</div>
+        </div>
+      </div>
+
+      <!-- Priorités Faction -->
+      <div>
+        <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Factions</p>
+        <div id="priority-faction-list" style="display:flex;flex-wrap:wrap;gap:1rem;">
+          <div style="font-size:13px;color:var(--text-muted);padding:1rem;">Aucune priorité faction active.</div>
+        </div>
+      </div>
+    </div>
+
     <!-- ── CLASSEMENT PVP ── -->
     <div style="margin-bottom:2rem;">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;">
@@ -3000,6 +3025,104 @@ function checkExpiredPriorities() {
 }
 checkExpiredPriorities();
 setInterval(checkExpiredPriorities, 60000); // Check chaque minute
+</script>
+
+
+<script>
+// ── AFFICHAGE PRIORITÉS ACTIVES SUR LE SITE ──
+function makePriorityCard(p) {
+  var now = new Date();
+  var expires = new Date(p.expiresAt);
+  var daysLeft = Math.ceil((expires - now) / 86400000);
+  var pseudo = p.pseudo || '?';
+  var initial = pseudo[0].toUpperCase();
+
+  return '<div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:1.25rem;min-width:160px;max-width:200px;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">' +
+    '<div style="width:52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;border:2px solid rgba(192,57,43,0.5);">' +
+    '<span style="font-family:Bebas Neue,sans-serif;font-size:22px;color:#fff;">' + initial + '</span></div>' +
+    '<div style="font-family:Bebas Neue,sans-serif;font-size:16px;color:#fff;letter-spacing:1px;">' + pseudo + '</div>' +
+    '<div style="font-size:10px;color:var(--red);font-family:Barlow Condensed,sans-serif;letter-spacing:2px;text-transform:uppercase;margin:.25rem 0;">🏳️ PRIORITÉ</div>' +
+    '<div style="font-size:10px;color:var(--text-muted);margin-top:.5rem;">Expire dans <strong style="color:var(--gold);">' + daysLeft + 'j</strong></div>' +
+    (p.psns && p.psns.length ? '<div style="font-size:10px;color:var(--text-muted);margin-top:3px;">PSN : ' + p.psns[0] + '</div>' : '') +
+    '</div>';
+}
+
+function makeFactionCard(p) {
+  var now = new Date();
+  var expires = new Date(p.expiresAt);
+  var daysLeft = Math.ceil((expires - now) / 86400000);
+  var pseudo = p.pseudo || '?';
+  var psns = p.psns || [];
+
+  var psnsList = '';
+  for (var i = 0; i < psns.length; i++) {
+    psnsList += '<div style="font-size:10px;color:var(--text-muted);padding:2px 0;border-bottom:1px solid var(--border);">👤 ' + psns[i] + '</div>';
+  }
+
+  return '<div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:1.25rem;min-width:200px;max-width:260px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">' +
+    '<div style="display:flex;align-items:center;gap:8px;margin-bottom:.75rem;">' +
+    '<div style="width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
+    '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;color:#fff;">' + pseudo[0].toUpperCase() + '</span></div>' +
+    '<div><div style="font-family:Bebas Neue,sans-serif;font-size:15px;color:#fff;">' + pseudo + '</div>' +
+    '<div style="font-size:9px;color:var(--red);font-family:Barlow Condensed,sans-serif;letter-spacing:2px;text-transform:uppercase;">👥 FACTION</div></div>' +
+    '</div>' +
+    '<div style="margin-bottom:.5rem;">' + psnsList + '</div>' +
+    '<div style="font-size:10px;color:var(--text-muted);margin-top:.5rem;">Expire dans <strong style="color:var(--gold);">' + daysLeft + 'j</strong></div>' +
+    '</div>';
+}
+
+function renderPrioritiesOnSite() {
+  var priorities = JSON.parse(localStorage.getItem('badlandfr_priorities') || '[]');
+  var now = new Date();
+
+  // Filtrer actives seulement
+  var active = priorities.filter(function(p) {
+    return p.status === 'active' && new Date(p.expiresAt) > now;
+  });
+
+  var solos   = active.filter(function(p){ return p.type === 'solo'; });
+  var factions = active.filter(function(p){ return p.type === 'faction'; });
+
+  var soloEl = document.getElementById('priority-solo-list');
+  var factionEl = document.getElementById('priority-faction-list');
+
+  if (soloEl) {
+    if (!solos.length) {
+      soloEl.innerHTML = '<div style="font-size:13px;color:var(--text-muted);padding:1rem;">Aucune priorité solo active.</div>';
+    } else {
+      var h = '';
+      for (var i = 0; i < solos.length; i++) h += makePriorityCard(solos[i]);
+      soloEl.innerHTML = h;
+    }
+  }
+
+  if (factionEl) {
+    if (!factions.length) {
+      factionEl.innerHTML = '<div style="font-size:13px;color:var(--text-muted);padding:1rem;">Aucune priorité faction active.</div>';
+    } else {
+      var h = '';
+      for (var i = 0; i < factions.length; i++) h += makeFactionCard(factions[i]);
+      factionEl.innerHTML = h;
+    }
+  }
+}
+
+renderPrioritiesOnSite();
+
+// Polling toutes les secondes pour mise à jour instantanée
+var lastPriorityData = localStorage.getItem('badlandfr_priorities');
+setInterval(function() {
+  var current = localStorage.getItem('badlandfr_priorities');
+  if (current !== lastPriorityData) {
+    lastPriorityData = current;
+    renderPrioritiesOnSite();
+  }
+}, 1000);
+
+// Storage event (cross-onglets)
+window.addEventListener('storage', function(e) {
+  if (e.key === 'badlandfr_priorities') renderPrioritiesOnSite();
+});
 </script>
 
 </body>
