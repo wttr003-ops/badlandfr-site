@@ -52,10 +52,10 @@
     color: var(--text);
   }
   .nav-logo span { color: var(--red); }
-  .nav-links { display: flex; gap: 1.2rem; list-style: none; }
+  .nav-links { display: flex; gap: 1rem; list-style: none; white-space: nowrap; }
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text-muted);
@@ -515,10 +515,9 @@
 <nav>
   <div class="nav-logo">BADLAND <span>FR</span></div>
   <ul class="nav-links">
-    <li><a href="#about">Communauté</a></li>
     <li><a href="#presentation">Serveur</a></li>
     <li><a href="#map">Map</a></li>
-    <li><a href="#updates">Mises à jour</a></li>
+    <li><a href="#updates">MAJ</a></li>
     <li><a href="#evenements">Événements</a></li>
     <li><a href="#boutique">Boutique</a></li>
     <li><a href="#staff">Staff</a></li>
@@ -1743,6 +1742,32 @@
 </footer>
 
 <script>
+// ── COMPTE ADMIN STEVEN (créé automatiquement) ──
+function initAdminAccount() {
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var exists = accounts.find(function(a){ return a.pseudo === 'Steven'; });
+  if (!exists) {
+    accounts.unshift({
+      id: 999999,
+      pseudo: 'Steven',
+      email: 'admin@badlandfr.com',
+      platform: 'Admin',
+      date: new Date().toLocaleString('fr-FR'),
+      isAdmin: true,
+      mustChangePassword: true,
+      passwordHash: 'steven'
+    });
+    localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
+    var credits = JSON.parse(localStorage.getItem('badlandfr_credits') || '{}');
+    if (!credits['Steven']) {
+      credits['Steven'] = { balance: 9999, platform: 'Admin', lastMove: new Date().toLocaleString('fr-FR') };
+      localStorage.setItem('badlandfr_credits', JSON.stringify(credits));
+    }
+  }
+}
+initAdminAccount();
+
+
 // ── COUNTDOWN ──
 function updateCountdown() {
   var stored = localStorage.getItem('badlandfr_opening_date');
@@ -2009,30 +2034,6 @@ function saveProfile() {
   localStorage.setItem('badlandfr_current_user', JSON.stringify(user));
   closeModal('modal-profil');
   
-// ── COMPTE ADMIN STEVEN (créé automatiquement) ──
-function initAdminAccount() {
-  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
-  var exists = accounts.find(function(a){ return a.pseudo === 'Steven'; });
-  if (!exists) {
-    accounts.unshift({
-      id: 999999,
-      pseudo: 'Steven',
-      email: 'admin@badlandfr.com',
-      platform: 'Admin',
-      date: new Date().toLocaleString('fr-FR'),
-      isAdmin: true,
-      mustChangePassword: true,
-      passwordHash: 'steven'
-    });
-    localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
-    var credits = JSON.parse(localStorage.getItem('badlandfr_credits') || '{}');
-    if (!credits['Steven']) {
-      credits['Steven'] = { balance: 9999, platform: 'Admin', lastMove: new Date().toLocaleString('fr-FR') };
-      localStorage.setItem('badlandfr_credits', JSON.stringify(credits));
-    }
-  }
-}
-initAdminAccount();
 updateNavProfile();
   alert('✅ Profil mis à jour !');
 }
@@ -2292,7 +2293,7 @@ function renderCartModal() {
   var container = document.getElementById('cart-items');
   var totalEl = document.getElementById('cart-total');
   var totalVal = document.getElementById('cart-total-val');
-  var paypalBtn = document.getElementById('cart-paypal-btn');
+  var paypalBtn = null; // bouton géré par checkout()
 
   if (!cart.length) {
     container.innerHTML = '<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:2rem 0;">Votre panier est vide.</p>';
@@ -2580,7 +2581,7 @@ function renderGallery() {
     var p = photos[i];
     var span = i === 0 ? 'grid-column:span 2;' : '';
     h += '<div style="' + span + 'aspect-ratio:16/9;overflow:hidden;background:var(--bg3);">';
-    h += '<img src="' + p.url + '" alt="' + (p.caption || 'Screenshot Badland FR') + '" style="width:100%;height:100%;object-fit:cover;transition:transform .3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">';
+    h += '<img src="' + p.url + '" alt="' + (p.caption || 'Screenshot Badland FR') + '" style="width:100%;height:100%;object-fit:cover;transition:transform .3s;">';
     h += '</div>';
   }
   grid.innerHTML = h;
@@ -3040,7 +3041,7 @@ function makePriorityCard(p) {
   var pseudo = p.pseudo || '?';
   var initial = pseudo[0].toUpperCase();
 
-  return '<div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:1.25rem;min-width:160px;max-width:200px;text-align:center;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">' +
+  return '<div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:1.25rem;min-width:160px;max-width:200px;text-align:center;">' +
     '<div style="width:52px;height:52px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;border:2px solid rgba(192,57,43,0.5);">' +
     '<span style="font-family:Bebas Neue,sans-serif;font-size:22px;color:#fff;">' + initial + '</span></div>' +
     '<div style="font-family:Bebas Neue,sans-serif;font-size:16px;color:#fff;letter-spacing:1px;">' + pseudo + '</div>' +
@@ -3062,7 +3063,7 @@ function makeFactionCard(p) {
     psnsList += '<div style="font-size:10px;color:var(--text-muted);padding:2px 0;border-bottom:1px solid var(--border);">👤 ' + psns[i] + '</div>';
   }
 
-  return '<div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:1.25rem;min-width:200px;max-width:260px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='none'">' +
+  return '<div style="background:var(--bg2);border:1px solid rgba(192,57,43,0.3);border-top:3px solid var(--red);padding:1.25rem;min-width:200px;max-width:260px;">' +
     '<div style="display:flex;align-items:center;gap:8px;margin-bottom:.75rem;">' +
     '<div style="width:36px;height:36px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;">' +
     '<span style="font-family:Bebas Neue,sans-serif;font-size:16px;color:#fff;">' + pseudo[0].toUpperCase() + '</span></div>' +
