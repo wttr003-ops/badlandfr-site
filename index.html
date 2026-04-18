@@ -607,7 +607,33 @@ footer span{color:var(--red)}
       <div class="map-badge" id="map-badge-global">🗺️ Map en attente</div>
       <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:0.75rem;color:#fff">NASDARA / BADLANDS <span style="color:var(--red)">DLC 2026</span></h3>
       <p style="color:var(--text-muted);max-width:520px;margin:0 auto 2rem;line-height:1.7;font-size:0.95rem">La nouvelle map exclusive Badland FR arrive en 2026. En attendant, découvrez les maps disponibles ci-dessous.</p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" id="maps-grid">
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem" id="maps-grid">
+
+        <!-- NASDARA -->
+        <div class="map-card" id="mapcard-nasdara" style="background:var(--bg);border:1px solid var(--border);border-top:3px solid var(--gold);padding:1.25rem 2rem;text-align:center;min-width:160px">
+          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:6px">⭐ PROCHAINE MAP</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--text-muted)">NASDARA</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:6px;color:var(--text-muted)">🔧 En développement</div>
+        </div>
+
+        <!-- CHERNARUS -->
+        <div class="map-card" id="mapcard-chernarus" style="background:var(--bg);border:1px solid var(--border);padding:1.25rem 2rem;text-align:center;min-width:160px;opacity:0.5">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--text-muted)">CHERNARUS</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:6px;color:var(--text-muted)">🔒 Indisponible</div>
+        </div>
+
+        <!-- LIVONIA -->
+        <div class="map-card" id="mapcard-livonia" style="background:var(--bg);border:1px solid var(--border);padding:1.25rem 2rem;text-align:center;min-width:160px;opacity:0.5">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--text-muted)">LIVONIA</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:6px;color:var(--text-muted)">🔒 Indisponible</div>
+        </div>
+
+        <!-- SAKHAL -->
+        <div class="map-card" id="mapcard-sakhal" style="background:var(--bg);border:1px solid var(--border);padding:1.25rem 2rem;text-align:center;min-width:160px;opacity:0.5">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--text-muted)">SAKHAL</div>
+          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:6px;color:var(--text-muted)">🔒 Indisponible</div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -2780,31 +2806,55 @@ function adminRemoveGallery(idx) {
 
 // OUVERTURE
 function adminSetOuverture() {
-  const date = document.getElementById('ouverture-date').value;
+  var date = document.getElementById('ouverture-date').value;
   if (!date) { alert('Date requise.'); return; }
   ls.set('opening_date', date);
   renderAdminOuverture();
-  alert("Date d'ouverture enregistree !");
+  initCountdown();
+  alert('Date enregistree !');
+}
+function adminDeleteOuverture() {
+  if (!confirm('Supprimer la date et remettre le chrono a zero ?')) return;
+  ls.set('opening_date', null);
+  document.getElementById('ouverture-date').value = '';
+  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+  // Remettre le chrono à 00:00:00:00
+  var ids = ['cd-days','cd-hours','cd-minutes','cd-seconds'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el) el.textContent = '00';
+  }
+  var running = document.getElementById('countdown-running');
+  var openMsg = document.getElementById('countdown-open');
+  if (running) running.style.display = 'flex';
+  if (openMsg) openMsg.style.display = 'none';
+  var dateEl = document.getElementById('countdown-target-date');
+  if (dateEl) dateEl.textContent = 'date non definie';
+  renderAdminOuverture();
+  alert('Date supprimee ! Le chrono affiche 00:00:00:00.');
 }
 function renderAdminOuverture() {
-  const date = ls.get('opening_date');
-  const el = document.getElementById('ouverture-preview');
+  var date = ls.get('opening_date');
+  var el = document.getElementById('ouverture-preview');
   if (!el) return;
   if (date) {
-    const d = new Date(date);
-    const now = new Date();
-    const diff = d - now;
+    var d = new Date(date);
+    var now = new Date();
+    var diff = d - now;
+    var dateStr = d.toLocaleDateString("fr-FR") + " a " + d.toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
     if (diff > 0) {
-      const days = Math.floor(diff/86400000);
-      const hours = Math.floor((diff%86400000)/3600000);
-      el.innerHTML = `<span style="color:var(--gold)">⏳ Ouverture dans ${days}j ${hours}h — ${d.toLocaleDateString("fr-FR")} à ${d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</span>`;
+      var days2 = Math.floor(diff/86400000);
+      var hours2 = Math.floor((diff%86400000)/3600000);
+      var mins2 = Math.floor((diff%3600000)/60000);
+      el.innerHTML = '<span style="color:var(--gold)">⏳ Ouverture le ' + dateStr + ' (dans ' + days2 + 'j ' + hours2 + 'h ' + mins2 + 'min)</span>';
     } else {
-      el.innerHTML = `<span style="color:var(--green)">✅ Serveur ouvert depuis le ${d.toLocaleDateString("fr-FR")}</span>`;
+      el.innerHTML = '<span style="color:var(--green)">✅ Serveur ouvert depuis le ' + dateStr + '</span>';
     }
+    var inp = document.getElementById('ouverture-date');
+    if (inp && !inp.value) inp.value = date;
   } else {
-    el.innerHTML = '<span style="color:var(--text-muted)">Aucune date non definie</span>';
+    el.innerHTML = '<span style="color:var(--text-muted)">Aucune date definie — chrono affiche 00:00:00:00</span>';
   }
-  // Mettre à jour le countdown sur la page principale
   initCountdown();
   renderMapsPublic();
 }
@@ -2903,28 +2953,38 @@ function getMaps() {
 
 function renderMapsPublic() {
   var maps = getMaps();
-  var el = document.getElementById("maps-grid");
   var badge = document.getElementById("map-badge-global");
-  if (!el) return;
-  var activeMap = maps.find(function(m){ return m.active; });
+  var activeMap = null;
+  for (var i = 0; i < maps.length; i++) { if (maps[i].active) { activeMap = maps[i]; break; } }
   if (badge) badge.textContent = activeMap ? ("🟢 " + activeMap.name) : "🗺️ Map en attente";
-  var html = "";
-  for (var i = 0; i < maps.length; i++) {
-    var m = maps[i];
-    var borderColor = m.active ? "var(--border-red)" : "var(--border)";
-    var extraStyle = !m.active ? "opacity:0.45;filter:grayscale(0.5);" : "";
-    var topBorder = m.featured ? "border-top:3px solid var(--gold);" : "";
-    var nameColor = m.active ? "#fff" : "var(--text-muted)";
-    var statusColor = m.active ? "var(--green)" : "var(--text-muted)";
-    var statusText = m.active ? "✅ ACTIF" : ("🔒 " + escHtml(m.label));
-    var featuredHtml = m.featured ? '<div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px">⭐ PROCHAINE MAP</div>' : "";
-    html += '<div style="background:var(--bg);border:1px solid ' + borderColor + ';padding:1rem 2rem;text-align:center;' + extraStyle + topBorder + '">';
-    html += featuredHtml;
-    html += '<div style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:' + nameColor + '">' + escHtml(m.name) + '</div>';
-    html += '<div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px;color:' + statusColor + '">' + statusText + '</div>';
-    html += '</div>';
+
+  var statusLabels = {
+    "nasdara":   { inactive: "🔧 En développement", color: "var(--gold)" },
+    "chernarus": { inactive: "🔒 Indisponible",      color: "var(--text-muted)" },
+    "livonia":   { inactive: "🔒 Indisponible",      color: "var(--text-muted)" },
+    "sakhal":    { inactive: "🔒 Indisponible",      color: "var(--text-muted)" }
+  };
+
+  for (var j = 0; j < maps.length; j++) {
+    var m = maps[j];
+    var card = document.getElementById("mapcard-" + m.id);
+    if (!card) continue;
+    var statusDiv = card.querySelector("div:last-child");
+    var nameDiv = card.querySelector("div:nth-child(" + (m.featured ? 3 : 2) + ")");
+
+    if (m.active) {
+      card.style.opacity = "1";
+      card.style.border = "1px solid var(--border-red)";
+      if (nameDiv) nameDiv.style.color = "#fff";
+      if (statusDiv) { statusDiv.textContent = "✅ ACTIF"; statusDiv.style.color = "var(--green)"; }
+    } else {
+      card.style.opacity = m.featured ? "1" : "0.5";
+      card.style.border = "1px solid var(--border)";
+      if (nameDiv) nameDiv.style.color = "var(--text-muted)";
+      var lbl = statusLabels[m.id] || { inactive: "🔒 Indisponible", color: "var(--text-muted)" };
+      if (statusDiv) { statusDiv.textContent = lbl.inactive; statusDiv.style.color = lbl.color; }
+    }
   }
-  el.innerHTML = html;
 }
 
 function renderAdminMaps() {
@@ -3222,7 +3282,10 @@ document.addEventListener('DOMContentLoaded', init);
           <div class="admin-card-title">📅 Date d'ouverture du serveur</div>
           <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem">Définit la date d'ouverture officielle affichée sur le site avec un compte à rebours.</p>
           <input class="admin-input" id="ouverture-date" type="datetime-local">
-          <button class="admin-btn" onclick="adminSetOuverture()">Enregistrer la date</button>
+          <div style="display:flex;gap:0.75rem;margin-top:0.25rem">
+            <button class="admin-btn" onclick="adminSetOuverture()">💾 Enregistrer</button>
+            <button class="admin-btn red" onclick="adminDeleteOuverture()">🗑️ Supprimer</button>
+          </div>
           <div id="ouverture-preview" style="margin-top:1rem;font-size:0.9rem;color:var(--text-muted)"></div>
         </div>
       </div>
