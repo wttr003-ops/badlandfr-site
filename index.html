@@ -601,8 +601,16 @@
     <span class="stat-lbl">Cycle de nuit</span>
   </div>
   <div class="stat-item">
+    <span class="stat-num">50</span>
+    <span class="stat-lbl">Armes Tier 3</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">15'</span>
+    <span class="stat-lbl">Corps au sol</span>
+  </div>
+  <div class="stat-item">
     <span class="stat-num">24/7</span>
-    <span class="stat-lbl">Disponibilité</span>
+    <span class="stat-lbl">Disponible</span>
   </div>
 </div>
 
@@ -749,7 +757,7 @@
 </section>
 
 <!-- ── PRÉSENTATION ── -->
-<section id="presentation">
+<section id="presentation" style="background:var(--bg2); padding:6rem 0;">
   <div class="container">
     <div class="pres-grid">
       <div>
@@ -759,25 +767,113 @@
           Un serveur DayZ console pensé pour l'expérience complète. Loot x3, véhicules intacts, zones dangereuses et événements uniques. La survie n'a jamais été aussi intense.
         </p>
         <ul class="feature-list">
-          <li>Loot multiplié x3 sur les armes, munitions et matériel de construction</li>
-          <li>Tous les véhicules spawnent complets, intacts, avec provisions à bord</li>
-          <li>Zones militaires Tier 1 à Tier 4 avec progression logique du danger</li>
-          <li>Zone contaminée permanente sur l'île de la prison — NBC obligatoire</li>
-          <li>Mallettes secrètes dans les crashs avec loot ultra-rare à l'intérieur</li>
-          <li>Cycle jour/nuit dynamique : journée longue, nuit courte</li>
-          <li>Chaque spawn joueur avec équipement de survie de base complet</li>
-          <li>Base building facilité — outils et matériaux partout sur la map</li>
+          <li>Loot multiplié <strong style="color:var(--red);">x3</strong> sur les armes, munitions et matériel de construction</li>
+          <li>Tous les véhicules spawnent <strong style="color:var(--red);">complets et intacts</strong> avec provisions à bord</li>
+          <li>Armes <strong style="color:var(--red);">avec chargeur plein</strong> au spawn — sans silencieux attaché</li>
+          <li>Zones militaires Tier 3 <strong style="color:var(--red);">infestées de zombies costauds</strong></li>
+          <li>Crashes d'hélicos avec <strong style="color:var(--red);">25+ zombies</strong> et mallette ultra rare</li>
+          <li>Cycle jour/nuit dynamique — <strong style="color:var(--red);">journée longue, nuit courte</strong></li>
+          <li>Corps des joueurs restent <strong style="color:var(--red);">15 minutes</strong> avant disparition</li>
+          <li><strong style="color:var(--red);">Position GPS</strong> visible sur la carte en temps réel</li>
         </ul>
       </div>
-      <div class="pres-image">
-        <img src="bg_section.svg" alt="Badland FR" style="width:100%;height:100%;object-fit:cover;">
+      <div class="pres-cards">
+
+        <!-- Carte Loot -->
+        <div class="info-card" style="border-left:3px solid var(--red);">
+          <div class="info-card-icon">🎯</div>
+          <div>
+            <div class="info-card-title">LOOT ÉQUILIBRÉ</div>
+            <div class="info-card-text">Armes civiles dans les villes · Armes militaires dans les bases · Tier 3 dans les grandes bases uniquement</div>
+          </div>
+        </div>
+
+        <!-- Carte Véhicules -->
+        <div class="info-card" style="border-left:3px solid var(--gold);">
+          <div class="info-card-icon">🚛</div>
+          <div>
+            <div class="info-card-title">VÉHICULES CHARGÉS</div>
+            <div class="info-card-text">Camions remplis de matériaux de construction · Rondins x10 · Planches x20 · Outils complets · Hachettes · Haches · Pierres</div>
+          </div>
+        </div>
+
+        <!-- Carte Construction -->
+        <div class="info-card" style="border-left:3px solid #27ae60;">
+          <div class="info-card-icon">🏗️</div>
+          <div>
+            <div class="info-card-title">BASE BUILDING FACILITÉ</div>
+            <div class="info-card-text">Clous · Barbelés · Câbles · Cadenas 3 et 4 chiffres · Tous les outils présents partout dans les garages et hangars</div>
+          </div>
+        </div>
+
+        <!-- Carte Zombies -->
+        <div class="info-card" style="border-left:3px solid #e74c3c;">
+          <div class="info-card-icon">🧟</div>
+          <div>
+            <div class="info-card-title">ZOMBIES DANGEREUX</div>
+            <div class="info-card-text">Zombies costauds dans les bases militaires · 25+ zombies autour des crashes · Loot possible sur les corps (nourriture, piles, cordes)</div>
+          </div>
+        </div>
+
+        <!-- Carte Événements -->
+        <div class="info-card" style="border-left:3px solid #9b59b6;">
+          <div class="info-card-icon">💥</div>
+          <div>
+            <div class="info-card-title">ÉVÉNEMENTS UNIQUES</div>
+            <div class="info-card-text">Crashes hélico · Crashes camions militaires · Zone NBC permanente à la prison · Mallette secrète ultra rare</div>
+          </div>
+        </div>
+
+        <!-- Carte Mallette -->
+        <div class="info-card" style="border-left:3px solid var(--gold);">
+          <div class="info-card-icon">💼</div>
+          <div>
+            <div class="info-card-title">MALLETTE SECRÈTE</div>
+            <div class="info-card-text">300 balles · 5 grenades · Cartouches lance-grenades · Clé ultra rare dans les bases Tier 3 · 3 clés sur toute la map</div>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <!-- Stats serveur détaillées -->
+    <div style="margin-top:4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--red);padding:1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--red);">x3</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Loot multiplié</div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid var(--gold);padding:1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--gold);">50</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Armes Tier 3 sur la map</div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid #27ae60;padding:1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#27ae60;">25+</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Zombies aux crashes</div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid #3498db;padding:1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#3498db;">15<span style="font-size:22px;">min</span></div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Corps au sol</div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid #9b59b6;padding:1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#9b59b6;">3</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Clés mallette secrète</div>
+      </div>
+
+      <div style="background:var(--bg3);border:1px solid var(--border);border-top:2px solid #e67e22;padding:1.5rem;text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#e67e22;">GPS</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);">Position sur la carte</div>
+      </div>
+
+    </div>
+
   </div>
 </section>
 
-
-<!-- ── MAP BADLANDS ── -->
 <section id="map" style="background:var(--bg2); padding:6rem 0;">
   <div class="container">
     <div class="section-label">Nouvelle map DLC 2026</div>
@@ -1051,107 +1147,88 @@
 </section>
 
 <!-- ── ÉVÉNEMENTS ── -->
-<section id="evenements">
+<section id="evenements" style="background:var(--bg2); padding:6rem 0;">
   <div class="container">
-    <div class="section-label">Événements spéciaux</div>
-    <h2 class="section-title">SUR LE <span>TERRAIN</span></h2>
-    <p class="section-desc">Des événements organisés régulièrement par les admins pour pimenter la vie sur Chernarus. Certains sont planifiés, d'autres surviennent sans prévenir.</p>
-    <div class="events-grid">
+    <div class="section-label">Événements</div>
+    <h2 class="section-title">ÉVÉNEMENTS <span>DYNAMIQUES</span></h2>
+    <p class="section-desc">Des événements uniques qui rendent chaque partie différente. Soyez toujours prêts.</p>
 
-      <div class="event-card">
-        <div class="event-img">
-          🚁
-          <span class="event-rarity rarity-rare">Rare</span>
-        </div>
-        <div class="event-body">
-          <div class="event-title">Crash d'hélicoptère</div>
-          <div class="event-desc">Un hélico militaire s'écrase aléatoirement sur la map. 15+ zombies soldats sécurisent le site. Une mallette secrète (15% de chance) peut contenir du loot ultra-rare : SVD, M4, gros chargeurs, grenades.</div>
-          <div class="event-tags">
-            <span class="event-tag">Aléatoire</span>
-            <span class="event-tag">15+ zombies</span>
-            <span class="event-tag">Mallette rare</span>
-          </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem;">
+
+      <!-- Crash Hélico -->
+      <div class="event-card" style="background:var(--bg3);border:1px solid var(--border);border-top:3px solid var(--red);padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:1rem;right:1rem;font-size:40px;opacity:.15;">🚁</div>
+        <div style="font-size:32px;margin-bottom:1rem;">🚁</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;margin-bottom:.5rem;">CRASH D'HÉLICOPTÈRE</div>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Un hélicoptère militaire s'est écrasé quelque part sur la map. Approchez avec prudence — <strong style="color:var(--red);">25+ zombies soldats</strong> gardent les débris.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span style="background:rgba(192,57,43,0.15);color:var(--red);border:1px solid rgba(192,57,43,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">25+ ZOMBIES</span>
+          <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">💼 MALLETTE RARE</span>
+          <span style="background:rgba(39,174,96,0.15);color:#27ae60;border:1px solid rgba(39,174,96,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">LOOT MILITAIRE</span>
         </div>
       </div>
 
-      <div class="event-card">
-        <div class="event-img">
-          ☢️
-          <span class="event-rarity rarity-epic">Zone NBC</span>
-        </div>
-        <div class="event-body">
-          <div class="event-title">Île de la prison — Zone contaminée</div>
-          <div class="event-desc">L'île de Storozh est une zone contaminée permanente. 85+ zombies dont des NBC. Tenue complète NBC obligatoire. En récompense : M4A1, AKM Drum 75 balles, M79 lance-grenade, grenades chimiques et explosives.</div>
-          <div class="event-tags">
-            <span class="event-tag">Permanent</span>
-            <span class="event-tag">NBC requis</span>
-            <span class="event-tag">85+ zombies</span>
-            <span class="event-tag">Loot top tier</span>
-          </div>
+      <!-- Crash Camion Militaire -->
+      <div class="event-card" style="background:var(--bg3);border:1px solid var(--border);border-top:3px solid var(--gold);padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:1rem;right:1rem;font-size:40px;opacity:.15;">🚛</div>
+        <div style="font-size:32px;margin-bottom:1rem;">🚛</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;margin-bottom:.5rem;">CRASH CAMION MILITAIRE</div>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Un convoi militaire a été attaqué. Le camion renversé contient du matériel de valeur — mais <strong style="color:var(--gold);">20+ zombies</strong> rôdent autour.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">20+ ZOMBIES</span>
+          <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">💼 MALLETTE RARE</span>
+          <span style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">ARMES TIER 2-3</span>
         </div>
       </div>
 
-      <div class="event-card">
-        <div class="event-img">
-          🏆
-          <span class="event-rarity rarity-epic">Admin event</span>
-        </div>
-        <div class="event-body">
-          <div class="event-title">Tournoi de survie</div>
-          <div class="event-desc">Organisé par les admins. Tous les joueurs démarrent au même endroit, sans équipement. Le dernier survivant remporte une récompense exclusive en jeu. Annoncé 24h à l'avance sur le Discord.</div>
-          <div class="event-tags">
-            <span class="event-tag">Planifié</span>
-            <span class="event-tag">Discord requis</span>
-            <span class="event-tag">Récompense</span>
-          </div>
+      <!-- Zone NBC Prison -->
+      <div class="event-card" style="background:var(--bg3);border:1px solid var(--border);border-top:3px solid #27ae60;padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:1rem;right:1rem;font-size:40px;opacity:.15;">☢️</div>
+        <div style="font-size:32px;margin-bottom:1rem;">☢️</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;margin-bottom:.5rem;">ZONE CONTAMINÉE — PRISON</div>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">L'île de la prison est <strong style="color:#27ae60;">permanemment contaminée</strong>. 85+ zombies NBC, soldats et prisonniers. Tenue NBC obligatoire. Loot rare exceptionnel.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span style="background:rgba(39,174,96,0.15);color:#27ae60;border:1px solid rgba(39,174,96,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">85+ ZOMBIES</span>
+          <span style="background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">NBC REQUIS</span>
+          <span style="background:rgba(155,89,182,0.15);color:#9b59b6;border:1px solid rgba(155,89,182,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">M4 · AKM · M79</span>
         </div>
       </div>
 
-      <div class="event-card">
-        <div class="event-img">
-          🚛
-          <span class="event-rarity rarity-common">Régulier</span>
-        </div>
-        <div class="event-body">
-          <div class="event-title">Convoi militaire abandonné</div>
-          <div class="event-desc">Un convoi de camions militaires apparaît sur la map, escorté de zombies soldats. Les camions sont chargés de matériel de construction, outils, planches et rondins. 15+ zombies à neutraliser.</div>
-          <div class="event-tags">
-            <span class="event-tag">Aléatoire</span>
-            <span class="event-tag">Construction</span>
-            <span class="event-tag">15+ zombies</span>
-          </div>
+      <!-- Bases Militaires -->
+      <div class="event-card" style="background:var(--bg3);border:1px solid var(--border);border-top:3px solid #e74c3c;padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:1rem;right:1rem;font-size:40px;opacity:.15;">🪖</div>
+        <div style="font-size:32px;margin-bottom:1rem;">🪖</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;margin-bottom:.5rem;">BASES MILITAIRES</div>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Les grandes bases sont <strong style="color:#e74c3c;">infestées de zombies soldats costauds</strong> — plus de PV, plus résistants. Jusqu'à 105 zombies dans les plus grandes. Clé de mallette possible.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span style="background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">JUSQU'À 105 ZOMBIES</span>
+          <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">🔑 CLÉ MALLETTE</span>
+          <span style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">TIER 3</span>
         </div>
       </div>
 
-      <div class="event-card">
-        <div class="event-img">
-          🔑
-          <span class="event-rarity rarity-epic">Rare</span>
-        </div>
-        <div class="event-body">
-          <div class="event-title">La chasse à la mallette</div>
-          <div class="event-desc">Seulement 5 clés de mallette existent sur la map entière (Tier 3 uniquement). Une peut aussi se trouver dans un véhicule de police (5% de chance). Trouver la clé, puis la mallette... puis survivre.</div>
-          <div class="event-tags">
-            <span class="event-tag">5 clés max</span>
-            <span class="event-tag">Tier 3</span>
-            <span class="event-tag">Compétitif</span>
-          </div>
+      <!-- Mallette Secrète -->
+      <div class="event-card" style="background:linear-gradient(135deg,#0d0d0b,#1a1208);border:1px solid rgba(212,172,13,0.3);border-top:3px solid var(--gold);padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:1rem;right:1rem;font-size:40px;opacity:.15;">💼</div>
+        <div style="font-size:32px;margin-bottom:1rem;">💼</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:2px;margin-bottom:.5rem;">MALLETTE SECRÈTE</div>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">La mallette la plus rare du serveur. Contient <strong style="color:var(--gold);">300 balles · 5 grenades · cartouches lance-grenades</strong>. Nécessite une clé — seulement <strong style="color:var(--gold);">3 clés</strong> dans toute la map.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">ULTRA RARE</span>
+          <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">300 BALLES</span>
+          <span style="background:rgba(212,172,13,0.15);color:var(--gold);border:1px solid rgba(212,172,13,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">5 GRENADES</span>
         </div>
       </div>
 
-      <div class="event-card">
-        <div class="event-img">
-          🌙
-          <span class="event-rarity rarity-rare">Nocturne</span>
-        </div>
-        <div class="event-body">
-          <div class="event-title">Raid nocturne</div>
-          <div class="event-desc">Organisé de nuit par les admins. Une base désignée doit être prise d'assaut par une équipe attaquante face aux défenseurs. Rôles distribués la veille via Discord. NVG fortement conseillés.</div>
-          <div class="event-tags">
-            <span class="event-tag">Planifié</span>
-            <span class="event-tag">Équipes</span>
-            <span class="event-tag">NVG conseillé</span>
-          </div>
+      <!-- Voiture Police -->
+      <div class="event-card" style="background:var(--bg3);border:1px solid var(--border);border-top:3px solid #3498db;padding:2rem;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:1rem;right:1rem;font-size:40px;opacity:.15;">🚔</div>
+        <div style="font-size:32px;margin-bottom:1rem;">🚔</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;margin-bottom:.5rem;">VOITURE POLICE ABANDONNÉE</div>
+        <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin-bottom:1rem;">Une voiture de police abandonnée en bordure de route. Accès libre — pas de zombies. Peut contenir des armes de police, munitions et équipements utiles.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">ACCÈS LIBRE</span>
+          <span style="background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3);font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;">ÉQUIPEMENT POLICE</span>
         </div>
       </div>
 
@@ -1159,23 +1236,6 @@
   </div>
 </section>
 
-
-<!-- ── MISES À JOUR ── -->
-<section id="updates" style="background:var(--bg2); padding:6rem 0;">
-  <div class="container">
-    <div class="section-label">Actualités du serveur</div>
-    <h2 class="section-title">MISES À <span>JOUR</span></h2>
-    <p class="section-desc">Toutes les dernières mises à jour, événements et annonces du serveur Badland FR.</p>
-
-    <div id="updates-public-list">
-      <div style="background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--text-muted);padding:1.5rem 2rem;text-align:center;">
-        <p style="font-size:14px;color:var(--text-muted);">⏳ Aucune mise à jour publiée pour l'instant. Revenez bientôt !</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── GALERIE ── -->
 <section id="galerie" style="padding-bottom: 8rem;">
   <div class="container">
     <div class="section-label">Captures du serveur</div>
