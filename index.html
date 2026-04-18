@@ -541,16 +541,19 @@
         <span style="color:var(--text-muted);font-size:10px;">▼</span>
       </div>
       <!-- Menu déroulant -->
-      <div id="profile-menu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--red);min-width:200px;z-index:200;">
+      <div id="profile-menu" style="display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--bg2);border:1px solid var(--border);border-top:2px solid var(--red);min-width:220px;z-index:200;">
+        <!-- Infos joueur -->
         <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);">
           <div style="font-size:12px;color:var(--text-muted);">Connecté en tant que</div>
           <div id="menu-pseudo" style="font-family:'Barlow Condensed',sans-serif;font-size:16px;color:#fff;"></div>
           <div id="menu-platform" style="font-size:11px;color:var(--text-muted);"></div>
         </div>
+        <!-- Crédits -->
         <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;">
           <span style="font-size:13px;color:var(--text-muted);">Mes crédits</span>
           <span id="menu-credits" style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--gold);">0 🪙</span>
         </div>
+        <!-- Panier -->
         <div style="padding:.75rem 1rem;border-bottom:1px solid var(--border);">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
             <span style="font-size:13px;color:var(--text-muted);">🛒 Panier</span>
@@ -559,9 +562,12 @@
           <div id="menu-cart-items" style="font-size:11px;color:var(--text-muted);max-height:80px;overflow-y:auto;"></div>
           <button onclick="closeProfileMenu();toggleCart();" style="width:100%;margin-top:6px;padding:6px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;">Voir le panier</button>
         </div>
-        <a href="#boutique" onclick="closeProfileMenu()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">🏪 Boutique</a>
-        <a href="#profil-section" onclick="openProfileEdit()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">⚙️ Mon profil</a>
-        <div onclick="logoutUser()" style="padding:.75rem 1rem;font-size:13px;color:var(--red);cursor:pointer;transition:background .2s;" onmouseover="this.style.background='rgba(192,57,43,0.1)'" onmouseout="this.style.background='transparent'">🚪 Déconnexion</div>
+        <!-- Actions -->
+        <a href="#boutique" onclick="closeProfileMenu()" style="display:block;padding:.75rem 1rem;font-size:13px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid var(--border);" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">🏪 Boutique</a>
+        <div onclick="openProfileEdit();closeProfileMenu();" style="padding:.75rem 1rem;font-size:13px;color:var(--text-muted);cursor:pointer;border-bottom:1px solid var(--border);" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-muted)'">⚙️ Mon profil &amp; mot de passe</div>
+        <!-- Espace Admin — discret -->
+        <div id="menu-admin-btn" style="display:none;padding:.75rem 1rem;font-size:13px;color:var(--gold);cursor:pointer;border-bottom:1px solid var(--border);" onclick="openAdminLogin();closeProfileMenu();" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gold)'">🔐 Espace administrateur</div>
+        <div onclick="logoutUser()" style="padding:.75rem 1rem;font-size:13px;color:var(--red);cursor:pointer;" onmouseover="this.style.background='rgba(192,57,43,0.1)'" onmouseout="this.style.background='transparent'">🚪 Déconnexion</div>
       </div>
     </div>
   </div>
@@ -2032,11 +2038,27 @@ function updateNavProfile() {
   document.getElementById('menu-platform').textContent = user.platform || '';
   document.getElementById('menu-credits').textContent = credits + ' 🪙';
 
-  if (user.avatar) {
-    var img = document.getElementById('profile-avatar-img');
-    img.src = user.avatar;
+  // Charger la photo depuis le compte (toujours fraîche)
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var acc = null;
+  for (var i = 0; i < accounts.length; i++) {
+    if (accounts[i].pseudo === user.pseudo) { acc = accounts[i]; break; }
+  }
+  var avatar = acc ? (acc.avatar || user.avatar || '') : (user.avatar || '');
+  var img = document.getElementById('profile-avatar-img');
+  var ltr = document.getElementById('profile-avatar-letter');
+  if (avatar) {
+    img.src = avatar;
     img.style.display = 'block';
-    document.getElementById('profile-avatar-letter').style.display = 'none';
+    if (ltr) ltr.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    if (ltr) { ltr.style.display = ''; ltr.textContent = letter; }
+  }
+  // Afficher bouton admin si Steven
+  var adminBtn = document.getElementById('menu-admin-btn');
+  if (adminBtn) {
+    adminBtn.style.display = (user.pseudo === 'Steven' || user.pseudo === 'steven') ? 'block' : 'none';
   }
 }
 
@@ -2050,27 +2072,7 @@ function closeProfileMenu() {
   if (menu) menu.style.display = 'none';
 }
 
-function openProfileEdit() {
-  closeProfileMenu();
-  var user = getCurrentUser();
-  if (!user) return;
-
-  document.getElementById('input-new-pseudo').value = user.pseudo || '';
-  document.getElementById('input-avatar-url').value = user.avatar || '';
-  document.getElementById('modal-credits-val').textContent = getUserCredits(user.pseudo) + ' 🪙';
-
-  if (user.avatar) {
-    document.getElementById('modal-avatar-img').src = user.avatar;
-    document.getElementById('modal-avatar-img').style.display = 'block';
-    document.getElementById('modal-avatar-letter').style.display = 'none';
-  } else {
-    document.getElementById('modal-avatar-letter').textContent = user.pseudo ? user.pseudo[0].toUpperCase() : '?';
-    document.getElementById('modal-avatar-img').style.display = 'none';
-    document.getElementById('modal-avatar-letter').style.display = '';
-  }
-
-  document.getElementById('modal-profil').style.display = 'flex';
-}
+/* openProfileEdit déplacé */
 
 function previewAvatar() {
   var url = document.getElementById('input-avatar-url').value.trim();
@@ -2223,7 +2225,8 @@ function handleLogin() {
   errEl.style.display = 'none';
   localStorage.setItem('badlandfr_current_user', JSON.stringify({
     pseudo: acc.pseudo, email: acc.email,
-    platform: acc.platform, avatar: acc.avatar || ''
+    platform: acc.platform, avatar: acc.avatar || '',
+    isAdmin: acc.isAdmin || false
   }));
   updateNavProfile();
   document.getElementById('login-pseudo').value = '';
@@ -3320,6 +3323,254 @@ function migratePriorityOrders() {
   }
 }
 migratePriorityOrders();
+</script>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- MODAL PROFIL — Changer photo + MDP         -->
+<!-- ══════════════════════════════════════════ -->
+<div id="modal-profile-edit" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:600;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);padding:2rem;width:100%;max-width:440px;max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:#fff;">MON <span style="color:var(--red);">PROFIL</span></h2>
+      <button onclick="closeModal('modal-profile-edit')" style="background:transparent;border:none;color:var(--text-muted);font-size:24px;cursor:pointer;">✕</button>
+    </div>
+
+    <!-- Photo de profil -->
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div id="profile-avatar-preview" style="width:80px;height:80px;border-radius:50%;background:var(--red);margin:0 auto .75rem;overflow:hidden;border:3px solid var(--border);display:flex;align-items:center;justify-content:center;">
+        <span id="profile-avatar-letter" style="font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;">?</span>
+      </div>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:.5rem;">Photo de profil (URL Discord, Imgur...)</p>
+      <input type="text" id="profile-avatar-url" placeholder="https://..." style="width:100%;padding:9px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:13px;outline:none;" oninput="previewProfileAvatar()">
+    </div>
+
+    <hr style="border-color:var(--border);margin-bottom:1.5rem;">
+
+    <!-- Changer mot de passe -->
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-bottom:1rem;">Changer le mot de passe</p>
+    <div style="margin-bottom:.75rem;">
+      <input type="password" id="pe-current" placeholder="Mot de passe actuel" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;margin-bottom:.5rem;">
+      <input type="password" id="pe-new" placeholder="Nouveau mot de passe" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;margin-bottom:.5rem;">
+      <input type="password" id="pe-confirm" placeholder="Confirmer le nouveau mot de passe" style="width:100%;padding:10px 14px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:14px;outline:none;">
+    </div>
+    <div id="pe-error" style="color:var(--red);font-size:13px;margin-bottom:1rem;display:none;"></div>
+    <div id="pe-success" style="color:#27ae60;font-size:13px;margin-bottom:1rem;display:none;">✅ Modifications sauvegardées !</div>
+    <div style="display:flex;gap:.75rem;">
+      <button onclick="saveProfileEdit()" style="flex:1;padding:12px;background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:2px;text-transform:uppercase;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);">Sauvegarder</button>
+      <button onclick="closeModal('modal-profile-edit')" style="padding:12px 20px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- MODAL ADMIN LOGIN — Accès depuis le site   -->
+<!-- ══════════════════════════════════════════ -->
+<div id="modal-admin-login" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:700;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--gold);padding:2.5rem;width:100%;max-width:420px;text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:4px;color:#fff;margin-bottom:.25rem;">ESPACE <span style="color:var(--gold);">ADMIN</span></div>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:2rem;">Accès réservé — Badland FR</p>
+    <input type="password" id="admin-pwd-input" placeholder="Mot de passe administrateur" style="width:100%;padding:12px 16px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-size:15px;outline:none;margin-bottom:1rem;text-align:center;letter-spacing:3px;" onkeydown="if(event.key==='Enter')checkAdminPwd()">
+    <div id="admin-login-error" style="color:var(--red);font-size:13px;margin-bottom:1rem;display:none;">Mot de passe incorrect</div>
+    <div style="display:flex;gap:.75rem;">
+      <button onclick="checkAdminPwd()" style="flex:1;padding:13px;background:var(--gold);color:#000;border:none;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:15px;letter-spacing:3px;text-transform:uppercase;">Connexion</button>
+      <button onclick="closeModal('modal-admin-login')" style="padding:13px 20px;background:var(--bg3);color:var(--text-muted);border:1px solid var(--border);cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;">Annuler</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+// ══════════════════════════════════════════════════
+// PROFIL — Photo + Mot de passe
+// ══════════════════════════════════════════════════
+
+function openProfileEdit() {
+  var user = getCurrentUser();
+  if (!user) return;
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var acc = null;
+  for (var i = 0; i < accounts.length; i++) {
+    if (accounts[i].pseudo === user.pseudo) { acc = accounts[i]; break; }
+  }
+  if (!acc) return;
+
+  // Pré-remplir la photo
+  var urlInput = document.getElementById('profile-avatar-url');
+  if (urlInput) urlInput.value = acc.avatar || '';
+  previewProfileAvatar();
+
+  // Reset MDP
+  var fields = ['pe-current','pe-new','pe-confirm'];
+  for (var j = 0; j < fields.length; j++) {
+    var el = document.getElementById(fields[j]);
+    if (el) el.value = '';
+  }
+  document.getElementById('pe-error').style.display = 'none';
+  document.getElementById('pe-success').style.display = 'none';
+  document.getElementById('modal-profile-edit').style.display = 'flex';
+}
+
+function previewProfileAvatar() {
+  var url = document.getElementById('profile-avatar-url').value.trim();
+  var preview = document.getElementById('profile-avatar-preview');
+  var letter = document.getElementById('profile-avatar-letter');
+  var user = getCurrentUser();
+  if (url) {
+    if (url) {
+      var img = new Image();
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+      img.onload = function() { preview.innerHTML = ''; preview.appendChild(img); };
+      img.onerror = function() {
+        var letter = user ? user.pseudo[0].toUpperCase() : '?';
+        preview.innerHTML = '<span style="font-family:Bebas Neue,sans-serif;font-size:32px;color:#fff;">' + letter + '</span>';
+      };
+      img.src = url;
+    }
+  } else {
+    preview.innerHTML = '<span style="font-family:Bebas Neue,sans-serif;font-size:32px;color:#fff;">' + (user ? user.pseudo[0].toUpperCase() : '?') + '</span>';
+  }
+}
+
+function saveProfileEdit() {
+  var user = getCurrentUser();
+  if (!user) return;
+  var errEl = document.getElementById('pe-error');
+  var okEl = document.getElementById('pe-success');
+  errEl.style.display = 'none';
+  okEl.style.display = 'none';
+
+  var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+  var acc = null;
+  var accIdx = -1;
+  for (var i = 0; i < accounts.length; i++) {
+    if (accounts[i].pseudo === user.pseudo) { acc = accounts[i]; accIdx = i; break; }
+  }
+  if (!acc) return;
+
+  var changed = false;
+
+  // Photo de profil
+  var newAvatar = document.getElementById('profile-avatar-url').value.trim();
+  if (newAvatar !== (acc.avatar || '')) {
+    acc.avatar = newAvatar;
+    user.avatar = newAvatar;
+    changed = true;
+  }
+
+  // Mot de passe
+  var current = document.getElementById('pe-current').value;
+  var newPwd = document.getElementById('pe-new').value;
+  var confirm = document.getElementById('pe-confirm').value;
+
+  if (current || newPwd || confirm) {
+    if (current !== acc.passwordHash) {
+      errEl.textContent = 'Mot de passe actuel incorrect !';
+      errEl.style.display = 'block'; return;
+    }
+    if (newPwd.length < 8) {
+      errEl.textContent = 'Le nouveau mot de passe doit faire au moins 8 caractères.';
+      errEl.style.display = 'block'; return;
+    }
+    if (newPwd !== confirm) {
+      errEl.textContent = 'Les mots de passe ne correspondent pas !';
+      errEl.style.display = 'block'; return;
+    }
+    acc.passwordHash = newPwd;
+    acc.mustChangePassword = false;
+    changed = true;
+  }
+
+  if (changed) {
+    accounts[accIdx] = acc;
+    localStorage.setItem('badlandfr_accounts', JSON.stringify(accounts));
+    localStorage.setItem('badlandfr_current_user', JSON.stringify(user));
+    updateNavProfile();
+    okEl.style.display = 'block';
+    document.getElementById('pe-current').value = '';
+    document.getElementById('pe-new').value = '';
+    document.getElementById('pe-confirm').value = '';
+    setTimeout(function(){ closeModal('modal-profile-edit'); }, 1500);
+  } else {
+    okEl.textContent = 'Aucune modification.';
+    okEl.style.display = 'block';
+  }
+}
+
+// ══════════════════════════════════════════════════
+// ADMIN — Accès depuis le site
+// ══════════════════════════════════════════════════
+var ADMIN_SITE_PWD = "BadlandFR2026";
+
+function openAdminLogin() {
+  var input = document.getElementById('admin-pwd-input');
+  if (input) input.value = '';
+  document.getElementById('admin-login-error').style.display = 'none';
+  document.getElementById('modal-admin-login').style.display = 'flex';
+}
+
+function checkAdminPwd() {
+  var val = document.getElementById('admin-pwd-input').value;
+  if (val === ADMIN_SITE_PWD) {
+    closeModal('modal-admin-login');
+    window.open('admin.html', '_blank');
+  } else {
+    document.getElementById('admin-login-error').style.display = 'block';
+    document.getElementById('admin-pwd-input').value = '';
+    setTimeout(function(){ document.getElementById('admin-login-error').style.display = 'none'; }, 3000);
+  }
+}
+
+// Afficher le bouton admin uniquement pour Steven
+function checkAdminAccess() {
+  var user = getCurrentUser();
+  var btn = document.getElementById('menu-admin-btn');
+  if (!btn) return;
+  if (user && (user.pseudo === 'Steven' || user.pseudo === 'steven')) {
+    btn.style.display = 'block';
+  } else {
+    btn.style.display = 'none';
+  }
+}
+
+// ══════════════════════════════════════════════════
+// CONNEXION PERSISTANTE — Vérifier au chargement
+// ══════════════════════════════════════════════════
+function checkPersistentLogin() {
+  var user = getCurrentUser();
+  if (user) {
+    updateNavProfile();
+    updateCartMenu();
+    checkAdminAccess();
+  }
+}
+checkPersistentLogin();
+
+// Mettre à jour la photo dans la nav
+var origUpdateNav = typeof updateNavProfile === 'function' ? updateNavProfile : function(){};
+function updateNavProfile() {
+  origUpdateNav();
+  checkAdminAccess();
+  // Mettre à jour la photo dans le bouton profil
+  var user = getCurrentUser();
+  if (user) {
+    var accounts = JSON.parse(localStorage.getItem('badlandfr_accounts') || '[]');
+    var acc = null;
+    for (var i = 0; i < accounts.length; i++) {
+      if (accounts[i].pseudo === user.pseudo) { acc = accounts[i]; break; }
+    }
+    var avatarBtn = document.getElementById('profile-avatar-btn');
+    if (avatarBtn && acc && acc.avatar) {
+      var navImg = new Image();
+      navImg.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
+      navImg.onload = function() { avatarBtn.innerHTML = ''; avatarBtn.appendChild(navImg); };
+      navImg.onerror = function() {
+        avatarBtn.innerHTML = '<span style="font-family:Bebas Neue,sans-serif;font-size:14px;color:#fff;">' + user.pseudo[0].toUpperCase() + '</span>';
+      };
+      navImg.src = acc.avatar;
+    }
+  }
+}
 </script>
 
 </body>
