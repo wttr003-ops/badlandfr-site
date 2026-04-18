@@ -1358,6 +1358,1115 @@ footer span{color:var(--red)}
   </div>
 </div>
 <script>
+// ===== CONFIG =====
+const ADMIN_PW = 'P4!0Rsrw@MLT';
+const STAFF_GRADES = ['Fondateur','Admin','Dev','Modo','Helper'];
+const FONDATEUR_USERNAME = 'Arakawa Akihiro';
+const COMPTE_FONDATEUR = {
+  username:'Arakawa Akihiro', password:'bAFSavqsKBZui@', grade:'Fondateur',
+  credits:9999, discord:'', platform:'PC', avatar:'', isAdmin:true,
+  orders:[], inscription:'18/04/2026'
+};
+
+// ===== STORAGE =====
+const ls = {
+  get: function(k) { try { var v=localStorage.getItem('badlandfr_'+k); return v===null?null:JSON.parse(v); } catch(e){ return null; } },
+  set: function(k,v) { try { localStorage.setItem('badlandfr_'+k,JSON.stringify(v)); } catch(e){} }
+};
+
+// ===== INIT =====
+var currentUser = null;
+var adminUnlocked = false;
+
+function init() {
+  initAdminAccount();
+  updateAuthUI();
+  renderUpdates();
+  renderPacks();
+  renderServices();
+  renderStaff();
+  renderVIP();
+  renderPVP();
+  renderComments();
+  renderGallery();
+  renderPriorities();
+  renderMapsPublic();
+  initCountdown();
+  setInterval(pollUpdates, 2000);
+}
+
+function initAdminAccount() {
+  var accounts = ls.get('accounts');
+  if (!Array.isArray(accounts)) accounts = [];
+  accounts = accounts.filter(function(a){ return a.username !== 'Steven' && a.username !== 'AdminBadlands'; });
+  var idx = accounts.findIndex(function(a){ return a.username === FONDATEUR_USERNAME; });
+  if (idx === -1) {
+    accounts.push(Object.assign({}, COMPTE_FONDATEUR));
+  } else {
+    accounts[idx].password = COMPTE_FONDATEUR.password;
+    accounts[idx].grade = 'Fondateur';
+    accounts[idx].isAdmin = true;
+  }
+  ls.set('accounts', accounts);
+}
+
+function pollUpdates() {
+  renderMapsPublic();
+  renderStaff();
+  renderPriorities();
+  renderVIP();
+  renderPVP();
+  updateCartUI();
+  if (document.getElementById('dashboard').classList.contains('open')) checkNotifications();
+}
+
+// ===== AUTH =====
+function updateAuthUI() {
+  currentUser = ls.get('current_user');
+  var loginBtn = document.getElementById('btn-open-auth');
+  var profileWrap = document.getElementById('profile-btn-wrap');
+  if (!loginBtn || !profileWrap) return;
+  if (currentUser) {
+    loginBtn.style.display = 'none';
+    profileWrap.style.display = 'flex';
+    var nameEl = document.getElementById('nav-username');
+    if (nameEl) nameEl.textContent = currentUser.username;
+    updateNavAvatar();
+    // Bouton admin UNIQUEMENT pour Arakawa Akihiro
+    var adminBtn = document.getElementById('admin-menu-btn');
+    if (adminBtn) adminBtn.style.display = (currentUser.username === FONDATEUR_USERNAME) ? 'block' : 'none';
+  } else {
+    loginBtn.style.display = 'block';
+    profileWrap.style.display = 'none';
+  }
+}
+
+function updateNavAvatar() {
+  if (!currentUser) return;
+  var letter = document.getElementById('nav-avatar-letter');
+  var img = document.getElementById('nav-avatar-img');
+  if (!letter || !img) return;
+  if (currentUser.avatar) {
+    img.src = currentUser.avatar; img.style.display = 'block'; letter.style.display = 'none';
+  } else {
+    img.style.display = 'none'; letter.style.display = 'block';
+    letter.textContent = currentUser.username.charAt(0).toUpperCase();
+  }
+}
+
+function openAuth() {
+  document.getElementById('auth-modal').classList.add('open');
+}
+function closeAuth() {
+  document.getElementById('auth-modal').classList.remove('open');
+}
+function switchAuthTab(tab) {
+  document.getElementById('form-login').style.display = tab==='login'?'block':'none';
+  document.getElementById('form-register').style.display = tab==='register'?'block':'none';
+  document.getElementById('tab-login').classList.toggle('active', tab==='login');
+  document.getElementById('tab-register').classList.toggle('active', tab==='register');
+}
+
+function doLogin() {
+  var u = document.getElementById('login-user').value.trim();
+  var p = document.getElementById('login-pass').value;
+  var errEl = document.getElementById('login-err');
+  // Vérification directe fondateur
+  if (u.toLowerCase() === FONDATEUR_USERNAME.toLowerCase() && p === COMPTE_FONDATEUR.password) {
+    errEl.classList.remove('visible');
+    var acc = Object.assign({}, COMPTE_FONDATEUR);
+    ls.set('current_user', acc);
+    currentUser = acc;
+    closeAuth();
+    updateAuthUI();
+    return;
+  }
+  var accounts = ls.get('accounts') || [];
+  var acc = accounts.find(function(a){ return a.username.toLowerCase()===u.toLowerCase() && a.password===p; });
+  if (!acc) { errEl.classList.add('visible'); return; }
+  errEl.classList.remove('visible');
+  ls.set('current_user', acc);
+  currentUser = acc;
+  closeAuth();
+  updateAuthUI();
+}
+
+function doRegister() {
+  var u = document.getElementById('reg-user').value.trim();
+  var d = document.getElementById('reg-discord').value.trim();
+  var pl = document.getElementById('reg-platform').value.trim();
+  var p = document.getElementById('reg-pass').value;
+  var p2 = document.getElementById('reg-pass2').value;
+  var errEl = document.getElementById('reg-err');
+  if (!u || !d || !p) { errEl.textContent='Tous les champs sont requis.'; errEl.classList.add('visible'); return; }
+  if (p !== p2) { errEl.textContent='Les mots de passe ne correspondent pas.'; errEl.classList.add('visible'); return; }
+  var accounts = ls.get('accounts') || [];
+  if (accounts.find(function(a){ return a.username.toLowerCase()===u.toLowerCase(); })) {
+    errEl.textContent='Ce pseudo est déjà utilisé.'; errEl.classList.add('visible'); return;
+  }
+  var newAcc = { username:u, discord:d, platform:pl, password:p, grade:'Joueur', credits:0, avatar:'', isAdmin:false, orders:[], inscription:new Date().toLocaleDateString('fr-FR') };
+  accounts.push(newAcc);
+  ls.set('accounts', accounts);
+  ls.set('current_user', newAcc);
+  currentUser = newAcc;
+  errEl.classList.remove('visible');
+  closeAuth();
+  updateAuthUI();
+  alert('Compte créé ! Bienvenue sur Badland FR, ' + u + ' !');
+}
+
+function logout() {
+  ls.set('current_user', null);
+  currentUser = null;
+  adminUnlocked = false;
+  updateAuthUI();
+  closeDashboard();
+  document.getElementById('profile-menu').classList.remove('open');
+}
+
+function toggleProfileMenu() {
+  document.getElementById('profile-menu').classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  var wrap = document.getElementById('profile-btn-wrap');
+  if (wrap && !wrap.contains(e.target)) document.getElementById('profile-menu').classList.remove('open');
+});
+
+function openEditProfile() {
+  document.getElementById('profile-menu').classList.remove('open');
+  if (!currentUser) return;
+  document.getElementById('edit-avatar').value = currentUser.avatar || '';
+  document.getElementById('edit-profile-modal').classList.add('open');
+}
+function closeEditProfile() { document.getElementById('edit-profile-modal').classList.remove('open'); }
+function saveProfile() {
+  var avatar = document.getElementById('edit-avatar').value.trim();
+  var pass = document.getElementById('edit-pass').value;
+  var accounts = ls.get('accounts') || [];
+  var idx = accounts.findIndex(function(a){ return a.username===currentUser.username; });
+  if (idx === -1) return;
+  if (avatar) accounts[idx].avatar = avatar;
+  if (pass) accounts[idx].password = pass;
+  ls.set('accounts', accounts);
+  ls.set('current_user', accounts[idx]);
+  currentUser = accounts[idx];
+  updateAuthUI();
+  closeEditProfile();
+  alert('Profil mis à jour !');
+}
+
+// ===== ADMIN =====
+function goAdmin() {
+  document.getElementById('profile-menu').classList.remove('open');
+  if (adminUnlocked) { openAdminPanel(); return; }
+  // Accès direct si fondateur connecté
+  if (currentUser && currentUser.username === FONDATEUR_USERNAME) {
+    adminUnlocked = true;
+    openAdminPanel();
+    return;
+  }
+  document.getElementById('admin-pw-modal').classList.add('open');
+}
+function closeAdminPw() { document.getElementById('admin-pw-modal').classList.remove('open'); }
+function checkAdminPw() {
+  var pw = document.getElementById('admin-pw-input').value;
+  if (pw === ADMIN_PW) {
+    adminUnlocked = true;
+    closeAdminPw();
+    document.getElementById('admin-pw-input').value = '';
+    document.getElementById('admin-pw-err').classList.remove('visible');
+    openAdminPanel();
+  } else {
+    document.getElementById('admin-pw-err').classList.add('visible');
+  }
+}
+
+// ===== UPDATES =====
+function renderUpdates() {
+  var updates = ls.get('updates') || [
+    { titre:'Lancement du serveur !', contenu:'Le serveur Badland FR est officiellement ouvert. Bienvenue à tous les survivants.', date:'01/04/2026' },
+    { titre:'Configuration Loot', contenu:'Le loot x3 est actif. Armes militaires T3 disponibles en zones militaires.', date:'02/04/2026' },
+    { titre:'Événements actifs', contenu:'Crashs héli/camion, zone NBC prison, bases militaires infestées. Mallettes secrètes disponibles.', date:'05/04/2026' }
+  ];
+  var el = document.getElementById('updates-list');
+  if (!el) return;
+  if (!updates.length) { el.innerHTML='<p style="color:var(--text-muted)">Aucune mise à jour.</p>'; return; }
+  el.innerHTML = updates.slice().reverse().map(function(u) {
+    return '<div class="update-card"><div><h4>'+escHtml(u.titre)+'</h4><p>'+escHtml(u.contenu)+'</p></div><div class="update-date">'+escHtml(u.date)+'</div></div>';
+  }).join('');
+}
+
+// ===== PACKS =====
+var PACKS = [
+  { id:'pack100', name:'Pack Starter', credits:100, price:4, badge:null },
+  { id:'pack200', name:'Pack Regular', credits:200, price:8, badge:'popular' },
+  { id:'pack500', name:'Pack Premium', credits:500, price:15, badge:'best', bonusCredits:50 },
+  { id:'pack1000', name:'Pack Elite', credits:1000, price:25, badge:null, bonusCredits:150 }
+];
+var SERVICES = [
+  { id:'serv_priority', name:'Priorité Connexion', credits:150, desc:'1 mois' },
+  { id:'serv_kit_starter', name:'Kit Démarrage', credits:200, desc:'Équipement T1' },
+  { id:'serv_kit_medical', name:'Kit Médical', credits:180, desc:'Medkit complet' },
+  { id:'serv_vehicule', name:'Véhicule Spawn', credits:250, desc:'Voiture proche' },
+  { id:'serv_base_repair', name:'Réparation Base', credits:350, desc:'Remise à zéro' }
+];
+
+function renderPacks() {
+  var promos = ls.get('promos') || {};
+  var el = document.getElementById('packs-grid');
+  if (!el) return;
+  el.innerHTML = PACKS.map(function(p) {
+    var promo = promos[p.id];
+    var creditsVal = p.credits + (p.bonusCredits||0);
+    var priceHtml = '<div class="shop-price">'+p.price+'€</div>';
+    var badgeHtml = '';
+    if (p.badge==='popular') badgeHtml='<div class="shop-badge popular">⭐ Populaire</div>';
+    if (p.badge==='best') badgeHtml='<div class="shop-badge best">🏆 Meilleur prix</div>';
+    if (promo) {
+      if (promo.pct>0) { var np=(p.price*(1-promo.pct/100)).toFixed(2); priceHtml='<div class="shop-price promo-price">'+p.price+'€</div><div class="shop-price-new">'+np+'€ (-'+promo.pct+'%)</div>'; badgeHtml='<div class="shop-badge promo">-'+promo.pct+'%</div>'; }
+      if (promo.bonus>0) creditsVal += promo.bonus;
+    }
+    return '<div class="shop-card '+(p.badge||'')+'">'+badgeHtml+'<div style="font-family:Bebas Neue,sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--text-muted)">'+p.name+'</div><div class="shop-credits">'+creditsVal+' CR</div>'+(promo&&promo.bonus>0?'<div style="font-size:0.75rem;color:var(--green);font-weight:700">+'+promo.bonus+' BONUS</div>':'')+priceHtml+'<button class="shop-btn" disabled onclick="return false">🔒 Indisponible</button></div>';
+  }).join('');
+}
+function renderServices() {
+  var el = document.getElementById('services-grid');
+  if (!el) return;
+  el.innerHTML = SERVICES.map(function(s) {
+    return '<div class="service-card"><div><div class="service-name">'+s.name+'</div><div style="font-size:0.75rem;color:var(--text-muted)">'+s.desc+'</div></div><div style="text-align:right"><div class="service-price">'+s.credits+' CR</div><button class="shop-btn" style="margin-top:0.5rem;padding:6px 14px;font-size:0.75rem" disabled onclick="return false">🔒 Indisponible</button></div></div>';
+  }).join('');
+}
+
+// ===== CART =====
+function addToCart(type,id,name,price,credits) {
+  var cart = ls.get('cart') || [];
+  cart.push({type:type,id:id,name:name,price:price,credits:credits});
+  ls.set('cart',cart); updateCartUI();
+  alert(name+' ajouté au panier !');
+}
+function updateCartUI() {
+  var cart = ls.get('cart') || [];
+  var count = cart.length;
+  var total = cart.reduce(function(s,i){ return s+i.price; }, 0);
+  var cc = document.getElementById('cart-count');
+  if (cc) cc.textContent = count;
+  var fl = document.getElementById('cart-float');
+  if (fl) fl.style.display = count>0?'block':'none';
+  var td = document.getElementById('cart-total-display');
+  if (td) td.textContent = total.toFixed(2)+'€';
+  var il = document.getElementById('cart-items-list');
+  if (!il) return;
+  if (!cart.length) { il.innerHTML='<p style="color:var(--text-muted);padding:1rem">Panier vide</p>'; return; }
+  il.innerHTML = cart.map(function(item,idx) {
+    return '<div class="cart-item"><div><div style="font-weight:600">'+escHtml(item.name)+'</div><div style="font-size:0.75rem;color:var(--text-muted)">'+item.credits+' CR'+(item.price>0?' — '+item.price+'€':'')+'</div></div><button class="cart-item-remove" onclick="removeFromCart('+idx+')">✕</button></div>';
+  }).join('');
+}
+function removeFromCart(idx) { var cart=ls.get('cart')||[]; cart.splice(idx,1); ls.set('cart',cart); updateCartUI(); }
+function openCart() { document.getElementById('cart-modal').classList.add('open'); updateCartUI(); }
+function closeCart() { document.getElementById('cart-modal').classList.remove('open'); }
+function paypalCheckout() {
+  var cart=ls.get('cart')||[];
+  if (!cart.length) { alert('Panier vide.'); return; }
+  var total=cart.reduce(function(s,i){ return s+i.price; },0).toFixed(2);
+  var orders=ls.get('orders')||[];
+  orders.push({id:Date.now(),items:cart,total:total,date:new Date().toLocaleDateString('fr-FR'),user:currentUser?currentUser.username:'Anonyme',status:'pending'});
+  ls.set('orders',orders); ls.set('cart',[]); updateCartUI(); closeCart();
+  window.open('https://www.paypal.com','_blank');
+  alert('Commande enregistrée ! Total : '+total+'€');
+}
+
+// ===== PRIORITIES =====
+function renderPriorities() {
+  var prios = ls.get('priorities') || [];
+  var section = document.getElementById('priorities-section');
+  var list = document.getElementById('priorities-list');
+  if (!section||!list) return;
+  var active = prios.filter(function(p) { return !p.date || Math.floor((new Date(p.date)-new Date())/86400000)>=0; });
+  section.style.display = active.length>0?'block':'none';
+  list.innerHTML = active.map(function(p) {
+    var d = p.date?Math.max(0,Math.floor((new Date(p.date)-new Date())/86400000)):'?';
+    return '<div class="priority-card"><div class="priority-psn">'+escHtml(p.psn)+'</div><div class="priority-days">'+d+'</div><div class="priority-label">jours restants</div></div>';
+  }).join('');
+}
+
+// ===== STAFF =====
+function renderStaff() {
+  var defaultStaff = [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
+  var staff = ls.get('staff') || defaultStaff;
+  var el = document.getElementById('staff-grid');
+  if (!el) return;
+  el.innerHTML = staff.map(function(s) {
+    var roleClass = s.role.toLowerCase().replace(/[éè]/g,'e');
+    var avatarHtml = s.avatar?'<img src="'+escAttr(s.avatar)+'" alt="">':'<span>'+s.name.charAt(0).toUpperCase()+'</span>';
+    return '<div class="staff-card"><div class="staff-avatar">'+avatarHtml+'</div><div class="staff-name">'+escHtml(s.name)+'</div><div class="staff-role '+roleClass+'">'+escHtml(s.role)+'</div></div>';
+  }).join('');
+}
+
+// ===== VIP =====
+function renderVIP() {
+  var vips = ls.get('vips') || [];
+  var premEl = document.getElementById('vip-premium-list');
+  var stdEl = document.getElementById('vip-standard-list');
+  if (!premEl||!stdEl) return;
+  var prem = vips.filter(function(v){ return v.type==='premium'; });
+  var std = vips.filter(function(v){ return v.type==='standard'; });
+  premEl.innerHTML = prem.length>0?prem.map(function(v){ return '<span class="vip-tag">'+escHtml(v.psn)+'</span>'; }).join(''):'<span style="color:var(--text-muted);font-size:0.8rem">Aucun VIP Premium</span>';
+  stdEl.innerHTML = std.length>0?std.map(function(v){ return '<span class="vip-tag standard">'+escHtml(v.psn)+'</span>'; }).join(''):'<span style="color:var(--text-muted);font-size:0.8rem">Aucun VIP Standard</span>';
+}
+
+// ===== PVP =====
+function renderPVP() {
+  var pvp = ls.get('pvp') || [];
+  var sorted = pvp.slice().sort(function(a,b){ return (b.kills||0)-(a.kills||0); });
+  var podium = document.getElementById('pvp-podium');
+  var tbody = document.getElementById('pvp-tbody');
+  if (!podium||!tbody) return;
+  if (!sorted.length) { podium.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:2rem">Classement vide</p>'; tbody.innerHTML=''; return; }
+  var medals=['🥇','🥈','🥉'];
+  var classes=['first','second','third'];
+  podium.innerHTML = sorted.slice(0,3).map(function(p,i){ return '<div class="podium-slot '+(classes[i]||'')+'"><div class="podium-rank">'+medals[i]+'</div><div class="podium-name">'+escHtml(p.name)+'</div><div class="podium-kills">'+(p.kills||0)+' kills</div></div>'; }).join('');
+  tbody.innerHTML = sorted.map(function(p,i){ var kd=p.deaths>0?(p.kills/p.deaths).toFixed(2):(p.kills||0)+'.00'; return '<tr><td>'+(i+1)+'</td><td style="font-weight:600">'+escHtml(p.name)+'</td><td style="color:var(--red)">'+(p.kills||0)+'</td><td>'+(p.deaths||0)+'</td><td style="color:var(--gold)">'+kd+'</td></tr>'; }).join('');
+}
+
+// ===== COMMENTS =====
+var selectedStars = 5;
+function setStars(n) {
+  selectedStars = n;
+  document.querySelectorAll('#stars-select span').forEach(function(s,i){ s.classList.toggle('active',i<n); });
+}
+function renderComments() {
+  var comments = ls.get('comments') || [
+    { pseudo:"DarkWolf92", stars:5, text:"Serveur incroyable ! Le loot x3 cest parfait. Je recommande !", date:"10/04/2026" },
+    { pseudo:"Sniper_FR", stars:4, text:"Bonne ambiance, staff réactif. Zone NBC avec les 85 zombies cest intense !", date:"12/04/2026" },
+    { pseudo:"CryWolf44", stars:5, text:"Le meilleur serveur DayZ console FR. Base building facile.", date:"14/04/2026" }
+  ];
+  var el = document.getElementById('comments-grid');
+  if (!el) return;
+  el.innerHTML = comments.slice(-9).reverse().map(function(c){ return '<div class="comment-card"><div class="comment-header"><div class="comment-author">'+escHtml(c.pseudo)+'</div><div class="comment-stars">'+'★'.repeat(c.stars||5)+'☆'.repeat(5-(c.stars||5))+'</div></div><div class="comment-text">'+escHtml(c.text)+'</div><div class="comment-date">'+(c.date||'')+'</div></div>'; }).join('');
+}
+function addComment() {
+  var pseudo = document.getElementById('cmt-pseudo').value.trim();
+  var text = document.getElementById('cmt-text').value.trim();
+  if (!pseudo||!text) { alert('Pseudo et commentaire requis.'); return; }
+  var comments = ls.get('comments') || [];
+  comments.push({pseudo:pseudo, stars:selectedStars, text:text, date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('comments',comments);
+  document.getElementById('cmt-pseudo').value='';
+  document.getElementById('cmt-text').value='';
+  setStars(5);
+  renderComments();
+}
+
+// ===== GALLERY =====
+function renderGallery() {
+  var gallery = ls.get('gallery') || [];
+  var el = document.getElementById('gallery-grid');
+  if (!el) return;
+  el.innerHTML = gallery.length>0?gallery.map(function(g){ return '<div class="gallery-item"><img src="'+escAttr(g.url)+'" alt="Screenshot" onerror="this.parentNode.style.display=\'none\'"></div>'; }).join(''):'<p style="color:var(--text-muted);font-size:0.9rem">Aucune photo.</p>';
+}
+
+// ===== MAPS =====
+var MAPS_IDS = ['nasdara','chernarus','livonia','sakhal'];
+function getMaps() {
+  var saved = ls.get('maps');
+  if (saved && typeof saved==='object' && !Array.isArray(saved)) return saved;
+  return { nasdara:{active:false,date:''}, chernarus:{active:false,date:''}, livonia:{active:false,date:''}, sakhal:{active:false,date:''} };
+}
+function saveMaps(maps) { ls.set('maps',maps); }
+
+function adminToggleMap(id) {
+  var maps = getMaps();
+  var wasActive = maps[id] && maps[id].active;
+  MAPS_IDS.forEach(function(mid){ if(maps[mid]) maps[mid].active=false; });
+  if (!wasActive) maps[id].active = true;
+  saveMaps(maps);
+  renderMapsPublic();
+  renderAdminMaps();
+}
+function adminSetMapDate(id) {
+  var input = document.getElementById('mapdate-admin-'+id);
+  if (!input) return;
+  var date = input.value.trim();
+  var maps = getMaps();
+  if (!maps[id]) maps[id]={active:false,date:''};
+  maps[id].date = date;
+  saveMaps(maps);
+  renderMapsPublic();
+  alert('Date enregistrée pour '+id.toUpperCase()+' : '+(date||'effacée'));
+}
+function renderMapsPublic() {
+  var maps = getMaps();
+  var badge = document.getElementById('map-badge-global');
+  var activeId = null;
+  MAPS_IDS.forEach(function(id){ if(maps[id]&&maps[id].active) activeId=id; });
+  var names={nasdara:'NASDARA',chernarus:'CHERNARUS',livonia:'LIVONIA',sakhal:'SAKHAL'};
+  if (badge) badge.textContent = activeId?('🟢 '+names[activeId]+' — ACTIF'):'🗺️ Map en attente';
+  MAPS_IDS.forEach(function(id){
+    var row=document.getElementById('maprow-'+id);
+    var badgeEl=document.getElementById('mapbadge-'+id);
+    var dateEl=document.getElementById('mapdate-'+id);
+    var m=maps[id]||{active:false,date:''};
+    if (dateEl) dateEl.textContent = m.date?('Date de sortie : '+m.date):'Date de sortie : non définie';
+    if (!row) return;
+    if (m.active) {
+      row.style.opacity='1'; row.style.borderLeftColor='#27ae60'; row.style.borderColor='rgba(39,174,96,0.4)';
+      if (badgeEl){ badgeEl.textContent='✅ ACTIF'; badgeEl.style.background='rgba(39,174,96,0.15)'; badgeEl.style.color='#27ae60'; badgeEl.style.border='1px solid rgba(39,174,96,0.4)'; }
+    } else {
+      row.style.opacity=id==='nasdara'?'1':'0.5';
+      if (id==='nasdara'){ row.style.borderLeftColor='#d4ac0d'; row.style.borderColor='rgba(192,57,43,0.3)'; if(badgeEl){badgeEl.textContent='🔧 EN DEV';badgeEl.style.background='rgba(212,172,13,0.15)';badgeEl.style.color='#d4ac0d';badgeEl.style.border='1px solid rgba(212,172,13,0.4)';} }
+      else { row.style.borderLeftColor='#444'; row.style.borderColor='rgba(255,255,255,0.06)'; if(badgeEl){badgeEl.textContent='🔒 INDISPO';badgeEl.style.background='rgba(136,136,136,0.1)';badgeEl.style.color='#666';badgeEl.style.border='1px solid rgba(136,136,136,0.2)';} }
+    }
+  });
+}
+function renderAdminMaps() {
+  MAPS_IDS.forEach(function(id){
+    var maps=getMaps(); var btn=document.getElementById('mapbtn-admin-'+id); var inp=document.getElementById('mapdate-admin-'+id);
+    var m=maps[id]||{active:false,date:''};
+    if(btn){ btn.textContent=m.active?'Désactiver':'Activer'; btn.className=m.active?'admin-btn red':'admin-btn'; btn.style.padding='4px 14px'; btn.style.fontSize='0.75rem'; }
+    if(inp&&m.date) inp.value=m.date;
+  });
+}
+
+// ===== COUNTDOWN =====
+var countdownInterval = null;
+function initCountdown() {
+  var date = ls.get('opening_date');
+  var section = document.getElementById('countdown-section');
+  if (!section) return;
+  section.classList.remove('countdown-hidden');
+  if (!date) {
+    var dateEl=document.getElementById('countdown-target-date');
+    if(dateEl) dateEl.textContent='date non définie';
+    ['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent='00'; });
+    return;
+  }
+  var target = new Date(date);
+  var dateEl = document.getElementById('countdown-target-date');
+  if (dateEl) dateEl.textContent = target.toLocaleDateString('fr-FR')+' à '+target.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  if (countdownInterval) clearInterval(countdownInterval);
+  tickCountdown(target);
+  countdownInterval = setInterval(function(){ tickCountdown(target); }, 1000);
+}
+function tickCountdown(target) {
+  var diff = target - new Date();
+  var running=document.getElementById('countdown-running');
+  var openMsg=document.getElementById('countdown-open');
+  if (diff<=0) {
+    if(running) running.style.display='none';
+    if(openMsg) openMsg.style.display='block';
+    if(countdownInterval) clearInterval(countdownInterval);
+    return;
+  }
+  if(running) running.style.display='flex';
+  if(openMsg) openMsg.style.display='none';
+  var days=Math.floor(diff/86400000), hours=Math.floor((diff%86400000)/3600000), minutes=Math.floor((diff%3600000)/60000), seconds=Math.floor((diff%60000)/1000);
+  function pad(n){ return String(n).padStart(2,'0'); }
+  ['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(function(id,i){ var el=document.getElementById(id); var vals=[days,hours,minutes,seconds]; if(el) el.textContent=pad(vals[i]); });
+}
+function animateCountdown(el, newVal) {
+  if (el.textContent!==newVal) { el.style.transform='translateY(-4px)'; el.style.opacity='0.5'; setTimeout(function(){ el.textContent=newVal; el.style.transform='translateY(0)'; el.style.opacity='1'; },150); }
+}
+
+// ===== DASHBOARD =====
+var currentDashPanel = 'overview';
+var presenceStart = null;
+var presenceInterval = null;
+var staffMsgThread = null;
+
+function openDashboard() {
+  document.getElementById('profile-menu').classList.remove('open');
+  currentUser = ls.get('current_user');
+  if (!currentUser) { openAuth(); return; }
+  document.getElementById('dashboard').classList.add('open');
+  var isStaff = STAFF_GRADES.includes(currentUser.grade) || currentUser.isAdmin;
+  ['section-staff','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-planning','nav-staff-rapports','nav-staff-journal','nav-staff-equipe'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.style.display=isStaff?(id==='section-staff'?'block':'flex'):'none';
+  });
+  var userInfo=document.getElementById('dash-user-info');
+  if(userInfo) userInfo.textContent=currentUser.username+' — '+(currentUser.grade||'Joueur');
+  switchDash('overview');
+  checkNotifications();
+}
+function closeDashboard() {
+  document.getElementById('dashboard').classList.remove('open');
+  if(presenceInterval) clearInterval(presenceInterval);
+}
+function switchDash(panel) {
+  currentDashPanel = panel;
+  document.querySelectorAll('.dash-nav-item').forEach(function(el){ el.classList.remove('active'); });
+  document.querySelectorAll('.dash-panel').forEach(function(el){ el.classList.remove('active'); });
+  var navEl=document.getElementById('nav-'+panel);
+  if(navEl) navEl.classList.add('active');
+  var panelEl=document.getElementById('panel-'+panel);
+  if(panelEl) panelEl.classList.add('active');
+  var titles = {
+    "overview":"Vue d'ensemble","profil":"Mon Profil","achats":"Mes Achats","messages":"Messages",
+    "signalement":"Signalement","reglement":"Règlement","sanctions":"Mes Sanctions","journal-public":"Annonces",
+    "staff-overview":"Vue Staff","staff-joueurs":"Joueurs","staff-signalements":"Signalements",
+    "staff-sanctions":"Sanctions","staff-casier":"Casier Judiciaire","staff-messages":"Messages Joueurs",
+    "staff-presences":"Présences","staff-planning":"Planning","staff-rapports":"Rapports",
+    "staff-journal":"Annonces","staff-equipe":"Gérer le Staff"
+  };
+  var titleEl=document.getElementById('dash-title');
+  if(titleEl) titleEl.textContent=titles[panel]||panel;
+  var renders={
+    'overview':renderDashOverview,'profil':renderDashProfil,'achats':renderDashAchats,
+    'messages':renderDashMessages,'signalement':renderDashSignalement,'sanctions':renderDashSanctions,
+    'journal-public':renderJournalPublic,'staff-overview':renderStaffOverview,'staff-joueurs':renderStaffJoueurs,
+    'staff-signalements':renderStaffSignalements,'staff-sanctions':renderStaffSanctions,
+    'staff-casier':renderCasier,'staff-messages':renderStaffMessages,'staff-presences':renderPresences,
+    'staff-planning':renderPlanning,'staff-rapports':renderRapports,'staff-journal':renderJournalStaff,
+    'staff-equipe':renderStaffManage
+  };
+  if(renders[panel]) renders[panel]();
+}
+function checkNotifications() {
+  if(!currentUser) return;
+  var msgs=ls.get('messages')||[];
+  var sanctions=ls.get('sanctions')||[];
+  var sigs=ls.get('signalements')||[];
+  var unreadMsgs=msgs.filter(function(m){ return m.to_user===currentUser.username&&!m.read_user; });
+  var notifMsgs=document.getElementById('notif-messages');
+  if(notifMsgs) notifMsgs.classList.toggle('visible',unreadMsgs.length>0);
+  var mySanctions=sanctions.filter(function(s){ return s.joueur.toLowerCase()===currentUser.username.toLowerCase(); });
+  var notifSanc=document.getElementById('notif-sanctions');
+  if(notifSanc) notifSanc.classList.toggle('visible',mySanctions.length>0);
+  var isStaff=STAFF_GRADES.includes(currentUser.grade)||currentUser.isAdmin;
+  if(isStaff){
+    var pendingSigs=sigs.filter(function(s){ return s.status==='pending'; });
+    var ns=document.getElementById('notif-staff-signalements'); if(ns) ns.classList.toggle('visible',pendingSigs.length>0);
+    var unreadStaff=msgs.filter(function(m){ return !m.read_staff; });
+    var nm=document.getElementById('notif-staff-messages'); if(nm) nm.classList.toggle('visible',unreadStaff.length>0);
+  }
+}
+
+// --- DASHBOARD PANELS ---
+function renderDashOverview() {
+  var orders=ls.get('orders')||[];
+  var myOrders=orders.filter(function(o){ return o.user===currentUser.username; });
+  var totalSpent=myOrders.reduce(function(s,o){ return s+parseFloat(o.total||0); },0).toFixed(2);
+  var sanctions=(ls.get('sanctions')||[]).filter(function(s){ return s.joueur.toLowerCase()===currentUser.username.toLowerCase(); });
+  var kpiEl=document.getElementById('overview-kpis');
+  if(kpiEl) kpiEl.innerHTML='<div class="dash-kpi"><div class="dash-kpi-val">'+(currentUser.credits||0)+'</div><div class="dash-kpi-label">Crédits</div></div><div class="dash-kpi"><div class="dash-kpi-val">'+myOrders.length+'</div><div class="dash-kpi-label">Commandes</div></div><div class="dash-kpi"><div class="dash-kpi-val">'+totalSpent+'€</div><div class="dash-kpi-label">Total dépensé</div></div><div class="dash-kpi"><div class="dash-kpi-val" style="color:'+(sanctions.length>0?'var(--red)':'var(--green)')+'">'+sanctions.length+'</div><div class="dash-kpi-label">Sanctions</div></div>';
+  var journal=ls.get('journal')||[];
+  var jEl=document.getElementById('overview-journal');
+  if(jEl) jEl.innerHTML=journal.length>0?journal.slice(-3).reverse().map(renderJournalCard).join(''):'<div class="dash-empty">Aucune annonce</div>';
+  var sEl=document.getElementById('overview-sanctions');
+  if(sEl) sEl.innerHTML=sanctions.length>0?'<table class="dash-table"><thead><tr><th>Type</th><th>Motif</th><th>Date</th></tr></thead><tbody>'+sanctions.map(function(s){ return '<tr><td><span class="sanction-badge '+getSancClass(s.type)+'">'+escHtml(s.type)+'</span></td><td>'+escHtml(s.motif)+'</td><td>'+escHtml(s.date)+'</td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">✅ Aucune sanction</div>';
+}
+function renderDashProfil() {
+  var el=document.getElementById('profil-content'); if(!el) return;
+  var avatarHtml=currentUser.avatar?'<img src="'+escAttr(currentUser.avatar)+'" style="width:100%;height:100%;object-fit:cover">':'<span style="font-family:Bebas Neue,sans-serif;font-size:2.5rem;color:#fff">'+currentUser.username.charAt(0).toUpperCase()+'</span>';
+  el.innerHTML='<div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap"><div class="profile-avatar-big">'+avatarHtml+'</div><div><div style="font-family:Bebas Neue,sans-serif;font-size:1.8rem;letter-spacing:3px">'+escHtml(currentUser.username)+'</div><span class="grade-badge '+getGradeClass(currentUser.grade)+'">'+escHtml(currentUser.grade||'Joueur')+'</span></div></div><div class="info-row"><label>Discord</label><span>'+escHtml(currentUser.discord||'Non renseigné')+'</span></div><div class="info-row"><label>Plateforme</label><span>'+escHtml(currentUser.platform||'Non renseigné')+'</span></div><div class="info-row"><label>Crédits</label><span style="color:var(--gold);font-family:Bebas Neue,sans-serif;font-size:1.3rem">'+(currentUser.credits||0)+' CR</span></div><div class="info-row"><label>Inscription</label><span>'+escHtml(currentUser.inscription||'-')+'</span></div><div style="margin-top:1rem"><button class="dash-btn secondary" onclick="openEditProfile()">✏️ Modifier le profil</button></div>';
+}
+function renderDashAchats() {
+  var el=document.getElementById('achats-content'); if(!el) return;
+  var orders=(ls.get('orders')||[]).filter(function(o){ return o.user===currentUser.username; });
+  el.innerHTML=orders.length>0?'<table class="dash-table"><thead><tr><th>Date</th><th>Articles</th><th>Total</th><th>Statut</th></tr></thead><tbody>'+orders.slice().reverse().map(function(o){ return '<tr><td>'+escHtml(o.date)+'</td><td>'+o.items.map(function(i){ return escHtml(i.name); }).join(', ')+'</td><td>'+o.total+'€</td><td><span class="dash-badge '+(o.status==='confirmed'?'green':'gold')+'">'+(o.status==='confirmed'?'Confirmé':'En attente')+'</span></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun achat</div>';
+}
+function renderDashMessages() {
+  var msgs=ls.get('messages')||[];
+  var myMsgs=msgs.filter(function(m){ return m.from_user===currentUser.username||m.to_user===currentUser.username; });
+  var allMsgs=ls.get('messages')||[];
+  allMsgs.forEach(function(m){ if(m.to_user===currentUser.username) m.read_user=true; });
+  ls.set('messages',allMsgs);
+  var el=document.getElementById('msg-bubbles-joueur'); if(!el) return;
+  el.innerHTML=myMsgs.length>0?myMsgs.map(function(m){ var sent=m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?'sent':'received')+'">'+((!sent)?'<div style="font-size:0.7rem;color:var(--red);margin-bottom:3px">Staff — '+escHtml(m.from_user)+'</div>':'')+escHtml(m.text)+'<div class="msg-bubble-meta">'+(m.time||'')+'</div></div>'; }).join(''):'<div style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Pas encore de messages.</div>';
+  el.scrollTop=el.scrollHeight;
+}
+function sendMessageJoueur() {
+  var input=document.getElementById('msg-input-joueur');
+  var text=input.value.trim(); if(!text) return;
+  var msgs=ls.get('messages')||[];
+  msgs.push({from_user:currentUser.username,to_user:'staff',text:text,read_staff:false,read_user:true,time:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('messages',msgs); input.value=''; renderDashMessages();
+}
+function renderDashSignalement() {
+  var sigs=(ls.get('signalements')||[]).filter(function(s){ return s.auteur===currentUser.username; });
+  var el=document.getElementById('mes-signalements'); if(!el) return;
+  el.innerHTML=sigs.length>0?'<table class="dash-table"><thead><tr><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th></tr></thead><tbody>'+sigs.map(function(s){ return '<tr><td>'+escHtml(s.joueur)+'</td><td>'+escHtml(s.type)+'</td><td>'+escHtml(s.date)+'</td><td><span class="dash-badge '+(s.status==='traite'?'green':s.status==='rejete'?'red':'gold')+'">'+(s.status==='traite'?'Traité':s.status==='rejete'?'Rejeté':'En attente')+'</span></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun signalement</div>';
+}
+function sendSignalement() {
+  var joueur=document.getElementById('sig-joueur').value.trim();
+  var type=document.getElementById('sig-type').value;
+  var desc=document.getElementById('sig-desc').value.trim();
+  if(!joueur||!type||!desc) { alert('Tous les champs sont requis.'); return; }
+  var sigs=ls.get('signalements')||[];
+  sigs.push({id:Date.now(),joueur:joueur,type:type,desc:desc,auteur:currentUser.username,date:new Date().toLocaleDateString('fr-FR'),status:'pending'});
+  ls.set('signalements',sigs);
+  document.getElementById('sig-joueur').value=''; document.getElementById('sig-type').value=''; document.getElementById('sig-desc').value='';
+  renderDashSignalement(); alert('Signalement envoyé !');
+}
+function renderDashSanctions() {
+  var el=document.getElementById('sanctions-content'); if(!el) return;
+  var sanctions=(ls.get('sanctions')||[]).filter(function(s){ return s.joueur.toLowerCase()===currentUser.username.toLowerCase(); });
+  el.innerHTML=sanctions.length>0?'<table class="dash-table"><thead><tr><th>Type</th><th>Motif</th><th>Durée</th><th>Agent</th><th>Date</th></tr></thead><tbody>'+sanctions.map(function(s){ return '<tr><td><span class="sanction-badge '+getSancClass(s.type)+'">'+escHtml(s.type)+'</span></td><td>'+escHtml(s.motif)+'</td><td>'+escHtml(s.duree||'-')+'</td><td>'+escHtml(s.agent)+'</td><td>'+escHtml(s.date)+'</td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">✅ Aucune sanction</div>';
+}
+function renderJournalPublic() {
+  var el=document.getElementById('journal-public-content'); if(!el) return;
+  var journal=ls.get('journal')||[];
+  el.innerHTML=journal.length>0?journal.slice().reverse().map(renderJournalCard).join(''):'<div class="dash-empty">Aucune annonce</div>';
+}
+function renderJournalCard(j) {
+  var tc=j.type==='important'?'important':j.type==='event'?'event':'info';
+  var tb=j.type==='important'?'🔴 Important':j.type==='event'?'🎉 Événement':'ℹ️ Info';
+  return '<div class="journal-card '+tc+'"><div class="journal-title">'+escHtml(j.titre)+'</div><div class="journal-body">'+escHtml(j.contenu)+'</div><div class="journal-meta"><span class="dash-badge '+(tc==='important'?'red':tc==='event'?'gold':'blue')+'">'+tb+'</span><span>'+escHtml(j.auteur||'Staff')+'</span><span>'+escHtml(j.date||'')+'</span></div></div>';
+}
+
+// --- STAFF PANELS ---
+function renderStaffOverview() {
+  var accounts=ls.get('accounts')||[]; var sigs=(ls.get('signalements')||[]).filter(function(s){ return s.status==='pending'; });
+  var msgs=ls.get('messages')||[]; var sanctions=ls.get('sanctions')||[];
+  var kEl=document.getElementById('staff-kpis');
+  if(kEl) kEl.innerHTML='<div class="dash-kpi"><div class="dash-kpi-val">'+accounts.length+'</div><div class="dash-kpi-label">Comptes</div></div><div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--red)">'+sigs.length+'</div><div class="dash-kpi-label">Signalements</div></div><div class="dash-kpi"><div class="dash-kpi-val">'+msgs.filter(function(m){ return !m.read_staff; }).length+'</div><div class="dash-kpi-label">Msg non lus</div></div><div class="dash-kpi"><div class="dash-kpi-val">'+sanctions.length+'</div><div class="dash-kpi-label">Sanctions total</div></div>';
+  var sigEl=document.getElementById('staff-signalements-quick');
+  if(sigEl) sigEl.innerHTML=sigs.length>0?sigs.slice(0,3).map(function(s){ return '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>'+escHtml(s.auteur)+'</strong> signale <strong style="color:var(--red)">'+escHtml(s.joueur)+'</strong> — '+escHtml(s.type)+'</div>'; }).join(''):'<div class="dash-empty">✅ Aucun signalement en attente</div>';
+  var msgEl=document.getElementById('staff-messages-quick');
+  var unread=msgs.filter(function(m){ return !m.read_staff; }).slice(0,3);
+  if(msgEl) msgEl.innerHTML=unread.length>0?unread.map(function(m){ return '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>'+escHtml(m.from_user)+'</strong> : '+escHtml((m.text||'').substring(0,60))+'...</div>'; }).join(''):'<div class="dash-empty">Aucun message non lu</div>';
+}
+function renderStaffJoueurs() {
+  var search=(document.getElementById('search-joueurs')||{}).value||'';
+  var accounts=ls.get('accounts')||[];
+  var filtered=accounts.filter(function(a){ return a.username.toLowerCase().includes(search.toLowerCase()); });
+  var el=document.getElementById('staff-joueurs-list'); if(!el) return;
+  el.innerHTML=filtered.length>0?'<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Plateforme</th><th>Crédits</th><th>Inscription</th></tr></thead><tbody>'+filtered.map(function(a){ return '<tr><td style="font-weight:600">'+escHtml(a.username)+'</td><td><span class="grade-badge '+getGradeClass(a.grade)+'">'+escHtml(a.grade||'Joueur')+'</span></td><td>'+escHtml(a.platform||'-')+'</td><td style="color:var(--gold)">'+(a.credits||0)+' CR</td><td>'+escHtml(a.inscription||'-')+'</td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun joueur trouvé</div>';
+}
+function renderStaffSignalements() {
+  var sigs=ls.get('signalements')||[];
+  var el=document.getElementById('staff-signalements-list'); if(!el) return;
+  el.innerHTML=sigs.length>0?'<table class="dash-table"><thead><tr><th>Auteur</th><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th><th>Action</th></tr></thead><tbody>'+sigs.slice().reverse().map(function(s,i){ return '<tr><td>'+escHtml(s.auteur)+'</td><td style="color:var(--red);font-weight:600">'+escHtml(s.joueur)+'</td><td>'+escHtml(s.type)+'</td><td>'+escHtml(s.date)+'</td><td><span class="dash-badge '+(s.status==='traite'?'green':s.status==='rejete'?'red':'gold')+'">'+(s.status==='traite'?'Traité':s.status==='rejete'?'Rejeté':'En attente')+'</span></td><td style="display:flex;gap:0.5rem"><button class="dash-btn" style="padding:4px 10px;font-size:0.7rem" onclick="updateSig('+(sigs.length-1-i)+','traite')">✅</button><button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="updateSig('+(sigs.length-1-i)+','rejete')">✗</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun signalement</div>';
+}
+function updateSig(idx,status) {
+  var sigs=ls.get('signalements')||[];
+  if(sigs[idx]){ sigs[idx].status=status; ls.set('signalements',sigs); renderStaffSignalements(); checkNotifications(); }
+}
+function addSanction() {
+  var joueur=document.getElementById('sanc-joueur').value.trim();
+  var type=document.getElementById('sanc-type').value;
+  var duree=document.getElementById('sanc-duree').value.trim();
+  var motif=document.getElementById('sanc-motif').value.trim();
+  if(!joueur||!type||!motif) { alert('Joueur, type et motif requis.'); return; }
+  var sanctions=ls.get('sanctions')||[];
+  sanctions.push({joueur:joueur,type:type,duree:duree,motif:motif,agent:currentUser.username,date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('sanctions',sanctions);
+  document.getElementById('sanc-joueur').value=''; document.getElementById('sanc-type').value=''; document.getElementById('sanc-duree').value=''; document.getElementById('sanc-motif').value='';
+  renderStaffSanctions(); alert('Sanction appliquée !');
+}
+function renderStaffSanctions() {
+  var sanctions=ls.get('sanctions')||[];
+  var el=document.getElementById('sanctions-list'); if(!el) return;
+  el.innerHTML=sanctions.length>0?'<table class="dash-table"><thead><tr><th>Joueur</th><th>Type</th><th>Motif</th><th>Agent</th><th>Date</th><th></th></tr></thead><tbody>'+sanctions.slice().reverse().map(function(s,i){ return '<tr><td style="font-weight:600">'+escHtml(s.joueur)+'</td><td><span class="sanction-badge '+getSancClass(s.type)+'">'+escHtml(s.type)+'</span></td><td>'+escHtml(s.motif)+'</td><td>'+escHtml(s.agent)+'</td><td>'+escHtml(s.date)+'</td><td><button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeSanction('+(sanctions.length-1-i)+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucune sanction</div>';
+}
+function removeSanction(idx) {
+  var sanctions=ls.get('sanctions')||[]; sanctions.splice(idx,1); ls.set('sanctions',sanctions); renderStaffSanctions();
+}
+function addCasier() {
+  var nom=document.getElementById('casier-nom').value.trim();
+  var type=document.getElementById('casier-type').value;
+  var motif=document.getElementById('casier-motif').value.trim();
+  var sanction=document.getElementById('casier-sanction').value.trim();
+  if(!nom||!type||!motif) { alert('Nom, type et motif requis.'); return; }
+  var casiers=ls.get('casiers')||[];
+  casiers.push({nom:nom,type:type,motif:motif,sanction:sanction,agent:currentUser.username,date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('casiers',casiers);
+  ['casier-nom','casier-type','casier-motif','casier-sanction'].forEach(function(id){ var el=document.getElementById(id); if(el) el.value=''; });
+  renderCasier();
+}
+function renderCasier() {
+  var search=(document.getElementById('search-casier')||{}).value||'';
+  var casiers=ls.get('casiers')||[];
+  var filtered=casiers.filter(function(c){ return c.nom.toLowerCase().includes(search.toLowerCase()); });
+  var el=document.getElementById('casier-list'); if(!el) return;
+  el.innerHTML=filtered.length>0?'<table class="dash-table"><thead><tr><th>Joueur</th><th>Infraction</th><th>Motif</th><th>Sanction</th><th>Agent</th><th>Date</th><th></th></tr></thead><tbody>'+filtered.slice().reverse().map(function(c,i){ return '<tr><td style="font-weight:600;color:var(--red)">'+escHtml(c.nom)+'</td><td>'+escHtml(c.type)+'</td><td>'+escHtml(c.motif)+'</td><td>'+escHtml(c.sanction||'-')+'</td><td>'+escHtml(c.agent)+'</td><td>'+escHtml(c.date)+'</td><td><button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeCasier('+(casiers.length-1-i)+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun casier</div>';
+}
+function removeCasier(idx) {
+  var casiers=ls.get('casiers')||[]; casiers.splice(idx,1); ls.set('casiers',casiers); renderCasier();
+}
+function renderStaffMessages() {
+  var msgs=ls.get('messages')||[];
+  msgs.forEach(function(m){ m.read_staff=true; }); ls.set('messages',msgs); checkNotifications();
+  var threads={};
+  msgs.forEach(function(m){ var key=m.from_user==='staff'?m.to_user:m.from_user; if(!threads[key]) threads[key]=[]; threads[key].push(m); });
+  var el=document.getElementById('staff-thread-list'); if(!el) return;
+  var users=Object.keys(threads);
+  el.innerHTML=users.length>0?users.map(function(u){ var last=threads[u][threads[u].length-1]; return '<div class="msg-thread '+(staffMsgThread===u?'active':'')+'" onclick="openStaffThread(''+u+'')"><div class="msg-thread-name">'+escHtml(u)+'</div><div class="msg-thread-preview">'+escHtml((last.text||'').substring(0,50))+'</div></div>'; }).join(''):'<div class="dash-empty">Aucun message joueur</div>';
+  if(staffMsgThread&&threads[staffMsgThread]) renderStaffConversation(threads[staffMsgThread]);
+}
+function openStaffThread(username) {
+  staffMsgThread=username; renderStaffMessages();
+  var conv=document.getElementById('staff-msg-conversation'); if(conv) conv.style.display='block';
+  var title=document.getElementById('staff-msg-thread-title'); if(title) title.textContent='Conversation avec '+username;
+}
+function renderStaffConversation(msgs) {
+  var el=document.getElementById('staff-msg-bubbles'); if(!el) return;
+  el.innerHTML=msgs.map(function(m){ var sent=m.from_user==='staff'||m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?'sent':'received')+'">'+escHtml(m.text)+'<div class="msg-bubble-meta">'+escHtml(m.from_user)+' — '+(m.time||'')+'</div></div>'; }).join('');
+  el.scrollTop=el.scrollHeight;
+}
+function sendStaffMessage() {
+  if(!staffMsgThread) return;
+  var input=document.getElementById('staff-msg-input');
+  var text=input.value.trim(); if(!text) return;
+  var msgs=ls.get('messages')||[];
+  msgs.push({from_user:currentUser.username,to_user:staffMsgThread,text:text,read_staff:true,read_user:false,time:new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}),date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('messages',msgs); input.value=''; renderStaffMessages();
+}
+function priseService() {
+  presenceStart=new Date();
+  ls.set('presence_active',{start:presenceStart.toISOString(),user:currentUser.username});
+  var btn1=document.getElementById('btn-prise-service'); if(btn1) btn1.style.display='none';
+  var btn2=document.getElementById('btn-fin-service'); if(btn2) btn2.style.display='block';
+  var ps=document.getElementById('presence-status');
+  if(ps) ps.innerHTML='<span class="dash-badge green">🟢 En service depuis '+presenceStart.toLocaleTimeString('fr-FR')+'</span>';
+  if(presenceInterval) clearInterval(presenceInterval);
+  presenceInterval=setInterval(updatePresenceTimer,1000);
+}
+function finService() {
+  if(!presenceStart) return;
+  var fin=new Date(); var duree=Math.floor((fin-presenceStart)/60000);
+  clearInterval(presenceInterval);
+  var presences=ls.get('presences')||[];
+  presences.push({user:currentUser.username,grade:currentUser.grade||'Helper',debut:presenceStart.toLocaleTimeString('fr-FR'),fin:fin.toLocaleTimeString('fr-FR'),duree_minutes:duree,date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('presences',presences); ls.set('presence_active',null); presenceStart=null;
+  var b1=document.getElementById('btn-prise-service'); if(b1) b1.style.display='block';
+  var b2=document.getElementById('btn-fin-service'); if(b2) b2.style.display='none';
+  var t=document.getElementById('presence-timer'); if(t) t.textContent='00:00:00';
+  var ps=document.getElementById('presence-status'); if(ps) ps.innerHTML='<span class="dash-badge green">✅ Service terminé — '+duree+' min</span>';
+  renderPresences();
+}
+function updatePresenceTimer() {
+  if(!presenceStart) return;
+  var diff=Math.floor((new Date()-presenceStart)/1000);
+  var h=String(Math.floor(diff/3600)).padStart(2,'0');
+  var m=String(Math.floor((diff%3600)/60)).padStart(2,'0');
+  var s=String(diff%60).padStart(2,'0');
+  var el=document.getElementById('presence-timer'); if(el) el.textContent=h+':'+m+':'+s;
+}
+function renderPresences() {
+  var presences=(ls.get('presences')||[]).filter(function(p){ return p.user===currentUser.username; });
+  var el=document.getElementById('presences-list'); if(!el) return;
+  el.innerHTML=presences.length>0?'<table class="dash-table"><thead><tr><th>Date</th><th>Prise</th><th>Fin</th><th>Durée</th></tr></thead><tbody>'+presences.slice().reverse().map(function(p){ return '<tr><td>'+escHtml(p.date)+'</td><td>'+escHtml(p.debut)+'</td><td>'+escHtml(p.fin)+'</td><td>'+p.duree_minutes+' min</td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucune présence</div>';
+  var active=ls.get('presence_active');
+  if(active&&active.user===currentUser.username) {
+    presenceStart=new Date(active.start);
+    var b1=document.getElementById('btn-prise-service'); if(b1) b1.style.display='none';
+    var b2=document.getElementById('btn-fin-service'); if(b2) b2.style.display='block';
+    if(!presenceInterval) presenceInterval=setInterval(updatePresenceTimer,1000);
+  }
+}
+function addPlanning() {
+  var date=document.getElementById('plan-date').value;
+  var debut=document.getElementById('plan-heure-debut').value;
+  var fin=document.getElementById('plan-heure-fin').value;
+  if(!date||!debut||!fin) { alert('Date, heure début et fin requis.'); return; }
+  var planning=ls.get('planning')||[];
+  planning.push({user:currentUser.username,grade:currentUser.grade||'Helper',date:date,debut:debut,fin:fin});
+  ls.set('planning',planning);
+  document.getElementById('plan-date').value=''; document.getElementById('plan-heure-debut').value=''; document.getElementById('plan-heure-fin').value='';
+  renderPlanning();
+}
+function renderPlanning() {
+  var planning=ls.get('planning')||[];
+  var el=document.getElementById('planning-grid'); if(!el) return;
+  var days=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
+  var today=new Date(); var monday=new Date(today);
+  monday.setDate(today.getDate()-(today.getDay()||7)+1);
+  el.innerHTML=days.map(function(d,i){ var day=new Date(monday); day.setDate(monday.getDate()+i); var ds=day.toISOString().split('T')[0]; var events=planning.filter(function(p){ return p.date===ds; }); return '<div class="planning-day"><div class="planning-day-name">'+d+' '+day.getDate()+'</div>'+events.map(function(e){ return '<div class="planning-event">'+escHtml(e.user)+'<br>'+e.debut+'–'+e.fin+'</div>'; }).join('')+'</div>'; }).join('');
+}
+function addRapport() {
+  var type=document.getElementById('rapport-type').value;
+  var desc=document.getElementById('rapport-desc').value.trim();
+  var agents=document.getElementById('rapport-agents').value.trim();
+  if(!type||!desc) { alert('Type et description requis.'); return; }
+  var rapports=ls.get('rapports')||[];
+  rapports.push({user:currentUser.username,grade:currentUser.grade||'Helper',type:type,desc:desc,agents:agents,date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('rapports',rapports);
+  document.getElementById('rapport-type').value=''; document.getElementById('rapport-desc').value=''; document.getElementById('rapport-agents').value='';
+  renderRapports(); alert('Rapport soumis !');
+}
+function renderRapports() {
+  var rapports=ls.get('rapports')||[];
+  var el=document.getElementById('rapports-list'); if(!el) return;
+  el.innerHTML=rapports.length>0?rapports.slice().reverse().map(function(r){ return '<div class="report-card"><div class="report-card-header"><div class="report-title">'+escHtml(r.type)+'</div><div class="report-meta">'+escHtml(r.user)+' — '+escHtml(r.date)+'</div></div><div style="font-size:0.85rem;color:var(--text-muted)">'+escHtml(r.desc)+'</div>'+(r.agents?'<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem">Agents : '+escHtml(r.agents)+'</div>':'')+'</div>'; }).join(''):'<div class="dash-empty">Aucun rapport</div>';
+}
+function addJournal() {
+  var titre=document.getElementById('journal-titre').value.trim();
+  var type=document.getElementById('journal-type').value;
+  var contenu=document.getElementById('journal-contenu').value.trim();
+  if(!titre||!contenu) { alert('Titre et contenu requis.'); return; }
+  var journal=ls.get('journal')||[];
+  journal.push({titre:titre,type:type,contenu:contenu,auteur:currentUser.username,grade:currentUser.grade||'Staff',date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('journal',journal); document.getElementById('journal-titre').value=''; document.getElementById('journal-contenu').value='';
+  renderJournalStaff(); alert('Annonce publiée !');
+}
+function renderJournalStaff() {
+  var journal=ls.get('journal')||[];
+  var el=document.getElementById('journal-staff-list'); if(!el) return;
+  el.innerHTML=journal.length>0?journal.slice().reverse().map(function(j,i){ return '<div class="journal-card '+(j.type==='important'?'important':j.type==='event'?'event':'info')+'"><div style="display:flex;justify-content:space-between;align-items:start"><div class="journal-title">'+escHtml(j.titre)+'</div><button class="dash-btn secondary" style="padding:3px 10px;font-size:0.7rem" onclick="removeJournal('+(journal.length-1-i)+')">✕</button></div><div class="journal-body">'+escHtml(j.contenu)+'</div><div class="journal-meta"><span>'+escHtml(j.auteur)+'</span><span>'+escHtml(j.date)+'</span></div></div>'; }).join(''):'<div class="dash-empty">Aucune annonce</div>';
+}
+function removeJournal(idx) {
+  var journal=ls.get('journal')||[]; journal.splice(idx,1); ls.set('journal',journal); renderJournalStaff();
+}
+function renderStaffManage() {
+  var defaultStaff=[{name:'Arakawa Akihiro',role:'Fondateur',avatar:''}];
+  var staff=ls.get('staff')||defaultStaff;
+  var el=document.getElementById('staff-manage-list'); if(!el) return;
+  el.innerHTML='<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>'+staff.map(function(s,i){ return '<tr><td style="font-weight:600">'+escHtml(s.name)+'</td><td><span class="grade-badge '+getGradeClass(s.role)+'">'+escHtml(s.role)+'</span></td><td>'+(s.name==='Arakawa Akihiro'?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeStaffMember('+i+')">✕ Retirer</button>')+'</td></tr>'; }).join('')+'</tbody></table>';
+}
+function addStaffMember() {
+  var name=document.getElementById('staff-add-name').value.trim();
+  var role=document.getElementById('staff-add-role').value;
+  var avatar=document.getElementById('staff-add-avatar').value.trim();
+  if(!name||!role) { alert('Pseudo et grade requis.'); return; }
+  var staff=ls.get('staff')||[{name:'Arakawa Akihiro',role:'Fondateur',avatar:''}];
+  if(staff.find(function(s){ return s.name.toLowerCase()===name.toLowerCase(); })) { alert('Déjà dans le staff.'); return; }
+  staff.push({name:name,role:role,avatar:avatar});
+  ls.set('staff',staff);
+  document.getElementById('staff-add-name').value=''; document.getElementById('staff-add-role').value=''; document.getElementById('staff-add-avatar').value='';
+  renderStaffManage(); renderStaff();
+  alert(name+' ajouté comme '+role+' !');
+}
+function removeStaffMember(idx) {
+  var staff=ls.get('staff')||[];
+  if(staff[idx]&&staff[idx].name==='Arakawa Akihiro') { alert('Impossible de retirer le Fondateur.'); return; }
+  if(!confirm('Retirer '+(staff[idx]&&staff[idx].name||'')+' ?')) return;
+  staff.splice(idx,1); ls.set('staff',staff); renderStaffManage(); renderStaff();
+}
+
+// ===== ADMIN PANEL =====
+function openAdminPanel() {
+  document.getElementById('admin-panel').classList.add('open');
+  switchAdmin('admin-overview');
+}
+function closeAdminPanel() {
+  document.getElementById('admin-panel').classList.remove('open');
+}
+function switchAdmin(section) {
+  document.querySelectorAll('.admin-panel-section').forEach(function(el){ el.classList.remove('active'); });
+  document.querySelectorAll('.admin-nav-item').forEach(function(el){ el.classList.remove('active'); });
+  var el=document.getElementById(section); if(el) el.classList.add('active');
+  document.querySelectorAll('.admin-nav-item').forEach(function(nav){
+    if(nav.getAttribute('onclick')&&nav.getAttribute('onclick').includes(section)) nav.classList.add('active');
+  });
+  var titles={
+    "admin-overview":"Vue d'ensemble","admin-maj":"Mises à jour","admin-staff":"Staff",
+    "admin-comptes":"Comptes joueurs","admin-boutique":"Boutique","admin-promos":"Promotions",
+    "admin-priorites":"Priorités","admin-vip":"VIP","admin-pvp":"Classement PvP",
+    "admin-commentaires":"Commentaires","admin-galerie":"Galerie","admin-ouverture":"Ouverture serveur",
+    "admin-maps":"Maps"
+  };
+  var titleEl=document.getElementById('admin-title'); if(titleEl) titleEl.textContent=titles[section]||section;
+  var renders={
+    'admin-overview':renderAdminOverview,'admin-maj':renderAdminMaj,'admin-staff':renderAdminStaff,
+    'admin-comptes':renderAdminComptes,'admin-boutique':renderAdminBoutique,'admin-promos':renderAdminPromos,
+    'admin-priorites':renderAdminPrio,'admin-vip':renderAdminVip,'admin-pvp':renderAdminPvp,
+    'admin-commentaires':renderAdminComments,'admin-galerie':renderAdminGallery,
+    'admin-ouverture':renderAdminOuverture,'admin-maps':renderAdminMaps
+  };
+  if(renders[section]) renders[section]();
+}
+function renderAdminOverview() {
+  var accounts=ls.get('accounts')||[]; var orders=ls.get('orders')||[]; var pvp=ls.get('pvp')||[]; var vips=ls.get('vips')||[];
+  var totalRevenu=orders.reduce(function(s,o){ return s+parseFloat(o.total||0); },0).toFixed(2);
+  var kpiEl=document.getElementById('admin-kpis');
+  if(kpiEl) kpiEl.innerHTML='<div class="admin-kpi"><div class="admin-kpi-val">'+accounts.length+'</div><div class="admin-kpi-label">Comptes</div></div><div class="admin-kpi"><div class="admin-kpi-val">'+orders.length+'</div><div class="admin-kpi-label">Commandes</div></div><div class="admin-kpi"><div class="admin-kpi-val">'+totalRevenu+'€</div><div class="admin-kpi-label">Revenus</div></div><div class="admin-kpi"><div class="admin-kpi-val">'+vips.length+'</div><div class="admin-kpi-label">VIPs</div></div><div class="admin-kpi"><div class="admin-kpi-val">'+pvp.length+'</div><div class="admin-kpi-label">Joueurs PvP</div></div>';
+}
+function toggleBoutique() {
+  var current=ls.get('boutique_active'); var newVal=current===false?true:false;
+  ls.set('boutique_active',newVal); renderAdminBoutique(); renderPacks(); renderServices();
+  alert('Boutique '+(newVal?'ACTIVÉE ✅':'DÉSACTIVÉE 🔒'));
+}
+function toggleServeur() {
+  var current=ls.get('serveur_ouvert'); ls.set('serveur_ouvert',current===false?true:false);
+}
+function renderAdminBoutique() {
+  var isOn=ls.get('boutique_active')!==false;
+  var el=document.getElementById('boutique-status-label'); var btn=document.getElementById('btn-toggle-boutique');
+  if(el) el.innerHTML=isOn?'<span style="color:var(--green)">✅ ACTIVE</span>':'<span style="color:var(--red)">❌ DÉSACTIVÉE</span>';
+}
+function addMaj() {
+  var titre=document.getElementById('maj-titre').value.trim(); var contenu=document.getElementById('maj-contenu').value.trim();
+  if(!titre||!contenu) { alert('Titre et contenu requis.'); return; }
+  var updates=ls.get('updates')||[];
+  updates.push({titre:titre,contenu:contenu,date:new Date().toLocaleDateString('fr-FR')});
+  ls.set('updates',updates); document.getElementById('maj-titre').value=''; document.getElementById('maj-contenu').value='';
+  renderAdminMaj(); renderUpdates(); alert('Mise à jour publiée !');
+}
+function renderAdminMaj() {
+  var updates=ls.get('updates')||[]; var el=document.getElementById('admin-maj-list'); if(!el) return;
+  el.innerHTML=updates.length>0?'<table class="admin-table"><thead><tr><th>Titre</th><th>Date</th><th></th></tr></thead><tbody>'+updates.slice().reverse().map(function(u,i){ return '<tr><td style="font-weight:600">'+escHtml(u.titre)+'</td><td>'+escHtml(u.date)+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="removeMaj('+(updates.length-1-i)+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucune mise à jour</div>';
+}
+function removeMaj(idx) { var updates=ls.get('updates')||[]; updates.splice(idx,1); ls.set('updates',updates); renderAdminMaj(); renderUpdates(); }
+function adminAddStaff() {
+  var name=document.getElementById('as-name').value.trim(); var role=document.getElementById('as-role').value; var avatar=document.getElementById('as-avatar').value.trim();
+  if(!name||!role) { alert('Pseudo et grade requis.'); return; }
+  var staff=ls.get('staff')||[{name:'Arakawa Akihiro',role:'Fondateur',avatar:''}];
+  if(staff.find(function(s){ return s.name.toLowerCase()===name.toLowerCase(); })) { alert('Déjà dans le staff.'); return; }
+  staff.push({name:name,role:role,avatar:avatar}); ls.set('staff',staff);
+  document.getElementById('as-name').value=''; document.getElementById('as-role').value=''; document.getElementById('as-avatar').value='';
+  renderAdminStaff(); renderStaff(); alert(name+' ajouté !');
+}
+function renderAdminStaff() {
+  var staff=ls.get('staff')||[{name:'Arakawa Akihiro',role:'Fondateur',avatar:''}];
+  var el=document.getElementById('admin-staff-list'); if(!el) return;
+  el.innerHTML='<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>'+staff.map(function(s,i){ return '<tr><td style="font-weight:600">'+escHtml(s.name)+'</td><td><span class="grade-badge '+getGradeClass(s.role)+'">'+escHtml(s.role)+'</span></td><td>'+(s.name==='Arakawa Akihiro'?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveStaff('+i+')">✕</button>')+'</td></tr>'; }).join('')+'</tbody></table>';
+}
+function adminRemoveStaff(idx) {
+  var staff=ls.get('staff')||[];
+  if(staff[idx]&&staff[idx].name==='Arakawa Akihiro') { alert('Impossible.'); return; }
+  if(!confirm('Retirer '+staff[idx].name+' ?')) return;
+  staff.splice(idx,1); ls.set('staff',staff); renderAdminStaff(); renderStaff();
+}
+function renderAdminComptes() {
+  var search=(document.getElementById('search-comptes')||{}).value||'';
+  var accounts=ls.get('accounts')||[];
+  var filtered=accounts.filter(function(a){ return a.username.toLowerCase().includes(search.toLowerCase()); });
+  var el=document.getElementById('admin-comptes-list'); if(!el) return;
+  el.innerHTML=filtered.length>0?'<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Crédits</th><th>Plateforme</th><th>Inscription</th></tr></thead><tbody>'+filtered.map(function(a){ return '<tr><td style="font-weight:600">'+escHtml(a.username)+'</td><td><span class="grade-badge '+getGradeClass(a.grade)+'">'+escHtml(a.grade||'Joueur')+'</span></td><td style="color:var(--gold)">'+(a.credits||0)+' CR</td><td>'+escHtml(a.platform||'-')+'</td><td>'+escHtml(a.inscription||'-')+'</td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucun compte</div>';
+}
+function adminSetCredits() {
+  var user=document.getElementById('credits-user').value.trim(); var amount=parseInt(document.getElementById('credits-amount').value);
+  if(!user||isNaN(amount)) { alert('Pseudo et montant requis.'); return; }
+  var accounts=ls.get('accounts')||[]; var idx=accounts.findIndex(function(a){ return a.username.toLowerCase()===user.toLowerCase(); });
+  if(idx===-1) { alert('Joueur introuvable.'); return; }
+  accounts[idx].credits=amount; ls.set('accounts',accounts);
+  if(currentUser&&currentUser.username.toLowerCase()===user.toLowerCase()) { currentUser.credits=amount; ls.set('current_user',currentUser); }
+  renderAdminComptes(); alert('Crédits mis à jour : '+amount+' CR pour '+user);
+}
+function adminSetGrade() {
+  var user=document.getElementById('grade-user').value.trim(); var grade=document.getElementById('grade-value').value;
+  if(!user||!grade) { alert('Pseudo et grade requis.'); return; }
+  var accounts=ls.get('accounts')||[]; var idx=accounts.findIndex(function(a){ return a.username.toLowerCase()===user.toLowerCase(); });
+  if(idx===-1) { alert('Joueur introuvable.'); return; }
+  accounts[idx].grade=grade; accounts[idx].isAdmin=STAFF_GRADES.includes(grade); ls.set('accounts',accounts);
+  renderAdminComptes(); alert('Grade mis à jour : '+grade+' pour '+user);
+}
+function addPromo() {
+  var pack=document.getElementById('promo-pack').value; var pct=parseInt(document.getElementById('promo-pct').value)||0; var bonus=parseInt(document.getElementById('promo-bonus').value)||0;
+  if(!pack) { alert('Choisissez un pack.'); return; }
+  if(!pct&&!bonus) { alert('Définissez une réduction ou des crédits bonus.'); return; }
+  var promos=ls.get('promos')||{}; promos[pack]={pct:pct,bonus:bonus};
+  ls.set('promos',promos); renderAdminPromos(); renderPacks(); alert('Promotion appliquée !');
+}
+function renderAdminPromos() {
+  var promos=ls.get('promos')||{}; var el=document.getElementById('admin-promos-list'); if(!el) return;
+  var keys=Object.keys(promos); var names={pack100:'Pack Starter',pack200:'Pack Regular',pack500:'Pack Premium',pack1000:'Pack Elite'};
+  el.innerHTML=keys.length>0?'<table class="admin-table"><thead><tr><th>Pack</th><th>Réduction</th><th>Bonus CR</th><th></th></tr></thead><tbody>'+keys.map(function(k){ return '<tr><td>'+(names[k]||k)+'</td><td>'+(promos[k].pct>0?'-'+promos[k].pct+'%':'—')+'</td><td>'+(promos[k].bonus>0?'+'+promos[k].bonus+' CR':'—')+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="removePromo(''+k+'')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucune promotion active</div>';
+}
+function removePromo(k) { var promos=ls.get('promos')||{}; delete promos[k]; ls.set('promos',promos); renderAdminPromos(); renderPacks(); }
+function adminAddPrio() {
+  var psn=document.getElementById('prio-psn').value.trim(); var duree=parseInt(document.getElementById('prio-duree').value);
+  if(!psn||!duree) { alert('PSN et durée requis.'); return; }
+  var prios=ls.get('priorities')||[]; var expiry=new Date(); expiry.setDate(expiry.getDate()+duree);
+  prios.push({psn:psn,date:expiry.toISOString(),duree:duree}); ls.set('priorities',prios);
+  document.getElementById('prio-psn').value=''; document.getElementById('prio-duree').value='';
+  renderAdminPrio(); renderPriorities();
+}
+function renderAdminPrio() {
+  var prios=ls.get('priorities')||[]; var el=document.getElementById('admin-prio-list'); if(!el) return;
+  el.innerHTML=prios.length>0?'<table class="admin-table"><thead><tr><th>PSN</th><th>Expire le</th><th>Jours restants</th><th></th></tr></thead><tbody>'+prios.map(function(p,i){ var days=p.date?Math.max(0,Math.floor((new Date(p.date)-new Date())/86400000)):'?'; var exp=p.date?new Date(p.date).toLocaleDateString('fr-FR'):'-'; return '<tr><td style="font-weight:600">'+escHtml(p.psn)+'</td><td>'+exp+'</td><td style="color:var(--gold)">'+days+'j</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePrio('+i+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucune priorité</div>';
+}
+function adminRemovePrio(idx) { var prios=ls.get('priorities')||[]; prios.splice(idx,1); ls.set('priorities',prios); renderAdminPrio(); renderPriorities(); }
+function adminAddVip() {
+  var psn=document.getElementById('vip-psn').value.trim(); var type=document.getElementById('vip-type').value;
+  if(!psn) { alert('PSN requis.'); return; }
+  var vips=ls.get('vips')||[]; vips.push({psn:psn,type:type}); ls.set('vips',vips);
+  document.getElementById('vip-psn').value=''; renderAdminVip(); renderVIP();
+}
+function renderAdminVip() {
+  var vips=ls.get('vips')||[]; var el=document.getElementById('admin-vip-list'); if(!el) return;
+  el.innerHTML=vips.length>0?'<table class="admin-table"><thead><tr><th>PSN</th><th>Type</th><th></th></tr></thead><tbody>'+vips.map(function(v,i){ return '<tr><td style="font-weight:600">'+escHtml(v.psn)+'</td><td>'+(v.type==='premium'?'⭐ Premium':'🎖️ Standard')+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveVip('+i+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucun VIP</div>';
+}
+function adminRemoveVip(idx) { var vips=ls.get('vips')||[]; vips.splice(idx,1); ls.set('vips',vips); renderAdminVip(); renderVIP(); }
+function adminAddPvp() {
+  var name=document.getElementById('pvp-name').value.trim(); var kills=parseInt(document.getElementById('pvp-kills').value)||0; var deaths=parseInt(document.getElementById('pvp-deaths').value)||0;
+  if(!name) { alert('Pseudo requis.'); return; }
+  var pvp=ls.get('pvp')||[]; var idx=pvp.findIndex(function(p){ return p.name.toLowerCase()===name.toLowerCase(); });
+  if(idx!==-1){ pvp[idx].kills=kills; pvp[idx].deaths=deaths; } else pvp.push({name:name,kills:kills,deaths:deaths});
+  ls.set('pvp',pvp); document.getElementById('pvp-name').value=''; document.getElementById('pvp-kills').value=''; document.getElementById('pvp-deaths').value='';
+  renderAdminPvp(); renderPVP();
+}
+function renderAdminPvp() {
+  var pvp=ls.get('pvp')||[]; var el=document.getElementById('admin-pvp-list'); if(!el) return;
+  var sorted=pvp.slice().sort(function(a,b){ return (b.kills||0)-(a.kills||0); });
+  el.innerHTML=sorted.length>0?'<table class="admin-table"><thead><tr><th>#</th><th>Joueur</th><th>Kills</th><th>Morts</th><th>K/D</th><th></th></tr></thead><tbody>'+sorted.map(function(p,i){ var kd=p.deaths>0?(p.kills/p.deaths).toFixed(2):(p.kills||0)+'.00'; return '<tr><td>'+(i+1)+'</td><td>'+escHtml(p.name)+'</td><td style="color:var(--red)">'+p.kills+'</td><td>'+p.deaths+'</td><td style="color:var(--gold)">'+kd+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePvp(''+p.name+'')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucun joueur PvP</div>';
+}
+function adminRemovePvp(name) { var pvp=(ls.get('pvp')||[]).filter(function(p){ return p.name!==name; }); ls.set('pvp',pvp); renderAdminPvp(); renderPVP(); }
+function renderAdminComments() {
+  var comments=ls.get('comments')||[]; var el=document.getElementById('admin-comments-list'); if(!el) return;
+  el.innerHTML=comments.length>0?'<table class="admin-table"><thead><tr><th>Pseudo</th><th>Note</th><th>Commentaire</th><th>Date</th><th></th></tr></thead><tbody>'+comments.map(function(c,i){ return '<tr><td style="font-weight:600">'+escHtml(c.pseudo)+'</td><td style="color:var(--gold)">'+'★'.repeat(c.stars||5)+'</td><td>'+escHtml((c.text||'').substring(0,60))+'...</td><td>'+escHtml(c.date||'')+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveComment('+i+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucun commentaire</div>';
+}
+function adminRemoveComment(idx) { var comments=ls.get('comments')||[]; comments.splice(idx,1); ls.set('comments',comments); renderAdminComments(); renderComments(); }
+function adminAddGallery() {
+  var url=document.getElementById('gallery-url').value.trim(); if(!url) { alert('URL requise.'); return; }
+  var gallery=ls.get('gallery')||[]; gallery.push({url:url}); ls.set('gallery',gallery);
+  document.getElementById('gallery-url').value=''; renderAdminGallery(); renderGallery();
+}
+function renderAdminGallery() {
+  var gallery=ls.get('gallery')||[]; var el=document.getElementById('admin-gallery-list'); if(!el) return;
+  el.innerHTML=gallery.length>0?'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem">'+gallery.map(function(g,i){ return '<div style="position:relative"><img src="'+escAttr(g.url)+'" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border)"><button onclick="adminRemoveGallery('+i+')" style="position:absolute;top:4px;right:4px;background:var(--red);color:#fff;border:none;width:22px;height:22px;font-size:0.8rem;cursor:pointer">✕</button></div>'; }).join('')+'</div>':'<div class="admin-empty">Aucune photo</div>';
+}
+function adminRemoveGallery(idx) { var gallery=ls.get('gallery')||[]; gallery.splice(idx,1); ls.set('gallery',gallery); renderAdminGallery(); renderGallery(); }
+function adminSetOuverture() {
+  var date=document.getElementById('ouverture-date').value;
+  if(!date) { alert('Date requise.'); return; }
+  ls.set('opening_date',date); renderAdminOuverture(); initCountdown(); alert('Date enregistrée !');
+}
+function adminDeleteOuverture() {
+  if(!confirm('Supprimer la date et remettre le chrono à zéro ?')) return;
+  ls.set('opening_date',null); document.getElementById('ouverture-date').value='';
+  if(countdownInterval){ clearInterval(countdownInterval); countdownInterval=null; }
+  ['cd-days','cd-hours','cd-minutes','cd-seconds'].forEach(function(id){ var el=document.getElementById(id); if(el) el.textContent='00'; });
+  var dateEl=document.getElementById('countdown-target-date'); if(dateEl) dateEl.textContent='date non définie';
+  renderAdminOuverture(); alert('Date supprimée !');
+}
+function renderAdminOuverture() {
+  var date=ls.get('opening_date'); var el=document.getElementById('ouverture-preview'); if(!el) return;
+  if(date){
+    var d=new Date(date); var now=new Date(); var diff=d-now;
+    var dateStr=d.toLocaleDateString('fr-FR')+' a '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    if(diff>0){ var days2=Math.floor(diff/86400000); var hours2=Math.floor((diff%86400000)/3600000); var mins2=Math.floor((diff%3600000)/60000); el.innerHTML='<span style="color:var(--gold)">⏳ Ouverture le '+dateStr+' (dans '+days2+'j '+hours2+'h '+mins2+'min)</span>'; }
+    else { el.innerHTML='<span style="color:var(--green)">✅ Serveur ouvert depuis le '+dateStr+'</span>'; }
+    var inp=document.getElementById('ouverture-date'); if(inp&&!inp.value) inp.value=date;
+  } else {
+    el.innerHTML='<span style="color:var(--text-muted)">Aucune date définie — chrono affiche 00:00:00:00</span>';
+  }
+}
+
+// ===== RESET =====
+function resetAndReload() {
+  if(!confirm('Réinitialiser les données du site ?')) return;
+  ['accounts','cart','comments','credits','current_user','gallery','opening_date','orders','priorities','promos','pvp','staff','updates','vips','messages','signalements','sanctions','presences','planning','rapports','journal','casiers','presence_active','maps'].forEach(function(k){ localStorage.removeItem('badlandfr_'+k); });
+  location.reload();
+}
+
+// ===== HELPERS =====
+function escHtml(str) { if(!str) return ''; return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function escAttr(str) { if(!str) return ''; return String(str).replace(/"/g,'&quot;'); }
+function getGradeClass(grade) {
+  var g=(grade||'').toLowerCase();
+  if(g==='fondateur') return 'fondateur';
+  if(g==='admin') return 'admin';
+  if(g==='dev') return 'dev';
+  if(g==='modo') return 'modo';
+  if(g==='helper') return 'helper';
+  return 'joueur';
+}
+function getSancClass(type) {
+  var t=(type||'').toLowerCase();
+  if(t.includes('avert')) return 'warn';
+  if(t.includes('mute')) return 'mute';
+  if(t.includes('kick')) return 'kick';
+  if(t.includes('ban')) return 'ban';
+  return 'warn';
+}
+
+// ===== START =====
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+<script>
 // ===== PARTICULES =====
 (function(){
   var canvas = document.getElementById('particles-canvas');
