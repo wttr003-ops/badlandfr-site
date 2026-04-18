@@ -63,7 +63,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,10,10,0.
 #hero{height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:60px}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0a0a 0%,#1a0505 50%,#0a0a0a 100%)}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(192,57,43,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(192,57,43,0.04) 1px,transparent 1px);background-size:40px 40px}
-.hero-content{position:relative;z-index:1;text-align:center;padding:2rem}
+.hero-content{position:relative;z-index:1;text-align:center;padding:5rem 2rem 2rem}
 .hero-badge{display:inline-block;background:var(--red);color:#fff;font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:4px 16px;margin-bottom:1.5rem}
 .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,9rem);line-height:0.9;letter-spacing:5px;color:#fff}
 .hero-title span{color:var(--red)}
@@ -502,9 +502,9 @@ footer span{color:var(--red)}
   <div class="hero-grid"></div>
   <canvas id="particles-canvas"></canvas>
   <div class="hero-content fade-up">
+    <div class="hero-badge" style="margin-bottom:1.5rem">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <h1 class="hero-title">BADLAND<span>FR</span></h1>
     <p class="hero-sub">Survie · Combat · Construction · Communauté</p>
-    <div class="hero-badge" style="margin-bottom:0;margin-top:0">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <div class="hero-btns">
       <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Boutique</button>
       <button class="btn-secondary" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})">Découvrir</button>
@@ -606,34 +606,55 @@ footer span{color:var(--red)}
   <div style="max-width:1200px;margin:0 auto">
     <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;margin-bottom:0.5rem">LA <span style="color:#c0392b">MAP</span></div>
     <div style="width:60px;height:3px;background:#c0392b;margin:1rem 0 3rem"></div>
-    <div style="background:#181818;border:1px solid rgba(192,57,43,0.3);padding:3rem;text-align:center;border-radius:0">
-      <div style="display:inline-block;background:#c0392b;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;margin-bottom:1.25rem" id="map-badge-global">🗺️ Map en attente</div>
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:0.75rem;color:#ffffff">NASDARA / BADLANDS <span style="color:#c0392b">DLC 2026</span></h3>
-      <p style="color:#888888;max-width:520px;margin:0 auto 2.5rem;line-height:1.7;font-size:0.95rem;font-family:'Rajdhani',sans-serif">La nouvelle map exclusive Badland FR arrive en 2026. En attendant, voici les maps disponibles.</p>
-      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:stretch">
 
-        <div id="mapcard-nasdara" style="background:#0d0d0d;border:1px solid rgba(192,57,43,0.5);border-top:3px solid #d4ac0d;padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto">
-          <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#d4ac0d;text-transform:uppercase;margin-bottom:10px;font-family:'Rajdhani',sans-serif">⭐ PROCHAINE MAP</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#e8e8e8;letter-spacing:3px">NASDARA</div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#d4ac0d;font-family:'Rajdhani',sans-serif" id="mapstatus-nasdara-label">🔧 En développement</div>
+    <div style="background:#181818;border:1px solid rgba(192,57,43,0.3);padding:2.5rem;max-width:700px;margin:0 auto">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:3px;color:#fff;margin-bottom:0.25rem">NASDARA / BADLANDS <span style="color:#c0392b">DLC 2026</span></div>
+      <div style="font-size:0.8rem;color:#888;margin-bottom:2rem;font-family:'Rajdhani',sans-serif">La map officielle de Badland FR — sortie prévue en 2026</div>
+
+      <!-- MAP 1 : NASDARA -->
+      <div id="maprow-nasdara" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:#0d0d0d;border:1px solid rgba(212,172,13,0.3);border-left:3px solid #d4ac0d;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.75rem">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#e8e8e8;letter-spacing:2px">NASDARA <span style="color:#d4ac0d;font-size:0.7rem">⭐ PROCHAINE</span></div>
+          <div style="font-size:0.75rem;color:#888;font-family:'Rajdhani',sans-serif" id="mapdate-nasdara">Date de sortie : non définie</div>
         </div>
-
-        <div id="mapcard-chernarus" style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto;opacity:0.45">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#777777;letter-spacing:3px">CHERNARUS</div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#666666;font-family:'Rajdhani',sans-serif" id="mapstatus-chernarus-label">🔒 Indisponible</div>
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <span id="mapbadge-nasdara" style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;background:rgba(212,172,13,0.15);color:#d4ac0d;border:1px solid rgba(212,172,13,0.4)">🔧 EN DEV</span>
         </div>
-
-        <div id="mapcard-livonia" style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto;opacity:0.45">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#777777;letter-spacing:3px">LIVONIA</div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#666666;font-family:'Rajdhani',sans-serif" id="mapstatus-livonia-label">🔒 Indisponible</div>
-        </div>
-
-        <div id="mapcard-sakhal" style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto;opacity:0.45">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#777777;letter-spacing:3px">SAKHAL</div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#666666;font-family:'Rajdhani',sans-serif" id="mapstatus-sakhal-label">🔒 Indisponible</div>
-        </div>
-
       </div>
+
+      <!-- MAP 2 : CHERNARUS -->
+      <div id="maprow-chernarus" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #444;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.75rem;opacity:0.5">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#888;letter-spacing:2px">CHERNARUS</div>
+          <div style="font-size:0.75rem;color:#666;font-family:'Rajdhani',sans-serif" id="mapdate-chernarus">Date de sortie : non définie</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <span id="mapbadge-chernarus" style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;background:rgba(136,136,136,0.1);color:#666;border:1px solid rgba(136,136,136,0.2)">🔒 INDISPO</span>
+        </div>
+      </div>
+
+      <!-- MAP 3 : LIVONIA -->
+      <div id="maprow-livonia" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #444;margin-bottom:0.75rem;flex-wrap:wrap;gap:0.75rem;opacity:0.5">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#888;letter-spacing:2px">LIVONIA</div>
+          <div style="font-size:0.75rem;color:#666;font-family:'Rajdhani',sans-serif" id="mapdate-livonia">Date de sortie : non définie</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <span id="mapbadge-livonia" style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;background:rgba(136,136,136,0.1);color:#666;border:1px solid rgba(136,136,136,0.2)">🔒 INDISPO</span>
+        </div>
+      </div>
+
+      <!-- MAP 4 : SAKHAL -->
+      <div id="maprow-sakhal" style="display:flex;align-items:center;justify-content:space-between;padding:1rem 1.25rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06);border-left:3px solid #444;margin-bottom:0;flex-wrap:wrap;gap:0.75rem;opacity:0.5">
+        <div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#888;letter-spacing:2px">SAKHAL</div>
+          <div style="font-size:0.75rem;color:#666;font-family:'Rajdhani',sans-serif" id="mapdate-sakhal">Date de sortie : non définie</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem">
+          <span id="mapbadge-sakhal" style="font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;background:rgba(136,136,136,0.1);color:#666;border:1px solid rgba(136,136,136,0.2)">🔒 INDISPO</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1272,2056 +1293,66 @@ footer span{color:var(--red)}
       <div class="admin-panel-section" id="admin-maps">
         <div class="admin-card">
           <div class="admin-card-title">🗺️ Gestion des Maps</div>
-          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.25rem">Active ou désactive chaque map. Le statut s'affiche en temps réel sur le site public.</p>
-          <table class="admin-table" id="admin-maps-list">
-            <thead><tr><th>Map</th><th>Description</th><th>Statut</th><th>Action</th></tr></thead>
-            <tbody>
-              <tr id="maprow-nasdara">
-                <td style="font-weight:700">NASDARA / BADLANDS <span style="color:var(--gold);font-size:0.7rem">⭐ DLC 2026</span></td>
-                <td style="color:var(--text-muted)">Prochaine map exclusive</td>
-                <td><span class="dash-badge grey" id="mapstatus-nasdara">🔒 Inactif</span></td>
-                <td><button class="admin-btn" id="mapbtn-nasdara" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(0)">Activer</button></td>
-              </tr>
-              <tr id="maprow-chernarus">
-                <td style="font-weight:700">CHERNARUS</td>
-                <td style="color:var(--text-muted)">Map classique</td>
-                <td><span class="dash-badge grey" id="mapstatus-chernarus">🔒 Inactif</span></td>
-                <td><button class="admin-btn" id="mapbtn-chernarus" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(1)">Activer</button></td>
-              </tr>
-              <tr id="maprow-livonia">
-                <td style="font-weight:700">LIVONIA</td>
-                <td style="color:var(--text-muted)">DLC Livonia</td>
-                <td><span class="dash-badge grey" id="mapstatus-livonia">🔒 Inactif</span></td>
-                <td><button class="admin-btn" id="mapbtn-livonia" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(2)">Activer</button></td>
-              </tr>
-              <tr id="maprow-sakhal">
-                <td style="font-weight:700">SAKHAL</td>
-                <td style="color:var(--text-muted)">DLC Sakhal</td>
-                <td><span class="dash-badge grey" id="mapstatus-sakhal">🔒 Inactif</span></td>
-                <td><button class="admin-btn" id="mapbtn-sakhal" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(3)">Activer</button></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<script>
-// ===== CONFIG =====
-const ADMIN_PW = 'P4!0Rsrw@MLT';
-const STAFF_GRADES = ['Fondateur','Admin','Dev','Modo','Helper'];
-
-// Compte fondateur — TOUJOURS disponible même si localStorage vide
-const COMPTE_FONDATEUR = {
-  username: 'Arakawa Akihiro',
-  password: 'bAFSavqsKBZui@',
-  grade: 'Fondateur',
-  credits: 9999,
-  discord: '',
-  platform: 'PC',
-  avatar: '',
-  isAdmin: true,
-  orders: [],
-  inscription: '18/04/2026'
-};
-
-// ===== STORAGE HELPERS =====
-const ls = {
-  get: k => {
-    try {
-      const val = localStorage.getItem('badlandfr_' + k);
-      if (val === null) return null;
-      return JSON.parse(val);
-    } catch(e) { return null; }
-  },
-  set: (k, v) => {
-    try { localStorage.setItem('badlandfr_' + k, JSON.stringify(v)); }
-    catch(e) { console.error('Storage error:', e); }
-  },
-};
-
-// ===== INIT =====
-function init() {
-  initAdminAccount();
-  renderUpdates();
-  renderPacks();
-  renderServices();
-  renderStaff();
-  renderVIP();
-  renderPVP();
-  renderComments();
-  renderGallery();
-  renderPriorities();
-  updateAuthUI();
-  setInterval(pollUpdates, 2000);
-  initCountdown();
-  renderMapsPublic();
-}
-
-function initAdminAccount() {
-  let accounts = ls.get('accounts');
-  if (!Array.isArray(accounts)) accounts = [];
-  // Supprimer anciens comptes obsolètes
-  accounts = accounts.filter(a => a.username !== 'Steven' && a.username !== 'AdminBadlands');
-  // Trouver ou créer le fondateur
-  const idx = accounts.findIndex(a => a.username === COMPTE_FONDATEUR.username);
-  if (idx === -1) {
-    accounts.push({...COMPTE_FONDATEUR});
-  } else {
-    // Forcer les champs critiques
-    accounts[idx].password = COMPTE_FONDATEUR.password;
-    accounts[idx].grade = 'Fondateur';
-    accounts[idx].isAdmin = true;
-  }
-  ls.set('accounts', accounts);
-}
-
-function pollUpdates() {
-  renderMapsPublic();
-  renderStaff();
-  renderPriorities();
-  renderVIP();
-  renderPVP();
-  updateCartUI();
-  if (document.getElementById('dashboard').classList.contains('open')) {
-    checkNotifications();
-  }
-}
-
-// ===== AUTH =====
-let currentUser = null;
-
-function updateAuthUI() {
-  currentUser = ls.get('current_user');
-  const loginBtn = document.getElementById('btn-open-auth');
-  const profileWrap = document.getElementById('profile-btn-wrap');
-  if (currentUser) {
-    loginBtn.style.display = 'none';
-    profileWrap.style.display = 'flex';
-    document.getElementById('nav-username').textContent = currentUser.username;
-    updateNavAvatar();
-    // Admin button
-    const adminBtn = document.getElementById('admin-menu-btn');
-    if (currentUser.isAdmin) adminBtn.style.display = 'block';
-    else adminBtn.style.display = 'none';
-  } else {
-    loginBtn.style.display = 'block';
-    profileWrap.style.display = 'none';
-  }
-}
-
-function updateNavAvatar() {
-  if (!currentUser) return;
-  const letter = document.getElementById('nav-avatar-letter');
-  const img = document.getElementById('nav-avatar-img');
-  if (currentUser.avatar) {
-    img.src = currentUser.avatar; img.style.display = 'block'; letter.style.display = 'none';
-  } else {
-    img.style.display = 'none'; letter.style.display = 'block';
-    letter.textContent = currentUser.username.charAt(0).toUpperCase();
-  }
-}
-
-function openAuth() { document.getElementById('auth-modal').classList.add('open'); }
-function closeAuth() { document.getElementById('auth-modal').classList.remove('open'); }
-function switchAuthTab(tab) {
-  document.getElementById('form-login').style.display = tab==='login'?'block':'none';
-  document.getElementById('form-register').style.display = tab==='register'?'block':'none';
-  document.getElementById('tab-login').classList.toggle('active', tab==='login');
-  document.getElementById('tab-register').classList.toggle('active', tab==='register');
-}
-
-function doLogin() {
-  const u = document.getElementById('login-user').value.trim();
-  const p = document.getElementById('login-pass').value;
-  const errEl = document.getElementById('login-err');
-
-  // Vérification directe fondateur (bypass localStorage)
-  if (u.toLowerCase() === COMPTE_FONDATEUR.username.toLowerCase() && p === COMPTE_FONDATEUR.password) {
-    errEl.classList.remove('visible');
-    const acc = {...COMPTE_FONDATEUR};
-    ls.set('current_user', acc);
-    // S'assurer qu'il est bien dans accounts
-    let accounts = ls.get('accounts') || [];
-    const idx = accounts.findIndex(a => a.username === COMPTE_FONDATEUR.username);
-    if (idx === -1) accounts.push(acc); else { accounts[idx].grade='Fondateur'; accounts[idx].isAdmin=true; }
-    ls.set('accounts', accounts);
-    closeAuth();
-    currentUser = acc;
-    updateAuthUI();
-    return;
-  }
-
-  // Vérification comptes normaux
-  const accounts = ls.get('accounts') || [];
-  const acc = accounts.find(a => a.username.toLowerCase() === u.toLowerCase() && a.password === p);
-  if (!acc) { errEl.classList.add('visible'); return; }
-  errEl.classList.remove('visible');
-  ls.set('current_user', acc);
-  currentUser = acc;
-  closeAuth();
-  updateAuthUI();
-}
-
-function doRegister() {
-  const u = document.getElementById('reg-user').value.trim();
-  const d = document.getElementById('reg-discord').value.trim();
-  const pl = document.getElementById('reg-platform').value.trim();
-  const p = document.getElementById('reg-pass').value;
-  const p2 = document.getElementById('reg-pass2').value;
-  const errEl = document.getElementById('reg-err');
-  if (!u || !d || !p) { errEl.textContent = 'Tous les champs sont requis.'; errEl.classList.add('visible'); return; }
-  if (p !== p2) { errEl.textContent = 'Les mots de passe ne correspondent pas.'; errEl.classList.add('visible'); return; }
-  const accounts = ls.get('accounts') || [];
-  if (accounts.find(a => a.username.toLowerCase() === u.toLowerCase())) {
-    errEl.textContent = 'Ce pseudo est déjà utilisé.'; errEl.classList.add('visible'); return;
-  }
-  const newAcc = { username:u, discord:d, platform:pl, password:p, grade:'Joueur', credits:0, avatar:'', isAdmin:false, orders:[], inscription: new Date().toLocaleDateString('fr-FR') };
-  accounts.push(newAcc);
-  ls.set('accounts', accounts);
-  errEl.classList.remove('visible');
-  ls.set('current_user', newAcc);
-  closeAuth();
-  updateAuthUI();
-  alert('Compte créé ! Bienvenue sur Badland FR, ' + u + ' !');
-}
-
-function logout() {
-  ls.set('current_user', null);
-  currentUser = null;
-  updateAuthUI();
-  closeDashboard();
-  document.getElementById('profile-menu').classList.remove('open');
-}
-
-function toggleProfileMenu() {
-  document.getElementById('profile-menu').classList.toggle('open');
-}
-document.addEventListener('click', e => {
-  const wrap = document.getElementById('profile-btn-wrap');
-  if (wrap && !wrap.contains(e.target)) document.getElementById('profile-menu').classList.remove('open');
-});
-
-function openEditProfile() {
-  document.getElementById('profile-menu').classList.remove('open');
-  if (!currentUser) return;
-  document.getElementById('edit-avatar').value = currentUser.avatar || '';
-  document.getElementById('edit-profile-modal').classList.add('open');
-}
-function closeEditProfile() { document.getElementById('edit-profile-modal').classList.remove('open'); }
-
-function saveProfile() {
-  const avatar = document.getElementById('edit-avatar').value.trim();
-  const pass = document.getElementById('edit-pass').value;
-  const accounts = ls.get('accounts') || [];
-  const idx = accounts.findIndex(a => a.username === currentUser.username);
-  if (idx === -1) return;
-  if (avatar) accounts[idx].avatar = avatar;
-  if (pass) accounts[idx].password = pass;
-  ls.set('accounts', accounts);
-  ls.set('current_user', accounts[idx]);
-  currentUser = accounts[idx];
-  updateAuthUI();
-  closeEditProfile();
-  alert('Profil mis à jour !');
-}
-
-var adminUnlocked = false;
-function goAdmin() {
-  document.getElementById('profile-menu').classList.remove('open');
-  // Si fondateur ou admin connecté -> accès direct sans mot de passe
-  if (adminUnlocked) { openAdminPanel(); return; }
-  var user = ls.get('current_user');
-  if (user && (user.isAdmin || user.grade === 'Fondateur' || user.grade === 'Admin')) {
-    adminUnlocked = true;
-    openAdminPanel();
-    return;
-  }
-  document.getElementById('admin-pw-modal').classList.add('open');
-}
-function closeAdminPw() { document.getElementById('admin-pw-modal').classList.remove('open'); }
-function checkAdminPw() {
-  const pw = document.getElementById('admin-pw-input').value;
-  if (pw === ADMIN_PW) {
-    adminUnlocked = true;
-    closeAdminPw();
-    document.getElementById('admin-pw-input').value = '';
-    document.getElementById('admin-pw-err').classList.remove('visible');
-    openAdminPanel();
-  } else {
-    document.getElementById('admin-pw-err').classList.add('visible');
-  }
-}
-
-// ===== UPDATES =====
-function renderUpdates() {
-  const updates = ls.get('updates') || [
-    { titre:'Lancement du serveur !', contenu:'Le serveur Badland FR est officiellement ouvert. Bienvenue à tous les survivants.', date:'01/04/2026' },
-    { titre:'Configuration Loot', contenu:'Le loot x3 est actif. Armes militaires T3 (M4A1, AKM, SVD, FAL) disponibles en zones militaires.', date:'02/04/2026' },
-    { titre:'Événements actifs', contenu:'Crashs héli/camion, zone NBC prison, bases militaires infestées. Mallettes secrètes disponibles.', date:'05/04/2026' },
-  ];
-  const el = document.getElementById('updates-list');
-  if (!el) return;
-  if (updates.length === 0) { el.innerHTML = '<p style="color:var(--text-muted)">Aucune mise à jour pour le moment.</p>'; return; }
-  el.innerHTML = updates.slice().reverse().map(u => `
-    <div class="update-card">
-      <div><h4>${escHtml(u.titre)}</h4><p>${escHtml(u.contenu)}</p></div>
-      <div class="update-date">${escHtml(u.date)}</div>
-    </div>
-  `).join('');
-}
-
-// ===== PACKS BOUTIQUE =====
-const PACKS = [
-  { id:'pack100', name:'Pack Starter', credits:100, price:4, badge:null, bonusCredits:0 },
-  { id:'pack200', name:'Pack Regular', credits:200, price:8, badge:'popular', bonusCredits:0 },
-  { id:'pack500', name:'Pack Premium', credits:500, price:15, badge:'best', bonusCredits:50 },
-  { id:'pack1000', name:'Pack Elite', credits:1000, price:25, badge:null, bonusCredits:150 },
-];
-const SERVICES = [
-  { id:'serv_priority', name:'Priorité Connexion', credits:150, desc:'1 mois' },
-  { id:'serv_kit_starter', name:'Kit Démarrage', credits:200, desc:'Équipement T1' },
-  { id:'serv_kit_medical', name:'Kit Médical', credits:180, desc:'Medkit complet' },
-  { id:'serv_vehicule', name:'Véhicule Spawn', credits:250, desc:'Voiture proche de toi' },
-  { id:'serv_base_repair', name:'Réparation Base', credits:350, desc:'Remise à zéro des dégâts' },
-];
-
-function renderPacks() {
-  const promos = ls.get('promos') || {};
-  const el = document.getElementById('packs-grid');
-  if (!el) return;
-  el.innerHTML = PACKS.map(p => {
-    const promo = promos[p.id];
-    let priceHtml = `<div class="shop-price">${p.price}€</div>`;
-    let creditsVal = p.credits;
-    let badgeHtml = '';
-    if (p.badge === 'popular') badgeHtml = '<div class="shop-badge popular">⭐ Populaire</div>';
-    if (p.badge === 'best') badgeHtml = '<div class="shop-badge best">🏆 Meilleur prix</div>';
-    if (promo) {
-      if (promo.pct > 0) {
-        const newPrice = (p.price * (1 - promo.pct/100)).toFixed(2);
-        priceHtml = `<div class="shop-price promo-price">${p.price}€</div><div class="shop-price-new">${newPrice}€ (-${promo.pct}%)</div>`;
-        badgeHtml = `<div class="shop-badge promo">-${promo.pct}%</div>`;
-      }
-      if (promo.bonus > 0) creditsVal += promo.bonus;
-    }
-    return `
-      <div class="shop-card ${p.badge||''}">
-        ${badgeHtml}
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--text-muted)">${p.name}</div>
-        <div class="shop-credits">${creditsVal} CR</div>
-        ${promo && promo.bonus > 0 ? '<div style="font-size:0.75rem;color:var(--green);font-weight:700">+'+promo.bonus+' BONUS</div>' : ''}
-        ${priceHtml}
-        <button class="shop-btn" disabled onclick="return false">🔒 Indisponible</button>
-      </div>`;
-  }).join('');
-}
-
-function renderServices() {
-  const el = document.getElementById('services-grid');
-  if (!el) return;
-  el.innerHTML = SERVICES.map(s => `
-    <div class="service-card">
-      <div><div class="service-name">${s.name}</div><div style="font-size:0.75rem;color:var(--text-muted)">${s.desc}</div></div>
-      <div style="text-align:right">
-        <div class="service-price">${s.credits} CR</div>
-        <button class="shop-btn" style="margin-top:0.5rem;padding:6px 14px;font-size:0.75rem" disabled onclick="return false">🔒 Indisponible</button>
-      </div>
-    </div>`).join('');
-}
-
-// ===== CART =====
-function addToCart(type, id, name, price, credits) {
-  const cart = ls.get('cart') || [];
-  cart.push({ type, id, name, price, credits, qty:1 });
-  ls.set('cart', cart);
-  updateCartUI();
-  alert(name + ' ajouté au panier !');
-}
-function updateCartUI() {
-  const cart = ls.get('cart') || [];
-  const count = cart.length;
-  const total = cart.reduce((s,i) => s + i.price, 0);
-  document.getElementById('cart-count').textContent = count;
-  const floatBtn = document.getElementById('cart-float');
-  if (floatBtn) floatBtn.style.display = count > 0 ? 'block' : 'none';
-  document.getElementById('cart-total-display').textContent = total.toFixed(2) + '€';
-  const itemsList = document.getElementById('cart-items-list');
-  if (!itemsList) return;
-  if (cart.length === 0) { itemsList.innerHTML = '<p style="color:var(--text-muted);padding:1rem">Panier vide</p>'; return; }
-  itemsList.innerHTML = cart.map((item, idx) => `
-    <div class="cart-item">
-      <div><div style="font-weight:600">${escHtml(item.name)}</div><div style="font-size:0.75rem;color:var(--text-muted)">${item.credits} CR${item.price > 0 ? ' — ' + item.price + '€' : ''}</div></div>
-      <button class="cart-item-remove" onclick="removeFromCart(${idx})">✕</button>
-    </div>`).join('');
-}
-function removeFromCart(idx) {
-  const cart = ls.get('cart') || [];
-  cart.splice(idx, 1);
-  ls.set('cart', cart);
-  updateCartUI();
-}
-function openCart() { document.getElementById('cart-modal').classList.add('open'); updateCartUI(); }
-function closeCart() { document.getElementById('cart-modal').classList.remove('open'); }
-function paypalCheckout() {
-  const cart = ls.get('cart') || [];
-  if (cart.length === 0) { alert('Votre panier est vide.'); return; }
-  const total = cart.reduce((s,i) => s + i.price, 0).toFixed(2);
-  // Save order
-  const orders = ls.get('orders') || [];
-  orders.push({ id: Date.now(), items: cart, total, date: new Date().toLocaleDateString('fr-FR'), user: currentUser ? currentUser.username : 'Anonyme', status:'pending' });
-  ls.set('orders', orders);
-  ls.set('cart', []);
-  updateCartUI();
-  closeCart();
-  window.open('https://www.paypal.com', '_blank');
-  alert('Commande enregistrée ! Total : ' + total + '€. Après paiement, contactez le staff avec votre preuve PayPal.');
-}
-
-// ===== PRIORITIES =====
-function renderPriorities() {
-  const prios = ls.get('priorities') || [];
-  const section = document.getElementById('priorities-section');
-  const list = document.getElementById('priorities-list');
-  if (!section || !list) return;
-  const active = prios.filter(p => {
-    if (!p.date) return true;
-    const d = new Date(p.date);
-    const now = new Date();
-    const diff = Math.floor((d - now) / 86400000);
-    return diff >= 0;
-  });
-  section.style.display = active.length > 0 ? 'block' : 'none';
-  list.innerHTML = active.map(p => {
-    const d = p.date ? Math.max(0, Math.floor((new Date(p.date) - new Date()) / 86400000)) : '?';
-    return `<div class="priority-card"><div class="priority-psn">${escHtml(p.psn)}</div><div class="priority-days">${d}</div><div class="priority-label">jours restants</div></div>`;
-  }).join('');
-}
-
-// ===== STAFF =====
-function renderStaff() {
-  const defaultStaff = [
-    { name:'Arakawa Akihiro', role:'Fondateur', avatar:'' },
-  ];
-  const staff = ls.get('staff') || defaultStaff;
-  const el = document.getElementById('staff-grid');
-  if (!el) return;
-  el.innerHTML = staff.map(s => {
-    const roleClass = s.role.toLowerCase().replace('é','e').replace('é','e');
-    const avatarHtml = s.avatar
-      ? `<img src="${escAttr(s.avatar)}" alt="">`
-      : `<span>${s.name.charAt(0).toUpperCase()}</span>`;
-    return `<div class="staff-card">
-      <div class="staff-avatar">${avatarHtml}</div>
-      <div class="staff-name">${escHtml(s.name)}</div>
-      <div class="staff-role ${roleClass}">${escHtml(s.role)}</div>
-    </div>`;
-  }).join('');
-}
-
-// ===== VIP =====
-function renderVIP() {
-  const vips = ls.get('vips') || [];
-  const premEl = document.getElementById('vip-premium-list');
-  const stdEl = document.getElementById('vip-standard-list');
-  if (!premEl || !stdEl) return;
-  const prem = vips.filter(v => v.type === 'premium');
-  const std = vips.filter(v => v.type === 'standard');
-  premEl.innerHTML = prem.length > 0 ? prem.map(v => `<span class="vip-tag">${escHtml(v.psn)}</span>`).join('') : '<span style="color:var(--text-muted);font-size:0.8rem">Aucun VIP Premium pour le moment</span>';
-  stdEl.innerHTML = std.length > 0 ? std.map(v => `<span class="vip-tag standard">${escHtml(v.psn)}</span>`).join('') : '<span style="color:var(--text-muted);font-size:0.8rem">Aucun VIP Standard pour le moment</span>';
-}
-
-// ===== PVP =====
-function renderPVP() {
-  const pvp = ls.get('pvp') || [];
-  const sorted = pvp.slice().sort((a,b) => (b.kills||0) - (a.kills||0));
-  const podium = document.getElementById('pvp-podium');
-  const tbody = document.getElementById('pvp-tbody');
-  if (!podium || !tbody) return;
-  if (sorted.length === 0) {
-    podium.innerHTML = '<p style="color:var(--text-muted);text-align:center;padding:2rem">Classement vide — soyez le premier !</p>';
-    tbody.innerHTML = '';
-    return;
-  }
-  const medals = ['🥇','🥈','🥉'];
-  const classes = ['first','second','third'];
-  podium.innerHTML = sorted.slice(0,3).map((p,i) => `
-    <div class="podium-slot ${classes[i]||''}">
-      <div class="podium-rank">${medals[i]||i+1}</div>
-      <div class="podium-name">${escHtml(p.name)}</div>
-      <div class="podium-kills">${p.kills||0} kills</div>
-    </div>`).join('');
-  tbody.innerHTML = sorted.map((p,i) => {
-    const kd = p.deaths > 0 ? (p.kills/p.deaths).toFixed(2) : (p.kills||0).toFixed(2);
-    return `<tr><td>${i+1}</td><td style="font-weight:600">${escHtml(p.name)}</td><td style="color:var(--red)">${p.kills||0}</td><td>${p.deaths||0}</td><td style="color:var(--gold)">${kd}</td></tr>`;
-  }).join('');
-}
-
-// ===== COMMENTS =====
-let selectedStars = 5;
-function setStars(n) {
-  selectedStars = n;
-  const spans = document.querySelectorAll('#stars-select span');
-  spans.forEach((s,i) => s.classList.toggle('active', i < n));
-}
-function renderComments() {
-  const comments = ls.get('comments') || [
-    { pseudo:'DarkWolf92', stars:5, text:'Serveur incroyable ! Le loot x3 c\'est parfait, les événements sont bien foutus. Je recommande !', date:'10/04/2026' },
-    { pseudo:'Sniper_FR', stars:4, text:'Bonne ambiance, staff réactif. Zone NBC avec les 85 zombies c\'est intense ! Petite mention pour les mallettes secrètes.', date:'12/04/2026' },
-    { pseudo:'CryWolf44', stars:5, text:'Le meilleur serveur DayZ console FR. Base building facile, véhicules complets, c\'est du tout bon.', date:'14/04/2026' },
-  ];
-  const el = document.getElementById('comments-grid');
-  if (!el) return;
-  el.innerHTML = comments.slice(-9).reverse().map(c => `
-    <div class="comment-card">
-      <div class="comment-header">
-        <div class="comment-author">${escHtml(c.pseudo)}</div>
-        <div class="comment-stars">${'★'.repeat(c.stars||5)}${'☆'.repeat(5-(c.stars||5))}</div>
-      </div>
-      <div class="comment-text">${escHtml(c.text)}</div>
-      <div class="comment-date">${c.date||''}</div>
-    </div>`).join('');
-}
-function addComment() {
-  const pseudo = document.getElementById('cmt-pseudo').value.trim();
-  const text = document.getElementById('cmt-text').value.trim();
-  if (!pseudo || !text) { alert('Pseudo et commentaire requis.'); return; }
-  const comments = ls.get('comments') || [];
-  comments.push({ pseudo, stars: selectedStars, text, date: new Date().toLocaleDateString('fr-FR') });
-  ls.set('comments', comments);
-  document.getElementById('cmt-pseudo').value = '';
-  document.getElementById('cmt-text').value = '';
-  setStars(5);
-  renderComments();
-}
-
-// ===== GALLERY =====
-function renderGallery() {
-  const gallery = ls.get('gallery') || [];
-  const el = document.getElementById('gallery-grid');
-  if (!el) return;
-  el.innerHTML = gallery.length > 0
-    ? gallery.map(g => `<div class="gallery-item"><img src="${escAttr(g.url)}" alt="Screenshot" onerror="this.parentNode.style.display='none'"></div>`).join('')
-    : '<p style="color:var(--text-muted);font-size:0.9rem">Aucune photo pour le moment. Les screenshots seront ajoutés par le staff.</p>';
-}
-
-// ===== DASHBOARD =====
-let currentDashPanel = 'overview';
-let presenceStart = null;
-let presenceInterval = null;
-let staffMsgThread = null;
-
-function openDashboard() {
-  document.getElementById('profile-menu').classList.remove('open');
-  currentUser = ls.get('current_user');
-  if (!currentUser) { openAuth(); return; }
-  document.getElementById('dashboard').classList.add('open');
-  // Show staff nav if staff
-  const isStaff = STAFF_GRADES.includes(currentUser.grade) || currentUser.isAdmin;
-  const staffEls = ['section-staff','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-planning','nav-staff-rapports','nav-staff-journal','nav-staff-equipe'];
-  staffEls.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = isStaff ? 'flex' : 'none';
-  });
-  document.getElementById('section-staff').style.display = isStaff ? 'block' : 'none';
-  document.getElementById('dash-user-info').textContent = currentUser.username + ' — ' + (currentUser.grade||'Joueur');
-  switchDash('overview');
-  checkNotifications();
-}
-
-function closeDashboard() {
-  document.getElementById('dashboard').classList.remove('open');
-  if (presenceInterval) clearInterval(presenceInterval);
-}
-
-function switchDash(panel) {
-  currentDashPanel = panel;
-  document.querySelectorAll('.dash-nav-item').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.dash-panel').forEach(el => el.classList.remove('active'));
-  const navEl = document.getElementById('nav-' + panel);
-  if (navEl) navEl.classList.add('active');
-  const panelEl = document.getElementById('panel-' + panel);
-  if (panelEl) panelEl.classList.add('active');
-  // Title
-  const titles = {
-    "overview":"Vue d'ensemble","profil":"Mon Profil","achats":"Mes Achats","messages":"Messages",
-    'signalement':'Signalement','reglement':'Règlement','sanctions':'Mes Sanctions','journal-public':'Annonces',
-    'staff-overview':'Vue Staff','staff-joueurs':'Joueurs','staff-signalements':'Signalements',
-    'staff-sanctions':'Sanctions','staff-casier':'Casier Judiciaire','staff-messages':'Messages Joueurs',
-    'staff-presences':'Présences','staff-planning':'Planning','staff-rapports':'Rapports','staff-journal':'Annonces'
-  };
-  document.getElementById('dash-title').textContent = titles[panel] || panel;
-  // Render content
-  const renders = {
-    'overview': renderDashOverview, 'profil': renderDashProfil, 'achats': renderDashAchats,
-    'messages': renderDashMessages, 'signalement': renderDashSignalement,
-    'sanctions': renderDashSanctions, 'journal-public': renderJournalPublic,
-    'staff-overview': renderStaffOverview, 'staff-joueurs': renderStaffJoueurs,
-    'staff-signalements': renderStaffSignalements, 'staff-sanctions': renderStaffSanctions,
-    'staff-casier': renderCasier, 'staff-messages': renderStaffMessages,
-    'staff-presences': renderPresences, 'staff-planning': renderPlanning,
-    'staff-rapports': renderRapports, 'staff-journal': renderJournalStaff,
-  };
-  if (renders[panel]) renders[panel]();
-}
-
-function checkNotifications() {
-  const msgs = ls.get('messages') || [];
-  const sigs = ls.get('signalements') || [];
-  const sanctions = ls.get('sanctions') || [];
-  // Messages non lus pour joueur
-  const unreadMsgs = msgs.filter(m => m.to_user === currentUser.username && !m.read_user);
-  const notifMsgs = document.getElementById('notif-messages');
-  if (notifMsgs) notifMsgs.classList.toggle('visible', unreadMsgs.length > 0);
-  // Sanctions
-  const mySanctions = sanctions.filter(s => s.joueur.toLowerCase() === currentUser.username.toLowerCase());
-  const notifSanc = document.getElementById('notif-sanctions');
-  if (notifSanc) notifSanc.classList.toggle('visible', mySanctions.length > 0);
-  // Staff
-  const isStaff = STAFF_GRADES.includes(currentUser.grade) || currentUser.isAdmin;
-  if (isStaff) {
-    const pendingSigs = sigs.filter(s => s.status === 'pending');
-    const notifStaffSig = document.getElementById('notif-staff-signalements');
-    if (notifStaffSig) notifStaffSig.classList.toggle('visible', pendingSigs.length > 0);
-    const unreadStaff = msgs.filter(m => !m.read_staff);
-    const notifStaffMsg = document.getElementById('notif-staff-messages');
-    if (notifStaffMsg) notifStaffMsg.classList.toggle('visible', unreadStaff.length > 0);
-  }
-}
-
-// --- OVERVIEW ---
-function renderDashOverview() {
-  const orders = ls.get('orders') || [];
-  const myOrders = orders.filter(o => o.user === currentUser.username);
-  const totalSpent = myOrders.reduce((s,o) => s + parseFloat(o.total||0), 0).toFixed(2);
-  const sanctions = (ls.get('sanctions')||[]).filter(s => s.joueur.toLowerCase() === currentUser.username.toLowerCase());
-  document.getElementById('overview-kpis').innerHTML = `
-    <div class="dash-kpi"><div class="dash-kpi-val">${currentUser.credits||0}</div><div class="dash-kpi-label">Crédits</div></div>
-    <div class="dash-kpi"><div class="dash-kpi-val">${myOrders.length}</div><div class="dash-kpi-label">Commandes</div></div>
-    <div class="dash-kpi"><div class="dash-kpi-val">${totalSpent}€</div><div class="dash-kpi-label">Total dépensé</div></div>
-    <div class="dash-kpi"><div class="dash-kpi-val" style="color:${sanctions.length>0?'var(--red)':'var(--green)'}">${sanctions.length}</div><div class="dash-kpi-label">Sanctions</div></div>
-  `;
-  // Journal
-  const journal = ls.get('journal') || [];
-  const jEl = document.getElementById('overview-journal');
-  if (jEl) {
-    jEl.innerHTML = journal.length > 0
-      ? journal.slice(-3).reverse().map(j => renderJournalCard(j)).join('')
-      : '<div class="dash-empty">Aucune annonce pour le moment</div>';
-  }
-  // Sanctions
-  const sEl = document.getElementById('overview-sanctions');
-  if (sEl) {
-    sEl.innerHTML = sanctions.length > 0
-      ? `<table class="dash-table"><thead><tr><th>Type</th><th>Motif</th><th>Agent</th><th>Date</th></tr></thead><tbody>${sanctions.map(s => `<tr><td><span class="sanction-badge ${getSancClass(s.type)}">${escHtml(s.type)}</span></td><td>${escHtml(s.motif)}</td><td>${escHtml(s.agent)}</td><td>${escHtml(s.date)}</td></tr>`).join('')}</tbody></table>`
-      : '<div class="dash-empty">✅ Aucune sanction — continuez comme ça !</div>';
-  }
-}
-
-// --- PROFIL ---
-function renderDashProfil() {
-  const el = document.getElementById('profil-content');
-  if (!el) return;
-  const avatarHtml = currentUser.avatar
-    ? `<img src="${escAttr(currentUser.avatar)}" style="width:100%;height:100%;object-fit:cover">`
-    : `<span style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:#fff">${currentUser.username.charAt(0).toUpperCase()}</span>`;
-  el.innerHTML = `
-    <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.5rem;flex-wrap:wrap">
-      <div class="profile-avatar-big">${avatarHtml}</div>
-      <div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px">${escHtml(currentUser.username)}</div>
-        <span class="grade-badge ${getGradeClass(currentUser.grade)}">${escHtml(currentUser.grade||'Joueur')}</span>
-      </div>
-    </div>
-    <div class="info-row"><label>Pseudo</label><span>${escHtml(currentUser.username)}</span></div>
-    <div class="info-row"><label>Discord</label><span>${escHtml(currentUser.discord||'Non renseigné')}</span></div>
-    <div class="info-row"><label>Plateforme</label><span>${escHtml(currentUser.platform||'Non renseigné')}</span></div>
-    <div class="info-row"><label>Grade</label><span class="grade-badge ${getGradeClass(currentUser.grade)}">${escHtml(currentUser.grade||'Joueur')}</span></div>
-    <div class="info-row"><label>Crédits</label><span style="color:var(--gold);font-family:'Bebas Neue',sans-serif;font-size:1.3rem">${currentUser.credits||0} CR</span></div>
-    <div class="info-row"><label>Inscription</label><span>${escHtml(currentUser.inscription||'-')}</span></div>
-    <div style="margin-top:1rem">
-      <button class="dash-btn secondary" onclick="openEditProfile()">✏️ Modifier le profil</button>
-    </div>
-  `;
-}
-
-// --- ACHATS ---
-function renderDashAchats() {
-  const el = document.getElementById('achats-content');
-  if (!el) return;
-  const orders = (ls.get('orders')||[]).filter(o => o.user === currentUser.username);
-  el.innerHTML = orders.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Date</th><th>Articles</th><th>Total</th><th>Statut</th></tr></thead><tbody>${orders.slice().reverse().map(o => `<tr><td>${escHtml(o.date)}</td><td>${o.items.map(i=>escHtml(i.name)).join(', ')}</td><td>${o.total}€</td><td><span class="dash-badge ${o.status==='confirmed'?'green':'gold'}">${o.status==='confirmed'?'Confirmé':'En attente'}</span></td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">Aucun achat pour le moment</div>';
-}
-
-// --- MESSAGES JOUEUR ---
-function renderDashMessages() {
-  const msgs = ls.get('messages') || [];
-  const myMsgs = msgs.filter(m => m.from_user === currentUser.username || m.to_user === currentUser.username);
-  // Mark as read
-  let changed = false;
-  const allMsgs = ls.get('messages') || [];
-  allMsgs.forEach(m => { if (m.to_user === currentUser.username && !m.read_user) { m.read_user = true; changed = true; } });
-  if (changed) ls.set('messages', allMsgs);
-  const el = document.getElementById('msg-bubbles-joueur');
-  if (!el) return;
-  el.innerHTML = myMsgs.length > 0
-    ? myMsgs.map(m => {
-        const isSent = m.from_user === currentUser.username;
-        return `<div class="msg-bubble ${isSent?'sent':'received'}">
-          ${!isSent ? '<div style="font-size:0.7rem;color:var(--red);margin-bottom:3px">Staff — ' + escHtml(m.from_user) + '</div>' : ''}
-          ${escHtml(m.text)}
-          <div class="msg-bubble-meta">${m.time||''}</div>
-        </div>`;
-      }).join('')
-    : '<div style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Pas encore de messages. Écrivez au staff !</div>';
-  el.scrollTop = el.scrollHeight;
-}
-
-function sendMessageJoueur() {
-  const input = document.getElementById('msg-input-joueur');
-  const text = input.value.trim();
-  if (!text) return;
-  const msgs = ls.get('messages') || [];
-  msgs.push({
-    from_user: currentUser.username, to_user: 'staff', text, read_staff: false, read_user: true,
-    time: new Date().toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'}),
-    date: new Date().toLocaleDateString('fr-FR')
-  });
-  ls.set('messages', msgs);
-  input.value = '';
-  renderDashMessages();
-}
-
-// --- SIGNALEMENT ---
-function renderDashSignalement() {
-  const sigs = (ls.get('signalements')||[]).filter(s => s.auteur === currentUser.username);
-  const el = document.getElementById('mes-signalements');
-  if (!el) return;
-  el.innerHTML = sigs.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th></tr></thead><tbody>${sigs.map(s => `<tr><td>${escHtml(s.joueur)}</td><td>${escHtml(s.type)}</td><td>${escHtml(s.date)}</td><td><span class="dash-badge ${s.status==='traite'?'green':s.status==='rejete'?'red':'gold'}">${s.status==='traite'?'Traité':s.status==='rejete'?'Rejeté':'En attente'}</span></td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">Aucun signalement envoyé</div>';
-}
-
-function sendSignalement() {
-  const joueur = document.getElementById('sig-joueur').value.trim();
-  const type = document.getElementById('sig-type').value;
-  const desc = document.getElementById('sig-desc').value.trim();
-  if (!joueur || !type || !desc) { alert('Veuillez remplir tous les champs.'); return; }
-  const sigs = ls.get('signalements') || [];
-  sigs.push({ id: Date.now(), joueur, type, desc, auteur: currentUser.username, date: new Date().toLocaleDateString('fr-FR'), status:'pending' });
-  ls.set('signalements', sigs);
-  document.getElementById('sig-joueur').value = '';
-  document.getElementById('sig-type').value = '';
-  document.getElementById('sig-desc').value = '';
-  renderDashSignalement();
-  alert('Signalement envoyé au staff !');
-}
-
-// --- SANCTIONS JOUEUR ---
-function renderDashSanctions() {
-  const el = document.getElementById('sanctions-content');
-  if (!el) return;
-  const sanctions = (ls.get('sanctions')||[]).filter(s => s.joueur.toLowerCase() === currentUser.username.toLowerCase());
-  el.innerHTML = sanctions.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Type</th><th>Motif</th><th>Durée</th><th>Agent</th><th>Date</th></tr></thead><tbody>${sanctions.map(s => `<tr><td><span class="sanction-badge ${getSancClass(s.type)}">${escHtml(s.type)}</span></td><td>${escHtml(s.motif)}</td><td>${escHtml(s.duree||'-')}</td><td>${escHtml(s.agent)}</td><td>${escHtml(s.date)}</td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">✅ Aucune sanction sur votre compte</div>';
-}
-
-// --- JOURNAL PUBLIC ---
-function renderJournalPublic() {
-  const el = document.getElementById('journal-public-content');
-  if (!el) return;
-  const journal = ls.get('journal') || [];
-  el.innerHTML = journal.length > 0
-    ? journal.slice().reverse().map(j => renderJournalCard(j)).join('')
-    : '<div class="dash-empty">Aucune annonce officielle pour le moment</div>';
-}
-
-function renderJournalCard(j) {
-  const typeClass = j.type === 'important' ? 'important' : j.type === 'event' ? 'event' : 'info';
-  const typeBadge = j.type === 'important' ? '🔴 Important' : j.type === 'event' ? '🎉 Événement' : 'ℹ️ Info';
-  return `<div class="journal-card ${typeClass}">
-    <div class="journal-title">${escHtml(j.titre)}</div>
-    <div class="journal-body">${escHtml(j.contenu)}</div>
-    <div class="journal-meta">
-      <span class="dash-badge ${typeClass==='important'?'red':typeClass==='event'?'gold':'blue'}">${typeBadge}</span>
-      <span>${escHtml(j.auteur||'Staff')}</span>
-      <span>${escHtml(j.date||'')}</span>
-    </div>
-  </div>`;
-}
-
-// ===== STAFF PANELS =====
-
-// --- STAFF OVERVIEW ---
-function renderStaffOverview() {
-  const accounts = ls.get('accounts') || [];
-  const sigs = (ls.get('signalements')||[]).filter(s => s.status === 'pending');
-  const msgs = ls.get('messages') || [];
-  const sanctions = ls.get('sanctions') || [];
-  document.getElementById('staff-kpis').innerHTML = `
-    <div class="dash-kpi"><div class="dash-kpi-val">${accounts.length}</div><div class="dash-kpi-label">Comptes</div></div>
-    <div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--red)">${sigs.length}</div><div class="dash-kpi-label">Signalements</div></div>
-    <div class="dash-kpi"><div class="dash-kpi-val">${msgs.filter(m=>!m.read_staff).length}</div><div class="dash-kpi-label">Msg non lus</div></div>
-    <div class="dash-kpi"><div class="dash-kpi-val">${sanctions.length}</div><div class="dash-kpi-label">Sanctions total</div></div>
-  `;
-  const sigEl = document.getElementById('staff-signalements-quick');
-  sigEl.innerHTML = sigs.length > 0
-    ? sigs.slice(0,3).map(s => `<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>${escHtml(s.auteur)}</strong> signale <strong style="color:var(--red)">${escHtml(s.joueur)}</strong> — ${escHtml(s.type)} <span style="float:right;color:var(--text-muted)">${escHtml(s.date)}</span></div>`).join('')
-    : '<div class="dash-empty">✅ Aucun signalement en attente</div>';
-  const msgEl = document.getElementById('staff-messages-quick');
-  const unread = msgs.filter(m => !m.read_staff).slice(0,3);
-  msgEl.innerHTML = unread.length > 0
-    ? unread.map(m => `<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>${escHtml(m.from_user)}</strong> : ${escHtml(m.text.substring(0,60))}... <span style="float:right;color:var(--text-muted)">${escHtml(m.time||'')}</span></div>`).join('')
-    : '<div class="dash-empty">Aucun message non lu</div>';
-}
-
-// --- STAFF JOUEURS ---
-function renderStaffJoueurs() {
-  const search = (document.getElementById('search-joueurs')||{}).value || '';
-  const accounts = ls.get('accounts') || [];
-  const filtered = accounts.filter(a => a.username.toLowerCase().includes(search.toLowerCase()));
-  const el = document.getElementById('staff-joueurs-list');
-  if (!el) return;
-  el.innerHTML = filtered.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Plateforme</th><th>Crédits</th><th>Inscription</th></tr></thead><tbody>${filtered.map(a => `<tr><td style="font-weight:600">${escHtml(a.username)}</td><td><span class="grade-badge ${getGradeClass(a.grade)}">${escHtml(a.grade||'Joueur')}</span></td><td>${escHtml(a.platform||'-')}</td><td style="color:var(--gold)">${a.credits||0} CR</td><td>${escHtml(a.inscription||'-')}</td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">Aucun joueur trouvé</div>';
-}
-
-// --- STAFF SIGNALEMENTS ---
-function renderStaffSignalements() {
-  const sigs = ls.get('signalements') || [];
-  const el = document.getElementById('staff-signalements-list');
-  if (!el) return;
-  el.innerHTML = sigs.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Auteur</th><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th><th>Action</th></tr></thead><tbody>${sigs.slice().reverse().map((s,i) => `<tr><td>${escHtml(s.auteur)}</td><td style="color:var(--red);font-weight:600">${escHtml(s.joueur)}</td><td>${escHtml(s.type)}</td><td>${escHtml(s.date)}</td><td><span class="dash-badge ${s.status==='traite'?'green':s.status==='rejete'?'red':'gold'}">${s.status==='traite'?'Traité':s.status==='rejete'?'Rejeté':'En attente'}</span></td><td style="display:flex;gap:0.5rem"><button class="dash-btn" style="padding:4px 10px;font-size:0.7rem" onclick="updateSig(${sigs.length-1-i},'traite')">✅</button><button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="updateSig(${sigs.length-1-i},'rejete')">✗</button></td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">Aucun signalement</div>';
-}
-
-function updateSig(idx, status) {
-  const sigs = ls.get('signalements') || [];
-  if (sigs[idx]) { sigs[idx].status = status; ls.set('signalements', sigs); renderStaffSignalements(); checkNotifications(); }
-}
-
-// --- STAFF SANCTIONS ---
-function addSanction() {
-  const joueur = document.getElementById('sanc-joueur').value.trim();
-  const type = document.getElementById('sanc-type').value;
-  const duree = document.getElementById('sanc-duree').value.trim();
-  const motif = document.getElementById('sanc-motif').value.trim();
-  if (!joueur || !type || !motif) { alert('Joueur, type et motif requis.'); return; }
-  const sanctions = ls.get('sanctions') || [];
-  sanctions.push({ joueur, type, duree, motif, agent: currentUser.username, date: new Date().toLocaleDateString('fr-FR') });
-  ls.set('sanctions', sanctions);
-  document.getElementById('sanc-joueur').value = '';
-  document.getElementById('sanc-type').value = '';
-  document.getElementById('sanc-duree').value = '';
-  document.getElementById('sanc-motif').value = '';
-  renderStaffSanctions();
-  alert('Sanction appliquée !');
-}
-
-function renderStaffSanctions() {
-  const sanctions = ls.get('sanctions') || [];
-  const el = document.getElementById('sanctions-list');
-  if (!el) return;
-  el.innerHTML = sanctions.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Joueur</th><th>Type</th><th>Motif</th><th>Durée</th><th>Agent</th><th>Date</th><th></th></tr></thead><tbody>${sanctions.slice().reverse().map((s,i) => `<tr><td style="font-weight:600">${escHtml(s.joueur)}</td><td><span class="sanction-badge ${getSancClass(s.type)}">${escHtml(s.type)}</span></td><td>${escHtml(s.motif)}</td><td>${escHtml(s.duree||'-')}</td><td>${escHtml(s.agent)}</td><td>${escHtml(s.date)}</td><td><button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeSanction(${sanctions.length-1-i})">✕</button></td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">Aucune sanction enregistrée</div>';
-}
-
-function removeSanction(idx) {
-  if (!confirm('Supprimer cette sanction ?')) return;
-  const sanctions = ls.get('sanctions') || [];
-  sanctions.splice(idx, 1);
-  ls.set('sanctions', sanctions);
-  renderStaffSanctions();
-}
-
-// --- CASIER ---
-function addCasier() {
-  const nom = document.getElementById('casier-nom').value.trim();
-  const type = document.getElementById('casier-type').value;
-  const motif = document.getElementById('casier-motif').value.trim();
-  const sanction = document.getElementById('casier-sanction').value.trim();
-  if (!nom || !type || !motif) { alert('Nom, type et motif requis.'); return; }
-  const casiers = ls.get('casiers') || [];
-  casiers.push({ nom, type, motif, sanction, agent: currentUser.username, date: new Date().toLocaleDateString('fr-FR') });
-  ls.set('casiers', casiers);
-  ['casier-nom','casier-type','casier-motif','casier-sanction'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
-  renderCasier();
-}
-
-function renderCasier() {
-  const search = (document.getElementById('search-casier')||{}).value || '';
-  const casiers = ls.get('casiers') || [];
-  const filtered = casiers.filter(c => c.nom.toLowerCase().includes(search.toLowerCase()));
-  const el = document.getElementById('casier-list');
-  if (!el) return;
-  el.innerHTML = filtered.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Joueur</th><th>Infraction</th><th>Motif</th><th>Sanction</th><th>Agent</th><th>Date</th><th></th></tr></thead><tbody>${filtered.slice().reverse().map((c,i) => `<tr><td style="font-weight:600;color:var(--red)">${escHtml(c.nom)}</td><td>${escHtml(c.type)}</td><td>${escHtml(c.motif)}</td><td>${escHtml(c.sanction||'-')}</td><td>${escHtml(c.agent)}</td><td>${escHtml(c.date)}</td><td><button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeCasier(${casiers.length-1-i})">✕</button></td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">Aucun casier enregistré</div>';
-}
-
-function removeCasier(idx) {
-  if (!confirm('Supprimer cette entrée ?')) return;
-  const casiers = ls.get('casiers') || [];
-  casiers.splice(idx, 1);
-  ls.set('casiers', casiers);
-  renderCasier();
-}
-
-// --- STAFF MESSAGES ---
-function renderStaffMessages() {
-  const msgs = ls.get('messages') || [];
-  // Mark all as read
-  msgs.forEach(m => m.read_staff = true);
-  ls.set('messages', msgs);
-  checkNotifications();
-  // Group by user
-  const threads = {};
-  msgs.forEach(m => {
-    const key = m.from_user === 'staff' ? m.to_user : m.from_user;
-    if (!threads[key]) threads[key] = [];
-    threads[key].push(m);
-  });
-  const el = document.getElementById('staff-thread-list');
-  if (!el) return;
-  const users = Object.keys(threads);
-  el.innerHTML = users.length > 0
-    ? users.map(u => {
-        const last = threads[u][threads[u].length-1];
-        return `<div class="msg-thread ${staffMsgThread===u?'active':''}" onclick="openStaffThread('${u}')">
-          <div class="msg-thread-name">${escHtml(u)}</div>
-          <div class="msg-thread-preview">${escHtml((last.text||'').substring(0,50))}</div>
-        </div>`;
-      }).join('')
-    : '<div class="dash-empty">Aucun message joueur</div>';
-  if (staffMsgThread) renderStaffConversation(threads[staffMsgThread] || []);
-}
-
-function openStaffThread(username) {
-  staffMsgThread = username;
-  renderStaffMessages();
-  const conv = document.getElementById('staff-msg-conversation');
-  if (conv) conv.style.display = 'block';
-  const title = document.getElementById('staff-msg-thread-title');
-  if (title) title.textContent = 'Conversation avec ' + username;
-}
-
-function renderStaffConversation(msgs) {
-  const el = document.getElementById('staff-msg-bubbles');
-  if (!el) return;
-  el.innerHTML = msgs.map(m => {
-    const isSent = m.from_user === 'staff' || m.from_user === currentUser.username;
-    return `<div class="msg-bubble ${isSent?'sent':'received'}">
-      ${escHtml(m.text)}
-      <div class="msg-bubble-meta">${escHtml(m.from_user)} — ${m.time||''}</div>
-    </div>`;
-  }).join('');
-  el.scrollTop = el.scrollHeight;
-}
-
-function sendStaffMessage() {
-  if (!staffMsgThread) return;
-  const input = document.getElementById('staff-msg-input');
-  const text = input.value.trim();
-  if (!text) return;
-  const msgs = ls.get('messages') || [];
-  msgs.push({
-    from_user: currentUser.username, to_user: staffMsgThread, text, read_staff: true, read_user: false,
-    time: new Date().toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit'}),
-    date: new Date().toLocaleDateString('fr-FR')
-  });
-  ls.set('messages', msgs);
-  input.value = '';
-  renderStaffMessages();
-}
-
-// --- PRESENCES ---
-function priseService() {
-  presenceStart = new Date();
-  ls.set('presence_active', { start: presenceStart.toISOString(), user: currentUser.username });
-  document.getElementById('btn-prise-service').style.display = 'none';
-  document.getElementById('btn-fin-service').style.display = 'block';
-  document.getElementById('presence-status').innerHTML = '<span class="dash-badge green">🟢 En service depuis ' + presenceStart.toLocaleTimeString('fr-FR') + '</span>';
-  if (presenceInterval) clearInterval(presenceInterval);
-  presenceInterval = setInterval(updatePresenceTimer, 1000);
-}
-
-function finService() {
-  if (!presenceStart) return;
-  const fin = new Date();
-  const duree = Math.floor((fin - presenceStart) / 60000);
-  clearInterval(presenceInterval);
-  const presences = ls.get('presences') || [];
-  presences.push({
-    user: currentUser.username, grade: currentUser.grade||'Helper',
-    debut: presenceStart.toLocaleTimeString('fr-FR'), fin: fin.toLocaleTimeString('fr-FR'),
-    duree_minutes: duree, date: new Date().toLocaleDateString('fr-FR')
-  });
-  ls.set('presences', presences);
-  ls.set('presence_active', null);
-  presenceStart = null;
-  document.getElementById('btn-prise-service').style.display = 'block';
-  document.getElementById('btn-fin-service').style.display = 'none';
-  document.getElementById('presence-timer').textContent = '00:00:00';
-  document.getElementById('presence-status').innerHTML = `<span class="dash-badge green">✅ Service terminé — ${duree} min</span>`;
-  renderPresences();
-}
-
-function updatePresenceTimer() {
-  if (!presenceStart) return;
-  const diff = Math.floor((new Date() - presenceStart) / 1000);
-  const h = String(Math.floor(diff/3600)).padStart(2,'0');
-  const m = String(Math.floor((diff%3600)/60)).padStart(2,'0');
-  const s = String(diff%60).padStart(2,'0');
-  const el = document.getElementById('presence-timer');
-  if (el) el.textContent = h+':'+m+':'+s;
-}
-
-function renderPresences() {
-  const presences = (ls.get('presences')||[]).filter(p => p.user === currentUser.username);
-  const el = document.getElementById('presences-list');
-  if (!el) return;
-  el.innerHTML = presences.length > 0
-    ? `<table class="dash-table"><thead><tr><th>Date</th><th>Prise</th><th>Fin</th><th>Durée</th></tr></thead><tbody>${presences.slice().reverse().map(p => `<tr><td>${escHtml(p.date)}</td><td>${escHtml(p.debut)}</td><td>${escHtml(p.fin)}</td><td>${p.duree_minutes} min</td></tr>`).join('')}</tbody></table>`
-    : '<div class="dash-empty">Aucune présence enregistrée</div>';
-  // Check if active
-  const active = ls.get('presence_active');
-  if (active && active.user === currentUser.username) {
-    presenceStart = new Date(active.start);
-    document.getElementById('btn-prise-service').style.display = 'none';
-    document.getElementById('btn-fin-service').style.display = 'block';
-    if (!presenceInterval) presenceInterval = setInterval(updatePresenceTimer, 1000);
-  }
-}
-
-// --- PLANNING ---
-function addPlanning() {
-  const date = document.getElementById('plan-date').value;
-  const debut = document.getElementById('plan-heure-debut').value;
-  const fin = document.getElementById('plan-heure-fin').value;
-  if (!date || !debut || !fin) { alert('Date, heure début et fin requis.'); return; }
-  const planning = ls.get('planning') || [];
-  planning.push({ user: currentUser.username, grade: currentUser.grade||'Helper', date, debut, fin });
-  ls.set('planning', planning);
-  document.getElementById('plan-date').value = '';
-  document.getElementById('plan-heure-debut').value = '';
-  document.getElementById('plan-heure-fin').value = '';
-  renderPlanning();
-}
-
-function renderPlanning() {
-  const planning = ls.get('planning') || [];
-  const el = document.getElementById('planning-grid');
-  if (!el) return;
-  const days = ['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
-  // Get current week
-  const today = new Date();
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - (today.getDay() || 7) + 1);
-  el.innerHTML = days.map((d, i) => {
-    const day = new Date(monday);
-    day.setDate(monday.getDate() + i);
-    const dateStr = day.toISOString().split('T')[0];
-    const events = planning.filter(p => p.date === dateStr);
-    return `<div class="planning-day">
-      <div class="planning-day-name">${d} ${day.getDate()}</div>
-      ${events.map(e => `<div class="planning-event">${escHtml(e.user)}<br>${e.debut}–${e.fin}</div>`).join('')}
-    </div>`;
-  }).join('');
-}
-
-// --- RAPPORTS ---
-function addRapport() {
-  const type = document.getElementById('rapport-type').value;
-  const desc = document.getElementById('rapport-desc').value.trim();
-  const agents = document.getElementById('rapport-agents').value.trim();
-  if (!type || !desc) { alert('Type et description requis.'); return; }
-  const rapports = ls.get('rapports') || [];
-  rapports.push({ user: currentUser.username, grade: currentUser.grade||'Helper', type, desc, agents, date: new Date().toLocaleDateString('fr-FR') });
-  ls.set('rapports', rapports);
-  document.getElementById('rapport-type').value = '';
-  document.getElementById('rapport-desc').value = '';
-  document.getElementById('rapport-agents').value = '';
-  renderRapports();
-  alert('Rapport soumis !');
-}
-
-function renderRapports() {
-  const rapports = ls.get('rapports') || [];
-  const el = document.getElementById('rapports-list');
-  if (!el) return;
-  el.innerHTML = rapports.length > 0
-    ? rapports.slice().reverse().map(r => `
-        <div class="report-card">
-          <div class="report-card-header">
-            <div class="report-title">${escHtml(r.type)}</div>
-            <div class="report-meta">${escHtml(r.user)} — ${escHtml(r.date)}</div>
+          <p style="color:#888;font-size:0.85rem;margin-bottom:1.5rem;font-family:'Rajdhani',sans-serif">Active/désactive chaque map et définis une date de sortie.</p>
+
+          <!-- NASDARA -->
+          <div style="background:#0d0d0d;border:1px solid rgba(212,172,13,0.3);border-left:3px solid #d4ac0d;padding:1rem 1.25rem;margin-bottom:0.75rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.75rem">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#e8e8e8;letter-spacing:2px">NASDARA <span style="color:#d4ac0d;font-size:0.65rem">⭐ DLC 2026</span></div>
+              <div style="display:flex;gap:0.5rem">
+                <button class="admin-btn" id="mapbtn-admin-nasdara" style="padding:4px 14px;font-size:0.75rem" onclick="adminToggleMap('nasdara')">Activer</button>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <input class="admin-input" id="mapdate-admin-nasdara" type="text" placeholder="Date sortie (ex: 15/06/2026)" style="margin-bottom:0;flex:1;font-size:0.8rem;padding:6px 10px">
+              <button class="admin-btn" style="padding:6px 12px;font-size:0.75rem;white-space:nowrap" onclick="adminSetMapDate('nasdara')">💾</button>
+            </div>
           </div>
-          <div style="font-size:0.85rem;color:var(--text-muted)">${escHtml(r.desc)}</div>
-          ${r.agents ? '<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem">Agents : '+escHtml(r.agents)+'</div>' : ''}
-        </div>`).join('')
-    : '<div class="dash-empty">Aucun rapport</div>';
-}
 
-// --- JOURNAL STAFF ---
-function addJournal() {
-  const titre = document.getElementById('journal-titre').value.trim();
-  const type = document.getElementById('journal-type').value;
-  const contenu = document.getElementById('journal-contenu').value.trim();
-  if (!titre || !contenu) { alert('Titre et contenu requis.'); return; }
-  const journal = ls.get('journal') || [];
-  journal.push({ titre, type, contenu, auteur: currentUser.username, grade: currentUser.grade||'Staff', date: new Date().toLocaleDateString('fr-FR') });
-  ls.set('journal', journal);
-  document.getElementById('journal-titre').value = '';
-  document.getElementById('journal-contenu').value = '';
-  renderJournalStaff();
-  alert('Annonce publiée !');
-}
-
-function renderJournalStaff() {
-  const journal = ls.get('journal') || [];
-  const el = document.getElementById('journal-staff-list');
-  if (!el) return;
-  el.innerHTML = journal.length > 0
-    ? journal.slice().reverse().map((j, i) => `
-        <div class="journal-card ${j.type}">
-          <div style="display:flex;justify-content:space-between;align-items:start">
-            <div class="journal-title">${escHtml(j.titre)}</div>
-            <button class="dash-btn secondary" style="padding:3px 10px;font-size:0.7rem" onclick="removeJournal(${journal.length-1-i})">✕</button>
+          <!-- CHERNARUS -->
+          <div style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #444;padding:1rem 1.25rem;margin-bottom:0.75rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.75rem">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#aaa;letter-spacing:2px">CHERNARUS</div>
+              <div style="display:flex;gap:0.5rem">
+                <button class="admin-btn" id="mapbtn-admin-chernarus" style="padding:4px 14px;font-size:0.75rem" onclick="adminToggleMap('chernarus')">Activer</button>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <input class="admin-input" id="mapdate-admin-chernarus" type="text" placeholder="Date sortie (ex: 01/09/2026)" style="margin-bottom:0;flex:1;font-size:0.8rem;padding:6px 10px">
+              <button class="admin-btn" style="padding:6px 12px;font-size:0.75rem;white-space:nowrap" onclick="adminSetMapDate('chernarus')">💾</button>
+            </div>
           </div>
-          <div class="journal-body">${escHtml(j.contenu)}</div>
-          <div class="journal-meta"><span>${escHtml(j.auteur)}</span><span>${escHtml(j.date)}</span></div>
-        </div>`).join('')
-    : '<div class="dash-empty">Aucune annonce publiée</div>';
-}
 
-function removeJournal(idx) {
-  if (!confirm('Supprimer cette annonce ?')) return;
-  const journal = ls.get('journal') || [];
-  journal.splice(idx, 1);
-  ls.set('journal', journal);
-  renderJournalStaff();
-}
-
-// ===== GESTION STAFF =====
-function addStaffMember() {
-  const name = document.getElementById('staff-add-name').value.trim();
-  const role = document.getElementById('staff-add-role').value;
-  const avatar = document.getElementById('staff-add-avatar').value.trim();
-  if (!name || !role) { alert('Pseudo et grade requis.'); return; }
-  const staff = ls.get('staff') || [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
-  if (staff.find(s => s.name.toLowerCase() === name.toLowerCase())) { alert('Ce membre est déjà dans le staff.'); return; }
-  staff.push({ name, role, avatar });
-  ls.set('staff', staff);
-  document.getElementById('staff-add-name').value = '';
-  document.getElementById('staff-add-role').value = '';
-  document.getElementById('staff-add-avatar').value = '';
-  renderStaffManage();
-  renderStaff();
-  alert(name + ' ajouté au staff comme ' + role + ' !');
-}
-
-function renderStaffManage() {
-  const defaultStaff = [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
-  const staff = ls.get('staff') || defaultStaff;
-  const el = document.getElementById('staff-manage-list');
-  if (!el) return;
-  if (staff.length === 0) { el.innerHTML = '<div class="dash-empty">Aucun membre staff</div>'; return; }
-  el.innerHTML = `<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Action</th></tr></thead><tbody>${staff.map((s,i) => `<tr>
-    <td style="font-weight:600">${escHtml(s.name)}</td>
-    <td><span class="grade-badge ${getGradeClass(s.role)}">${escHtml(s.role)}</span></td>
-    <td>${s.name === 'Arakawa Akihiro' ? '<span style="color:var(--text-muted);font-size:0.75rem">Protégé</span>' : '<button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeStaffMember('+i+')">✕ Retirer</button>'}</td>
-  </tr>`).join('')}</tbody></table>`;
-}
-
-function removeStaffMember(idx) {
-  const staff = ls.get('staff') || [];
-  if (staff[idx] && staff[idx].name === 'Arakawa Akihiro') { alert('Impossible de retirer le Fondateur.'); return; }
-  if (!confirm('Retirer ' + (staff[idx]?.name||'') + ' du staff ?')) return;
-  staff.splice(idx, 1);
-  ls.set('staff', staff);
-  renderStaffManage();
-  renderStaff();
-}
-
-// ===== ADMIN PANEL =====
-function openAdminPanel() {
-  document.getElementById('admin-panel').classList.add('open');
-  switchAdmin('admin-overview');
-}
-function closeAdminPanel() {
-  document.getElementById('admin-panel').classList.remove('open');
-}
-function switchAdmin(section) {
-  document.querySelectorAll('.admin-panel-section').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
-  const el = document.getElementById(section);
-  if (el) el.classList.add('active');
-  // Activer nav item correspondant
-  document.querySelectorAll('.admin-nav-item').forEach(nav => {
-    if (nav.getAttribute('onclick') && nav.getAttribute('onclick').includes(section)) nav.classList.add('active');
-  });
-  const titles = {
-    "admin-overview": "Vue d'ensemble",
-    "admin-maj": "Mises a jour",
-    "admin-staff": "Staff",
-    "admin-comptes": "Comptes joueurs",
-    "admin-boutique": "Boutique",
-    "admin-promos": "Promotions",
-    "admin-priorites": "Priorites",
-    "admin-vip": "VIP",
-    "admin-pvp": "Classement PvP",
-    "admin-commentaires": "Commentaires",
-    "admin-galerie": "Galerie",
-    "admin-ouverture": "Ouverture serveur",
-    "admin-maps": "Maps"
-  };
-  document.getElementById('admin-title').textContent = titles[section] || section;
-  const renders = {
-    'admin-overview': renderAdminOverview,
-    'admin-maj': renderAdminMaj,
-    'admin-staff': renderAdminStaff,
-    'admin-comptes': renderAdminComptes,
-    'admin-boutique': renderAdminBoutique,
-    'admin-promos': renderAdminPromos,
-    'admin-priorites': renderAdminPrio,
-    'admin-vip': renderAdminVip,
-    'admin-pvp': renderAdminPvp,
-    'admin-commentaires': renderAdminComments,
-    'admin-galerie': renderAdminGallery,
-    'admin-ouverture': renderAdminOuverture,
-    'admin-maps': renderAdminMaps,
-  };
-  if (renders[section]) renders[section]();
-}
-
-function renderAdminOverview() {
-  const accounts = ls.get('accounts') || [];
-  const orders = ls.get('orders') || [];
-  const pvp = ls.get('pvp') || [];
-  const vips = ls.get('vips') || [];
-  const totalRevenu = orders.reduce((s,o) => s + parseFloat(o.total||0), 0).toFixed(2);
-  document.getElementById('admin-kpis').innerHTML = `
-    <div class="admin-kpi"><div class="admin-kpi-val">${accounts.length}</div><div class="admin-kpi-label">Comptes</div></div>
-    <div class="admin-kpi"><div class="admin-kpi-val">${orders.length}</div><div class="admin-kpi-label">Commandes</div></div>
-    <div class="admin-kpi"><div class="admin-kpi-val">${totalRevenu}€</div><div class="admin-kpi-label">Revenus</div></div>
-    <div class="admin-kpi"><div class="admin-kpi-val">${vips.length}</div><div class="admin-kpi-label">VIPs</div></div>
-    <div class="admin-kpi"><div class="admin-kpi-val">${pvp.length}</div><div class="admin-kpi-label">Joueurs PvP</div></div>
-  `;
-  // Toggle boutique
-  const boutique = ls.get('boutique_active');
-  const isOn = boutique !== false;
-  document.getElementById('toggle-boutique').className = 'toggle-btn ' + (isOn ? 'on' : '');
-  document.getElementById('toggle-boutique-label').textContent = isOn ? '✅ Boutique ACTIVE' : '❌ Boutique DÉSACTIVÉE';
-  const serveur = ls.get('serveur_ouvert');
-  const sOn = serveur !== false;
-  document.getElementById('toggle-serveur').className = 'toggle-btn ' + (sOn ? 'on' : '');
-  document.getElementById('toggle-serveur-label').textContent = sOn ? '🟢 Serveur OUVERT' : '🔴 Serveur FERMÉ';
-}
-
-function toggleBoutique() {
-  const current = ls.get('boutique_active');
-  const newVal = current === false ? true : false;
-  ls.set('boutique_active', newVal);
-  renderAdminOverview();
-  renderAdminBoutique();
-  // Recharger les packs avec le nouvel état
-  renderPacks();
-  renderServices();
-  alert('Boutique ' + (newVal ? 'ACTIVÉE ✅' : 'DÉSACTIVÉE 🔒'));
-}
-
-function toggleServeur() {
-  const current = ls.get('serveur_ouvert');
-  const newVal = current === false ? true : false;
-  ls.set('serveur_ouvert', newVal);
-  renderAdminOverview();
-}
-
-function renderAdminBoutique() {
-  const isOn = ls.get('boutique_active') !== false;
-  const el = document.getElementById('boutique-status-label');
-  const btn = document.getElementById('btn-toggle-boutique');
-  if (el) el.innerHTML = isOn
-    ? '<span style="color:var(--green)">✅ ACTIVE</span>'
-    : '<span style="color:var(--red)">❌ DÉSACTIVÉE</span>';
-}
-
-// MAJ
-function addMaj() {
-  const titre = document.getElementById('maj-titre').value.trim();
-  const contenu = document.getElementById('maj-contenu').value.trim();
-  if (!titre || !contenu) { alert('Titre et contenu requis.'); return; }
-  const updates = ls.get('updates') || [];
-  updates.push({ titre, contenu, date: new Date().toLocaleDateString('fr-FR') });
-  ls.set('updates', updates);
-  document.getElementById('maj-titre').value = '';
-  document.getElementById('maj-contenu').value = '';
-  renderAdminMaj();
-  renderUpdates();
-  alert('Mise à jour publiée !');
-}
-function renderAdminMaj() {
-  const updates = ls.get('updates') || [];
-  const el = document.getElementById('admin-maj-list');
-  if (!el) return;
-  el.innerHTML = updates.length > 0
-    ? `<table class="admin-table"><thead><tr><th>Titre</th><th>Date</th><th></th></tr></thead><tbody>${updates.slice().reverse().map((u,i) => `<tr><td style="font-weight:600">${escHtml(u.titre)}</td><td>${escHtml(u.date)}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="removeMaj(${updates.length-1-i})">✕</button></td></tr>`).join('')}</tbody></table>`
-    : '<div class="admin-empty">Aucune mise à jour</div>';
-}
-function removeMaj(idx) {
-  const updates = ls.get('updates') || [];
-  updates.splice(idx, 1);
-  ls.set('updates', updates);
-  renderAdminMaj();
-  renderUpdates();
-}
-
-// STAFF
-function adminAddStaff() {
-  const name = document.getElementById('as-name').value.trim();
-  const role = document.getElementById('as-role').value;
-  const avatar = document.getElementById('as-avatar').value.trim();
-  if (!name || !role) { alert('Pseudo et grade requis.'); return; }
-  const staff = ls.get('staff') || [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
-  if (staff.find(s => s.name.toLowerCase() === name.toLowerCase())) { alert('Déjà dans le staff.'); return; }
-  staff.push({ name, role, avatar });
-  ls.set('staff', staff);
-  document.getElementById('as-name').value = '';
-  document.getElementById('as-role').value = '';
-  document.getElementById('as-avatar').value = '';
-  renderAdminStaff();
-  renderStaff();
-  // Aussi mettre à jour le grade dans les comptes si le joueur a un compte
-  let accounts = ls.get('accounts') || [];
-  const idx = accounts.findIndex(a => a.username.toLowerCase() === name.toLowerCase());
-  if (idx !== -1) { accounts[idx].grade = role; accounts[idx].isAdmin = STAFF_GRADES.includes(role); ls.set('accounts', accounts); }
-  alert(name + ' ajouté comme ' + role + ' !');
-}
-function renderAdminStaff() {
-  const staff = ls.get('staff') || [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
-  const el = document.getElementById('admin-staff-list');
-  if (!el) return;
-  el.innerHTML = `<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>${staff.map((s,i) => `<tr><td style="font-weight:600">${escHtml(s.name)}</td><td><span class="grade-badge ${getGradeClass(s.role)}">${escHtml(s.role)}</span></td><td>${s.name==='Arakawa Akihiro'?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveStaff('+i+')">✕ Retirer</button>'}</td></tr>`).join('')}</tbody></table>`;
-}
-function adminRemoveStaff(idx) {
-  const staff = ls.get('staff') || [];
-  if (staff[idx]?.name === 'Arakawa Akihiro') { alert('Impossible de retirer le Fondateur.'); return; }
-  if (!confirm('Retirer ' + staff[idx]?.name + ' ?')) return;
-  staff.splice(idx, 1);
-  ls.set('staff', staff);
-  renderAdminStaff();
-  renderStaff();
-}
-
-// COMPTES
-function renderAdminComptes() {
-  const search = (document.getElementById('search-comptes')||{}).value || '';
-  const accounts = ls.get('accounts') || [];
-  const filtered = accounts.filter(a => a.username.toLowerCase().includes(search.toLowerCase()));
-  const el = document.getElementById('admin-comptes-list');
-  if (!el) return;
-  el.innerHTML = filtered.length > 0
-    ? `<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Crédits</th><th>Plateforme</th><th>Inscription</th></tr></thead><tbody>${filtered.map(a => `<tr><td style="font-weight:600">${escHtml(a.username)}</td><td><span class="grade-badge ${getGradeClass(a.grade)}">${escHtml(a.grade||'Joueur')}</span></td><td style="color:var(--gold)">${a.credits||0} CR</td><td>${escHtml(a.platform||'-')}</td><td>${escHtml(a.inscription||'-')}</td></tr>`).join('')}</tbody></table>`
-    : '<div class="admin-empty">Aucun compte</div>';
-}
-function adminSetCredits() {
-  const user = document.getElementById('credits-user').value.trim();
-  const amount = parseInt(document.getElementById('credits-amount').value);
-  if (!user || isNaN(amount)) { alert('Pseudo et montant requis.'); return; }
-  const accounts = ls.get('accounts') || [];
-  const idx = accounts.findIndex(a => a.username.toLowerCase() === user.toLowerCase());
-  if (idx === -1) { alert('Joueur introuvable.'); return; }
-  accounts[idx].credits = amount;
-  ls.set('accounts', accounts);
-  if (currentUser && currentUser.username.toLowerCase() === user.toLowerCase()) {
-    currentUser.credits = amount; ls.set('current_user', currentUser);
-  }
-  renderAdminComptes();
-  alert('Crédits mis à jour : ' + amount + ' CR pour ' + user);
-}
-function adminSetGrade() {
-  const user = document.getElementById('grade-user').value.trim();
-  const grade = document.getElementById('grade-value').value;
-  if (!user || !grade) { alert('Pseudo et grade requis.'); return; }
-  const accounts = ls.get('accounts') || [];
-  const idx = accounts.findIndex(a => a.username.toLowerCase() === user.toLowerCase());
-  if (idx === -1) { alert('Joueur introuvable.'); return; }
-  accounts[idx].grade = grade;
-  accounts[idx].isAdmin = STAFF_GRADES.includes(grade);
-  ls.set('accounts', accounts);
-  renderAdminComptes();
-  alert('Grade mis à jour : ' + grade + ' pour ' + user);
-}
-
-// PROMOS
-function addPromo() {
-  const pack = document.getElementById('promo-pack').value;
-  const pct = parseInt(document.getElementById('promo-pct').value) || 0;
-  const bonus = parseInt(document.getElementById('promo-bonus').value) || 0;
-  if (!pack) { alert('Choisissez un pack.'); return; }
-  if (pct === 0 && bonus === 0) { alert('Définissez une réduction ou des crédits bonus.'); return; }
-  const promos = ls.get('promos') || {};
-  promos[pack] = { pct, bonus };
-  ls.set('promos', promos);
-  renderAdminPromos();
-  renderPacks();
-  alert('Promotion appliquée !');
-}
-function renderAdminPromos() {
-  const promos = ls.get('promos') || {};
-  const el = document.getElementById('admin-promos-list');
-  if (!el) return;
-  const keys = Object.keys(promos);
-  const names = { pack100:'Pack Starter', pack200:'Pack Regular', pack500:'Pack Premium', pack1000:'Pack Elite' };
-  el.innerHTML = keys.length > 0
-    ? `<table class="admin-table"><thead><tr><th>Pack</th><th>Réduction</th><th>Bonus CR</th><th></th></tr></thead><tbody>${keys.map(k => `<tr><td>${names[k]||k}</td><td>${promos[k].pct>0?'-'+promos[k].pct+'%':'—'}</td><td>${promos[k].bonus>0?'+'+promos[k].bonus+' CR':'—'}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="removePromo('${k}')">✕</button></td></tr>`).join('')}</tbody></table>`
-    : '<div class="admin-empty">Aucune promotion active</div>';
-}
-function removePromo(k) {
-  const promos = ls.get('promos') || {};
-  delete promos[k];
-  ls.set('promos', promos);
-  renderAdminPromos();
-  renderPacks();
-}
-
-// PRIORITES
-function adminAddPrio() {
-  const psn = document.getElementById('prio-psn').value.trim();
-  const duree = parseInt(document.getElementById('prio-duree').value);
-  if (!psn || !duree) { alert('PSN et durée requis.'); return; }
-  const prios = ls.get('priorities') || [];
-  const expiry = new Date();
-  expiry.setDate(expiry.getDate() + duree);
-  prios.push({ psn, date: expiry.toISOString(), duree });
-  ls.set('priorities', prios);
-  document.getElementById('prio-psn').value = '';
-  document.getElementById('prio-duree').value = '';
-  renderAdminPrio();
-  renderPriorities();
-}
-function renderAdminPrio() {
-  const prios = ls.get('priorities') || [];
-  const el = document.getElementById('admin-prio-list');
-  if (!el) return;
-  el.innerHTML = prios.length > 0
-    ? `<table class="admin-table"><thead><tr><th>PSN</th><th>Expire le</th><th>Jours restants</th><th></th></tr></thead><tbody>${prios.map((p,i) => {
-        const days = p.date ? Math.max(0, Math.floor((new Date(p.date)-new Date())/86400000)) : '?';
-        const exp = p.date ? new Date(p.date).toLocaleDateString('fr-FR') : '-';
-        return `<tr><td style="font-weight:600">${escHtml(p.psn)}</td><td>${exp}</td><td style="color:var(--gold)">${days}j</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePrio(${i})">✕</button></td></tr>`;
-      }).join('')}</tbody></table>`
-    : '<div class="admin-empty">Aucune priorité active</div>';
-}
-function adminRemovePrio(idx) {
-  const prios = ls.get('priorities') || [];
-  prios.splice(idx, 1);
-  ls.set('priorities', prios);
-  renderAdminPrio();
-  renderPriorities();
-}
-
-// VIP
-function adminAddVip() {
-  const psn = document.getElementById('vip-psn').value.trim();
-  const type = document.getElementById('vip-type').value;
-  if (!psn) { alert('PSN requis.'); return; }
-  const vips = ls.get('vips') || [];
-  vips.push({ psn, type });
-  ls.set('vips', vips);
-  document.getElementById('vip-psn').value = '';
-  renderAdminVip();
-  renderVIP();
-}
-function renderAdminVip() {
-  const vips = ls.get('vips') || [];
-  const el = document.getElementById('admin-vip-list');
-  if (!el) return;
-  el.innerHTML = vips.length > 0
-    ? `<table class="admin-table"><thead><tr><th>PSN</th><th>Type</th><th></th></tr></thead><tbody>${vips.map((v,i) => `<tr><td style="font-weight:600">${escHtml(v.psn)}</td><td>${v.type==='premium'?'⭐ Premium':'🎖️ Standard'}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveVip(${i})">✕</button></td></tr>`).join('')}</tbody></table>`
-    : '<div class="admin-empty">Aucun VIP</div>';
-}
-function adminRemoveVip(idx) {
-  const vips = ls.get('vips') || [];
-  vips.splice(idx, 1);
-  ls.set('vips', vips);
-  renderAdminVip();
-  renderVIP();
-}
-
-// PVP
-function adminAddPvp() {
-  const name = document.getElementById('pvp-name').value.trim();
-  const kills = parseInt(document.getElementById('pvp-kills').value) || 0;
-  const deaths = parseInt(document.getElementById('pvp-deaths').value) || 0;
-  if (!name) { alert('Pseudo requis.'); return; }
-  const pvp = ls.get('pvp') || [];
-  const idx = pvp.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
-  if (idx !== -1) { pvp[idx].kills = kills; pvp[idx].deaths = deaths; }
-  else pvp.push({ name, kills, deaths });
-  ls.set('pvp', pvp);
-  document.getElementById('pvp-name').value = '';
-  document.getElementById('pvp-kills').value = '';
-  document.getElementById('pvp-deaths').value = '';
-  renderAdminPvp();
-  renderPVP();
-}
-function renderAdminPvp() {
-  const pvp = ls.get('pvp') || [];
-  const el = document.getElementById('admin-pvp-list');
-  if (!el) return;
-  const sorted = pvp.slice().sort((a,b) => (b.kills||0)-(a.kills||0));
-  el.innerHTML = sorted.length > 0
-    ? `<table class="admin-table"><thead><tr><th>#</th><th>Joueur</th><th>Kills</th><th>Morts</th><th>K/D</th><th></th></tr></thead><tbody>${sorted.map((p,i) => {
-        const kd = p.deaths>0?(p.kills/p.deaths).toFixed(2):(p.kills||0).toFixed(2);
-        return `<tr><td>${i+1}</td><td>${escHtml(p.name)}</td><td style="color:var(--red)">${p.kills}</td><td>${p.deaths}</td><td style="color:var(--gold)">${kd}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePvp('${p.name}')">✕</button></td></tr>`;
-      }).join('')}</tbody></table>`
-    : '<div class="admin-empty">Aucun joueur PvP</div>';
-}
-function adminRemovePvp(name) {
-  let pvp = ls.get('pvp') || [];
-  pvp = pvp.filter(p => p.name !== name);
-  ls.set('pvp', pvp);
-  renderAdminPvp();
-  renderPVP();
-}
-
-// COMMENTAIRES
-function renderAdminComments() {
-  const comments = ls.get('comments') || [];
-  const el = document.getElementById('admin-comments-list');
-  if (!el) return;
-  el.innerHTML = comments.length > 0
-    ? `<table class="admin-table"><thead><tr><th>Pseudo</th><th>Note</th><th>Commentaire</th><th>Date</th><th></th></tr></thead><tbody>${comments.map((c,i) => `<tr><td style="font-weight:600">${escHtml(c.pseudo)}</td><td style="color:var(--gold)">${'★'.repeat(c.stars||5)}</td><td>${escHtml((c.text||'').substring(0,60))}...</td><td>${escHtml(c.date||'')}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveComment(${i})">✕</button></td></tr>`).join('')}</tbody></table>`
-    : '<div class="admin-empty">Aucun commentaire</div>';
-}
-function adminRemoveComment(idx) {
-  const comments = ls.get('comments') || [];
-  comments.splice(idx, 1);
-  ls.set('comments', comments);
-  renderAdminComments();
-  renderComments();
-}
-
-// GALERIE
-function adminAddGallery() {
-  const url = document.getElementById('gallery-url').value.trim();
-  if (!url) { alert('URL requise.'); return; }
-  const gallery = ls.get('gallery') || [];
-  gallery.push({ url });
-  ls.set('gallery', gallery);
-  document.getElementById('gallery-url').value = '';
-  renderAdminGallery();
-  renderGallery();
-}
-function renderAdminGallery() {
-  const gallery = ls.get('gallery') || [];
-  const el = document.getElementById('admin-gallery-list');
-  if (!el) return;
-  el.innerHTML = gallery.length > 0
-    ? `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem">${gallery.map((g,i) => `<div style="position:relative"><img src="${escAttr(g.url)}" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border)"><button onclick="adminRemoveGallery(${i})" style="position:absolute;top:4px;right:4px;background:var(--red);color:#fff;border:none;width:22px;height:22px;font-size:0.8rem;cursor:pointer">✕</button></div>`).join('')}</div>`
-    : '<div class="admin-empty">Aucune photo</div>';
-}
-function adminRemoveGallery(idx) {
-  const gallery = ls.get('gallery') || [];
-  gallery.splice(idx, 1);
-  ls.set('gallery', gallery);
-  renderAdminGallery();
-  renderGallery();
-}
-
-// OUVERTURE
-function adminSetOuverture() {
-  var date = document.getElementById('ouverture-date').value;
-  if (!date) { alert('Date requise.'); return; }
-  ls.set('opening_date', date);
-  renderAdminOuverture();
-  initCountdown();
-  alert('Date enregistree !');
-}
-function adminDeleteOuverture() {
-  if (!confirm('Supprimer la date et remettre le chrono a zero ?')) return;
-  ls.set('opening_date', null);
-  document.getElementById('ouverture-date').value = '';
-  if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
-  // Remettre le chrono à 00:00:00:00
-  var ids = ['cd-days','cd-hours','cd-minutes','cd-seconds'];
-  for (var i = 0; i < ids.length; i++) {
-    var el = document.getElementById(ids[i]);
-    if (el) el.textContent = '00';
-  }
-  var running = document.getElementById('countdown-running');
-  var openMsg = document.getElementById('countdown-open');
-  if (running) running.style.display = 'flex';
-  if (openMsg) openMsg.style.display = 'none';
-  var dateEl = document.getElementById('countdown-target-date');
-  if (dateEl) dateEl.textContent = 'date non definie';
-  renderAdminOuverture();
-  alert('Date supprimee ! Le chrono affiche 00:00:00:00.');
-}
-function renderAdminOuverture() {
-  var date = ls.get('opening_date');
-  var el = document.getElementById('ouverture-preview');
-  if (!el) return;
-  if (date) {
-    var d = new Date(date);
-    var now = new Date();
-    var diff = d - now;
-    var dateStr = d.toLocaleDateString("fr-FR") + " a " + d.toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
-    if (diff > 0) {
-      var days2 = Math.floor(diff/86400000);
-      var hours2 = Math.floor((diff%86400000)/3600000);
-      var mins2 = Math.floor((diff%3600000)/60000);
-      el.innerHTML = '<span style="color:var(--gold)">⏳ Ouverture le ' + dateStr + ' (dans ' + days2 + 'j ' + hours2 + 'h ' + mins2 + 'min)</span>';
-    } else {
-      el.innerHTML = '<span style="color:var(--green)">✅ Serveur ouvert depuis le ' + dateStr + '</span>';
-    }
-    var inp = document.getElementById('ouverture-date');
-    if (inp && !inp.value) inp.value = date;
-  } else {
-    el.innerHTML = '<span style="color:var(--text-muted)">Aucune date definie — chrono affiche 00:00:00:00</span>';
-  }
-  initCountdown();
-  renderMapsPublic();
-}
-
-// ===== COUNTDOWN =====
-let countdownInterval = null;
-
-function initCountdown() {
-  const date = ls.get("opening_date");
-  const section = document.getElementById("countdown-section");
-  if (!section) return;
-  section.classList.remove("countdown-hidden");
-
-  if (!date) {
-    // Afficher 00:00:00:00 si pas de date définie
-    const dateEl = document.getElementById("countdown-target-date");
-    if (dateEl) dateEl.textContent = "date non définie";
-    ["cd-days","cd-hours","cd-minutes","cd-seconds"].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.textContent = "00";
-    });
-    return;
-  }
-
-  const target = new Date(date);
-  const dateEl = document.getElementById("countdown-target-date");
-  if (dateEl) {
-    dateEl.textContent = target.toLocaleDateString("fr-FR") + " à " + target.toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
-  }
-  if (countdownInterval) clearInterval(countdownInterval);
-  tickCountdown(target);
-  countdownInterval = setInterval(() => tickCountdown(target), 1000);
-}
-
-function tickCountdown(target) {
-  const now = new Date();
-  const diff = target - now;
-  const running = document.getElementById("countdown-running");
-  const openMsg = document.getElementById("countdown-open");
-  const section = document.getElementById("countdown-section");
-
-  if (diff <= 0) {
-    // Serveur ouvert !
-    if (running) running.style.display = "none";
-    if (openMsg) openMsg.style.display = "block";
-    if (section) section.style.borderColor = "rgba(39,174,96,0.3)";
-    if (countdownInterval) clearInterval(countdownInterval);
-    return;
-  }
-
-  if (running) running.style.display = "flex";
-  if (openMsg) openMsg.style.display = "none";
-
-  const days    = Math.floor(diff / 86400000);
-  const hours   = Math.floor((diff % 86400000) / 3600000);
-  const minutes = Math.floor((diff % 3600000) / 60000);
-  const seconds = Math.floor((diff % 60000) / 1000);
-
-  const pad = n => String(n).padStart(2, "0");
-  const cdDays = document.getElementById("cd-days");
-  const cdHours = document.getElementById("cd-hours");
-  const cdMin = document.getElementById("cd-minutes");
-  const cdSec = document.getElementById("cd-seconds");
-
-  if (cdDays) animateCountdown(cdDays, pad(days));
-  if (cdHours) animateCountdown(cdHours, pad(hours));
-  if (cdMin) animateCountdown(cdMin, pad(minutes));
-  if (cdSec) animateCountdown(cdSec, pad(seconds));
-}
-
-function animateCountdown(el, newVal) {
-  if (el.textContent !== newVal) {
-    el.style.transform = "translateY(-4px)";
-    el.style.opacity = "0.5";
-    setTimeout(() => {
-      el.textContent = newVal;
-      el.style.transform = "translateY(0)";
-      el.style.opacity = "1";
-    }, 150);
-  }
-}
-
-// ===== MAPS =====
-const MAPS_DEFAULT = [
-  { id:"nasdara",   name:"NASDARA / BADLANDS", label:"DLC 2026",  active:false, featured:true  },
-  { id:"chernarus", name:"CHERNARUS",           label:"Classic",   active:false, featured:false },
-  { id:"livonia",   name:"LIVONIA",             label:"DLC",       active:false, featured:false },
-  { id:"sakhal",    name:"SAKHAL",              label:"DLC",       active:false, featured:false },
-];
-
-function getMaps() {
-  const saved = ls.get("maps");
-  if (Array.isArray(saved) && saved.length > 0) return saved;
-  return MAPS_DEFAULT;
-}
-
-function renderMapsPublic() {
-  var maps = getMaps();
-  var badge = document.getElementById("map-badge-global");
-  var activeMap = null;
-  for (var i = 0; i < maps.length; i++) { if (maps[i].active) { activeMap = maps[i]; break; } }
-  if (badge) badge.textContent = activeMap ? ("🟢 " + activeMap.name) : "🗺️ Map en attente";
-
-  var statusLabels = {
-    "nasdara":   { inactive: "🔧 En développement", color: "var(--gold)" },
-    "chernarus": { inactive: "🔒 Indisponible",      color: "var(--text-muted)" },
-    "livonia":   { inactive: "🔒 Indisponible",      color: "var(--text-muted)" },
-    "sakhal":    { inactive: "🔒 Indisponible",      color: "var(--text-muted)" }
-  };
-
-  for (var j = 0; j < maps.length; j++) {
-    var m = maps[j];
-    var card = document.getElementById("mapcard-" + m.id);
-    if (!card) continue;
-    var statusDiv = card.querySelector("div:last-child");
-    var nameDiv = card.querySelector("div:nth-child(" + (m.featured ? 3 : 2) + ")");
-
-    if (m.active) {
-      card.style.opacity = "1";
-      card.style.border = "1px solid var(--border-red)";
-      if (nameDiv) nameDiv.style.color = "#fff";
-      if (statusDiv) { statusDiv.textContent = "✅ ACTIF"; statusDiv.style.color = "var(--green)"; }
-    } else {
-      card.style.opacity = m.featured ? "1" : "0.5";
-      card.style.border = "1px solid var(--border)";
-      if (nameDiv) nameDiv.style.color = "var(--text-muted)";
-      var lbl = statusLabels[m.id] || { inactive: "🔒 Indisponible", color: "var(--text-muted)" };
-      if (statusDiv) { statusDiv.textContent = lbl.inactive; statusDiv.style.color = lbl.color; }
-    }
-  }
-}
-
-function renderAdminMaps() {
-  var maps = getMaps();
-  var ids = ["nasdara","chernarus","livonia","sakhal"];
-  for (var i = 0; i < ids.length; i++) {
-    var id = ids[i];
-    var active = maps[i] ? maps[i].active : false;
-    var statusEl = document.getElementById("mapstatus-" + id);
-    var btnEl = document.getElementById("mapbtn-" + id);
-    if (statusEl) {
-      statusEl.textContent = active ? "✅ ACTIF" : "🔒 Inactif";
-      statusEl.className = "dash-badge " + (active ? "green" : "grey");
-    }
-    if (btnEl) {
-      btnEl.textContent = active ? "Désactiver" : "Activer";
-      btnEl.className = active ? "admin-btn red" : "admin-btn";
-      btnEl.style.padding = "5px 14px";
-      btnEl.style.fontSize = "0.75rem";
-    }
-  }
-}
-
-function toggleMap(idx) {
-  const maps = getMaps();
-  // Désactiver toutes les autres si on active une map
-  if (!maps[idx].active) {
-    maps.forEach(m => m.active = false);
-    maps[idx].active = true;
-  } else {
-    maps[idx].active = false;
-  }
-  ls.set("maps", maps);
-  renderAdminMaps();
-  renderMapsPublic();
-}
-
-// ===== RESET =====
-function resetAndReload() {
-  if (!confirm('Réinitialiser les données du site ? (Vos achats et commentaires seront effacés)')) return;
-  const keys = ['accounts','cart','comments','credits','credits_history','current_user','gallery','opening_date','orders','priorities','promos','pvp','staff','updates','vips','messages','signalements','sanctions','presences','planning','rapports','journal','casiers','presence_active'];
-  keys.forEach(k => localStorage.removeItem('badlandfr_'+k));
-  location.reload();
-}
-
-// ===== HELPERS =====
-function escHtml(str) {
-  if (!str) return '';
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function escAttr(str) {
-  if (!str) return '';
-  return String(str).replace(/"/g,'&quot;');
-}
-function getGradeClass(grade) {
-  const g = (grade||'').toLowerCase();
-  if (g === 'fondateur') return 'fondateur';
-  if (g === 'admin') return 'admin';
-  if (g === 'dev') return 'dev';
-  if (g === 'modo') return 'modo';
-  if (g === 'helper') return 'helper';
-  return 'joueur';
-}
-function getSancClass(type) {
-  const t = (type||'').toLowerCase();
-  if (t.includes('avert')) return 'warn';
-  if (t.includes('mute')) return 'mute';
-  if (t.includes('kick')) return 'kick';
-  if (t.includes('ban')) return 'ban';
-  return 'warn';
-}
-
-// ===== START =====
-document.addEventListener('DOMContentLoaded', init);
-</script>
-
-<!-- ===== PANEL ADMIN ===== -->
-<div id="admin-panel">
-  <div class="admin-sidebar">
-    <div class="admin-logo">⚙️ ADMIN <span>BADLAND FR</span></div>
-    <div class="admin-nav-item active" onclick="switchAdmin('admin-overview')">📊 Vue d'ensemble</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-maj')">📝 Mises à jour</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-staff')">👥 Staff</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-comptes')">👤 Comptes joueurs</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-boutique')">🛒 Boutique</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-promos')">🏷️ Promotions</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-priorites')">🎯 Priorités</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-vip')">⭐ VIP</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-pvp')">🏆 Classement PvP</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-commentaires')">💬 Commentaires</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-galerie')">📸 Galerie</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-ouverture')">📅 Ouverture serveur</div>
-    <div class="admin-nav-item" onclick="switchAdmin('admin-maps')">🗺️ Maps</div>
-  </div>
-  <div class="admin-content">
-    <div class="admin-topbar">
-      <h2 id="admin-title">Vue d'ensemble</h2>
-      <div style="display:flex;gap:0.75rem;align-items:center">
-        <a href="#presentation" onclick="closeAdminPanel()" style="background:none;border:1px solid var(--border);color:var(--text-muted);padding:6px 14px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer">👁️ Voir le site</a>
-        <button class="dash-close" onclick="closeAdminPanel()">✕ Fermer</button>
-      </div>
-    </div>
-    <div class="admin-main">
-
-      <!-- OVERVIEW -->
-      <div class="admin-panel-section active" id="admin-overview">
-        <div class="admin-kpi-grid" id="admin-kpis"></div>
-        <div class="admin-card">
-          <div class="admin-card-title">📊 État du serveur</div>
-          <div class="toggle-switch">
-            <span class="toggle-btn" id="toggle-boutique" onclick="toggleBoutique()">🛒 Boutique</span>
-            <label id="toggle-boutique-label">Chargement...</label>
+          <!-- LIVONIA -->
+          <div style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #444;padding:1rem 1.25rem;margin-bottom:0.75rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.75rem">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#aaa;letter-spacing:2px">LIVONIA</div>
+              <div style="display:flex;gap:0.5rem">
+                <button class="admin-btn" id="mapbtn-admin-livonia" style="padding:4px 14px;font-size:0.75rem" onclick="adminToggleMap('livonia')">Activer</button>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <input class="admin-input" id="mapdate-admin-livonia" type="text" placeholder="Date sortie (ex: 01/12/2026)" style="margin-bottom:0;flex:1;font-size:0.8rem;padding:6px 10px">
+              <button class="admin-btn" style="padding:6px 12px;font-size:0.75rem;white-space:nowrap" onclick="adminSetMapDate('livonia')">💾</button>
+            </div>
           </div>
-          <div class="toggle-switch">
-            <span class="toggle-btn" id="toggle-serveur" onclick="toggleServeur()">🟢 Serveur</span>
-            <label id="toggle-serveur-label">Chargement...</label>
+
+          <!-- SAKHAL -->
+          <div style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.07);border-left:3px solid #444;padding:1rem 1.25rem">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.75rem">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:#aaa;letter-spacing:2px">SAKHAL</div>
+              <div style="display:flex;gap:0.5rem">
+                <button class="admin-btn" id="mapbtn-admin-sakhal" style="padding:4px 14px;font-size:0.75rem" onclick="adminToggleMap('sakhal')">Activer</button>
+              </div>
+            </div>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+              <input class="admin-input" id="mapdate-admin-sakhal" type="text" placeholder="Date sortie (ex: 2027)" style="margin-bottom:0;flex:1;font-size:0.8rem;padding:6px 10px">
+              <button class="admin-btn" style="padding:6px 12px;font-size:0.75rem;white-space:nowrap" onclick="adminSetMapDate('sakhal')">💾</button>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- MAJ -->
-      <div class="admin-panel-section" id="admin-maj">
-        <div class="admin-card">
-          <div class="admin-card-title">➕ Publier une mise à jour</div>
-          <input class="admin-input" id="maj-titre" placeholder="Titre de la mise à jour">
-          <textarea class="admin-textarea" id="maj-contenu" placeholder="Description..."></textarea>
-          <button class="admin-btn" onclick="addMaj()">Publier</button>
         </div>
-        <div class="admin-card">
-          <div class="admin-card-title">📋 Mises à jour publiées</div>
-          <div id="admin-maj-list"></div>
-        </div>
-      </div>
-
-      <!-- STAFF -->
-      <div class="admin-panel-section" id="admin-staff">
-        <div class="admin-card">
-          <div class="admin-card-title">➕ Ajouter un membre staff</div>
-          <div class="admin-row">
-            <input class="admin-input" id="as-name" placeholder="Pseudo">
-            <select class="admin-select" id="as-role">
-              <option value="">Grade</option>
-              <option>Fondateur</option><option>Admin</option><option>Dev</option><option>Modo</option><option>Helper</option>
-            </select>
-          </div>
-          <input class="admin-input" id="as-avatar" placeholder="URL photo (optionnel)">
-          <button class="admin-btn" onclick="adminAddStaff()">Ajouter</button>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">👥 Staff actuel</div>
-          <div id="admin-staff-list"></div>
-        </div>
-      </div>
-
-      <!-- COMPTES -->
-      <div class="admin-panel-section" id="admin-comptes">
-        <div class="admin-card">
-          <div class="admin-card-title">👤 Comptes joueurs</div>
-          <div style="margin-bottom:0.75rem"><input class="admin-input" id="search-comptes" placeholder="Rechercher..." oninput="renderAdminComptes()" style="margin-bottom:0"></div>
-          <div id="admin-comptes-list"></div>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">💰 Modifier les crédits</div>
-          <div class="admin-row">
-            <input class="admin-input" id="credits-user" placeholder="Pseudo du joueur">
-            <input class="admin-input" id="credits-amount" type="number" placeholder="Montant (ex: 500)">
-          </div>
-          <button class="admin-btn" onclick="adminSetCredits()">Mettre à jour les crédits</button>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">🎖️ Changer le grade</div>
-          <div class="admin-row">
-            <input class="admin-input" id="grade-user" placeholder="Pseudo du joueur">
-            <select class="admin-select" id="grade-value">
-              <option value="">Grade</option>
-              <option>Joueur</option><option>Helper</option><option>Modo</option><option>Dev</option><option>Admin</option><option>Fondateur</option>
-            </select>
-          </div>
-          <button class="admin-btn" onclick="adminSetGrade()">Appliquer</button>
-        </div>
-      </div>
-
-      <!-- BOUTIQUE -->
-      <div class="admin-panel-section" id="admin-boutique">
-        <div class="admin-card">
-          <div class="admin-card-title">🛒 État de la boutique</div>
-          <div class="toggle-switch">
-            <button class="admin-btn" id="btn-toggle-boutique" onclick="toggleBoutique()">Activer / Désactiver la boutique</button>
-            <span id="boutique-status-label" style="font-size:0.9rem;font-weight:600"></span>
-          </div>
-          <p style="color:var(--text-muted);font-size:0.85rem;margin-top:1rem">Quand la boutique est désactivée, tous les boutons affichent "🔒 Indisponible" et les achats sont bloqués.</p>
-        </div>
-      </div>
-
-      <!-- PROMOS -->
-      <div class="admin-panel-section" id="admin-promos">
-        <div class="admin-card">
-          <div class="admin-card-title">🏷️ Créer une promotion</div>
-          <select class="admin-select" id="promo-pack">
-            <option value="">Choisir un pack</option>
-            <option value="pack100">Pack Starter (100 CR)</option>
-            <option value="pack200">Pack Regular (200 CR)</option>
-            <option value="pack500">Pack Premium (500 CR)</option>
-            <option value="pack1000">Pack Elite (1000 CR)</option>
-          </select>
-          <div class="admin-row">
-            <input class="admin-input" id="promo-pct" type="number" min="0" max="90" placeholder="Réduction % (ex: 20)">
-            <input class="admin-input" id="promo-bonus" type="number" min="0" placeholder="Crédits bonus (ex: 100)">
-          </div>
-          <button class="admin-btn" onclick="addPromo()">Appliquer la promo</button>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">📋 Promos actives</div>
-          <div id="admin-promos-list"></div>
-        </div>
-      </div>
-
-      <!-- PRIORITES -->
-      <div class="admin-panel-section" id="admin-priorites">
-        <div class="admin-card">
-          <div class="admin-card-title">➕ Ajouter une priorité</div>
-          <div class="admin-row">
-            <input class="admin-input" id="prio-psn" placeholder="PSN / Gamertag">
-            <input class="admin-input" id="prio-duree" type="number" min="1" max="31" placeholder="Durée (jours)">
-          </div>
-          <button class="admin-btn" onclick="adminAddPrio()">Ajouter</button>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">🎯 Priorités actives</div>
-          <div id="admin-prio-list"></div>
-        </div>
-      </div>
-
-      <!-- VIP -->
-      <div class="admin-panel-section" id="admin-vip">
-        <div class="admin-card">
-          <div class="admin-card-title">➕ Ajouter un VIP</div>
-          <div class="admin-row">
-            <input class="admin-input" id="vip-psn" placeholder="PSN / Gamertag">
-            <select class="admin-select" id="vip-type">
-              <option value="premium">⭐ VIP Premium</option>
-              <option value="standard">🎖️ VIP Standard</option>
-            </select>
-          </div>
-          <button class="admin-btn" onclick="adminAddVip()">Ajouter</button>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">📋 VIP actuels</div>
-          <div id="admin-vip-list"></div>
-        </div>
-      </div>
-
-      <!-- PVP -->
-      <div class="admin-panel-section" id="admin-pvp">
-        <div class="admin-card">
-          <div class="admin-card-title">➕ Ajouter / Modifier un joueur PvP</div>
-          <div class="admin-row">
-            <input class="admin-input" id="pvp-name" placeholder="Pseudo">
-            <input class="admin-input" id="pvp-kills" type="number" min="0" placeholder="Kills">
-            <input class="admin-input" id="pvp-deaths" type="number" min="0" placeholder="Morts">
-          </div>
-          <button class="admin-btn" onclick="adminAddPvp()">Ajouter / Mettre à jour</button>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">🏆 Classement actuel</div>
-          <div id="admin-pvp-list"></div>
-        </div>
-      </div>
-
-      <!-- COMMENTAIRES -->
-      <div class="admin-panel-section" id="admin-commentaires">
-        <div class="admin-card">
-          <div class="admin-card-title">💬 Modération des commentaires</div>
-          <div id="admin-comments-list"></div>
-        </div>
-      </div>
-
-      <!-- GALERIE -->
-      <div class="admin-panel-section" id="admin-galerie">
-        <div class="admin-card">
-          <div class="admin-card-title">➕ Ajouter une photo</div>
-          <input class="admin-input" id="gallery-url" placeholder="URL de l'image">
-          <button class="admin-btn" onclick="adminAddGallery()">Ajouter</button>
-        </div>
-        <div class="admin-card">
-          <div class="admin-card-title">📸 Photos actuelles</div>
-          <div id="admin-gallery-list"></div>
-        </div>
-      </div>
-
-      <!-- OUVERTURE -->
-      <div class="admin-panel-section" id="admin-ouverture">
-        <div class="admin-card">
-          <div class="admin-card-title">📅 Date d'ouverture du serveur</div>
-          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem">Définit la date d'ouverture officielle affichée sur le site avec un compte à rebours.</p>
-          <input class="admin-input" id="ouverture-date" type="datetime-local">
-          <div style="display:flex;gap:0.75rem;margin-top:0.25rem">
-            <button class="admin-btn" onclick="adminSetOuverture()">💾 Enregistrer</button>
-            <button class="admin-btn red" onclick="adminDeleteOuverture()">🗑️ Supprimer</button>
-          </div>
-          <div id="ouverture-preview" style="margin-top:1rem;font-size:0.9rem;color:var(--text-muted)"></div>
-        </div>
-      </div>
+      </div>      </div>
 
     </div>
   </div>
@@ -3373,4 +1404,91 @@ document.addEventListener('DOMContentLoaded', init);
 })();
 </script>
 </body>
-</html>
+</html// ===== MAPS =====
+var MAPS_IDS = ['nasdara','chernarus','livonia','sakhal'];
+
+function getMaps() {
+  var saved = ls.get('maps');
+  if (saved && typeof saved === 'object') return saved;
+  return { nasdara:{active:false,date:''}, chernarus:{active:false,date:''}, livonia:{active:false,date:''}, sakhal:{active:false,date:''} };
+}
+
+function saveMaps(maps) {
+  ls.set('maps', maps);
+}
+
+function adminToggleMap(id) {
+  var maps = getMaps();
+  var wasActive = maps[id] && maps[id].active;
+  // Désactiver toutes les maps
+  MAPS_IDS.forEach(function(mid) { if (maps[mid]) maps[mid].active = false; });
+  // Si elle était inactive, l'activer
+  if (!wasActive) maps[id].active = true;
+  saveMaps(maps);
+  renderMapsPublic();
+  renderAdminMaps();
+}
+
+function adminSetMapDate(id) {
+  var input = document.getElementById('mapdate-admin-' + id);
+  if (!input) return;
+  var date = input.value.trim();
+  var maps = getMaps();
+  if (!maps[id]) maps[id] = {active:false, date:''};
+  maps[id].date = date;
+  saveMaps(maps);
+  renderMapsPublic();
+  alert('Date enregistrée pour ' + id.toUpperCase() + ' : ' + (date || 'effacée'));
+}
+
+function renderMapsPublic() {
+  var maps = getMaps();
+  var badge = document.getElementById('map-badge-global');
+  var activeId = null;
+  MAPS_IDS.forEach(function(id) { if (maps[id] && maps[id].active) activeId = id; });
+  var names = {nasdara:'NASDARA', chernarus:'CHERNARUS', livonia:'LIVONIA', sakhal:'SAKHAL'};
+  if (badge) badge.textContent = activeId ? ('🟢 ' + names[activeId] + ' — ACTIF') : '🗺️ Map en attente';
+
+  MAPS_IDS.forEach(function(id) {
+    var row = document.getElementById('maprow-' + id);
+    var badgeEl = document.getElementById('mapbadge-' + id);
+    var dateEl = document.getElementById('mapdate-' + id);
+    var m = maps[id] || {active:false, date:''};
+    var dateText = m.date ? ('Date de sortie : ' + m.date) : 'Date de sortie : non définie';
+    if (dateEl) dateEl.textContent = dateText;
+    if (!row) return;
+    if (m.active) {
+      row.style.opacity = '1';
+      row.style.borderLeftColor = '#27ae60';
+      row.style.borderColor = 'rgba(39,174,96,0.4)';
+      if (badgeEl) { badgeEl.textContent = '✅ ACTIF'; badgeEl.style.background = 'rgba(39,174,96,0.15)'; badgeEl.style.color = '#27ae60'; badgeEl.style.border = '1px solid rgba(39,174,96,0.4)'; }
+    } else {
+      row.style.opacity = id === 'nasdara' ? '1' : '0.5';
+      if (id === 'nasdara') {
+        row.style.borderLeftColor = '#d4ac0d';
+        row.style.borderColor = 'rgba(192,57,43,0.3)';
+        if (badgeEl) { badgeEl.textContent = '🔧 EN DEV'; badgeEl.style.background = 'rgba(212,172,13,0.15)'; badgeEl.style.color = '#d4ac0d'; badgeEl.style.border = '1px solid rgba(212,172,13,0.4)'; }
+      } else {
+        row.style.borderLeftColor = '#444';
+        row.style.borderColor = 'rgba(255,255,255,0.06)';
+        if (badgeEl) { badgeEl.textContent = '🔒 INDISPO'; badgeEl.style.background = 'rgba(136,136,136,0.1)'; badgeEl.style.color = '#666'; badgeEl.style.border = '1px solid rgba(136,136,136,0.2)'; }
+      }
+    }
+  });
+}
+
+function renderAdminMaps() {
+  var maps = getMaps();
+  MAPS_IDS.forEach(function(id) {
+    var btn = document.getElementById('mapbtn-admin-' + id);
+    var inp = document.getElementById('mapdate-admin-' + id);
+    var m = maps[id] || {active:false, date:''};
+    if (btn) {
+      btn.textContent = m.active ? 'Désactiver' : 'Activer';
+      btn.className = m.active ? 'admin-btn red' : 'admin-btn';
+      btn.style.padding = '4px 14px';
+      btn.style.fontSize = '0.75rem';
+    }
+    if (inp && m.date) inp.value = m.date;
+  });
+}>
