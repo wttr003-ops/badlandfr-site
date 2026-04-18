@@ -502,9 +502,9 @@ footer span{color:var(--red)}
   <div class="hero-grid"></div>
   <canvas id="particles-canvas"></canvas>
   <div class="hero-content fade-up">
-    <div class="hero-badge">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <h1 class="hero-title">BADLAND<span>FR</span></h1>
     <p class="hero-sub">Survie · Combat · Construction · Communauté</p>
+    <div class="hero-badge" style="margin-bottom:0;margin-top:0">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <div class="hero-btns">
       <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Boutique</button>
       <button class="btn-secondary" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})">Découvrir</button>
@@ -602,36 +602,35 @@ footer span{color:var(--red)}
 </section>
 
 <!-- ===== MAP ===== -->
-<section id="map" style="background:#111111">
-  <div class="container">
-    <div class="section-title">LA <span>MAP</span></div>
-    <div class="divider"></div>
-    <div style="background:#181818;border:1px solid rgba(192,57,43,0.3);padding:3rem;text-align:center">
-      <div style="display:inline-block;background:#c0392b;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;margin-bottom:1rem" id="map-badge-global">🗺️ Map en attente</div>
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:0.75rem;color:#fff">NASDARA / BADLANDS <span style="color:#c0392b">DLC 2026</span></h3>
-      <p style="color:#888;max-width:520px;margin:0 auto 2rem;line-height:1.7;font-size:0.95rem">La nouvelle map exclusive Badland FR arrive en 2026. En attendant, voici les maps disponibles.</p>
+<section id="map" style="background:#111111;padding:5rem 2rem">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;margin-bottom:0.5rem">LA <span style="color:#c0392b">MAP</span></div>
+    <div style="width:60px;height:3px;background:#c0392b;margin:1rem 0 3rem"></div>
+    <div style="background:#181818;border:1px solid rgba(192,57,43,0.3);padding:3rem;text-align:center;border-radius:0">
+      <div style="display:inline-block;background:#c0392b;color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;margin-bottom:1.25rem" id="map-badge-global">🗺️ Map en attente</div>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:0.75rem;color:#ffffff">NASDARA / BADLANDS <span style="color:#c0392b">DLC 2026</span></h3>
+      <p style="color:#888888;max-width:520px;margin:0 auto 2.5rem;line-height:1.7;font-size:0.95rem;font-family:'Rajdhani',sans-serif">La nouvelle map exclusive Badland FR arrive en 2026. En attendant, voici les maps disponibles.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;align-items:stretch">
 
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" id="maps-grid">
-
-        <div id="mapcard-nasdara" style="background:#0a0a0a;border:1px solid rgba(192,57,43,0.4);border-top:3px solid #d4ac0d;padding:1.5rem 2rem;text-align:center;min-width:170px">
-          <div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;color:#d4ac0d;text-transform:uppercase;margin-bottom:8px">⭐ PROCHAINE MAP</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#e8e8e8;letter-spacing:2px">NASDARA</div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:8px;color:#d4ac0d" id="mapstatus-nasdara-label">🔧 En développement</div>
+        <div id="mapcard-nasdara" style="background:#0d0d0d;border:1px solid rgba(192,57,43,0.5);border-top:3px solid #d4ac0d;padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto">
+          <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#d4ac0d;text-transform:uppercase;margin-bottom:10px;font-family:'Rajdhani',sans-serif">⭐ PROCHAINE MAP</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#e8e8e8;letter-spacing:3px">NASDARA</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#d4ac0d;font-family:'Rajdhani',sans-serif" id="mapstatus-nasdara-label">🔧 En développement</div>
         </div>
 
-        <div id="mapcard-chernarus" style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.07);padding:1.5rem 2rem;text-align:center;min-width:170px;opacity:0.5">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#888;letter-spacing:2px">CHERNARUS</div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:8px;color:#888" id="mapstatus-chernarus-label">🔒 Indisponible</div>
+        <div id="mapcard-chernarus" style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto;opacity:0.45">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#777777;letter-spacing:3px">CHERNARUS</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#666666;font-family:'Rajdhani',sans-serif" id="mapstatus-chernarus-label">🔒 Indisponible</div>
         </div>
 
-        <div id="mapcard-livonia" style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.07);padding:1.5rem 2rem;text-align:center;min-width:170px;opacity:0.5">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#888;letter-spacing:2px">LIVONIA</div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:8px;color:#888" id="mapstatus-livonia-label">🔒 Indisponible</div>
+        <div id="mapcard-livonia" style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto;opacity:0.45">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#777777;letter-spacing:3px">LIVONIA</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#666666;font-family:'Rajdhani',sans-serif" id="mapstatus-livonia-label">🔒 Indisponible</div>
         </div>
 
-        <div id="mapcard-sakhal" style="background:#0a0a0a;border:1px solid rgba(255,255,255,0.07);padding:1.5rem 2rem;text-align:center;min-width:170px;opacity:0.5">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#888;letter-spacing:2px">SAKHAL</div>
-          <div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:8px;color:#888" id="mapstatus-sakhal-label">🔒 Indisponible</div>
+        <div id="mapcard-sakhal" style="background:#0d0d0d;border:1px solid rgba(255,255,255,0.08);padding:20px 28px;text-align:center;min-width:165px;flex:0 0 auto;opacity:0.45">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#777777;letter-spacing:3px">SAKHAL</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:10px;color:#666666;font-family:'Rajdhani',sans-serif" id="mapstatus-sakhal-label">🔒 Indisponible</div>
         </div>
 
       </div>
