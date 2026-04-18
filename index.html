@@ -119,6 +119,9 @@ section{padding:5rem 2rem}
 /* ===== MAP ===== */
 #map{background:var(--bg2)}
 .map-container{background:var(--bg3);border:1px solid var(--border-red);padding:3rem;text-align:center}
+.map-card{background:var(--bg);border:1px solid var(--border);padding:1.25rem 2rem;text-align:center;min-width:160px;transition:all .2s}
+.map-card.active{border:1px solid var(--border-red)!important;opacity:1!important}
+.map-card.inactive{opacity:0.5}
 .map-badge{display:inline-block;background:var(--red);color:#fff;font-size:0.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:4px 16px;margin-bottom:1rem}
 
 /* ===== UPDATES ===== */
@@ -1505,7 +1508,14 @@ function saveProfile() {
 var adminUnlocked = false;
 function goAdmin() {
   document.getElementById('profile-menu').classList.remove('open');
+  // Si fondateur ou admin connecté -> accès direct sans mot de passe
   if (adminUnlocked) { openAdminPanel(); return; }
+  var user = ls.get('current_user');
+  if (user && (user.isAdmin || user.grade === 'Fondateur' || user.grade === 'Admin')) {
+    adminUnlocked = true;
+    openAdminPanel();
+    return;
+  }
   document.getElementById('admin-pw-modal').classList.add('open');
 }
 function closeAdminPw() { document.getElementById('admin-pw-modal').classList.remove('open'); }
