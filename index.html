@@ -1276,8 +1276,36 @@ footer span{color:var(--red)}
       <div class="admin-panel-section" id="admin-maps">
         <div class="admin-card">
           <div class="admin-card-title">🗺️ Gestion des Maps</div>
-          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.25rem">Active ou désactive chaque map. Le statut s'affiche en temps réel sur le site.</p>
-          <div id="admin-maps-list"></div>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.25rem">Active ou désactive chaque map. Le statut s'affiche en temps réel sur le site public.</p>
+          <table class="admin-table" id="admin-maps-list">
+            <thead><tr><th>Map</th><th>Description</th><th>Statut</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr id="maprow-nasdara">
+                <td style="font-weight:700">NASDARA / BADLANDS <span style="color:var(--gold);font-size:0.7rem">⭐ DLC 2026</span></td>
+                <td style="color:var(--text-muted)">Prochaine map exclusive</td>
+                <td><span class="dash-badge grey" id="mapstatus-nasdara">🔒 Inactif</span></td>
+                <td><button class="admin-btn" id="mapbtn-nasdara" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(0)">Activer</button></td>
+              </tr>
+              <tr id="maprow-chernarus">
+                <td style="font-weight:700">CHERNARUS</td>
+                <td style="color:var(--text-muted)">Map classique</td>
+                <td><span class="dash-badge grey" id="mapstatus-chernarus">🔒 Inactif</span></td>
+                <td><button class="admin-btn" id="mapbtn-chernarus" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(1)">Activer</button></td>
+              </tr>
+              <tr id="maprow-livonia">
+                <td style="font-weight:700">LIVONIA</td>
+                <td style="color:var(--text-muted)">DLC Livonia</td>
+                <td><span class="dash-badge grey" id="mapstatus-livonia">🔒 Inactif</span></td>
+                <td><button class="admin-btn" id="mapbtn-livonia" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(2)">Activer</button></td>
+              </tr>
+              <tr id="maprow-sakhal">
+                <td style="font-weight:700">SAKHAL</td>
+                <td style="color:var(--text-muted)">DLC Sakhal</td>
+                <td><span class="dash-badge grey" id="mapstatus-sakhal">🔒 Inactif</span></td>
+                <td><button class="admin-btn" id="mapbtn-sakhal" style="padding:5px 14px;font-size:0.75rem" onclick="toggleMap(3)">Activer</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -2999,24 +3027,23 @@ function renderMapsPublic() {
 
 function renderAdminMaps() {
   var maps = getMaps();
-  var el = document.getElementById("admin-maps-list");
-  if (!el) return;
-  var rows = "";
-  for (var i = 0; i < maps.length; i++) {
-    var m = maps[i];
-    var featuredBadge = m.featured ? ' <span style="color:var(--gold);font-size:0.7rem">⭐ DLC</span>' : "";
-    var badgeClass = m.active ? "green" : "grey";
-    var badgeText = m.active ? "✅ ACTIF" : "🔒 Inactif";
-    var btnClass = m.active ? "admin-btn red" : "admin-btn";
-    var btnText = m.active ? "Désactiver" : "Activer";
-    rows += "<tr>";
-    rows += "<td style='font-weight:700'>" + escHtml(m.name) + featuredBadge + "</td>";
-    rows += "<td style='color:var(--text-muted)'>" + escHtml(m.label) + "</td>";
-    rows += "<td><span class='dash-badge " + badgeClass + "'>" + badgeText + "</span></td>";
-    rows += "<td><button class='" + btnClass + "' style='padding:5px 14px;font-size:0.75rem' onclick='toggleMap(" + i + ")'>" + btnText + "</button></td>";
-    rows += "</tr>";
+  var ids = ["nasdara","chernarus","livonia","sakhal"];
+  for (var i = 0; i < ids.length; i++) {
+    var id = ids[i];
+    var active = maps[i] ? maps[i].active : false;
+    var statusEl = document.getElementById("mapstatus-" + id);
+    var btnEl = document.getElementById("mapbtn-" + id);
+    if (statusEl) {
+      statusEl.textContent = active ? "✅ ACTIF" : "🔒 Inactif";
+      statusEl.className = "dash-badge " + (active ? "green" : "grey");
+    }
+    if (btnEl) {
+      btnEl.textContent = active ? "Désactiver" : "Activer";
+      btnEl.className = active ? "admin-btn red" : "admin-btn";
+      btnEl.style.padding = "5px 14px";
+      btnEl.style.fontSize = "0.75rem";
+    }
   }
-  el.innerHTML = '<table class="admin-table"><thead><tr><th>Map</th><th>Label</th><th>Statut</th><th>Action</th></tr></thead><tbody>' + rows + '</tbody></table>';
 }
 
 function toggleMap(idx) {
