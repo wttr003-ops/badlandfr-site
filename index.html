@@ -83,6 +83,21 @@ section{padding:5rem 2rem}
 .section-sub{font-size:0.85rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:3rem}
 .divider{width:60px;height:3px;background:var(--red);margin:1rem 0 3rem}
 
+/* ===== COUNTDOWN ===== */
+#countdown-section{margin-top:2.5rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.countdown-label{font-size:0.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);text-align:center;margin-bottom:1.25rem}
+.countdown-label span{color:var(--red)}
+.countdown-wrap{display:flex;gap:1.5rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.countdown-block{text-align:center;min-width:70px}
+.countdown-val{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;line-height:1;color:#fff;background:rgba(192,57,43,0.12);border:1px solid var(--border-red);padding:0.25rem 0.75rem;display:block;position:relative;overflow:hidden}
+.countdown-val::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.03) 0%,transparent 50%)}
+.countdown-unit{font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted);margin-top:0.4rem}
+.countdown-sep{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--red);opacity:0.5;margin-bottom:1.5rem}
+.countdown-open{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;color:var(--green);text-align:center;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+.countdown-date-display{font-size:0.8rem;color:var(--text-muted);text-align:center;margin-top:0.75rem;font-family:'Share Tech Mono',monospace}
+.countdown-hidden{display:none}
+
 /* ===== STATS BAR ===== */
 #statsbar{background:var(--red);padding:0.75rem 2rem}
 .stats-bar-inner{display:flex;gap:2rem;justify-content:center;align-items:center;flex-wrap:wrap}
@@ -495,6 +510,36 @@ footer span{color:var(--red)}
       <div class="hero-stat"><div class="hero-stat-val">50</div><div class="hero-stat-label">Armes T3</div></div>
       <div class="hero-stat"><div class="hero-stat-val">15'</div><div class="hero-stat-label">Corps</div></div>
     </div>
+
+    <!-- COUNTDOWN -->
+    <div id="countdown-section">
+      <div class="countdown-label">⏳ OUVERTURE DU SERVEUR DANS <span id="countdown-target-date"></span></div>
+      <div class="countdown-wrap" id="countdown-running">
+        <div class="countdown-block">
+          <span class="countdown-val" id="cd-days">00</span>
+          <div class="countdown-unit">Jours</div>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-block">
+          <span class="countdown-val" id="cd-hours">00</span>
+          <div class="countdown-unit">Heures</div>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-block">
+          <span class="countdown-val" id="cd-minutes">00</span>
+          <div class="countdown-unit">Minutes</div>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-block">
+          <span class="countdown-val" id="cd-seconds">00</span>
+          <div class="countdown-unit">Secondes</div>
+        </div>
+      </div>
+      <div id="countdown-open" style="display:none">
+        <div class="countdown-open">🟢 SERVEUR OUVERT — CONNECTEZ-VOUS !</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -555,18 +600,10 @@ footer span{color:var(--red)}
     <div class="section-title">LA <span>MAP</span></div>
     <div class="divider"></div>
     <div class="map-container">
-      <div class="map-badge">🗺️ Carte en cours</div>
-      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:1rem">NASDARA / BADLANDS DLC 2026</h3>
-      <p style="color:var(--text-muted);max-width:500px;margin:0 auto 1.5rem;line-height:1.7">La nouvelle map DLC 2026 est en cours de préparation. En attendant, le serveur tourne sur <strong style="color:var(--text)">Chernarus</strong> avec la même configuration de loot optimisée.</p>
-      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-        <div style="background:var(--bg);border:1px solid var(--border-red);padding:1rem 2rem;text-align:center">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--red)">CHERNARUS</div>
-          <div style="font-size:0.75rem;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:1px">✓ Actif maintenant</div>
-        </div>
-        <div style="background:var(--bg);border:1px solid var(--border);padding:1rem 2rem;text-align:center;opacity:0.6">
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--text-muted)">NASDARA</div>
-          <div style="font-size:0.75rem;color:var(--text-muted);font-weight:700;text-transform:uppercase;letter-spacing:1px">⏳ DLC 2026</div>
-        </div>
+      <div class="map-badge" id="map-badge-global">🗺️ Map en attente</div>
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:3px;margin-bottom:0.75rem;color:#fff">NASDARA / BADLANDS <span style="color:var(--red)">DLC 2026</span></h3>
+      <p style="color:var(--text-muted);max-width:520px;margin:0 auto 2rem;line-height:1.7;font-size:0.95rem">La nouvelle map exclusive Badland FR arrive en 2026. En attendant, découvrez les maps disponibles ci-dessous.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" id="maps-grid">
       </div>
     </div>
   </div>
@@ -1202,6 +1239,15 @@ footer span{color:var(--red)}
         </div>
       </div>
 
+      <!-- MAPS -->
+      <div class="admin-panel-section" id="admin-maps">
+        <div class="admin-card">
+          <div class="admin-card-title">🗺️ Gestion des Maps</div>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.25rem">Active ou désactive chaque map. Le statut s'affiche en temps réel sur le site.</p>
+          <div id="admin-maps-list"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1254,6 +1300,8 @@ function init() {
   renderPriorities();
   updateAuthUI();
   setInterval(pollUpdates, 2000);
+  initCountdown();
+  renderMapsPublic();
 }
 
 function initAdminAccount() {
@@ -1275,6 +1323,7 @@ function initAdminAccount() {
 }
 
 function pollUpdates() {
+  renderMapsPublic();
   renderStaff();
   renderPriorities();
   renderVIP();
@@ -2364,7 +2413,8 @@ function switchAdmin(section) {
     "admin-pvp": "Classement PvP",
     "admin-commentaires": "Commentaires",
     "admin-galerie": "Galerie",
-    "admin-ouverture": "Ouverture serveur"
+    "admin-ouverture": "Ouverture serveur",
+    "admin-maps": "Maps"
   };
   document.getElementById('admin-title').textContent = titles[section] || section;
   const renders = {
@@ -2380,6 +2430,7 @@ function switchAdmin(section) {
     'admin-commentaires': renderAdminComments,
     'admin-galerie': renderAdminGallery,
     'admin-ouverture': renderAdminOuverture,
+    'admin-maps': renderAdminMaps,
   };
   if (renders[section]) renders[section]();
 }
@@ -2738,13 +2789,170 @@ function renderAdminOuverture() {
     if (diff > 0) {
       const days = Math.floor(diff/86400000);
       const hours = Math.floor((diff%86400000)/3600000);
-      el.innerHTML = `<span style="color:var(--gold)">⏳ Ouverture dans ${days}j ${hours}h — ${d.toLocaleDateString('fr-FR')} à ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</span>`;
+      el.innerHTML = `<span style="color:var(--gold)">⏳ Ouverture dans ${days}j ${hours}h — ${d.toLocaleDateString("fr-FR")} à ${d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"})}</span>`;
     } else {
-      el.innerHTML = `<span style="color:var(--green)">✅ Serveur ouvert depuis le ${d.toLocaleDateString('fr-FR')}</span>`;
+      el.innerHTML = `<span style="color:var(--green)">✅ Serveur ouvert depuis le ${d.toLocaleDateString("fr-FR")}</span>`;
     }
   } else {
-    el.innerHTML = '<span style="color:var(--text-muted)">Aucune date définie</span>';
+    el.innerHTML = '<span style="color:var(--text-muted)">Aucune date non definie</span>';
   }
+  // Mettre à jour le countdown sur la page principale
+  initCountdown();
+  renderMapsPublic();
+}
+
+// ===== COUNTDOWN =====
+let countdownInterval = null;
+
+function initCountdown() {
+  const date = ls.get("opening_date");
+  const section = document.getElementById("countdown-section");
+  if (!section) return;
+  section.classList.remove("countdown-hidden");
+
+  if (!date) {
+    // Afficher 00:00:00:00 si pas de date définie
+    const dateEl = document.getElementById("countdown-target-date");
+    if (dateEl) dateEl.textContent = "date non définie";
+    ["cd-days","cd-hours","cd-minutes","cd-seconds"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = "00";
+    });
+    return;
+  }
+
+  const target = new Date(date);
+  const dateEl = document.getElementById("countdown-target-date");
+  if (dateEl) {
+    dateEl.textContent = target.toLocaleDateString("fr-FR") + " à " + target.toLocaleTimeString("fr-FR", {hour:"2-digit", minute:"2-digit"});
+  }
+  if (countdownInterval) clearInterval(countdownInterval);
+  tickCountdown(target);
+  countdownInterval = setInterval(() => tickCountdown(target), 1000);
+}
+
+function tickCountdown(target) {
+  const now = new Date();
+  const diff = target - now;
+  const running = document.getElementById("countdown-running");
+  const openMsg = document.getElementById("countdown-open");
+  const section = document.getElementById("countdown-section");
+
+  if (diff <= 0) {
+    // Serveur ouvert !
+    if (running) running.style.display = "none";
+    if (openMsg) openMsg.style.display = "block";
+    if (section) section.style.borderColor = "rgba(39,174,96,0.3)";
+    if (countdownInterval) clearInterval(countdownInterval);
+    return;
+  }
+
+  if (running) running.style.display = "flex";
+  if (openMsg) openMsg.style.display = "none";
+
+  const days    = Math.floor(diff / 86400000);
+  const hours   = Math.floor((diff % 86400000) / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+
+  const pad = n => String(n).padStart(2, "0");
+  const cdDays = document.getElementById("cd-days");
+  const cdHours = document.getElementById("cd-hours");
+  const cdMin = document.getElementById("cd-minutes");
+  const cdSec = document.getElementById("cd-seconds");
+
+  if (cdDays) animateCountdown(cdDays, pad(days));
+  if (cdHours) animateCountdown(cdHours, pad(hours));
+  if (cdMin) animateCountdown(cdMin, pad(minutes));
+  if (cdSec) animateCountdown(cdSec, pad(seconds));
+}
+
+function animateCountdown(el, newVal) {
+  if (el.textContent !== newVal) {
+    el.style.transform = "translateY(-4px)";
+    el.style.opacity = "0.5";
+    setTimeout(() => {
+      el.textContent = newVal;
+      el.style.transform = "translateY(0)";
+      el.style.opacity = "1";
+    }, 150);
+  }
+}
+
+// ===== MAPS =====
+const MAPS_DEFAULT = [
+  { id:"nasdara",   name:"NASDARA / BADLANDS", label:"DLC 2026",  active:false, featured:true  },
+  { id:"chernarus", name:"CHERNARUS",           label:"Classic",   active:false, featured:false },
+  { id:"livonia",   name:"LIVONIA",             label:"DLC",       active:false, featured:false },
+  { id:"sakhal",    name:"SAKHAL",              label:"DLC",       active:false, featured:false },
+];
+
+function getMaps() {
+  const saved = ls.get("maps");
+  if (Array.isArray(saved) && saved.length > 0) return saved;
+  return MAPS_DEFAULT;
+}
+
+function renderMapsPublic() {
+  var maps = getMaps();
+  var el = document.getElementById("maps-grid");
+  var badge = document.getElementById("map-badge-global");
+  if (!el) return;
+  var activeMap = maps.find(function(m){ return m.active; });
+  if (badge) badge.textContent = activeMap ? ("🟢 " + activeMap.name) : "🗺️ Map en attente";
+  var html = "";
+  for (var i = 0; i < maps.length; i++) {
+    var m = maps[i];
+    var borderColor = m.active ? "var(--border-red)" : "var(--border)";
+    var extraStyle = !m.active ? "opacity:0.45;filter:grayscale(0.5);" : "";
+    var topBorder = m.featured ? "border-top:3px solid var(--gold);" : "";
+    var nameColor = m.active ? "#fff" : "var(--text-muted)";
+    var statusColor = m.active ? "var(--green)" : "var(--text-muted)";
+    var statusText = m.active ? "✅ ACTIF" : ("🔒 " + escHtml(m.label));
+    var featuredHtml = m.featured ? '<div style="font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px">⭐ PROCHAINE MAP</div>' : "";
+    html += '<div style="background:var(--bg);border:1px solid ' + borderColor + ';padding:1rem 2rem;text-align:center;' + extraStyle + topBorder + '">';
+    html += featuredHtml;
+    html += '<div style="font-family:Bebas Neue,sans-serif;font-size:1.4rem;color:' + nameColor + '">' + escHtml(m.name) + '</div>';
+    html += '<div style="font-size:0.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:4px;color:' + statusColor + '">' + statusText + '</div>';
+    html += '</div>';
+  }
+  el.innerHTML = html;
+}
+
+function renderAdminMaps() {
+  var maps = getMaps();
+  var el = document.getElementById("admin-maps-list");
+  if (!el) return;
+  var rows = "";
+  for (var i = 0; i < maps.length; i++) {
+    var m = maps[i];
+    var featuredBadge = m.featured ? ' <span style="color:var(--gold);font-size:0.7rem">⭐ DLC</span>' : "";
+    var badgeClass = m.active ? "green" : "grey";
+    var badgeText = m.active ? "✅ ACTIF" : "🔒 Inactif";
+    var btnClass = m.active ? "admin-btn red" : "admin-btn";
+    var btnText = m.active ? "Désactiver" : "Activer";
+    rows += "<tr>";
+    rows += "<td style='font-weight:700'>" + escHtml(m.name) + featuredBadge + "</td>";
+    rows += "<td style='color:var(--text-muted)'>" + escHtml(m.label) + "</td>";
+    rows += "<td><span class='dash-badge " + badgeClass + "'>" + badgeText + "</span></td>";
+    rows += "<td><button class='" + btnClass + "' style='padding:5px 14px;font-size:0.75rem' onclick='toggleMap(" + i + ")'>" + btnText + "</button></td>";
+    rows += "</tr>";
+  }
+  el.innerHTML = '<table class="admin-table"><thead><tr><th>Map</th><th>Label</th><th>Statut</th><th>Action</th></tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+function toggleMap(idx) {
+  const maps = getMaps();
+  // Désactiver toutes les autres si on active une map
+  if (!maps[idx].active) {
+    maps.forEach(m => m.active = false);
+    maps[idx].active = true;
+  } else {
+    maps[idx].active = false;
+  }
+  ls.set("maps", maps);
+  renderAdminMaps();
+  renderMapsPublic();
 }
 
 // ===== RESET =====
@@ -2802,6 +3010,7 @@ document.addEventListener('DOMContentLoaded', init);
     <div class="admin-nav-item" onclick="switchAdmin('admin-commentaires')">💬 Commentaires</div>
     <div class="admin-nav-item" onclick="switchAdmin('admin-galerie')">📸 Galerie</div>
     <div class="admin-nav-item" onclick="switchAdmin('admin-ouverture')">📅 Ouverture serveur</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-maps')">🗺️ Maps</div>
   </div>
   <div class="admin-content">
     <div class="admin-topbar">
