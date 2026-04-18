@@ -1651,7 +1651,7 @@ function updateCartUI() {
   var cc = document.getElementById('cart-count');
   if (cc) cc.textContent = count;
   var fl = document.getElementById('cart-float');
-  if (fl) fl.style.display = count>0?'block':'none';
+  if (fl) fl.style.display = count>0?"block":"none";
   var td = document.getElementById('cart-total-display');
   if (td) td.textContent = total.toFixed(2)+'€';
   var il = document.getElementById('cart-items-list');
@@ -1800,20 +1800,20 @@ function renderMapsPublic() {
   var activeId = null;
   MAPS_IDS.forEach(function(id){ if(maps[id]&&maps[id].active) activeId=id; });
   var names={nasdara:'NASDARA',chernarus:'CHERNARUS',livonia:'LIVONIA',sakhal:'SAKHAL'};
-  if (badge) badge.textContent = activeId?('🟢 '+names[activeId]+' — ACTIF'):'🗺️ Map en attente';
+  if (badge) badge.textContent = activeId?("🟢 "+names[activeId]+" — ACTIF"):"🗺️ Map en attente";
   MAPS_IDS.forEach(function(id){
     var row=document.getElementById('maprow-'+id);
     var badgeEl=document.getElementById('mapbadge-'+id);
     var dateEl=document.getElementById('mapdate-'+id);
     var m=maps[id]||{active:false,date:''};
-    if (dateEl) dateEl.textContent = m.date?('Date de sortie : '+m.date):'Date de sortie : non définie';
+    if (dateEl) dateEl.textContent = m.date?("Date de sortie : "+m.date):"Date de sortie : non définie";
     if (!row) return;
     if (m.active) {
       row.style.opacity='1'; row.style.borderLeftColor='#27ae60'; row.style.borderColor='rgba(39,174,96,0.4)';
       if (badgeEl){ badgeEl.textContent='✅ ACTIF'; badgeEl.style.background='rgba(39,174,96,0.15)'; badgeEl.style.color='#27ae60'; badgeEl.style.border='1px solid rgba(39,174,96,0.4)'; }
     } else {
-      row.style.opacity=id==='nasdara'?'1':'0.5';
-      if (id==='nasdara'){ row.style.borderLeftColor='#d4ac0d'; row.style.borderColor='rgba(192,57,43,0.3)'; if(badgeEl){badgeEl.textContent='🔧 EN DEV';badgeEl.style.background='rgba(212,172,13,0.15)';badgeEl.style.color='#d4ac0d';badgeEl.style.border='1px solid rgba(212,172,13,0.4)';} }
+      row.style.opacity=id==="nasdara"?"1":"0.5";
+      if (id==="nasdara"){ row.style.borderLeftColor='#d4ac0d'; row.style.borderColor='rgba(192,57,43,0.3)'; if(badgeEl){badgeEl.textContent='🔧 EN DEV';badgeEl.style.background='rgba(212,172,13,0.15)';badgeEl.style.color='#d4ac0d';badgeEl.style.border='1px solid rgba(212,172,13,0.4)';} }
       else { row.style.borderLeftColor='#444'; row.style.borderColor='rgba(255,255,255,0.06)'; if(badgeEl){badgeEl.textContent='🔒 INDISPO';badgeEl.style.background='rgba(136,136,136,0.1)';badgeEl.style.color='#666';badgeEl.style.border='1px solid rgba(136,136,136,0.2)';} }
     }
   });
@@ -1822,7 +1822,7 @@ function renderAdminMaps() {
   MAPS_IDS.forEach(function(id){
     var maps=getMaps(); var btn=document.getElementById('mapbtn-admin-'+id); var inp=document.getElementById('mapdate-admin-'+id);
     var m=maps[id]||{active:false,date:''};
-    if(btn){ btn.textContent=m.active?'Désactiver':'Activer'; btn.className=m.active?'admin-btn red':'admin-btn'; btn.style.padding='4px 14px'; btn.style.fontSize='0.75rem'; }
+    if(btn){ btn.textContent=m.active?"Désactiver":"Activer"; btn.className=m.active?"admin-btn red":"admin-btn"; btn.style.padding='4px 14px'; btn.style.fontSize='0.75rem'; }
     if(inp&&m.date) inp.value=m.date;
   });
 }
@@ -1881,7 +1881,7 @@ function openDashboard() {
   var isStaff = STAFF_GRADES.includes(currentUser.grade) || currentUser.isAdmin;
   ['section-staff','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-planning','nav-staff-rapports','nav-staff-journal','nav-staff-equipe'].forEach(function(id){
     var el=document.getElementById(id);
-    if(el) el.style.display=isStaff?(id==='section-staff'?'block':'flex'):'none';
+    if(el) el.style.display=isStaff?(id==="section-staff"?"block":"flex"):"none";
   });
   var userInfo=document.getElementById('dash-user-info');
   if(userInfo) userInfo.textContent=currentUser.username+' — '+(currentUser.grade||'Joueur');
@@ -1963,7 +1963,7 @@ function renderDashProfil() {
 function renderDashAchats() {
   var el=document.getElementById('achats-content'); if(!el) return;
   var orders=(ls.get('orders')||[]).filter(function(o){ return o.user===currentUser.username; });
-  el.innerHTML=orders.length>0?'<table class="dash-table"><thead><tr><th>Date</th><th>Articles</th><th>Total</th><th>Statut</th></tr></thead><tbody>'+orders.slice().reverse().map(function(o){ return '<tr><td>'+escHtml(o.date)+'</td><td>'+o.items.map(function(i){ return escHtml(i.name); }).join(', ')+'</td><td>'+o.total+'€</td><td><span class="dash-badge '+(o.status==='confirmed'?'green':'gold')+'">'+(o.status==='confirmed'?'Confirmé':'En attente')+'</span></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun achat</div>';
+  el.innerHTML=orders.length>0?'<table class="dash-table"><thead><tr><th>Date</th><th>Articles</th><th>Total</th><th>Statut</th></tr></thead><tbody>'+orders.slice().reverse().map(function(o){ return '<tr><td>'+escHtml(o.date)+'</td><td>'+o.items.map(function(i){ return escHtml(i.name); }).join(', ')+'</td><td>'+o.total+'€</td><td><span class="dash-badge '+(o.status==="confirmed"?"green":"gold")+'">'+(o.status==="confirmed"?"Confirmé":"En attente")+'</span></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun achat</div>';
 }
 function renderDashMessages() {
   var msgs=ls.get('messages')||[];
@@ -1972,7 +1972,7 @@ function renderDashMessages() {
   allMsgs.forEach(function(m){ if(m.to_user===currentUser.username) m.read_user=true; });
   ls.set('messages',allMsgs);
   var el=document.getElementById('msg-bubbles-joueur'); if(!el) return;
-  el.innerHTML=myMsgs.length>0?myMsgs.map(function(m){ var sent=m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?'sent':'received')+'">'+((!sent)?'<div style="font-size:0.7rem;color:var(--red);margin-bottom:3px">Staff — '+escHtml(m.from_user)+'</div>':'')+escHtml(m.text)+'<div class="msg-bubble-meta">'+(m.time||'')+'</div></div>'; }).join(''):'<div style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Pas encore de messages.</div>';
+  el.innerHTML=myMsgs.length>0?myMsgs.map(function(m){ var sent=m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?"sent":"received")+'">'+((!sent)?'<div style="font-size:0.7rem;color:var(--red);margin-bottom:3px">Staff — '+escHtml(m.from_user)+'</div>':'')+escHtml(m.text)+'<div class="msg-bubble-meta">'+(m.time||'')+'</div></div>'; }).join(''):'<div style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Pas encore de messages.</div>';
   el.scrollTop=el.scrollHeight;
 }
 function sendMessageJoueur() {
@@ -1985,7 +1985,7 @@ function sendMessageJoueur() {
 function renderDashSignalement() {
   var sigs=(ls.get('signalements')||[]).filter(function(s){ return s.auteur===currentUser.username; });
   var el=document.getElementById('mes-signalements'); if(!el) return;
-  el.innerHTML=sigs.length>0?'<table class="dash-table"><thead><tr><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th></tr></thead><tbody>'+sigs.map(function(s){ return '<tr><td>'+escHtml(s.joueur)+'</td><td>'+escHtml(s.type)+'</td><td>'+escHtml(s.date)+'</td><td><span class="dash-badge '+(s.status==='traite'?'green':s.status==='rejete'?'red':'gold')+'">'+(s.status==='traite'?'Traité':s.status==='rejete'?'Rejeté':'En attente')+'</span></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun signalement</div>';
+  el.innerHTML=sigs.length>0?'<table class="dash-table"><thead><tr><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th></tr></thead><tbody>'+sigs.map(function(s){ return '<tr><td>'+escHtml(s.joueur)+'</td><td>'+escHtml(s.type)+'</td><td>'+escHtml(s.date)+'</td><td><span class="dash-badge '+(s.status==="traite"?"green":s.status==="rejete"?"red":"gold")+'">'+(s.status==="traite"?"Traité":s.status==="rejete"?"Rejeté":"En attente")+'</span></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun signalement</div>';
 }
 function sendSignalement() {
   var joueur=document.getElementById('sig-joueur').value.trim();
@@ -2009,9 +2009,9 @@ function renderJournalPublic() {
   el.innerHTML=journal.length>0?journal.slice().reverse().map(renderJournalCard).join(''):'<div class="dash-empty">Aucune annonce</div>';
 }
 function renderJournalCard(j) {
-  var tc=j.type==='important'?'important':j.type==='event'?'event':'info';
-  var tb=j.type==='important'?'🔴 Important':j.type==='event'?'🎉 Événement':'ℹ️ Info';
-  return '<div class="journal-card '+tc+'"><div class="journal-title">'+escHtml(j.titre)+'</div><div class="journal-body">'+escHtml(j.contenu)+'</div><div class="journal-meta"><span class="dash-badge '+(tc==='important'?'red':tc==='event'?'gold':'blue')+'">'+tb+'</span><span>'+escHtml(j.auteur||'Staff')+'</span><span>'+escHtml(j.date||'')+'</span></div></div>';
+  var tc=j.type==="important"?"important":j.type==="event"?"event":"info";
+  var tb=j.type==="important"?"🔴 Important":j.type==="event"?"🎉 Événement":"ℹ️ Info";
+  return '<div class="journal-card '+tc+'"><div class="journal-title">'+escHtml(j.titre)+'</div><div class="journal-body">'+escHtml(j.contenu)+'</div><div class="journal-meta"><span class="dash-badge '+(tc==="important"?"red":tc==="event"?"gold":"blue")+'">'+tb+'</span><span>'+escHtml(j.auteur||'Staff')+'</span><span>'+escHtml(j.date||'')+'</span></div></div>';
 }
 
 // --- STAFF PANELS ---
@@ -2034,9 +2034,25 @@ function renderStaffJoueurs() {
   el.innerHTML=filtered.length>0?'<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Plateforme</th><th>Crédits</th><th>Inscription</th></tr></thead><tbody>'+filtered.map(function(a){ return '<tr><td style="font-weight:600">'+escHtml(a.username)+'</td><td><span class="grade-badge '+getGradeClass(a.grade)+'">'+escHtml(a.grade||'Joueur')+'</span></td><td>'+escHtml(a.platform||'-')+'</td><td style="color:var(--gold)">'+(a.credits||0)+' CR</td><td>'+escHtml(a.inscription||'-')+'</td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun joueur trouvé</div>';
 }
 function renderStaffSignalements() {
-  var sigs=ls.get('signalements')||[];
-  var el=document.getElementById('staff-signalements-list'); if(!el) return;
-  el.innerHTML=sigs.length>0?'<table class="dash-table"><thead><tr><th>Auteur</th><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th><th>Action</th></tr></thead><tbody>'+sigs.slice().reverse().map(function(s,i){ return '<tr><td>'+escHtml(s.auteur)+'</td><td style="color:var(--red);font-weight:600">'+escHtml(s.joueur)+'</td><td>'+escHtml(s.type)+'</td><td>'+escHtml(s.date)+'</td><td><span class="dash-badge '+(s.status==='traite'?'green':s.status==='rejete'?'red':'gold')+'">'+(s.status==='traite'?'Traité':s.status==='rejete'?'Rejeté':'En attente')+'</span></td><td style="display:flex;gap:0.5rem"><button class="dash-btn" style="padding:4px 10px;font-size:0.7rem" onclick="updateSig('+(sigs.length-1-i)+','traite')">✅</button><button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="updateSig('+(sigs.length-1-i)+','rejete')">✗</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun signalement</div>';
+  var sigs = ls.get("signalements") || [];
+  var el = document.getElementById("staff-signalements-list");
+  if (!el) return;
+  if (!sigs.length) { el.innerHTML = '<div class="dash-empty">Aucun signalement</div>'; return; }
+  var html = '<table class="dash-table"><thead><tr><th>Auteur</th><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th><th>Action</th></tr></thead><tbody>';
+  for (var i = sigs.length - 1; i >= 0; i--) {
+    var s = sigs[i];
+    var bc = s.status === "traite" ? "green" : s.status === "rejete" ? "red" : "gold";
+    var bt = s.status === "traite" ? "Traite" : s.status === "rejete" ? "Rejete" : "En attente";
+    html += "<tr><td>" + escHtml(s.auteur) + "</td>";
+    html += "<td style=\"color:#c0392b;font-weight:600\">" + escHtml(s.joueur) + "</td>";
+    html += "<td>" + escHtml(s.type) + "</td><td>" + escHtml(s.date) + "</td>";
+    html += "<td><span class=\"dash-badge " + bc + "\">" + bt + "</span></td>";
+    html += "<td style=\"display:flex;gap:4px\">";
+    html += "<button class=\"dash-btn\" style=\"padding:4px 8px;font-size:0.7rem\" onclick=\"updateSig(" + i + ",&apos;traite&apos;)\">✅</button>";
+    html += "<button class=\"dash-btn secondary\" style=\"padding:4px 8px;font-size:0.7rem\" onclick=\"updateSig(" + i + ",&apos;rejete&apos;)\">✗</button>";
+    html += "</td></tr>";
+  }
+  el.innerHTML = html + "</tbody></table>";
 }
 function updateSig(idx,status) {
   var sigs=ls.get('signalements')||[];
@@ -2085,15 +2101,36 @@ function removeCasier(idx) {
   var casiers=ls.get('casiers')||[]; casiers.splice(idx,1); ls.set('casiers',casiers); renderCasier();
 }
 function renderStaffMessages() {
-  var msgs=ls.get('messages')||[];
-  msgs.forEach(function(m){ m.read_staff=true; }); ls.set('messages',msgs); checkNotifications();
-  var threads={};
-  msgs.forEach(function(m){ var key=m.from_user==='staff'?m.to_user:m.from_user; if(!threads[key]) threads[key]=[]; threads[key].push(m); });
-  var el=document.getElementById('staff-thread-list'); if(!el) return;
-  var users=Object.keys(threads);
-  el.innerHTML=users.length>0?users.map(function(u){ var last=threads[u][threads[u].length-1]; return '<div class="msg-thread '+(staffMsgThread===u?'active':'')+'" onclick="openStaffThread(''+u+'')"><div class="msg-thread-name">'+escHtml(u)+'</div><div class="msg-thread-preview">'+escHtml((last.text||'').substring(0,50))+'</div></div>'; }).join(''):'<div class="dash-empty">Aucun message joueur</div>';
-  if(staffMsgThread&&threads[staffMsgThread]) renderStaffConversation(threads[staffMsgThread]);
+  var msgs = ls.get("messages") || [];
+  msgs.forEach(function(m){ m.read_staff = true; });
+  ls.set("messages", msgs);
+  checkNotifications();
+  var threads = {};
+  msgs.forEach(function(m) {
+    var key = m.from_user === "staff" ? m.to_user : m.from_user;
+    if (!threads[key]) threads[key] = [];
+    threads[key].push(m);
+  });
+  var el = document.getElementById("staff-thread-list");
+  if (!el) return;
+  var users = Object.keys(threads);
+  if (!users.length) { el.innerHTML = '<div class="dash-empty">Aucun message joueur</div>'; return; }
+  var html = "";
+  users.forEach(function(u) {
+    var last = threads[u][threads[u].length-1];
+    var ac = staffMsgThread === u ? " active" : "";
+    html += '<div class="msg-thread' + ac + '" data-user="' + escAttr(u) + '">';
+    html += '<div class="msg-thread-name">' + escHtml(u) + '</div>';
+    html += '<div class="msg-thread-preview">' + escHtml((last.text||"").substring(0,50)) + '</div>';
+    html += '</div>';
+  });
+  el.innerHTML = html;
+  el.querySelectorAll(".msg-thread").forEach(function(div) {
+    div.addEventListener("click", function() { openStaffThread(this.dataset.user); });
+  });
+  if (staffMsgThread && threads[staffMsgThread]) renderStaffConversation(threads[staffMsgThread]);
 }
+
 function openStaffThread(username) {
   staffMsgThread=username; renderStaffMessages();
   var conv=document.getElementById('staff-msg-conversation'); if(conv) conv.style.display='block';
@@ -2101,7 +2138,7 @@ function openStaffThread(username) {
 }
 function renderStaffConversation(msgs) {
   var el=document.getElementById('staff-msg-bubbles'); if(!el) return;
-  el.innerHTML=msgs.map(function(m){ var sent=m.from_user==='staff'||m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?'sent':'received')+'">'+escHtml(m.text)+'<div class="msg-bubble-meta">'+escHtml(m.from_user)+' — '+(m.time||'')+'</div></div>'; }).join('');
+  el.innerHTML=msgs.map(function(m){ var sent=m.from_user==="staff"||m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?"sent":"received")+'">'+escHtml(m.text)+'<div class="msg-bubble-meta">'+escHtml(m.from_user)+' — '+(m.time||'')+'</div></div>'; }).join('');
   el.scrollTop=el.scrollHeight;
 }
 function sendStaffMessage() {
@@ -2203,7 +2240,7 @@ function addJournal() {
 function renderJournalStaff() {
   var journal=ls.get('journal')||[];
   var el=document.getElementById('journal-staff-list'); if(!el) return;
-  el.innerHTML=journal.length>0?journal.slice().reverse().map(function(j,i){ return '<div class="journal-card '+(j.type==='important'?'important':j.type==='event'?'event':'info')+'"><div style="display:flex;justify-content:space-between;align-items:start"><div class="journal-title">'+escHtml(j.titre)+'</div><button class="dash-btn secondary" style="padding:3px 10px;font-size:0.7rem" onclick="removeJournal('+(journal.length-1-i)+')">✕</button></div><div class="journal-body">'+escHtml(j.contenu)+'</div><div class="journal-meta"><span>'+escHtml(j.auteur)+'</span><span>'+escHtml(j.date)+'</span></div></div>'; }).join(''):'<div class="dash-empty">Aucune annonce</div>';
+  el.innerHTML=journal.length>0?journal.slice().reverse().map(function(j,i){ return '<div class="journal-card '+(j.type==="important"?"important":j.type==="event"?"event":"info")+'"><div style="display:flex;justify-content:space-between;align-items:start"><div class="journal-title">'+escHtml(j.titre)+'</div><button class="dash-btn secondary" style="padding:3px 10px;font-size:0.7rem" onclick="removeJournal('+(journal.length-1-i)+')">✕</button></div><div class="journal-body">'+escHtml(j.contenu)+'</div><div class="journal-meta"><span>'+escHtml(j.auteur)+'</span><span>'+escHtml(j.date)+'</span></div></div>'; }).join(''):'<div class="dash-empty">Aucune annonce</div>';
 }
 function removeJournal(idx) {
   var journal=ls.get('journal')||[]; journal.splice(idx,1); ls.set('journal',journal); renderJournalStaff();
@@ -2212,7 +2249,7 @@ function renderStaffManage() {
   var defaultStaff=[{name:'Arakawa Akihiro',role:'Fondateur',avatar:''}];
   var staff=ls.get('staff')||defaultStaff;
   var el=document.getElementById('staff-manage-list'); if(!el) return;
-  el.innerHTML='<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>'+staff.map(function(s,i){ return '<tr><td style="font-weight:600">'+escHtml(s.name)+'</td><td><span class="grade-badge '+getGradeClass(s.role)+'">'+escHtml(s.role)+'</span></td><td>'+(s.name==='Arakawa Akihiro'?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeStaffMember('+i+')">✕ Retirer</button>')+'</td></tr>'; }).join('')+'</tbody></table>';
+  el.innerHTML='<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>'+staff.map(function(s,i){ return '<tr><td style="font-weight:600">'+escHtml(s.name)+'</td><td><span class="grade-badge '+getGradeClass(s.role)+'">'+escHtml(s.role)+'</span></td><td>'+(s.name==="Arakawa Akihiro"?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeStaffMember('+i+')">✕ Retirer</button>')+'</td></tr>'; }).join('')+'</tbody></table>';
 }
 function addStaffMember() {
   var name=document.getElementById('staff-add-name').value.trim();
@@ -2229,7 +2266,7 @@ function addStaffMember() {
 }
 function removeStaffMember(idx) {
   var staff=ls.get('staff')||[];
-  if(staff[idx]&&staff[idx].name==='Arakawa Akihiro') { alert('Impossible de retirer le Fondateur.'); return; }
+  if(staff[idx]&&staff[idx].name==="Arakawa Akihiro") { alert('Impossible de retirer le Fondateur.'); return; }
   if(!confirm('Retirer '+(staff[idx]&&staff[idx].name||'')+' ?')) return;
   staff.splice(idx,1); ls.set('staff',staff); renderStaffManage(); renderStaff();
 }
@@ -2310,11 +2347,11 @@ function adminAddStaff() {
 function renderAdminStaff() {
   var staff=ls.get('staff')||[{name:'Arakawa Akihiro',role:'Fondateur',avatar:''}];
   var el=document.getElementById('admin-staff-list'); if(!el) return;
-  el.innerHTML='<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>'+staff.map(function(s,i){ return '<tr><td style="font-weight:600">'+escHtml(s.name)+'</td><td><span class="grade-badge '+getGradeClass(s.role)+'">'+escHtml(s.role)+'</span></td><td>'+(s.name==='Arakawa Akihiro'?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveStaff('+i+')">✕</button>')+'</td></tr>'; }).join('')+'</tbody></table>';
+  el.innerHTML='<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>'+staff.map(function(s,i){ return '<tr><td style="font-weight:600">'+escHtml(s.name)+'</td><td><span class="grade-badge '+getGradeClass(s.role)+'">'+escHtml(s.role)+'</span></td><td>'+(s.name==="Arakawa Akihiro"?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveStaff('+i+')">✕</button>')+'</td></tr>'; }).join('')+'</tbody></table>';
 }
 function adminRemoveStaff(idx) {
   var staff=ls.get('staff')||[];
-  if(staff[idx]&&staff[idx].name==='Arakawa Akihiro') { alert('Impossible.'); return; }
+  if(staff[idx]&&staff[idx].name==="Arakawa Akihiro") { alert('Impossible.'); return; }
   if(!confirm('Retirer '+staff[idx].name+' ?')) return;
   staff.splice(idx,1); ls.set('staff',staff); renderAdminStaff(); renderStaff();
 }
@@ -2350,10 +2387,23 @@ function addPromo() {
   ls.set('promos',promos); renderAdminPromos(); renderPacks(); alert('Promotion appliquée !');
 }
 function renderAdminPromos() {
-  var promos=ls.get('promos')||{}; var el=document.getElementById('admin-promos-list'); if(!el) return;
-  var keys=Object.keys(promos); var names={pack100:'Pack Starter',pack200:'Pack Regular',pack500:'Pack Premium',pack1000:'Pack Elite'};
-  el.innerHTML=keys.length>0?'<table class="admin-table"><thead><tr><th>Pack</th><th>Réduction</th><th>Bonus CR</th><th></th></tr></thead><tbody>'+keys.map(function(k){ return '<tr><td>'+(names[k]||k)+'</td><td>'+(promos[k].pct>0?'-'+promos[k].pct+'%':'—')+'</td><td>'+(promos[k].bonus>0?'+'+promos[k].bonus+' CR':'—')+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="removePromo(''+k+'')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucune promotion active</div>';
+  var promos = ls.get("promos") || {};
+  var el = document.getElementById("admin-promos-list");
+  if (!el) return;
+  var keys = Object.keys(promos);
+  var names = {pack100:"Pack Starter",pack200:"Pack Regular",pack500:"Pack Premium",pack1000:"Pack Elite"};
+  if (!keys.length) { el.innerHTML = '<div class="admin-empty">Aucune promotion active</div>'; return; }
+  var html = '<table class="admin-table"><thead><tr><th>Pack</th><th>Réduction</th><th>Bonus CR</th><th></th></tr></thead><tbody>';
+  keys.forEach(function(k) {
+    html += "<tr><td>" + (names[k]||k) + "</td>";
+    html += "<td>" + (promos[k].pct>0?"-"+promos[k].pct+"%":"—") + "</td>";
+    html += "<td>" + (promos[k].bonus>0?"+"+promos[k].bonus+" CR":"—") + "</td>";
+    html += '<td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" data-key="' + escAttr(k) + '" onclick="removePromo(this.dataset.key)">✕</button></td></tr>';
+  });
+  el.innerHTML = html + "</tbody></table>";
 }
+
+
 function removePromo(k) { var promos=ls.get('promos')||{}; delete promos[k]; ls.set('promos',promos); renderAdminPromos(); renderPacks(); }
 function adminAddPrio() {
   var psn=document.getElementById('prio-psn').value.trim(); var duree=parseInt(document.getElementById('prio-duree').value);
@@ -2364,9 +2414,22 @@ function adminAddPrio() {
   renderAdminPrio(); renderPriorities();
 }
 function renderAdminPrio() {
-  var prios=ls.get('priorities')||[]; var el=document.getElementById('admin-prio-list'); if(!el) return;
-  el.innerHTML=prios.length>0?'<table class="admin-table"><thead><tr><th>PSN</th><th>Expire le</th><th>Jours restants</th><th></th></tr></thead><tbody>'+prios.map(function(p,i){ var days=p.date?Math.max(0,Math.floor((new Date(p.date)-new Date())/86400000)):'?'; var exp=p.date?new Date(p.date).toLocaleDateString('fr-FR'):'-'; return '<tr><td style="font-weight:600">'+escHtml(p.psn)+'</td><td>'+exp+'</td><td style="color:var(--gold)">'+days+'j</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePrio('+i+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucune priorité</div>';
+  var prios = ls.get("priorities") || [];
+  var el = document.getElementById("admin-prio-list");
+  if (!el) return;
+  if (!prios.length) { el.innerHTML = '<div class="admin-empty">Aucune priorité</div>'; return; }
+  var html = '<table class="admin-table"><thead><tr><th>PSN</th><th>Expire le</th><th>Jours restants</th><th></th></tr></thead><tbody>';
+  prios.forEach(function(p, i) {
+    var days = p.date ? Math.max(0, Math.floor((new Date(p.date)-new Date())/86400000)) : "?";
+    var exp = p.date ? new Date(p.date).toLocaleDateString("fr-FR") : "-";
+    html += "<tr><td style='font-weight:600'>" + escHtml(p.psn) + "</td><td>" + exp + "</td>";
+    html += "<td style='color:#d4ac0d'>" + days + "j</td>";
+    html += '<td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePrio(' + i + ')">✕</button></td></tr>';
+  });
+  el.innerHTML = html + "</tbody></table>";
 }
+
+
 function adminRemovePrio(idx) { var prios=ls.get('priorities')||[]; prios.splice(idx,1); ls.set('priorities',prios); renderAdminPrio(); renderPriorities(); }
 function adminAddVip() {
   var psn=document.getElementById('vip-psn').value.trim(); var type=document.getElementById('vip-type').value;
@@ -2375,9 +2438,20 @@ function adminAddVip() {
   document.getElementById('vip-psn').value=''; renderAdminVip(); renderVIP();
 }
 function renderAdminVip() {
-  var vips=ls.get('vips')||[]; var el=document.getElementById('admin-vip-list'); if(!el) return;
-  el.innerHTML=vips.length>0?'<table class="admin-table"><thead><tr><th>PSN</th><th>Type</th><th></th></tr></thead><tbody>'+vips.map(function(v,i){ return '<tr><td style="font-weight:600">'+escHtml(v.psn)+'</td><td>'+(v.type==='premium'?'⭐ Premium':'🎖️ Standard')+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveVip('+i+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucun VIP</div>';
+  var vips = ls.get("vips") || [];
+  var el = document.getElementById("admin-vip-list");
+  if (!el) return;
+  if (!vips.length) { el.innerHTML = '<div class="admin-empty">Aucun VIP</div>'; return; }
+  var html = '<table class="admin-table"><thead><tr><th>PSN</th><th>Type</th><th></th></tr></thead><tbody>';
+  vips.forEach(function(v, i) {
+    html += "<tr><td style='font-weight:600'>" + escHtml(v.psn) + "</td>";
+    html += "<td>" + (v.type==="premium"?"⭐ Premium":"🎖️ Standard") + "</td>";
+    html += '<td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveVip(' + i + ')">✕</button></td></tr>';
+  });
+  el.innerHTML = html + "</tbody></table>";
 }
+
+
 function adminRemoveVip(idx) { var vips=ls.get('vips')||[]; vips.splice(idx,1); ls.set('vips',vips); renderAdminVip(); renderVIP(); }
 function adminAddPvp() {
   var name=document.getElementById('pvp-name').value.trim(); var kills=parseInt(document.getElementById('pvp-kills').value)||0; var deaths=parseInt(document.getElementById('pvp-deaths').value)||0;
@@ -2388,15 +2462,41 @@ function adminAddPvp() {
   renderAdminPvp(); renderPVP();
 }
 function renderAdminPvp() {
-  var pvp=ls.get('pvp')||[]; var el=document.getElementById('admin-pvp-list'); if(!el) return;
-  var sorted=pvp.slice().sort(function(a,b){ return (b.kills||0)-(a.kills||0); });
-  el.innerHTML=sorted.length>0?'<table class="admin-table"><thead><tr><th>#</th><th>Joueur</th><th>Kills</th><th>Morts</th><th>K/D</th><th></th></tr></thead><tbody>'+sorted.map(function(p,i){ var kd=p.deaths>0?(p.kills/p.deaths).toFixed(2):(p.kills||0)+'.00'; return '<tr><td>'+(i+1)+'</td><td>'+escHtml(p.name)+'</td><td style="color:var(--red)">'+p.kills+'</td><td>'+p.deaths+'</td><td style="color:var(--gold)">'+kd+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePvp(''+p.name+'')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucun joueur PvP</div>';
+  var pvp = ls.get("pvp") || [];
+  var el = document.getElementById("admin-pvp-list");
+  if (!el) return;
+  var sorted = pvp.slice().sort(function(a,b){ return (b.kills||0)-(a.kills||0); });
+  if (!sorted.length) { el.innerHTML = '<div class="admin-empty">Aucun joueur PvP</div>'; return; }
+  var html = '<table class="admin-table"><thead><tr><th>#</th><th>Joueur</th><th>Kills</th><th>Morts</th><th>K/D</th><th></th></tr></thead><tbody>';
+  sorted.forEach(function(p, i) {
+    var kd = p.deaths > 0 ? (p.kills/p.deaths).toFixed(2) : (p.kills||0) + ".00";
+    html += "<tr><td>" + (i+1) + "</td><td>" + escHtml(p.name) + "</td>";
+    html += "<td style='color:#c0392b'>" + (p.kills||0) + "</td><td>" + (p.deaths||0) + "</td>";
+    html += "<td style='color:#d4ac0d'>" + kd + "</td>";
+    html += '<td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" data-name="' + escAttr(p.name) + '" onclick="adminRemovePvp(this.dataset.name)">✕</button></td></tr>';
+  });
+  el.innerHTML = html + "</tbody></table>";
 }
-function adminRemovePvp(name) { var pvp=(ls.get('pvp')||[]).filter(function(p){ return p.name!==name; }); ls.set('pvp',pvp); renderAdminPvp(); renderPVP(); }
+
+
+function adminRemovePvp(name) { var pvp=(ls.get("pvp")||[]).filter(function(p){ return p.name!==name; }); ls.set("pvp",pvp); renderAdminPvp(); renderPVP(); }
 function renderAdminComments() {
-  var comments=ls.get('comments')||[]; var el=document.getElementById('admin-comments-list'); if(!el) return;
-  el.innerHTML=comments.length>0?'<table class="admin-table"><thead><tr><th>Pseudo</th><th>Note</th><th>Commentaire</th><th>Date</th><th></th></tr></thead><tbody>'+comments.map(function(c,i){ return '<tr><td style="font-weight:600">'+escHtml(c.pseudo)+'</td><td style="color:var(--gold)">'+'★'.repeat(c.stars||5)+'</td><td>'+escHtml((c.text||'').substring(0,60))+'...</td><td>'+escHtml(c.date||'')+'</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveComment('+i+')">✕</button></td></tr>'; }).join('')+'</tbody></table>':'<div class="admin-empty">Aucun commentaire</div>';
+  var comments = ls.get("comments") || [];
+  var el = document.getElementById("admin-comments-list");
+  if (!el) return;
+  if (!comments.length) { el.innerHTML = '<div class="admin-empty">Aucun commentaire</div>'; return; }
+  var html = '<table class="admin-table"><thead><tr><th>Pseudo</th><th>Note</th><th>Commentaire</th><th>Date</th><th></th></tr></thead><tbody>';
+  comments.forEach(function(c, i) {
+    html += "<tr><td style='font-weight:600'>" + escHtml(c.pseudo) + "</td>";
+    html += "<td style='color:#d4ac0d'>" + "★".repeat(c.stars||5) + "</td>";
+    html += "<td>" + escHtml((c.text||"").substring(0,60)) + "...</td>";
+    html += "<td>" + escHtml(c.date||"") + "</td>";
+    html += '<td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveComment(' + i + ')">✕</button></td></tr>';
+  });
+  el.innerHTML = html + "</tbody></table>";
 }
+
+
 function adminRemoveComment(idx) { var comments=ls.get('comments')||[]; comments.splice(idx,1); ls.set('comments',comments); renderAdminComments(); renderComments(); }
 function adminAddGallery() {
   var url=document.getElementById('gallery-url').value.trim(); if(!url) { alert('URL requise.'); return; }
@@ -2404,9 +2504,21 @@ function adminAddGallery() {
   document.getElementById('gallery-url').value=''; renderAdminGallery(); renderGallery();
 }
 function renderAdminGallery() {
-  var gallery=ls.get('gallery')||[]; var el=document.getElementById('admin-gallery-list'); if(!el) return;
-  el.innerHTML=gallery.length>0?'<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem">'+gallery.map(function(g,i){ return '<div style="position:relative"><img src="'+escAttr(g.url)+'" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border)"><button onclick="adminRemoveGallery('+i+')" style="position:absolute;top:4px;right:4px;background:var(--red);color:#fff;border:none;width:22px;height:22px;font-size:0.8rem;cursor:pointer">✕</button></div>'; }).join('')+'</div>':'<div class="admin-empty">Aucune photo</div>';
+  var gallery = ls.get("gallery") || [];
+  var el = document.getElementById("admin-gallery-list");
+  if (!el) return;
+  if (!gallery.length) { el.innerHTML = '<div class="admin-empty">Aucune photo</div>'; return; }
+  var html = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem">';
+  gallery.forEach(function(g, i) {
+    html += '<div style="position:relative">';
+    html += '<img src="' + escAttr(g.url) + '" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border)">';
+    html += '<button onclick="adminRemoveGallery(' + i + ')" style="position:absolute;top:4px;right:4px;background:#c0392b;color:#fff;border:none;width:22px;height:22px;font-size:0.8rem;cursor:pointer">✕</button>';
+    html += '</div>';
+  });
+  el.innerHTML = html + "</div>";
 }
+
+
 function adminRemoveGallery(idx) { var gallery=ls.get('gallery')||[]; gallery.splice(idx,1); ls.set('gallery',gallery); renderAdminGallery(); renderGallery(); }
 function adminSetOuverture() {
   var date=document.getElementById('ouverture-date').value;
@@ -2446,20 +2558,20 @@ function escHtml(str) { if(!str) return ''; return String(str).replace(/&/g,'&am
 function escAttr(str) { if(!str) return ''; return String(str).replace(/"/g,'&quot;'); }
 function getGradeClass(grade) {
   var g=(grade||'').toLowerCase();
-  if(g==='fondateur') return 'fondateur';
-  if(g==='admin') return 'admin';
-  if(g==='dev') return 'dev';
-  if(g==='modo') return 'modo';
-  if(g==='helper') return 'helper';
-  return 'joueur';
+  if(g==="fondateur") return "fondateur";
+  if(g==="admin") return "admin";
+  if(g==="dev") return "dev";
+  if(g==="modo") return "modo";
+  if(g==="helper") return "helper";
+  return "joueur";
 }
 function getSancClass(type) {
   var t=(type||'').toLowerCase();
-  if(t.includes('avert')) return 'warn';
-  if(t.includes('mute')) return 'mute';
-  if(t.includes('kick')) return 'kick';
-  if(t.includes('ban')) return 'ban';
-  return 'warn';
+  if(t.includes("avert")) return "warn";
+  if(t.includes("mute")) return "mute";
+  if(t.includes("kick")) return "kick";
+  if(t.includes("ban")) return "ban";
+  return "warn";
 }
 
 // ===== START =====
