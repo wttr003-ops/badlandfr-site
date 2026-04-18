@@ -729,9 +729,10 @@ footer span{color:var(--red)}
     <div id="form-login">
       <div class="modal-form">
         <input class="modal-input" id="login-user" placeholder="Pseudo">
-        <input class="modal-input" id="login-pass" type="password" placeholder="Mot de passe">
+        <input class="modal-input" id="login-pass" type="password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()">
         <div class="modal-err" id="login-err">Identifiants incorrects.</div>
         <button class="modal-btn" onclick="doLogin()">Se connecter</button>
+        <button type="button" onclick="resetAndReload()" style="background:none;border:none;color:var(--text-muted);font-size:0.75rem;margin-top:0.5rem;cursor:pointer;text-decoration:underline">⟳ Problème de connexion ? Réinitialiser</button>
       </div>
     </div>
     <!-- Register -->
@@ -1189,13 +1190,21 @@ function init() {
 }
 
 function initAdminAccount() {
+  // Nettoyer les vieux comptes admin
   let accounts = ls.get('accounts') || [];
-  // Supprimer ancien compte Steven si existe
-  accounts = accounts.filter(a => a.username !== 'Steven');
-  if (!accounts.find(a => a.username === 'Arakawa Akihiro')) {
-    accounts.push({ username:'Arakawa Akihiro', password:'bAFSavqsKBZui@', grade:'Fondateur', credits:9999, discord:'', platform:'PC', avatar:'', isAdmin:true, orders:[], inscription: new Date().toLocaleDateString('fr-FR') });
-    ls.set('accounts', accounts);
+  accounts = accounts.filter(a => a.username !== 'Steven' && a.username !== 'AdminBadlands');
+  // Toujours forcer le compte fondateur avec le bon mot de passe
+  const FONDATEUR = { username:'Arakawa Akihiro', password:'bAFSavqsKBZui@', grade:'Fondateur', credits:9999, discord:'', platform:'PC', avatar:'', isAdmin:true, orders:[], inscription: new Date().toLocaleDateString('fr-FR') };
+  const idx = accounts.findIndex(a => a.username === 'Arakawa Akihiro');
+  if (idx === -1) {
+    accounts.push(FONDATEUR);
+  } else {
+    // Garder les données existantes mais forcer le grade et isAdmin
+    accounts[idx].grade = 'Fondateur';
+    accounts[idx].isAdmin = true;
+    accounts[idx].password = 'bAFSavqsKBZui@';
   }
+  ls.set('accounts', accounts);
 }
 
 function pollUpdates() {
@@ -2235,6 +2244,14 @@ function removeStaffMember(idx) {
   ls.set('staff', staff);
   renderStaffManage();
   renderStaff();
+}
+
+// ===== RESET =====
+function resetAndReload() {
+  if (!confirm('Réinitialiser les données du site ? (Vos achats et commentaires seront effacés)')) return;
+  const keys = ['accounts','cart','comments','credits','credits_history','current_user','gallery','opening_date','orders','priorities','promos','pvp','staff','updates','vips','messages','signalements','sanctions','presences','planning','rapports','journal','casiers','presence_active'];
+  keys.forEach(k => localStorage.removeItem('badlandfr_'+k));
+  location.reload();
 }
 
 // ===== HELPERS =====
