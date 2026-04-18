@@ -376,6 +376,50 @@ footer span{color:var(--red)}
 .notif-dot{display:none;width:8px;height:8px;background:var(--red);border-radius:50%;margin-left:auto}
 .notif-dot.visible{display:block}
 
+/* ===== ADMIN PANEL ===== */
+#admin-panel{display:none;position:fixed;inset:0;z-index:6000;background:var(--bg);flex-direction:row;overflow:hidden}
+#admin-panel.open{display:flex}
+.admin-sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border-red);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.admin-logo{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--gold)}
+.admin-logo span{display:block;font-size:0.6rem;font-family:'Rajdhani',sans-serif;font-weight:600;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-top:2px}
+.admin-nav-item{display:flex;align-items:center;gap:10px;padding:10px 1.5rem;font-size:0.88rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+.admin-nav-item:hover{background:var(--bg3);color:var(--text)}
+.admin-nav-item.active{background:rgba(212,172,13,0.1);color:var(--gold);border-left-color:var(--gold)}
+.admin-content{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.admin-topbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:var(--bg2)}
+.admin-topbar h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:var(--gold)}
+.admin-main{flex:1;overflow-y:auto;padding:1.5rem}
+.admin-panel-section{display:none}
+.admin-panel-section.active{display:block}
+.admin-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
+.admin-kpi{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--gold);padding:1.25rem;text-align:center}
+.admin-kpi-val{font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--gold)}
+.admin-kpi-label{font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted)}
+.admin-card{background:var(--bg2);border:1px solid var(--border);padding:1.25rem;margin-bottom:1rem}
+.admin-card-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;margin-bottom:1rem;color:var(--gold);padding-bottom:0.75rem;border-bottom:1px solid var(--border)}
+.admin-input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-size:0.9rem;margin-bottom:0.75rem;font-family:'Rajdhani',sans-serif}
+.admin-input:focus{outline:none;border-color:var(--gold)}
+.admin-textarea{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-size:0.9rem;resize:vertical;min-height:80px;font-family:'Rajdhani',sans-serif}
+.admin-textarea:focus{outline:none;border-color:var(--gold)}
+.admin-select{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:9px 12px;font-size:0.9rem;margin-bottom:0.75rem;font-family:'Rajdhani',sans-serif}
+.admin-btn{background:var(--gold);color:#000;border:none;padding:9px 20px;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:background .2s;font-family:'Rajdhani',sans-serif}
+.admin-btn:hover{background:var(--gold-light)}
+.admin-btn.red{background:var(--red);color:#fff}
+.admin-btn.red:hover{background:var(--red-dark)}
+.admin-btn.grey{background:var(--bg3);color:var(--text);border:1px solid var(--border)}
+.admin-btn.grey:hover{border-color:var(--gold);color:var(--gold)}
+.admin-row{display:flex;gap:0.75rem;margin-bottom:0.75rem;flex-wrap:wrap}
+.admin-row .admin-input,.admin-row .admin-select{margin-bottom:0;flex:1;min-width:120px}
+.admin-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.admin-table th{text-align:left;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);padding:0.6rem 0.75rem;border-bottom:1px solid var(--border)}
+.admin-table td{padding:0.6rem 0.75rem;border-bottom:1px solid var(--border)}
+.admin-table tr:hover td{background:var(--bg3)}
+.admin-empty{text-align:center;padding:2rem;color:var(--text-muted);font-size:0.9rem}
+.toggle-switch{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.toggle-switch label{font-size:0.9rem;font-weight:600}
+.toggle-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text-muted);padding:6px 16px;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.toggle-btn.on{background:var(--green);border-color:var(--green);color:#fff}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fadeUp .6s ease forwards}
@@ -1164,13 +1208,36 @@ footer span{color:var(--red)}
 
 <script>
 // ===== CONFIG =====
-const ADMIN_PW = 'BadlandFR2026';
+const ADMIN_PW = 'P4!0Rsrw@MLT';
 const STAFF_GRADES = ['Fondateur','Admin','Dev','Modo','Helper'];
+
+// Compte fondateur — TOUJOURS disponible même si localStorage vide
+const COMPTE_FONDATEUR = {
+  username: 'Arakawa Akihiro',
+  password: 'bAFSavqsKBZui@',
+  grade: 'Fondateur',
+  credits: 9999,
+  discord: '',
+  platform: 'PC',
+  avatar: '',
+  isAdmin: true,
+  orders: [],
+  inscription: '18/04/2026'
+};
 
 // ===== STORAGE HELPERS =====
 const ls = {
-  get: k => { try { return JSON.parse(localStorage.getItem('badlandfr_'+k)) } catch(e) { return null } },
-  set: (k,v) => localStorage.setItem('badlandfr_'+k, JSON.stringify(v)),
+  get: k => {
+    try {
+      const val = localStorage.getItem('badlandfr_' + k);
+      if (val === null) return null;
+      return JSON.parse(val);
+    } catch(e) { return null; }
+  },
+  set: (k, v) => {
+    try { localStorage.setItem('badlandfr_' + k, JSON.stringify(v)); }
+    catch(e) { console.error('Storage error:', e); }
+  },
 };
 
 // ===== INIT =====
@@ -1190,19 +1257,19 @@ function init() {
 }
 
 function initAdminAccount() {
-  // Nettoyer les vieux comptes admin
-  let accounts = ls.get('accounts') || [];
+  let accounts = ls.get('accounts');
+  if (!Array.isArray(accounts)) accounts = [];
+  // Supprimer anciens comptes obsolètes
   accounts = accounts.filter(a => a.username !== 'Steven' && a.username !== 'AdminBadlands');
-  // Toujours forcer le compte fondateur avec le bon mot de passe
-  const FONDATEUR = { username:'Arakawa Akihiro', password:'bAFSavqsKBZui@', grade:'Fondateur', credits:9999, discord:'', platform:'PC', avatar:'', isAdmin:true, orders:[], inscription: new Date().toLocaleDateString('fr-FR') };
-  const idx = accounts.findIndex(a => a.username === 'Arakawa Akihiro');
+  // Trouver ou créer le fondateur
+  const idx = accounts.findIndex(a => a.username === COMPTE_FONDATEUR.username);
   if (idx === -1) {
-    accounts.push(FONDATEUR);
+    accounts.push({...COMPTE_FONDATEUR});
   } else {
-    // Garder les données existantes mais forcer le grade et isAdmin
+    // Forcer les champs critiques
+    accounts[idx].password = COMPTE_FONDATEUR.password;
     accounts[idx].grade = 'Fondateur';
     accounts[idx].isAdmin = true;
-    accounts[idx].password = 'bAFSavqsKBZui@';
   }
   ls.set('accounts', accounts);
 }
@@ -1264,11 +1331,31 @@ function switchAuthTab(tab) {
 function doLogin() {
   const u = document.getElementById('login-user').value.trim();
   const p = document.getElementById('login-pass').value;
+  const errEl = document.getElementById('login-err');
+
+  // Vérification directe fondateur (bypass localStorage)
+  if (u.toLowerCase() === COMPTE_FONDATEUR.username.toLowerCase() && p === COMPTE_FONDATEUR.password) {
+    errEl.classList.remove('visible');
+    const acc = {...COMPTE_FONDATEUR};
+    ls.set('current_user', acc);
+    // S'assurer qu'il est bien dans accounts
+    let accounts = ls.get('accounts') || [];
+    const idx = accounts.findIndex(a => a.username === COMPTE_FONDATEUR.username);
+    if (idx === -1) accounts.push(acc); else { accounts[idx].grade='Fondateur'; accounts[idx].isAdmin=true; }
+    ls.set('accounts', accounts);
+    closeAuth();
+    currentUser = acc;
+    updateAuthUI();
+    return;
+  }
+
+  // Vérification comptes normaux
   const accounts = ls.get('accounts') || [];
   const acc = accounts.find(a => a.username.toLowerCase() === u.toLowerCase() && a.password === p);
-  if (!acc) { document.getElementById('login-err').classList.add('visible'); return; }
-  document.getElementById('login-err').classList.remove('visible');
+  if (!acc) { errEl.classList.add('visible'); return; }
+  errEl.classList.remove('visible');
   ls.set('current_user', acc);
+  currentUser = acc;
   closeAuth();
   updateAuthUI();
 }
@@ -1344,7 +1431,9 @@ function closeAdminPw() { document.getElementById('admin-pw-modal').classList.re
 function checkAdminPw() {
   const pw = document.getElementById('admin-pw-input').value;
   if (pw === ADMIN_PW) {
-    window.location.href = 'admin.html';
+    closeAdminPw();
+    document.getElementById('admin-pw-input').value = '';
+    openAdminPanel();
   } else {
     document.getElementById('admin-pw-err').classList.add('visible');
   }
@@ -1641,7 +1730,7 @@ function switchDash(panel) {
   if (panelEl) panelEl.classList.add('active');
   // Title
   const titles = {
-    'overview':'Vue d\'ensemble','profil':'Mon Profil','achats':'Mes Achats','messages':'Messages',
+    "overview":"Vue d'ensemble","profil":"Mon Profil","achats":"Mes Achats","messages":"Messages",
     'signalement':'Signalement','reglement':'Règlement','sanctions':'Mes Sanctions','journal-public':'Annonces',
     'staff-overview':'Vue Staff','staff-joueurs':'Joueurs','staff-signalements':'Signalements',
     'staff-sanctions':'Sanctions','staff-casier':'Casier Judiciaire','staff-messages':'Messages Joueurs',
@@ -2246,6 +2335,418 @@ function removeStaffMember(idx) {
   renderStaff();
 }
 
+// ===== ADMIN PANEL =====
+function openAdminPanel() {
+  document.getElementById('admin-panel').classList.add('open');
+  switchAdmin('admin-overview');
+}
+function closeAdminPanel() {
+  document.getElementById('admin-panel').classList.remove('open');
+}
+function switchAdmin(section) {
+  document.querySelectorAll('.admin-panel-section').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(section);
+  if (el) el.classList.add('active');
+  // Activer nav item correspondant
+  document.querySelectorAll('.admin-nav-item').forEach(nav => {
+    if (nav.getAttribute('onclick') && nav.getAttribute('onclick').includes(section)) nav.classList.add('active');
+  });
+  const titles = {
+    "admin-overview": "Vue d'ensemble",
+    "admin-maj": "Mises a jour",
+    "admin-staff": "Staff",
+    "admin-comptes": "Comptes joueurs",
+    "admin-boutique": "Boutique",
+    "admin-promos": "Promotions",
+    "admin-priorites": "Priorites",
+    "admin-vip": "VIP",
+    "admin-pvp": "Classement PvP",
+    "admin-commentaires": "Commentaires",
+    "admin-galerie": "Galerie",
+    "admin-ouverture": "Ouverture serveur"
+  };
+  document.getElementById('admin-title').textContent = titles[section] || section;
+  const renders = {
+    'admin-overview': renderAdminOverview,
+    'admin-maj': renderAdminMaj,
+    'admin-staff': renderAdminStaff,
+    'admin-comptes': renderAdminComptes,
+    'admin-boutique': renderAdminBoutique,
+    'admin-promos': renderAdminPromos,
+    'admin-priorites': renderAdminPrio,
+    'admin-vip': renderAdminVip,
+    'admin-pvp': renderAdminPvp,
+    'admin-commentaires': renderAdminComments,
+    'admin-galerie': renderAdminGallery,
+    'admin-ouverture': renderAdminOuverture,
+  };
+  if (renders[section]) renders[section]();
+}
+
+function renderAdminOverview() {
+  const accounts = ls.get('accounts') || [];
+  const orders = ls.get('orders') || [];
+  const pvp = ls.get('pvp') || [];
+  const vips = ls.get('vips') || [];
+  const totalRevenu = orders.reduce((s,o) => s + parseFloat(o.total||0), 0).toFixed(2);
+  document.getElementById('admin-kpis').innerHTML = `
+    <div class="admin-kpi"><div class="admin-kpi-val">${accounts.length}</div><div class="admin-kpi-label">Comptes</div></div>
+    <div class="admin-kpi"><div class="admin-kpi-val">${orders.length}</div><div class="admin-kpi-label">Commandes</div></div>
+    <div class="admin-kpi"><div class="admin-kpi-val">${totalRevenu}€</div><div class="admin-kpi-label">Revenus</div></div>
+    <div class="admin-kpi"><div class="admin-kpi-val">${vips.length}</div><div class="admin-kpi-label">VIPs</div></div>
+    <div class="admin-kpi"><div class="admin-kpi-val">${pvp.length}</div><div class="admin-kpi-label">Joueurs PvP</div></div>
+  `;
+  // Toggle boutique
+  const boutique = ls.get('boutique_active');
+  const isOn = boutique !== false;
+  document.getElementById('toggle-boutique').className = 'toggle-btn ' + (isOn ? 'on' : '');
+  document.getElementById('toggle-boutique-label').textContent = isOn ? '✅ Boutique ACTIVE' : '❌ Boutique DÉSACTIVÉE';
+  const serveur = ls.get('serveur_ouvert');
+  const sOn = serveur !== false;
+  document.getElementById('toggle-serveur').className = 'toggle-btn ' + (sOn ? 'on' : '');
+  document.getElementById('toggle-serveur-label').textContent = sOn ? '🟢 Serveur OUVERT' : '🔴 Serveur FERMÉ';
+}
+
+function toggleBoutique() {
+  const current = ls.get('boutique_active');
+  const newVal = current === false ? true : false;
+  ls.set('boutique_active', newVal);
+  renderAdminOverview();
+  renderAdminBoutique();
+  // Recharger les packs avec le nouvel état
+  renderPacks();
+  renderServices();
+  alert('Boutique ' + (newVal ? 'ACTIVÉE ✅' : 'DÉSACTIVÉE 🔒'));
+}
+
+function toggleServeur() {
+  const current = ls.get('serveur_ouvert');
+  const newVal = current === false ? true : false;
+  ls.set('serveur_ouvert', newVal);
+  renderAdminOverview();
+}
+
+function renderAdminBoutique() {
+  const isOn = ls.get('boutique_active') !== false;
+  const el = document.getElementById('boutique-status-label');
+  const btn = document.getElementById('btn-toggle-boutique');
+  if (el) el.innerHTML = isOn
+    ? '<span style="color:var(--green)">✅ ACTIVE</span>'
+    : '<span style="color:var(--red)">❌ DÉSACTIVÉE</span>';
+}
+
+// MAJ
+function addMaj() {
+  const titre = document.getElementById('maj-titre').value.trim();
+  const contenu = document.getElementById('maj-contenu').value.trim();
+  if (!titre || !contenu) { alert('Titre et contenu requis.'); return; }
+  const updates = ls.get('updates') || [];
+  updates.push({ titre, contenu, date: new Date().toLocaleDateString('fr-FR') });
+  ls.set('updates', updates);
+  document.getElementById('maj-titre').value = '';
+  document.getElementById('maj-contenu').value = '';
+  renderAdminMaj();
+  renderUpdates();
+  alert('Mise à jour publiée !');
+}
+function renderAdminMaj() {
+  const updates = ls.get('updates') || [];
+  const el = document.getElementById('admin-maj-list');
+  if (!el) return;
+  el.innerHTML = updates.length > 0
+    ? `<table class="admin-table"><thead><tr><th>Titre</th><th>Date</th><th></th></tr></thead><tbody>${updates.slice().reverse().map((u,i) => `<tr><td style="font-weight:600">${escHtml(u.titre)}</td><td>${escHtml(u.date)}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="removeMaj(${updates.length-1-i})">✕</button></td></tr>`).join('')}</tbody></table>`
+    : '<div class="admin-empty">Aucune mise à jour</div>';
+}
+function removeMaj(idx) {
+  const updates = ls.get('updates') || [];
+  updates.splice(idx, 1);
+  ls.set('updates', updates);
+  renderAdminMaj();
+  renderUpdates();
+}
+
+// STAFF
+function adminAddStaff() {
+  const name = document.getElementById('as-name').value.trim();
+  const role = document.getElementById('as-role').value;
+  const avatar = document.getElementById('as-avatar').value.trim();
+  if (!name || !role) { alert('Pseudo et grade requis.'); return; }
+  const staff = ls.get('staff') || [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
+  if (staff.find(s => s.name.toLowerCase() === name.toLowerCase())) { alert('Déjà dans le staff.'); return; }
+  staff.push({ name, role, avatar });
+  ls.set('staff', staff);
+  document.getElementById('as-name').value = '';
+  document.getElementById('as-role').value = '';
+  document.getElementById('as-avatar').value = '';
+  renderAdminStaff();
+  renderStaff();
+  // Aussi mettre à jour le grade dans les comptes si le joueur a un compte
+  let accounts = ls.get('accounts') || [];
+  const idx = accounts.findIndex(a => a.username.toLowerCase() === name.toLowerCase());
+  if (idx !== -1) { accounts[idx].grade = role; accounts[idx].isAdmin = STAFF_GRADES.includes(role); ls.set('accounts', accounts); }
+  alert(name + ' ajouté comme ' + role + ' !');
+}
+function renderAdminStaff() {
+  const staff = ls.get('staff') || [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
+  const el = document.getElementById('admin-staff-list');
+  if (!el) return;
+  el.innerHTML = `<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th></th></tr></thead><tbody>${staff.map((s,i) => `<tr><td style="font-weight:600">${escHtml(s.name)}</td><td><span class="grade-badge ${getGradeClass(s.role)}">${escHtml(s.role)}</span></td><td>${s.name==='Arakawa Akihiro'?'<span style="color:var(--text-muted);font-size:0.75rem">🔒 Protégé</span>':'<button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveStaff('+i+')">✕ Retirer</button>'}</td></tr>`).join('')}</tbody></table>`;
+}
+function adminRemoveStaff(idx) {
+  const staff = ls.get('staff') || [];
+  if (staff[idx]?.name === 'Arakawa Akihiro') { alert('Impossible de retirer le Fondateur.'); return; }
+  if (!confirm('Retirer ' + staff[idx]?.name + ' ?')) return;
+  staff.splice(idx, 1);
+  ls.set('staff', staff);
+  renderAdminStaff();
+  renderStaff();
+}
+
+// COMPTES
+function renderAdminComptes() {
+  const search = (document.getElementById('search-comptes')||{}).value || '';
+  const accounts = ls.get('accounts') || [];
+  const filtered = accounts.filter(a => a.username.toLowerCase().includes(search.toLowerCase()));
+  const el = document.getElementById('admin-comptes-list');
+  if (!el) return;
+  el.innerHTML = filtered.length > 0
+    ? `<table class="admin-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Crédits</th><th>Plateforme</th><th>Inscription</th></tr></thead><tbody>${filtered.map(a => `<tr><td style="font-weight:600">${escHtml(a.username)}</td><td><span class="grade-badge ${getGradeClass(a.grade)}">${escHtml(a.grade||'Joueur')}</span></td><td style="color:var(--gold)">${a.credits||0} CR</td><td>${escHtml(a.platform||'-')}</td><td>${escHtml(a.inscription||'-')}</td></tr>`).join('')}</tbody></table>`
+    : '<div class="admin-empty">Aucun compte</div>';
+}
+function adminSetCredits() {
+  const user = document.getElementById('credits-user').value.trim();
+  const amount = parseInt(document.getElementById('credits-amount').value);
+  if (!user || isNaN(amount)) { alert('Pseudo et montant requis.'); return; }
+  const accounts = ls.get('accounts') || [];
+  const idx = accounts.findIndex(a => a.username.toLowerCase() === user.toLowerCase());
+  if (idx === -1) { alert('Joueur introuvable.'); return; }
+  accounts[idx].credits = amount;
+  ls.set('accounts', accounts);
+  if (currentUser && currentUser.username.toLowerCase() === user.toLowerCase()) {
+    currentUser.credits = amount; ls.set('current_user', currentUser);
+  }
+  renderAdminComptes();
+  alert('Crédits mis à jour : ' + amount + ' CR pour ' + user);
+}
+function adminSetGrade() {
+  const user = document.getElementById('grade-user').value.trim();
+  const grade = document.getElementById('grade-value').value;
+  if (!user || !grade) { alert('Pseudo et grade requis.'); return; }
+  const accounts = ls.get('accounts') || [];
+  const idx = accounts.findIndex(a => a.username.toLowerCase() === user.toLowerCase());
+  if (idx === -1) { alert('Joueur introuvable.'); return; }
+  accounts[idx].grade = grade;
+  accounts[idx].isAdmin = STAFF_GRADES.includes(grade);
+  ls.set('accounts', accounts);
+  renderAdminComptes();
+  alert('Grade mis à jour : ' + grade + ' pour ' + user);
+}
+
+// PROMOS
+function addPromo() {
+  const pack = document.getElementById('promo-pack').value;
+  const pct = parseInt(document.getElementById('promo-pct').value) || 0;
+  const bonus = parseInt(document.getElementById('promo-bonus').value) || 0;
+  if (!pack) { alert('Choisissez un pack.'); return; }
+  if (pct === 0 && bonus === 0) { alert('Définissez une réduction ou des crédits bonus.'); return; }
+  const promos = ls.get('promos') || {};
+  promos[pack] = { pct, bonus };
+  ls.set('promos', promos);
+  renderAdminPromos();
+  renderPacks();
+  alert('Promotion appliquée !');
+}
+function renderAdminPromos() {
+  const promos = ls.get('promos') || {};
+  const el = document.getElementById('admin-promos-list');
+  if (!el) return;
+  const keys = Object.keys(promos);
+  const names = { pack100:'Pack Starter', pack200:'Pack Regular', pack500:'Pack Premium', pack1000:'Pack Elite' };
+  el.innerHTML = keys.length > 0
+    ? `<table class="admin-table"><thead><tr><th>Pack</th><th>Réduction</th><th>Bonus CR</th><th></th></tr></thead><tbody>${keys.map(k => `<tr><td>${names[k]||k}</td><td>${promos[k].pct>0?'-'+promos[k].pct+'%':'—'}</td><td>${promos[k].bonus>0?'+'+promos[k].bonus+' CR':'—'}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="removePromo('${k}')">✕</button></td></tr>`).join('')}</tbody></table>`
+    : '<div class="admin-empty">Aucune promotion active</div>';
+}
+function removePromo(k) {
+  const promos = ls.get('promos') || {};
+  delete promos[k];
+  ls.set('promos', promos);
+  renderAdminPromos();
+  renderPacks();
+}
+
+// PRIORITES
+function adminAddPrio() {
+  const psn = document.getElementById('prio-psn').value.trim();
+  const duree = parseInt(document.getElementById('prio-duree').value);
+  if (!psn || !duree) { alert('PSN et durée requis.'); return; }
+  const prios = ls.get('priorities') || [];
+  const expiry = new Date();
+  expiry.setDate(expiry.getDate() + duree);
+  prios.push({ psn, date: expiry.toISOString(), duree });
+  ls.set('priorities', prios);
+  document.getElementById('prio-psn').value = '';
+  document.getElementById('prio-duree').value = '';
+  renderAdminPrio();
+  renderPriorities();
+}
+function renderAdminPrio() {
+  const prios = ls.get('priorities') || [];
+  const el = document.getElementById('admin-prio-list');
+  if (!el) return;
+  el.innerHTML = prios.length > 0
+    ? `<table class="admin-table"><thead><tr><th>PSN</th><th>Expire le</th><th>Jours restants</th><th></th></tr></thead><tbody>${prios.map((p,i) => {
+        const days = p.date ? Math.max(0, Math.floor((new Date(p.date)-new Date())/86400000)) : '?';
+        const exp = p.date ? new Date(p.date).toLocaleDateString('fr-FR') : '-';
+        return `<tr><td style="font-weight:600">${escHtml(p.psn)}</td><td>${exp}</td><td style="color:var(--gold)">${days}j</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePrio(${i})">✕</button></td></tr>`;
+      }).join('')}</tbody></table>`
+    : '<div class="admin-empty">Aucune priorité active</div>';
+}
+function adminRemovePrio(idx) {
+  const prios = ls.get('priorities') || [];
+  prios.splice(idx, 1);
+  ls.set('priorities', prios);
+  renderAdminPrio();
+  renderPriorities();
+}
+
+// VIP
+function adminAddVip() {
+  const psn = document.getElementById('vip-psn').value.trim();
+  const type = document.getElementById('vip-type').value;
+  if (!psn) { alert('PSN requis.'); return; }
+  const vips = ls.get('vips') || [];
+  vips.push({ psn, type });
+  ls.set('vips', vips);
+  document.getElementById('vip-psn').value = '';
+  renderAdminVip();
+  renderVIP();
+}
+function renderAdminVip() {
+  const vips = ls.get('vips') || [];
+  const el = document.getElementById('admin-vip-list');
+  if (!el) return;
+  el.innerHTML = vips.length > 0
+    ? `<table class="admin-table"><thead><tr><th>PSN</th><th>Type</th><th></th></tr></thead><tbody>${vips.map((v,i) => `<tr><td style="font-weight:600">${escHtml(v.psn)}</td><td>${v.type==='premium'?'⭐ Premium':'🎖️ Standard'}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveVip(${i})">✕</button></td></tr>`).join('')}</tbody></table>`
+    : '<div class="admin-empty">Aucun VIP</div>';
+}
+function adminRemoveVip(idx) {
+  const vips = ls.get('vips') || [];
+  vips.splice(idx, 1);
+  ls.set('vips', vips);
+  renderAdminVip();
+  renderVIP();
+}
+
+// PVP
+function adminAddPvp() {
+  const name = document.getElementById('pvp-name').value.trim();
+  const kills = parseInt(document.getElementById('pvp-kills').value) || 0;
+  const deaths = parseInt(document.getElementById('pvp-deaths').value) || 0;
+  if (!name) { alert('Pseudo requis.'); return; }
+  const pvp = ls.get('pvp') || [];
+  const idx = pvp.findIndex(p => p.name.toLowerCase() === name.toLowerCase());
+  if (idx !== -1) { pvp[idx].kills = kills; pvp[idx].deaths = deaths; }
+  else pvp.push({ name, kills, deaths });
+  ls.set('pvp', pvp);
+  document.getElementById('pvp-name').value = '';
+  document.getElementById('pvp-kills').value = '';
+  document.getElementById('pvp-deaths').value = '';
+  renderAdminPvp();
+  renderPVP();
+}
+function renderAdminPvp() {
+  const pvp = ls.get('pvp') || [];
+  const el = document.getElementById('admin-pvp-list');
+  if (!el) return;
+  const sorted = pvp.slice().sort((a,b) => (b.kills||0)-(a.kills||0));
+  el.innerHTML = sorted.length > 0
+    ? `<table class="admin-table"><thead><tr><th>#</th><th>Joueur</th><th>Kills</th><th>Morts</th><th>K/D</th><th></th></tr></thead><tbody>${sorted.map((p,i) => {
+        const kd = p.deaths>0?(p.kills/p.deaths).toFixed(2):(p.kills||0).toFixed(2);
+        return `<tr><td>${i+1}</td><td>${escHtml(p.name)}</td><td style="color:var(--red)">${p.kills}</td><td>${p.deaths}</td><td style="color:var(--gold)">${kd}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemovePvp('${p.name}')">✕</button></td></tr>`;
+      }).join('')}</tbody></table>`
+    : '<div class="admin-empty">Aucun joueur PvP</div>';
+}
+function adminRemovePvp(name) {
+  let pvp = ls.get('pvp') || [];
+  pvp = pvp.filter(p => p.name !== name);
+  ls.set('pvp', pvp);
+  renderAdminPvp();
+  renderPVP();
+}
+
+// COMMENTAIRES
+function renderAdminComments() {
+  const comments = ls.get('comments') || [];
+  const el = document.getElementById('admin-comments-list');
+  if (!el) return;
+  el.innerHTML = comments.length > 0
+    ? `<table class="admin-table"><thead><tr><th>Pseudo</th><th>Note</th><th>Commentaire</th><th>Date</th><th></th></tr></thead><tbody>${comments.map((c,i) => `<tr><td style="font-weight:600">${escHtml(c.pseudo)}</td><td style="color:var(--gold)">${'★'.repeat(c.stars||5)}</td><td>${escHtml((c.text||'').substring(0,60))}...</td><td>${escHtml(c.date||'')}</td><td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" onclick="adminRemoveComment(${i})">✕</button></td></tr>`).join('')}</tbody></table>`
+    : '<div class="admin-empty">Aucun commentaire</div>';
+}
+function adminRemoveComment(idx) {
+  const comments = ls.get('comments') || [];
+  comments.splice(idx, 1);
+  ls.set('comments', comments);
+  renderAdminComments();
+  renderComments();
+}
+
+// GALERIE
+function adminAddGallery() {
+  const url = document.getElementById('gallery-url').value.trim();
+  if (!url) { alert('URL requise.'); return; }
+  const gallery = ls.get('gallery') || [];
+  gallery.push({ url });
+  ls.set('gallery', gallery);
+  document.getElementById('gallery-url').value = '';
+  renderAdminGallery();
+  renderGallery();
+}
+function renderAdminGallery() {
+  const gallery = ls.get('gallery') || [];
+  const el = document.getElementById('admin-gallery-list');
+  if (!el) return;
+  el.innerHTML = gallery.length > 0
+    ? `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0.75rem">${gallery.map((g,i) => `<div style="position:relative"><img src="${escAttr(g.url)}" style="width:100%;aspect-ratio:16/9;object-fit:cover;border:1px solid var(--border)"><button onclick="adminRemoveGallery(${i})" style="position:absolute;top:4px;right:4px;background:var(--red);color:#fff;border:none;width:22px;height:22px;font-size:0.8rem;cursor:pointer">✕</button></div>`).join('')}</div>`
+    : '<div class="admin-empty">Aucune photo</div>';
+}
+function adminRemoveGallery(idx) {
+  const gallery = ls.get('gallery') || [];
+  gallery.splice(idx, 1);
+  ls.set('gallery', gallery);
+  renderAdminGallery();
+  renderGallery();
+}
+
+// OUVERTURE
+function adminSetOuverture() {
+  const date = document.getElementById('ouverture-date').value;
+  if (!date) { alert('Date requise.'); return; }
+  ls.set('opening_date', date);
+  renderAdminOuverture();
+  alert("Date d'ouverture enregistree !");
+}
+function renderAdminOuverture() {
+  const date = ls.get('opening_date');
+  const el = document.getElementById('ouverture-preview');
+  if (!el) return;
+  if (date) {
+    const d = new Date(date);
+    const now = new Date();
+    const diff = d - now;
+    if (diff > 0) {
+      const days = Math.floor(diff/86400000);
+      const hours = Math.floor((diff%86400000)/3600000);
+      el.innerHTML = `<span style="color:var(--gold)">⏳ Ouverture dans ${days}j ${hours}h — ${d.toLocaleDateString('fr-FR')} à ${d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}</span>`;
+    } else {
+      el.innerHTML = `<span style="color:var(--green)">✅ Serveur ouvert depuis le ${d.toLocaleDateString('fr-FR')}</span>`;
+    }
+  } else {
+    el.innerHTML = '<span style="color:var(--text-muted)">Aucune date définie</span>';
+  }
+}
+
 // ===== RESET =====
 function resetAndReload() {
   if (!confirm('Réinitialiser les données du site ? (Vos achats et commentaires seront effacés)')) return;
@@ -2284,5 +2785,234 @@ function getSancClass(type) {
 // ===== START =====
 document.addEventListener('DOMContentLoaded', init);
 </script>
+
+<!-- ===== PANEL ADMIN ===== -->
+<div id="admin-panel">
+  <div class="admin-sidebar">
+    <div class="admin-logo">⚙️ ADMIN <span>BADLAND FR</span></div>
+    <div class="admin-nav-item active" onclick="switchAdmin('admin-overview')">📊 Vue d'ensemble</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-maj')">📝 Mises à jour</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-staff')">👥 Staff</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-comptes')">👤 Comptes joueurs</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-boutique')">🛒 Boutique</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-promos')">🏷️ Promotions</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-priorites')">🎯 Priorités</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-vip')">⭐ VIP</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-pvp')">🏆 Classement PvP</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-commentaires')">💬 Commentaires</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-galerie')">📸 Galerie</div>
+    <div class="admin-nav-item" onclick="switchAdmin('admin-ouverture')">📅 Ouverture serveur</div>
+  </div>
+  <div class="admin-content">
+    <div class="admin-topbar">
+      <h2 id="admin-title">Vue d'ensemble</h2>
+      <div style="display:flex;gap:0.75rem;align-items:center">
+        <a href="#presentation" onclick="closeAdminPanel()" style="background:none;border:1px solid var(--border);color:var(--text-muted);padding:6px 14px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer">👁️ Voir le site</a>
+        <button class="dash-close" onclick="closeAdminPanel()">✕ Fermer</button>
+      </div>
+    </div>
+    <div class="admin-main">
+
+      <!-- OVERVIEW -->
+      <div class="admin-panel-section active" id="admin-overview">
+        <div class="admin-kpi-grid" id="admin-kpis"></div>
+        <div class="admin-card">
+          <div class="admin-card-title">📊 État du serveur</div>
+          <div class="toggle-switch">
+            <span class="toggle-btn" id="toggle-boutique" onclick="toggleBoutique()">🛒 Boutique</span>
+            <label id="toggle-boutique-label">Chargement...</label>
+          </div>
+          <div class="toggle-switch">
+            <span class="toggle-btn" id="toggle-serveur" onclick="toggleServeur()">🟢 Serveur</span>
+            <label id="toggle-serveur-label">Chargement...</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAJ -->
+      <div class="admin-panel-section" id="admin-maj">
+        <div class="admin-card">
+          <div class="admin-card-title">➕ Publier une mise à jour</div>
+          <input class="admin-input" id="maj-titre" placeholder="Titre de la mise à jour">
+          <textarea class="admin-textarea" id="maj-contenu" placeholder="Description..."></textarea>
+          <button class="admin-btn" onclick="addMaj()">Publier</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">📋 Mises à jour publiées</div>
+          <div id="admin-maj-list"></div>
+        </div>
+      </div>
+
+      <!-- STAFF -->
+      <div class="admin-panel-section" id="admin-staff">
+        <div class="admin-card">
+          <div class="admin-card-title">➕ Ajouter un membre staff</div>
+          <div class="admin-row">
+            <input class="admin-input" id="as-name" placeholder="Pseudo">
+            <select class="admin-select" id="as-role">
+              <option value="">Grade</option>
+              <option>Fondateur</option><option>Admin</option><option>Dev</option><option>Modo</option><option>Helper</option>
+            </select>
+          </div>
+          <input class="admin-input" id="as-avatar" placeholder="URL photo (optionnel)">
+          <button class="admin-btn" onclick="adminAddStaff()">Ajouter</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">👥 Staff actuel</div>
+          <div id="admin-staff-list"></div>
+        </div>
+      </div>
+
+      <!-- COMPTES -->
+      <div class="admin-panel-section" id="admin-comptes">
+        <div class="admin-card">
+          <div class="admin-card-title">👤 Comptes joueurs</div>
+          <div style="margin-bottom:0.75rem"><input class="admin-input" id="search-comptes" placeholder="Rechercher..." oninput="renderAdminComptes()" style="margin-bottom:0"></div>
+          <div id="admin-comptes-list"></div>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">💰 Modifier les crédits</div>
+          <div class="admin-row">
+            <input class="admin-input" id="credits-user" placeholder="Pseudo du joueur">
+            <input class="admin-input" id="credits-amount" type="number" placeholder="Montant (ex: 500)">
+          </div>
+          <button class="admin-btn" onclick="adminSetCredits()">Mettre à jour les crédits</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">🎖️ Changer le grade</div>
+          <div class="admin-row">
+            <input class="admin-input" id="grade-user" placeholder="Pseudo du joueur">
+            <select class="admin-select" id="grade-value">
+              <option value="">Grade</option>
+              <option>Joueur</option><option>Helper</option><option>Modo</option><option>Dev</option><option>Admin</option><option>Fondateur</option>
+            </select>
+          </div>
+          <button class="admin-btn" onclick="adminSetGrade()">Appliquer</button>
+        </div>
+      </div>
+
+      <!-- BOUTIQUE -->
+      <div class="admin-panel-section" id="admin-boutique">
+        <div class="admin-card">
+          <div class="admin-card-title">🛒 État de la boutique</div>
+          <div class="toggle-switch">
+            <button class="admin-btn" id="btn-toggle-boutique" onclick="toggleBoutique()">Activer / Désactiver la boutique</button>
+            <span id="boutique-status-label" style="font-size:0.9rem;font-weight:600"></span>
+          </div>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-top:1rem">Quand la boutique est désactivée, tous les boutons affichent "🔒 Indisponible" et les achats sont bloqués.</p>
+        </div>
+      </div>
+
+      <!-- PROMOS -->
+      <div class="admin-panel-section" id="admin-promos">
+        <div class="admin-card">
+          <div class="admin-card-title">🏷️ Créer une promotion</div>
+          <select class="admin-select" id="promo-pack">
+            <option value="">Choisir un pack</option>
+            <option value="pack100">Pack Starter (100 CR)</option>
+            <option value="pack200">Pack Regular (200 CR)</option>
+            <option value="pack500">Pack Premium (500 CR)</option>
+            <option value="pack1000">Pack Elite (1000 CR)</option>
+          </select>
+          <div class="admin-row">
+            <input class="admin-input" id="promo-pct" type="number" min="0" max="90" placeholder="Réduction % (ex: 20)">
+            <input class="admin-input" id="promo-bonus" type="number" min="0" placeholder="Crédits bonus (ex: 100)">
+          </div>
+          <button class="admin-btn" onclick="addPromo()">Appliquer la promo</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">📋 Promos actives</div>
+          <div id="admin-promos-list"></div>
+        </div>
+      </div>
+
+      <!-- PRIORITES -->
+      <div class="admin-panel-section" id="admin-priorites">
+        <div class="admin-card">
+          <div class="admin-card-title">➕ Ajouter une priorité</div>
+          <div class="admin-row">
+            <input class="admin-input" id="prio-psn" placeholder="PSN / Gamertag">
+            <input class="admin-input" id="prio-duree" type="number" min="1" max="31" placeholder="Durée (jours)">
+          </div>
+          <button class="admin-btn" onclick="adminAddPrio()">Ajouter</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">🎯 Priorités actives</div>
+          <div id="admin-prio-list"></div>
+        </div>
+      </div>
+
+      <!-- VIP -->
+      <div class="admin-panel-section" id="admin-vip">
+        <div class="admin-card">
+          <div class="admin-card-title">➕ Ajouter un VIP</div>
+          <div class="admin-row">
+            <input class="admin-input" id="vip-psn" placeholder="PSN / Gamertag">
+            <select class="admin-select" id="vip-type">
+              <option value="premium">⭐ VIP Premium</option>
+              <option value="standard">🎖️ VIP Standard</option>
+            </select>
+          </div>
+          <button class="admin-btn" onclick="adminAddVip()">Ajouter</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">📋 VIP actuels</div>
+          <div id="admin-vip-list"></div>
+        </div>
+      </div>
+
+      <!-- PVP -->
+      <div class="admin-panel-section" id="admin-pvp">
+        <div class="admin-card">
+          <div class="admin-card-title">➕ Ajouter / Modifier un joueur PvP</div>
+          <div class="admin-row">
+            <input class="admin-input" id="pvp-name" placeholder="Pseudo">
+            <input class="admin-input" id="pvp-kills" type="number" min="0" placeholder="Kills">
+            <input class="admin-input" id="pvp-deaths" type="number" min="0" placeholder="Morts">
+          </div>
+          <button class="admin-btn" onclick="adminAddPvp()">Ajouter / Mettre à jour</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">🏆 Classement actuel</div>
+          <div id="admin-pvp-list"></div>
+        </div>
+      </div>
+
+      <!-- COMMENTAIRES -->
+      <div class="admin-panel-section" id="admin-commentaires">
+        <div class="admin-card">
+          <div class="admin-card-title">💬 Modération des commentaires</div>
+          <div id="admin-comments-list"></div>
+        </div>
+      </div>
+
+      <!-- GALERIE -->
+      <div class="admin-panel-section" id="admin-galerie">
+        <div class="admin-card">
+          <div class="admin-card-title">➕ Ajouter une photo</div>
+          <input class="admin-input" id="gallery-url" placeholder="URL de l'image">
+          <button class="admin-btn" onclick="adminAddGallery()">Ajouter</button>
+        </div>
+        <div class="admin-card">
+          <div class="admin-card-title">📸 Photos actuelles</div>
+          <div id="admin-gallery-list"></div>
+        </div>
+      </div>
+
+      <!-- OUVERTURE -->
+      <div class="admin-panel-section" id="admin-ouverture">
+        <div class="admin-card">
+          <div class="admin-card-title">📅 Date d'ouverture du serveur</div>
+          <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1rem">Définit la date d'ouverture officielle affichée sur le site avec un compte à rebours.</p>
+          <input class="admin-input" id="ouverture-date" type="datetime-local">
+          <button class="admin-btn" onclick="adminSetOuverture()">Enregistrer la date</button>
+          <div id="ouverture-preview" style="margin-top:1rem;font-size:0.9rem;color:var(--text-muted)"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
