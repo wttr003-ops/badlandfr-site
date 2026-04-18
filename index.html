@@ -138,8 +138,11 @@ section{padding:5rem 2rem}
 .shop-price{font-size:1.1rem;font-weight:700;color:var(--text-muted)}
 .shop-price.promo-price{text-decoration:line-through;color:#666}
 .shop-price-new{font-size:1.2rem;font-weight:700;color:var(--green)}
-.shop-btn{width:100%;margin-top:1rem;background:var(--bg3);border:1px solid var(--border-red);color:var(--red);padding:10px;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .2s}
-.shop-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.shop-btn{width:100%;margin-top:1rem;background:var(--bg3);border:1px solid var(--border);color:var(--text-muted);padding:10px;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:not-allowed;opacity:0.5}
+.shop-btn:hover{background:var(--bg3);color:var(--text-muted);border-color:var(--border)}
+.shop-card{position:relative}
+.shop-card::after{content:'INDISPONIBLE';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-15deg);font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:rgba(136,136,136,0.15);pointer-events:none;white-space:nowrap}
+.shop-card,.service-card{opacity:0.6;filter:grayscale(0.4)}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
 .service-card{background:var(--bg2);border:1px solid var(--border);padding:1.25rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:border-color .2s}
 .service-card:hover{border-color:var(--red)}
@@ -846,6 +849,9 @@ footer span{color:var(--red)}
     <div class="dash-nav-item" onclick="switchDash('staff-journal')" id="nav-staff-journal" style="display:none">
       <span class="dash-nav-icon">📢</span> Annonces
     </div>
+    <div class="dash-nav-item" onclick="switchDash('staff-equipe')" id="nav-staff-equipe" style="display:none">
+      <span class="dash-nav-icon">👥</span> Gérer le Staff
+    </div>
   </div>
 
   <div class="dash-content">
@@ -1127,6 +1133,30 @@ footer span{color:var(--red)}
         </div>
       </div>
 
+      <!-- GESTION STAFF -->
+      <div class="dash-panel" id="panel-staff-equipe">
+        <div class="dash-card">
+          <div class="dash-card-title">➕ Ajouter un membre Staff</div>
+          <div class="dash-row">
+            <input class="dash-input" id="staff-add-name" placeholder="Pseudo du membre">
+            <select class="dash-select" id="staff-add-role">
+              <option value="">Grade</option>
+              <option>Fondateur</option>
+              <option>Admin</option>
+              <option>Dev</option>
+              <option>Modo</option>
+              <option>Helper</option>
+            </select>
+          </div>
+          <input class="dash-input" id="staff-add-avatar" placeholder="URL photo (optionnel)">
+          <button class="dash-btn" onclick="addStaffMember()">➕ Ajouter au staff</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">👥 Membres Staff actuels</div>
+          <div id="staff-manage-list"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1160,8 +1190,10 @@ function init() {
 
 function initAdminAccount() {
   let accounts = ls.get('accounts') || [];
-  if (!accounts.find(a => a.username === 'Steven')) {
-    accounts.push({ username:'Steven', password:'Steven2026!', grade:'Fondateur', credits:9999, discord:'', platform:'PC', avatar:'', isAdmin:true, orders:[], inscription: new Date().toLocaleDateString('fr-FR') });
+  // Supprimer ancien compte Steven si existe
+  accounts = accounts.filter(a => a.username !== 'Steven');
+  if (!accounts.find(a => a.username === 'Arakawa Akihiro')) {
+    accounts.push({ username:'Arakawa Akihiro', password:'bAFSavqsKBZui@', grade:'Fondateur', credits:9999, discord:'', platform:'PC', avatar:'', isAdmin:true, orders:[], inscription: new Date().toLocaleDateString('fr-FR') });
     ls.set('accounts', accounts);
   }
 }
@@ -1368,7 +1400,7 @@ function renderPacks() {
         <div class="shop-credits">${creditsVal} CR</div>
         ${promo && promo.bonus > 0 ? '<div style="font-size:0.75rem;color:var(--green);font-weight:700">+'+promo.bonus+' BONUS</div>' : ''}
         ${priceHtml}
-        <button class="shop-btn" onclick="addToCart('pack','${p.id}','${p.name}',${p.price},${creditsVal})">Ajouter au panier</button>
+        <button class="shop-btn" disabled onclick="return false">🔒 Indisponible</button>
       </div>`;
   }).join('');
 }
@@ -1381,7 +1413,7 @@ function renderServices() {
       <div><div class="service-name">${s.name}</div><div style="font-size:0.75rem;color:var(--text-muted)">${s.desc}</div></div>
       <div style="text-align:right">
         <div class="service-price">${s.credits} CR</div>
-        <button class="shop-btn" style="margin-top:0.5rem;padding:6px 14px;font-size:0.75rem" onclick="addToCart('service','${s.id}','${s.name}',0,${s.credits})">Acheter</button>
+        <button class="shop-btn" style="margin-top:0.5rem;padding:6px 14px;font-size:0.75rem" disabled onclick="return false">🔒 Indisponible</button>
       </div>
     </div>`).join('');
 }
@@ -1457,10 +1489,7 @@ function renderPriorities() {
 // ===== STAFF =====
 function renderStaff() {
   const defaultStaff = [
-    { name:'Steven', role:'Fondateur', avatar:'' },
-    { name:'AdminBadlands', role:'Admin', avatar:'' },
-    { name:'Grey Fox', role:'Dev', avatar:'' },
-    { name:'Rbxz90', role:'Modo', avatar:'' },
+    { name:'Arakawa Akihiro', role:'Fondateur', avatar:'' },
   ];
   const staff = ls.get('staff') || defaultStaff;
   const el = document.getElementById('staff-grid');
@@ -1577,7 +1606,7 @@ function openDashboard() {
   document.getElementById('dashboard').classList.add('open');
   // Show staff nav if staff
   const isStaff = STAFF_GRADES.includes(currentUser.grade) || currentUser.isAdmin;
-  const staffEls = ['section-staff','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-planning','nav-staff-rapports','nav-staff-journal'];
+  const staffEls = ['section-staff','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-planning','nav-staff-rapports','nav-staff-journal','nav-staff-equipe'];
   staffEls.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = isStaff ? 'flex' : 'none';
@@ -2165,6 +2194,47 @@ function removeJournal(idx) {
   journal.splice(idx, 1);
   ls.set('journal', journal);
   renderJournalStaff();
+}
+
+// ===== GESTION STAFF =====
+function addStaffMember() {
+  const name = document.getElementById('staff-add-name').value.trim();
+  const role = document.getElementById('staff-add-role').value;
+  const avatar = document.getElementById('staff-add-avatar').value.trim();
+  if (!name || !role) { alert('Pseudo et grade requis.'); return; }
+  const staff = ls.get('staff') || [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
+  if (staff.find(s => s.name.toLowerCase() === name.toLowerCase())) { alert('Ce membre est déjà dans le staff.'); return; }
+  staff.push({ name, role, avatar });
+  ls.set('staff', staff);
+  document.getElementById('staff-add-name').value = '';
+  document.getElementById('staff-add-role').value = '';
+  document.getElementById('staff-add-avatar').value = '';
+  renderStaffManage();
+  renderStaff();
+  alert(name + ' ajouté au staff comme ' + role + ' !');
+}
+
+function renderStaffManage() {
+  const defaultStaff = [{ name:'Arakawa Akihiro', role:'Fondateur', avatar:'' }];
+  const staff = ls.get('staff') || defaultStaff;
+  const el = document.getElementById('staff-manage-list');
+  if (!el) return;
+  if (staff.length === 0) { el.innerHTML = '<div class="dash-empty">Aucun membre staff</div>'; return; }
+  el.innerHTML = `<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Action</th></tr></thead><tbody>${staff.map((s,i) => `<tr>
+    <td style="font-weight:600">${escHtml(s.name)}</td>
+    <td><span class="grade-badge ${getGradeClass(s.role)}">${escHtml(s.role)}</span></td>
+    <td>${s.name === 'Arakawa Akihiro' ? '<span style="color:var(--text-muted);font-size:0.75rem">Protégé</span>' : '<button class="dash-btn secondary" style="padding:4px 10px;font-size:0.7rem" onclick="removeStaffMember('+i+')">✕ Retirer</button>'}</td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+function removeStaffMember(idx) {
+  const staff = ls.get('staff') || [];
+  if (staff[idx] && staff[idx].name === 'Arakawa Akihiro') { alert('Impossible de retirer le Fondateur.'); return; }
+  if (!confirm('Retirer ' + (staff[idx]?.name||'') + ' du staff ?')) return;
+  staff.splice(idx, 1);
+  ls.set('staff', staff);
+  renderStaffManage();
+  renderStaff();
 }
 
 // ===== HELPERS =====
