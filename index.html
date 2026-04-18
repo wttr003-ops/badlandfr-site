@@ -30,6 +30,9 @@ a{text-decoration:none;color:inherit}
 button{cursor:pointer;font-family:'Rajdhani',sans-serif}
 input,textarea,select{font-family:'Rajdhani',sans-serif}
 
+/* ===== PARTICULES ===== */
+#particles-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
 /* ===== SCROLLBAR ===== */
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -494,6 +497,7 @@ footer span{color:var(--red)}
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
+  <canvas id="particles-canvas"></canvas>
   <div class="hero-content fade-up">
     <div class="hero-badge">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <h1 class="hero-title">BADLAND<span>FR</span></h1>
@@ -1472,16 +1476,20 @@ function saveProfile() {
   alert('Profil mis à jour !');
 }
 
+var adminUnlocked = false;
 function goAdmin() {
   document.getElementById('profile-menu').classList.remove('open');
+  if (adminUnlocked) { openAdminPanel(); return; }
   document.getElementById('admin-pw-modal').classList.add('open');
 }
 function closeAdminPw() { document.getElementById('admin-pw-modal').classList.remove('open'); }
 function checkAdminPw() {
   const pw = document.getElementById('admin-pw-input').value;
   if (pw === ADMIN_PW) {
+    adminUnlocked = true;
     closeAdminPw();
     document.getElementById('admin-pw-input').value = '';
+    document.getElementById('admin-pw-err').classList.remove('visible');
     openAdminPanel();
   } else {
     document.getElementById('admin-pw-err').classList.add('visible');
@@ -3222,6 +3230,51 @@ document.addEventListener('DOMContentLoaded', init);
     </div>
   </div>
 </div>
-
+<script>
+// ===== PARTICULES =====
+(function(){
+  var canvas = document.getElementById('particles-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W, H, particles = [];
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  function createParticles() {
+    particles = [];
+    var count = Math.floor((W || 1200) / 28);
+    for (var i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * (W||1200),
+        y: Math.random() * (H||800),
+        speed: 0.4 + Math.random() * 0.8,
+        len: 5 + Math.random() * 10,
+        alpha: 0.08 + Math.random() * 0.25,
+        width: 1 + Math.random()
+      });
+    }
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      p.y += p.speed;
+      if (p.y > H + p.len) { p.y = -p.len; p.x = Math.random() * W; }
+      ctx.strokeStyle = 'rgba(192,57,43,' + p.alpha + ')';
+      ctx.lineWidth = p.width;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(p.x, p.y + p.len);
+      ctx.stroke();
+    }
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener('resize', function(){ resize(); createParticles(); });
+  resize();
+  createParticles();
+  draw();
+})();
+</script>
 </body>
 </html>
