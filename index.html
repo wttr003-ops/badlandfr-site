@@ -503,16 +503,19 @@ footer span{color:var(--red)}
 .reg-click-hint{font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;text-align:right}
 
 /* ===== MUSIC PLAYER ===== */
-#music-btn{position:fixed;bottom:24px;left:24px;z-index:4000;background:rgba(10,10,10,0.85);border:1px solid rgba(192,57,43,0.3);color:#888;padding:8px 14px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(6px);transition:all .3s;display:flex;align-items:center;gap:8px}
+#music-player{position:fixed;bottom:24px;left:24px;z-index:4000;display:flex;flex-direction:column;gap:4px;align-items:flex-start}
+#music-btn{background:rgba(10,10,10,0.9);border:1px solid rgba(192,57,43,0.3);color:#888;padding:8px 14px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(6px);transition:all .3s;display:flex;align-items:center;gap:8px;width:100%}
 #music-btn:hover{border-color:var(--red);color:#e8e8e8}
 #music-btn.playing{border-color:rgba(192,57,43,0.6);color:#c0392b}
+#music-volume-wrap{background:rgba(10,10,10,0.9);border:1px solid rgba(255,255,255,0.07);padding:5px 10px;display:flex;align-items:center;gap:6px;width:100%}
+#music-volume{flex:1;height:3px;cursor:pointer;accent-color:#c0392b}
 #music-btn .music-bars{display:flex;align-items:flex-end;gap:2px;height:14px}
 #music-btn .music-bars span{width:3px;background:#555;transition:background .3s}
 #music-btn.playing .music-bars span{background:#c0392b}
-#music-btn .bar1{height:6px;animation:none}
-#music-btn .bar2{height:10px;animation:none}
-#music-btn .bar3{height:8px;animation:none}
-#music-btn .bar4{height:12px;animation:none}
+#music-btn .bar1{height:6px}
+#music-btn .bar2{height:10px}
+#music-btn .bar3{height:8px}
+#music-btn .bar4{height:12px}
 #music-btn.playing .bar1{animation:bar-anim 0.8s ease-in-out infinite alternate}
 #music-btn.playing .bar2{animation:bar-anim 0.6s ease-in-out infinite alternate 0.2s}
 #music-btn.playing .bar3{animation:bar-anim 0.9s ease-in-out infinite alternate 0.1s}
@@ -3931,14 +3934,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 <!-- ===== MUSIC PLAYER ===== -->
-<div id="music-btn" onclick="toggleMusic()" title="Ambiance sonore DayZ">
-  <div class="music-bars">
-    <span class="bar1"></span>
-    <span class="bar2"></span>
-    <span class="bar3"></span>
-    <span class="bar4"></span>
+<div id="music-player">
+  <div id="music-btn" onclick="toggleMusic()" title="Couper / Activer la musique">
+    <div class="music-bars">
+      <span class="bar1"></span>
+      <span class="bar2"></span>
+      <span class="bar3"></span>
+      <span class="bar4"></span>
+    </div>
+    <span id="music-label">♪ Ambiance DayZ</span>
   </div>
-  <span id="music-label">Ambiance DayZ</span>
+  <div id="music-volume-wrap">
+    <span style="font-size:0.7rem;color:#555">🔈</span>
+    <input type="range" id="music-volume" min="0" max="100" value="6" oninput="setMusicVolume(this.value)" title="Volume">
+    <span style="font-size:0.7rem;color:#555">🔊</span>
+  </div>
 </div>
 <audio id="dayz-audio" loop preload="auto">
   <source src="ambiance.mp3" type="audio/mpeg">
