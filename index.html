@@ -1119,31 +1119,60 @@ footer span{color:var(--red)}
             <button class="dash-btn" onclick="sendMessageJoueur()">Envoyer</button>
           </div>
         </div>
-      </div>
-
+      <!-- SIGNALEMENT -->
+      <div class="dash-panel" id="panel-signalement">
         <div class="dash-card">
-          <div class="dash-card-title">📋 Mes Tickets</div>
-          <div id="joueur-tickets-list"></div>
-        </div>
-        <div id="joueur-ticket-detail" style="display:none">
-          <div class="dash-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-              <div>
-                <span class="ticket-id" id="detail-ticket-id">#T-0000</span>
-                <span style="font-weight:700;margin-left:8px" id="detail-ticket-sujet"></span>
-              </div>
-              <button class="dash-btn secondary" style="padding:4px 12px;font-size:0.75rem" onclick="closeTicketDetail()">✕ Fermer</button>
-            </div>
-            <div class="ticket-msgs" id="detail-ticket-msgs" style="max-height:280px;overflow-y:auto;border:1px solid var(--border);padding:1rem;margin-bottom:0.75rem;background:var(--bg)"></div>
-            <div id="detail-ticket-input-wrap">
-              <div class="ticket-input-row" style="border:none;padding:0">
-                <input id="detail-ticket-msg" placeholder="Répondre au staff...">
-                <button class="dash-btn" onclick="envoyerReponsJoueur()">Envoyer</button>
-              </div>
-              <div style="margin-top:6px;font-size:0.75rem;color:var(--text-muted)">⏱ Sans réponse de ta part dans 48h, le ticket se ferme automatiquement.</div>
-            </div>
+          <div class="dash-card-title">🚨 Signaler un joueur</div>
+          <input class="dash-input" id="sig-joueur" placeholder="Pseudo du joueur à signaler">
+          <select class="dash-select" id="sig-type">
+            <option value="">Type de signalement</option>
+            <option>Triche / Hack</option>
+            <option>Comportement toxique</option>
+            <option>Bug abusé</option>
+            <option>Hors-RP</option>
+            <option>Autre</option>
+          </select>
+          <textarea class="dash-textarea" id="sig-desc" placeholder="Description détaillée..."></textarea>
+          <button class="dash-btn" style="margin-top:0.5rem" onclick="sendSignalement()">Envoyer le signalement</button>
+          <div style="margin-top:1.5rem">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;margin-bottom:0.75rem">Mes signalements</div>
+            <div id="mes-signalements"></div>
           </div>
         </div>
+      </div>
+
+      <!-- REGLEMENT -->
+      <div class="dash-panel" id="panel-reglement">
+        <div class="dash-card">
+          <div class="dash-card-title">📜 Règlement du Serveur</div>
+          <div style="line-height:1.8;color:var(--text-muted);font-size:0.9rem">
+            <p style="color:var(--text);font-weight:600;margin-bottom:1rem">Bienvenue sur Badland FR. Le respect de ce règlement est obligatoire.</p>
+            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 1 — Respect</strong><br>Le respect est obligatoire entre tous les joueurs. Insultes, harcèlement et discrimination sont strictement interdits.</div>
+            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 2 — Triche</strong><br>Tout logiciel de triche ou exploit de bug entraîne un ban permanent immédiat sans appel.</div>
+            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 3 — RP & Gameplay</strong><br>Le serveur est en mode Hardcore. Pas de Metagaming, pas de Ghosting. Le KOS est autorisé uniquement en zones militaires T3+.</div>
+            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 4 — Base Building</strong><br>Les bases ne peuvent pas bloquer les accès aux villes. Maximum 2 bases par groupe. Raid autorisé dans toutes les zones.</div>
+            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 5 — Discord</strong><br>Rejoindre le Discord est obligatoire. Les litiges se règlent via ticket, jamais en jeu.</div>
+            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 6 — Sanctions</strong><br>Avertissement → Kick → Ban temporaire → Ban permanent selon la gravité.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SANCTIONS JOUEUR -->
+      <div class="dash-panel" id="panel-sanctions">
+        <div class="dash-card">
+          <div class="dash-card-title">⚠️ Mes Sanctions</div>
+          <div id="sanctions-content"></div>
+        </div>
+      </div>
+
+      <!-- JOURNAL PUBLIC -->
+      <div class="dash-panel" id="panel-journal-public">
+        <div class="dash-card">
+          <div class="dash-card-title">📢 Annonces Officielles</div>
+          <div id="journal-public-content"></div>
+        </div>
+      </div>
+
       </div>
 
       <!-- TICKETS JOUEUR -->
@@ -1201,15 +1230,7 @@ footer span{color:var(--red)}
 
 
       <!-- STAFF TICKETS -->
-      <div class="dash-panel" id="panel-staff-tickets">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;margin-bottom:1rem;color:#fff;padding-bottom:0.75rem;border-bottom:1px solid var(--border)">🎫 Gestion des Tickets</div>
-        <div style="display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--border);height:500px">
-          <div id="staff-ticket-list" style="overflow-y:auto;border-right:1px solid var(--border)"></div>
-          <div id="staff-ticket-conv" style="display:flex;flex-direction:column;height:100%;overflow:hidden">
-            <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:0.9rem">← Sélectionne un ticket</div>
-          </div>
-        </div>
-      </div>
+      
 
       <!-- STAFF OVERVIEW -->
       <div class="dash-panel" id="panel-staff-overview">
