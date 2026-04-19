@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Badland FR — Serveur DayZ Console</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+@import url('https://fonts.bunny.net/css?family=bebas-neue:400|rajdhani:400,500,600,700|share-tech-mono:400&display=swap');
+</style>
 <style>
 :root {
   --red: #c0392b;
@@ -309,12 +311,12 @@ footer span{color:var(--red)}
 .dash-nav-item:hover{background:var(--bg3);color:var(--text)}
 .dash-nav-item.active{background:rgba(192,57,43,0.12);color:var(--red);border-left-color:var(--red)}
 .dash-nav-icon{width:18px;text-align:center;font-size:0.95rem}
-.dash-content{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.dash-content{flex:1;display:flex;flex-direction:column;overflow:auto}
 .dash-topbar{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.5rem;border-bottom:1px solid var(--border);background:var(--bg2)}
 .dash-topbar h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px}
 .dash-close{background:none;border:1px solid var(--border);color:var(--text-muted);padding:6px 14px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .2s}
 .dash-close:hover{border-color:var(--red);color:var(--red)}
-.dash-main{flex:1;overflow-y:auto;padding:1.5rem}
+.dash-main{flex:1;overflow-y:auto;padding:1.5rem;min-height:0}
 .dash-panel{display:none}
 .dash-panel.active{display:block}
 .dash-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
@@ -469,6 +471,11 @@ footer span{color:var(--red)}
 .ticket-input-row input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;font-size:0.88rem;font-family:'Rajdhani',sans-serif}
 .ticket-input-row input:focus{outline:none;border-color:var(--red)}
 
+/* ===== BLINK ===== */
+@keyframes blink-red{0%,100%{color:#c0392b}50%{color:#e74c3c;text-shadow:0 0 8px rgba(192,57,43,0.8)}}
+@keyframes blink-border{0%,100%{border-left-color:#c0392b;background:#1a0808}50%{border-left-color:#e74c3c;background:#200a0a}}
+@keyframes blink-text{0%,100%{color:#c0392b}50%{color:#ff6b6b}}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fadeUp .6s ease forwards}
@@ -484,6 +491,11 @@ footer span{color:var(--red)}
   .dash-sidebar{position:absolute;left:-200px;transition:left .3s;z-index:10}
   .dash-sidebar.open{left:0}
 }
+</style>
+<style id="preview-css">
+#dashboard{display:flex !important}
+.dash-panel{display:block !important}
+.dash-panel+.dash-panel{margin-top:1rem}
 </style>
 </head>
 <body>
@@ -1122,46 +1134,154 @@ footer span{color:var(--red)}
       <!-- SIGNALEMENT -->
       <div class="dash-panel" id="panel-signalement">
         <div class="dash-card">
-          <div class="dash-card-title">🚨 Signaler un joueur</div>
-          <input class="dash-input" id="sig-joueur" placeholder="Pseudo du joueur à signaler">
-          <select class="dash-select" id="sig-type">
-            <option value="">Type de signalement</option>
-            <option>Triche / Hack</option>
-            <option>Comportement toxique</option>
-            <option>Bug abusé</option>
-            <option>Hors-RP</option>
-            <option>Autre</option>
-          </select>
-          <textarea class="dash-textarea" id="sig-desc" placeholder="Description détaillée..."></textarea>
-          <button class="dash-btn" style="margin-top:0.5rem" onclick="sendSignalement()">Envoyer le signalement</button>
-          <div style="margin-top:1.5rem">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:2px;margin-bottom:0.75rem">Mes signalements</div>
-            <div id="mes-signalements"></div>
+          <div class="dash-card-title">🚨 Soumettre un signalement</div>
+          <div style="background:rgba(41,128,185,0.06);border:1px solid rgba(41,128,185,0.2);border-left:3px solid #2980b9;padding:10px 14px;font-size:0.85rem;color:#888;line-height:1.6;margin-bottom:1rem">
+            Un signalement est un <strong style="color:#e8e8e8">rapport détaillé</strong> d'un problème sur le serveur. Il sera traité par le staff dans les plus brefs délais.
           </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.75rem">
+            <div style="flex:1;min-width:180px">
+              <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Type</label>
+              <select class="dash-select" id="sig-type" style="margin-bottom:0">
+                <option value="">Choisir un type</option>
+                <option>Joueur perturbateur / toxique</option>
+                <option>Triche / Hack suspecté</option>
+                <option>Bug ou exploit abusé</option>
+                <option>Raid illégal / KOS interdit</option>
+                <option>Problème technique serveur</option>
+                <option>Contenu inapproprié</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div style="flex:1;min-width:180px">
+              <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Priorité</label>
+              <div style="display:flex;gap:6px">
+                <button class="dash-btn secondary" id="prio-low" style="padding:6px 10px;font-size:0.7rem;border-color:rgba(39,174,96,0.5);color:#27ae60" onclick="setSigPrio('low')">🟢 Faible</button>
+                <button class="dash-btn secondary" id="prio-med" style="padding:6px 10px;font-size:0.7rem" onclick="setSigPrio('med')">🟡 Moyenne</button>
+                <button class="dash-btn secondary" id="prio-high" style="padding:6px 10px;font-size:0.7rem" onclick="setSigPrio('high')">🔴 Urgente</button>
+              </div>
+            </div>
+          </div>
+          <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Joueur(s) concerné(s) <span style="color:#444;font-weight:400">(optionnel)</span></label>
+          <input class="dash-input" id="sig-joueur" placeholder="PSN / Gamertag du joueur signalé">
+          <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Description détaillée</label>
+          <textarea class="dash-textarea" id="sig-desc" placeholder="Décris ce qui s'est passé : quand, où, comment... Plus c'est précis, mieux on peut agir." style="min-height:100px"></textarea>
+          <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Preuves <span style="color:#444;font-weight:400">(lien screenshot/vidéo - optionnel)</span></label>
+          <input class="dash-input" id="sig-preuves" placeholder="https://imgur.com/... ou https://youtube.com/...">
+          <button class="dash-btn" style="margin-top:0.5rem" onclick="sendSignalement()">📨 Envoyer le signalement</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">📋 Mes signalements</div>
+          <div id="mes-signalements"><div class="dash-empty">Aucun signalement envoyé</div></div>
         </div>
       </div>
 
       <!-- REGLEMENT -->
       <div class="dash-panel" id="panel-reglement">
+
+        <!-- SECTION 1 : SERVEUR EN JEU -->
         <div class="dash-card">
-          <div class="dash-card-title">📜 Règlement du Serveur</div>
-          <div style="line-height:1.8;color:var(--text-muted);font-size:0.9rem">
-            <p style="color:var(--text);font-weight:600;margin-bottom:1rem">Bienvenue sur Badland FR. Le respect de ce règlement est obligatoire.</p>
-            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 1 — Respect</strong><br>Le respect est obligatoire entre tous les joueurs. Insultes, harcèlement et discrimination sont strictement interdits.</div>
-            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 2 — Triche</strong><br>Tout logiciel de triche ou exploit de bug entraîne un ban permanent immédiat sans appel.</div>
-            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 3 — RP & Gameplay</strong><br>Le serveur est en mode Hardcore. Pas de Metagaming, pas de Ghosting. Le KOS est autorisé uniquement en zones militaires T3+.</div>
-            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 4 — Base Building</strong><br>Les bases ne peuvent pas bloquer les accès aux villes. Maximum 2 bases par groupe. Raid autorisé dans toutes les zones.</div>
-            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 5 — Discord</strong><br>Rejoindre le Discord est obligatoire. Les litiges se règlent via ticket, jamais en jeu.</div>
-            <div style="margin-bottom:1rem"><strong style="color:var(--red)">Article 6 — Sanctions</strong><br>Avertissement → Kick → Ban temporaire → Ban permanent selon la gravité.</div>
+          <div class="dash-card-title">🎮 Règlement — Serveur en jeu</div>
+          <p style="color:#e8e8e8;font-weight:700;margin-bottom:1.25rem;font-size:0.95rem">Le respect de ce règlement est obligatoire pour tous les joueurs de Badland FR.</p>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;font-size:0.88rem;line-height:1.7;color:#aaa">
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 1 — Respect</strong><br>
+              Le respect est obligatoire entre tous les joueurs. Toute forme d'insulte, de harcèlement, de discrimination ou de comportement toxique est strictement interdite en jeu et sur le Discord.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 2 — Triche & Exploits</strong><br>
+              L'utilisation de tout logiciel de triche, hack, ou l'exploitation intentionnelle d'un bug entraîne un <strong style="color:#c0392b">ban permanent immédiat</strong> sans possibilité d'appel.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 3 — KOS & Combat</strong><br>
+              Le KOS (Kill on Sight) est autorisé uniquement dans les zones militaires Tier 3 et supérieur. En dehors de ces zones, toute interaction doit être initiée avec une interaction vocale. Pas de Metagaming ni de Ghosting.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 4 — Base Building</strong><br>
+              Maximum 2 bases par groupe. Les bases ne peuvent pas bloquer l'accès aux villes, routes principales ou zones de spawn. Le raid est autorisé dans toutes les zones à condition de respecter les autres règles.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 5 — Comportement général</strong><br>
+              Le grief gratuit, le stream sniping et toute action visant à nuire délibérément à l'expérience des autres joueurs sont interdits. Le serveur est axé survie et PvP fair-play.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 6 — Staff & Administration</strong><br>
+              Les décisions du staff sont finales. Tout manque de respect envers un membre du staff entraîne une sanction immédiate. Les contestations se font uniquement via ticket.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 7 — Sanctions</strong><br>
+              Les sanctions sont progressives : Avertissement → Kick → Ban temporaire (24h à 30j) → Ban permanent. La gravité de l'infraction peut entraîner un ban direct.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 8 — Signalements</strong><br>
+              Tout problème doit être signalé via l'espace joueur ou via ticket Discord. Les signalements sans preuve (screenshot/vidéo) seront traités en priorité basse.
+            </div>
           </div>
         </div>
+
+        <!-- SECTION 2 : DISCORD -->
+        <div class="dash-card">
+          <div class="dash-card-title">💬 Règlement — Discord</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;font-size:0.88rem;line-height:1.7;color:#aaa">
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #5865F2">
+              <strong style="color:#fff">Article 1 — Rejoindre le Discord</strong><br>
+              Rejoindre le Discord est <strong style="color:#fff">obligatoire</strong> pour jouer sur le serveur. C'est le seul canal officiel de communication entre le staff et les joueurs.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #5865F2">
+              <strong style="color:#fff">Article 2 — Salons & Canaux</strong><br>
+              Chaque salon a un objectif précis. Le spam, les discussions hors-sujet et les messages en majuscules excessives sont interdits. Utilisez le bon salon pour chaque sujet.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #5865F2">
+              <strong style="color:#fff">Article 3 — Whitelist</strong><br>
+              Pour être whitelisté, rendez-vous dans le salon <strong style="color:#5865F2">#whitelist</strong> et tapez la commande <code style="background:#111;padding:1px 6px;color:#5865F2">/psn VotrePseudo</code>. Sans whitelist, l'accès au serveur est impossible.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #5865F2">
+              <strong style="color:#fff">Article 4 — Litiges & Tickets</strong><br>
+              Tous les litiges se règlent via ticket Discord ou via l'espace joueur du site. Les disputes en public dans les salons seront sanctionnées.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #5865F2">
+              <strong style="color:#fff">Article 5 — Contenu partagé</strong><br>
+              Aucun contenu illégal, offensant, NSFW ou publicité non autorisée. Toute violation entraîne un ban Discord et serveur immédiat.
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3 : DONS (clignotant rouge) -->
+        <div class="dash-card" style="border-color:rgba(192,57,43,0.5)">
+          <div class="dash-card-title" style="animation:blink-red 1.2s infinite">⚠️ Règlement — Dons &amp; Boutique</div>
+          <div style="display:flex;flex-direction:column;gap:0.75rem;font-size:0.88rem;line-height:1.7;color:#aaa">
+            <div style="padding:0.75rem 1rem;background:#1a0808;border-left:3px solid #c0392b;animation:blink-border 1.2s infinite">
+              <strong style="color:#c0392b">⚠️ IMPORTANT — Lisez attentivement</strong><br>
+              <span style="color:#e8e8e8">Les dons et achats de crédits sont <strong style="color:#c0392b">définitifs et non remboursables</strong>. Aucun remboursement ne sera accordé sauf erreur technique prouvée.</span>
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 1 — Nature des dons</strong><br>
+              Les dons sont volontaires et servent exclusivement à couvrir les frais d'hébergement du serveur (Nitrado). Ils ne confèrent aucun avantage de gameplay direct.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 2 — Crédits boutique</strong><br>
+              Les crédits achetés sont valables uniquement sur Badland FR. Ils ne sont pas échangeables contre de l'argent réel et ne peuvent pas être transférés entre comptes.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 3 — Litiges de paiement</strong><br>
+              En cas de litige concernant un paiement, contactez le staff via ticket en fournissant votre preuve de paiement PayPal. Les chargebacks non justifiés entraînent un ban permanent.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#0d0d0d;border-left:3px solid #c0392b">
+              <strong style="color:#fff">Article 4 — Fermeture du serveur</strong><br>
+              En cas de fermeture définitive du serveur, aucun remboursement des crédits non utilisés ne sera effectué. Les dons restent acquis à l'administration.
+            </div>
+            <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite">
+              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En donnant ou en achetant des crédits, vous acceptez pleinement ce règlement.</strong>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- SANCTIONS JOUEUR -->
       <div class="dash-panel" id="panel-sanctions">
         <div class="dash-card">
           <div class="dash-card-title">⚠️ Mes Sanctions</div>
-          <div id="sanctions-content"></div>
+          <div id="sanctions-content"><div class="dash-empty">✅ Aucune sanction sur votre compte</div></div>
         </div>
       </div>
 
@@ -1169,7 +1289,7 @@ footer span{color:var(--red)}
       <div class="dash-panel" id="panel-journal-public">
         <div class="dash-card">
           <div class="dash-card-title">📢 Annonces Officielles</div>
-          <div id="journal-public-content"></div>
+          <div id="journal-public-content"><div class="dash-empty">📢 Aucune annonce pour le moment</div></div>
         </div>
       </div>
 
@@ -1437,6 +1557,7 @@ footer span{color:var(--red)}
 </div>
 <script>
 // ===== CONFIG =====
+(function(){ var s=document.getElementById('preview-css'); if(s) s.remove(); })();
 const ADMIN_PW = 'P4!0Rsrw@MLT';
 const STAFF_GRADES = ['Fondateur','Admin','Dev','Modo','Helper'];
 const FONDATEUR_USERNAME = 'Arakawa Akihiro';
@@ -1457,6 +1578,7 @@ var currentUser = null;
 var adminUnlocked = false;
 
 function init() {
+  document.getElementById('dashboard').classList.remove('open');
   initAdminAccount();
   updateAuthUI();
   renderUpdates();
@@ -2114,22 +2236,50 @@ function sendMessageJoueur() {
   ls.set('messages',msgs); input.value=''; renderDashMessages();
 }
 function renderDashSignalement() {
+  if(!currentUser) return;
   var sigs=(ls.get('signalements')||[]).filter(function(s){ return s.auteur===currentUser.username; });
   var el=document.getElementById('mes-signalements'); if(!el) return;
   el.innerHTML=sigs.length>0?'<table class="dash-table"><thead><tr><th>Joueur</th><th>Type</th><th>Date</th><th>Statut</th></tr></thead><tbody>'+sigs.map(function(s){ return '<tr><td>'+escHtml(s.joueur)+'</td><td>'+escHtml(s.type)+'</td><td>'+escHtml(s.date)+'</td><td><span class="dash-badge '+(s.status==="traite"?"green":s.status==="rejete"?"red":"gold")+'">'+(s.status==="traite"?"Traité":s.status==="rejete"?"Rejeté":"En attente")+'</span></td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun signalement</div>';
 }
+var sigPrio = 'low';
+function setSigPrio(level) {
+  sigPrio = level;
+  var colors = {low:'rgba(39,174,96,0.5)',med:'rgba(212,172,13,0.5)',high:'rgba(192,57,43,0.5)'};
+  var textColors = {low:'#27ae60',med:'#d4ac0d',high:'#c0392b'};
+  ['low','med','high'].forEach(function(l) {
+    var btn = document.getElementById('prio-'+l);
+    if (!btn) return;
+    if (l === level) {
+      btn.style.borderColor = colors[l];
+      btn.style.color = textColors[l];
+      btn.style.background = 'rgba(255,255,255,0.05)';
+    } else {
+      btn.style.borderColor = 'rgba(255,255,255,0.1)';
+      btn.style.color = '#888';
+      btn.style.background = 'none';
+    }
+  });
+}
 function sendSignalement() {
-  var joueur=document.getElementById('sig-joueur').value.trim();
-  var type=document.getElementById('sig-type').value;
-  var desc=document.getElementById('sig-desc').value.trim();
-  if(!joueur||!type||!desc) { alert('Tous les champs sont requis.'); return; }
-  var sigs=ls.get('signalements')||[];
-  sigs.push({id:Date.now(),joueur:joueur,type:type,desc:desc,auteur:currentUser.username,date:new Date().toLocaleDateString('fr-FR'),status:'pending'});
-  ls.set('signalements',sigs);
-  document.getElementById('sig-joueur').value=''; document.getElementById('sig-type').value=''; document.getElementById('sig-desc').value='';
-  renderDashSignalement(); alert('Signalement envoyé !');
+  var type = document.getElementById('sig-type').value;
+  var desc = document.getElementById('sig-desc').value.trim();
+  if (!type) { alert('Choisis un type de signalement.'); return; }
+  if (!desc) { alert('Décris le problème en détail.'); return; }
+  var joueur = document.getElementById('sig-joueur').value.trim();
+  var preuves = document.getElementById('sig-preuves') ? document.getElementById('sig-preuves').value.trim() : '';
+  var sigs = ls.get('signalements') || [];
+  var id = '#SIG-' + String(sigs.length + 1).padStart(4,'0');
+  sigs.push({id:id, joueur:joueur, type:type, desc:desc, preuves:preuves, priorite:sigPrio, auteur:currentUser.username, date:new Date().toLocaleDateString('fr-FR'), status:'pending'});
+  ls.set('signalements', sigs);
+  document.getElementById('sig-joueur').value = '';
+  document.getElementById('sig-type').value = '';
+  document.getElementById('sig-desc').value = '';
+  if (document.getElementById('sig-preuves')) document.getElementById('sig-preuves').value = '';
+  renderDashSignalement();
+  showModalSuccess('Signalement ' + id + ' envoyé ! Le staff va traiter ta demande.');
 }
 function renderDashSanctions() {
+  if(!currentUser) return;
   var el=document.getElementById('sanctions-content'); if(!el) return;
   var sanctions=(ls.get('sanctions')||[]).filter(function(s){ return (s.joueur||"").toLowerCase()===(currentUser&&currentUser.username||"").toLowerCase(); });
   el.innerHTML=sanctions.length>0?'<table class="dash-table"><thead><tr><th>Type</th><th>Motif</th><th>Durée</th><th>Agent</th><th>Date</th></tr></thead><tbody>'+sanctions.map(function(s){ return '<tr><td><span class="sanction-badge '+getSancClass(s.type)+'">'+escHtml(s.type)+'</span></td><td>'+escHtml(s.motif)+'</td><td>'+escHtml(s.duree||'-')+'</td><td>'+escHtml(s.agent)+'</td><td>'+escHtml(s.date)+'</td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">✅ Aucune sanction</div>';
@@ -3006,6 +3156,25 @@ function checkTicketNotifs() {
     var notifStaff = document.getElementById("notif-staff-tickets");
     if (notifStaff) notifStaff.classList.toggle("visible", unreadStaff);
   }
+}
+
+
+function showModalSuccess(msg) {
+  var existing = document.getElementById('modal-success-overlay');
+  if (existing) existing.remove();
+  var overlay = document.createElement('div');
+  overlay.id = 'modal-success-overlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999';
+  var box = document.createElement('div');
+  box.style.cssText = 'background:#181818;border:1px solid rgba(39,174,96,0.3);border-top:3px solid #27ae60;padding:28px 32px;max-width:360px;text-align:center;margin:1rem';
+  box.innerHTML = '<div style="font-size:2.5rem;margin-bottom:12px">✅</div><div style="font-size:0.8rem;font-weight:700;letter-spacing:2px;color:#27ae60;text-transform:uppercase;margin-bottom:10px">Envoyé !</div><div style="font-size:0.9rem;color:#aaa;line-height:1.6;margin-bottom:20px">' + msg + '</div>';
+  var btn = document.createElement('button');
+  btn.textContent = '✓ Compris';
+  btn.style.cssText = 'background:#27ae60;color:#fff;border:none;padding:10px 24px;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-family:Rajdhani,sans-serif';
+  btn.onclick = function() { overlay.remove(); };
+  box.appendChild(btn);
+  overlay.appendChild(box);
+  document.body.appendChild(overlay);
 }
 
 // ===== RESET =====
