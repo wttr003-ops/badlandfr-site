@@ -3317,7 +3317,7 @@ function toggleArt(el) {
 
 // ===== MUSIC PLAYER =====
 var musicPlaying = false;
-var musicVolume = 0.07; // Très faible volume
+var musicVolume = 0.06; // Très faible volume
 
 function toggleMusic() {
   var audio = document.getElementById('dayz-audio');
@@ -3717,10 +3717,8 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
   <span id="music-label">Ambiance DayZ</span>
 </div>
-<audio id="dayz-audio" loop preload="none">
-  <!-- Ambiance atmosphérique survival - dark ambient -->
-  <source src="https://archive.org/download/dark-ambient-survival/ambient.mp3" type="audio/mpeg">
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_2dde9e3c4f.mp3" type="audio/mpeg">
+<audio id="dayz-audio" loop preload="auto">
+  <source src="ambiance.mp3" type="audio/mpeg">
 </audio>
 
 </body>
