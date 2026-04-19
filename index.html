@@ -951,8 +951,8 @@ footer span{color:var(--red)}
     <!-- Login -->
     <div id="form-login">
       <div class="modal-form">
-        <input class="modal-input" id="login-user" placeholder="Pseudo">
-        <input class="modal-input" id="login-pass" type="password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()">
+        <input class="modal-input" id="login-user" aria-label="Nom d'utilisateur" placeholder="Pseudo">
+        <input class="modal-input" id="login-pass" aria-label="Mot de passe" type="password" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()">
         <div class="modal-err" id="login-err">Identifiants incorrects.</div>
         <button class="modal-btn" onclick="doLogin()">Se connecter</button>
         <button type="button" onclick="resetAndReload()" style="background:none;border:none;color:var(--text-muted);font-size:0.75rem;margin-top:0.5rem;cursor:pointer;text-decoration:underline">⟳ Problème de connexion ? Réinitialiser</button>
@@ -1168,11 +1168,11 @@ footer span{color:var(--red)}
             </div>
           </div>
           <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Joueur(s) concerné(s) <span style="color:#444;font-weight:400">(optionnel)</span></label>
-          <input class="dash-input" id="sig-joueur" placeholder="PSN / Gamertag du joueur signalé">
+          <input class="dash-input" id="sig-joueur" aria-label="Joueur signalé" placeholder="PSN / Gamertag du joueur signalé">
           <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Description détaillée</label>
           <textarea class="dash-textarea" id="sig-desc" placeholder="Décris ce qui s'est passé : quand, où, comment... Plus c'est précis, mieux on peut agir." style="min-height:100px"></textarea>
           <label style="display:block;font-size:0.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:5px">Preuves <span style="color:#444;font-weight:400">(lien screenshot/vidéo - optionnel)</span></label>
-          <input class="dash-input" id="sig-preuves" placeholder="https://imgur.com/... ou https://youtube.com/...">
+          <input class="dash-input" id="sig-preuves" aria-label="Lien preuves" placeholder="https://imgur.com/... ou https://youtube.com/...">
           <button class="dash-btn" style="margin-top:0.5rem" onclick="sendSignalement()">📨 Envoyer le signalement</button>
         </div>
         <div class="dash-card">
@@ -1310,7 +1310,7 @@ footer span{color:var(--red)}
         <!-- FORMULAIRE OUVRIR TICKET -->
         <div class="dash-card" id="ticket-form-card">
           <div class="dash-card-title">🎫 Ouvrir un ticket</div>
-          <select class="dash-select" id="ticket-sujet">
+          <select class="dash-select" id="ticket-sujet" aria-label="Sujet du ticket">
             <option value="">Choisir un sujet</option>
             <option>Signalement joueur</option>
             <option>Problème technique</option>
@@ -1341,7 +1341,7 @@ footer span{color:var(--red)}
             <div id="detail-ticket-msgs" style="max-height:300px;overflow-y:auto;border:1px solid var(--border);padding:1rem;margin-bottom:0.75rem;background:var(--bg);display:flex;flex-direction:column;gap:0.75rem;min-height:100px"></div>
             <div id="detail-ticket-input-wrap">
               <div style="display:flex;gap:6px">
-                <input id="detail-ticket-msg" class="dash-input" placeholder="Répondre au staff..." style="margin-bottom:0;flex:1">
+                <input id="detail-ticket-msg" class="dash-input" aria-label="Réponse au staff" placeholder="Répondre au staff..." style="margin-bottom:0;flex:1">
                 <button class="dash-btn" onclick="envoyerReponsJoueur()">Envoyer</button>
               </div>
               <div style="margin-top:6px;font-size:0.75rem;color:var(--text-muted)">⏱ Sans réponse dans 48h, le ticket se ferme automatiquement.</div>
@@ -1383,11 +1383,10 @@ footer span{color:var(--red)}
       <div class="dash-panel" id="panel-staff-joueurs">
         <div class="dash-card">
           <div class="dash-card-title">👥 Liste des Joueurs</div>
-          <input class="dash-input" id="search-joueurs" placeholder="Rechercher un joueur..." oninput="renderStaffJoueurs()" style="margin-bottom:1rem">
+          <input class="dash-input" id="search-joueurs" aria-label="Rechercher un joueur" placeholder="Rechercher un joueur..." oninput="renderStaffJoueurs()" style="margin-bottom:1rem">
           <div id="staff-joueurs-list"><div class="dash-empty">Chargement...</div></div>
-          <div style="margin-bottom:1rem"><input class="dash-input" id="search-joueurs" placeholder="Rechercher un joueur..." oninput="renderStaffJoueurs()" style="margin-bottom:0"></div>
-          <div id="staff-joueurs-list"></div>
-        </div>
+          <div style="margin-bottom:1rem"></div>
+          </div>
       </div>
 
       <!-- STAFF SIGNALEMENTS -->
@@ -1395,8 +1394,7 @@ footer span{color:var(--red)}
         <div class="dash-card">
           <div class="dash-card-title">🚨 Signalements Joueurs</div>
           <div id="staff-signalements-list"><div class="dash-empty">Aucun signalement</div></div>
-          <div id="staff-signalements-list"></div>
-        </div>
+          </div>
       </div>
 
       <!-- STAFF SANCTIONS -->
@@ -1404,7 +1402,7 @@ footer span{color:var(--red)}
         <div class="dash-card">
           <div class="dash-card-title">⚖️ Donner une Sanction</div>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.75rem">
-            <input class="dash-input" id="sanc-joueur" placeholder="Pseudo du joueur" style="flex:1;margin-bottom:0">
+            <input class="dash-input" id="sanc-joueur" aria-label="Pseudo joueur" placeholder="Pseudo du joueur" style="flex:1;margin-bottom:0">
             <select class="dash-select" id="sanc-type" style="flex:1;margin-bottom:0">
               <option value="">Type</option>
               <option>Avertissement</option>
@@ -1413,7 +1411,7 @@ footer span{color:var(--red)}
               <option>Ban temporaire</option>
               <option>Ban permanent</option>
             </select>
-            <input class="dash-input" id="sanc-duree" placeholder="Durée (ex: 7j)" style="width:120px;margin-bottom:0">
+            <input class="dash-input" id="sanc-duree" aria-label="Durée sanction" placeholder="Durée (ex: 7j)" style="width:120px;margin-bottom:0">
           </div>
           <input class="dash-input" id="sanc-motif" placeholder="Motif détaillé...">
           <button class="dash-btn" onclick="addSanction()">⚖️ Appliquer la sanction</button>
@@ -3058,7 +3056,7 @@ function renderStaffTicketConv(id) {
     (isClosed
       ? '<div style="padding:0.75rem 1rem;background:var(--bg2);font-size:0.8rem;color:var(--text-muted);border-top:1px solid var(--border)">🔒 Ticket fermé</div>'
       : '<div style="display:flex;gap:6px;padding:0.75rem;border-top:1px solid var(--border);background:var(--bg2)">' +
-          '<input id="staff-reply-input" style="flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;font-size:0.88rem;font-family:Rajdhani,sans-serif" placeholder="Répondre à ' + ticket.auteur + '...">' +
+          '<input id="staff-reply-input" aria-label="Réponse au joueur" style="flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;font-size:0.88rem;font-family:Rajdhani,sans-serif" placeholder="Répondre à ' + ticket.auteur + '...">' +
           '<button class="dash-btn" onclick="staffEnvoyerReponse()">Envoyer</button>' +
         '</div>'
     );
@@ -3297,7 +3295,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="admin-panel-section" id="admin-maj">
         <div class="admin-card">
           <div class="admin-card-title">➕ Publier une mise à jour</div>
-          <input class="admin-input" id="maj-titre" placeholder="Titre de la mise à jour">
+          <input class="admin-input" id="maj-titre" aria-label="Titre mise à jour" placeholder="Titre de la mise à jour">
           <textarea class="admin-textarea" id="maj-contenu" placeholder="Description..."></textarea>
           <button class="admin-btn" onclick="addMaj()">Publier</button>
         </div>
@@ -3309,13 +3307,13 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="admin-card">
           <div class="admin-card-title">➕ Ajouter un membre</div>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.75rem">
-            <input class="admin-input" id="as-name" placeholder="Pseudo" style="margin-bottom:0;flex:1">
+            <input class="admin-input" id="as-name" aria-label="Pseudo membre staff" placeholder="Pseudo" style="margin-bottom:0;flex:1">
             <select class="admin-select" id="as-role" style="margin-bottom:0;flex:1">
               <option value="">Grade</option>
               <option>Fondateur</option><option>Admin</option><option>Dev</option><option>Modo</option><option>Helper</option>
             </select>
           </div>
-          <input class="admin-input" id="as-avatar" placeholder="URL photo (optionnel)">
+          <input class="admin-input" id="as-avatar" aria-label="URL photo staff" placeholder="URL photo (optionnel)">
           <button class="admin-btn" onclick="adminAddStaff()">Ajouter</button>
         </div>
         <div class="admin-card"><div class="admin-card-title">👥 Staff actuel</div><div id="admin-staff-list"></div></div>
@@ -3325,21 +3323,21 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="admin-panel-section" id="admin-comptes">
         <div class="admin-card">
           <div class="admin-card-title">👤 Comptes joueurs</div>
-          <input class="admin-input" id="search-comptes" placeholder="Rechercher..." oninput="renderAdminComptes()">
+          <input class="admin-input" id="search-comptes" aria-label="Rechercher un compte" placeholder="Rechercher..." oninput="renderAdminComptes()">
           <div id="admin-comptes-list"></div>
         </div>
         <div class="admin-card">
           <div class="admin-card-title">💰 Modifier les crédits</div>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-            <input class="admin-input" id="credits-user" placeholder="Pseudo" style="flex:1;margin-bottom:0">
-            <input class="admin-input" id="credits-amount" type="number" placeholder="Montant" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="credits-user" aria-label="Pseudo du joueur" placeholder="Pseudo" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="credits-amount" type="number" aria-label="Montant crédits" placeholder="Montant" style="flex:1;margin-bottom:0">
           </div>
           <button class="admin-btn" style="margin-top:0.75rem" onclick="adminSetCredits()">Mettre à jour</button>
         </div>
         <div class="admin-card">
           <div class="admin-card-title">🎖️ Changer le grade</div>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-            <input class="admin-input" id="grade-user" placeholder="Pseudo" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="grade-user" aria-label="Pseudo joueur" placeholder="Pseudo" style="flex:1;margin-bottom:0">
             <select class="admin-select" id="grade-value" style="flex:1;margin-bottom:0">
               <option value="">Grade</option>
               <option>Joueur</option><option>Helper</option><option>Modo</option><option>Dev</option><option>Admin</option><option>Fondateur</option>
@@ -3384,8 +3382,8 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="admin-card">
           <div class="admin-card-title">➕ Ajouter une priorité</div>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-            <input class="admin-input" id="prio-psn" placeholder="PSN / Gamertag" style="flex:1;margin-bottom:0">
-            <input class="admin-input" id="prio-duree" type="number" min="1" max="31" placeholder="Durée (jours)" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="prio-psn" aria-label="PSN ou Gamertag" placeholder="PSN / Gamertag" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="prio-duree" type="number" min="1" max="31" aria-label="Durée en jours" placeholder="Durée (jours)" style="flex:1;margin-bottom:0">
           </div>
           <button class="admin-btn" style="margin-top:0.75rem" onclick="adminAddPrio()">Ajouter</button>
         </div>
@@ -3397,7 +3395,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="admin-card">
           <div class="admin-card-title">➕ Ajouter un VIP</div>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-            <input class="admin-input" id="vip-psn" placeholder="PSN / Gamertag" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="vip-psn" aria-label="PSN ou Gamertag" placeholder="PSN / Gamertag" style="flex:1;margin-bottom:0">
             <select class="admin-select" id="vip-type" style="flex:1;margin-bottom:0">
               <option value="premium">⭐ VIP Premium</option>
               <option value="standard">🎖️ VIP Standard</option>
@@ -3413,9 +3411,9 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="admin-card">
           <div class="admin-card-title">➕ Ajouter / Modifier un joueur PvP</div>
           <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-            <input class="admin-input" id="pvp-name" placeholder="Pseudo" style="flex:1;margin-bottom:0">
-            <input class="admin-input" id="pvp-kills" type="number" min="0" placeholder="Kills" style="flex:1;margin-bottom:0">
-            <input class="admin-input" id="pvp-deaths" type="number" min="0" placeholder="Morts" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="pvp-name" aria-label="Pseudo joueur PvP" placeholder="Pseudo" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="pvp-kills" type="number" min="0" aria-label="Nombre de kills" placeholder="Kills" style="flex:1;margin-bottom:0">
+            <input class="admin-input" id="pvp-deaths" type="number" min="0" aria-label="Nombre de morts" placeholder="Morts" style="flex:1;margin-bottom:0">
           </div>
           <button class="admin-btn" style="margin-top:0.75rem" onclick="adminAddPvp()">Ajouter / Mettre à jour</button>
         </div>
@@ -3431,7 +3429,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="admin-panel-section" id="admin-galerie">
         <div class="admin-card">
           <div class="admin-card-title">➕ Ajouter une photo</div>
-          <input class="admin-input" id="gallery-url" placeholder="URL de l'image">
+          <input class="admin-input" id="gallery-url" aria-label="URL image galerie" placeholder="URL de l'image">
           <button class="admin-btn" onclick="adminAddGallery()">Ajouter</button>
         </div>
         <div class="admin-card"><div class="admin-card-title">📸 Photos</div><div id="admin-gallery-list"></div></div>
