@@ -441,6 +441,34 @@ footer span{color:var(--red)}
 .toggle-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text-muted);padding:6px 16px;font-size:0.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
 .toggle-btn.on{background:var(--green);border-color:var(--green);color:#fff}
 
+/* ===== TICKETS ===== */
+.ticket-card{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--red);padding:1rem 1.25rem;margin-bottom:0.75rem;cursor:pointer;transition:border-color .2s}
+.ticket-card:hover{border-color:var(--red)}
+.ticket-card.ouvert{border-left-color:var(--green)}
+.ticket-card.attente{border-left-color:var(--gold)}
+.ticket-card.ferme{border-left-color:#555;opacity:0.6}
+.ticket-id{font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--text-muted)}
+.ticket-sujet{font-size:0.95rem;font-weight:700;color:#fff;margin:2px 0}
+.ticket-meta{font-size:0.75rem;color:var(--text-muted)}
+.ticket-timer{font-family:'Share Tech Mono',monospace;font-size:0.7rem;background:rgba(212,172,13,0.1);color:var(--gold);border:1px solid rgba(212,172,13,0.3);padding:2px 8px;display:inline-block;margin-top:4px}
+.ticket-detail{background:var(--bg2);border:1px solid var(--border-red);padding:1.25rem;margin-top:1rem}
+.staff-ticket-list{display:flex;flex-direction:column;gap:0;border-right:1px solid var(--border);overflow-y:auto}
+.staff-ticket-item{padding:1rem 1.25rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.staff-ticket-item:hover{background:var(--bg3)}
+.staff-ticket-item.active{background:rgba(192,57,43,0.08);border-left:3px solid var(--red)}
+.ticket-unread{width:8px;height:8px;background:var(--red);border-radius:50%;flex-shrink:0}
+.ticket-layout{display:grid;grid-template-columns:280px 1fr;gap:0;height:500px;border:1px solid var(--border)}
+.ticket-conv{display:flex;flex-direction:column;height:100%;overflow:hidden}
+.ticket-msgs{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;background:var(--bg)}
+.ticket-msg{max-width:78%;padding:0.6rem 1rem;font-size:0.88rem;line-height:1.4}
+.ticket-msg.staff{background:rgba(192,57,43,0.12);border:1px solid var(--border-red);align-self:flex-start}
+.ticket-msg.joueur{background:rgba(255,255,255,0.04);border:1px solid var(--border);align-self:flex-end;text-align:right}
+.ticket-msg-from{font-size:0.65rem;color:var(--red);margin-bottom:2px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.ticket-msg-time{font-size:0.65rem;color:var(--text-muted);margin-top:3px}
+.ticket-input-row{display:flex;gap:0.5rem;padding:0.75rem;border-top:1px solid var(--border);background:var(--bg2)}
+.ticket-input-row input{flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;font-size:0.88rem;font-family:'Rajdhani',sans-serif}
+.ticket-input-row input:focus{outline:none;border-color:var(--red)}
+
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 .fade-up{animation:fadeUp .6s ease forwards}
@@ -474,6 +502,7 @@ footer span{color:var(--red)}
     <a href="#staff">Staff</a>
     <a href="#communaute">Communauté</a>
     <a href="#soutenir">Don</a>
+    <a href="#discord" style="color:#5865F2;font-weight:700">Discord</a>
   </div>
   <div class="nav-right">
     <button class="btn-login" id="btn-open-auth" onclick="openAuth()">Connexion</button>
@@ -814,6 +843,69 @@ footer span{color:var(--red)}
 </section>
 
 <!-- ===== SOUTENIR ===== -->
+<!-- ===== DISCORD ===== -->
+<section id="discord" style="background:#111111;padding:5rem 2rem">
+  <div class="container">
+    <div class="section-title">REJOINDRE <span>BADLAND FR</span></div>
+    <div class="divider"></div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:900px;margin:0 auto">
+
+      <!-- CARTE DISCORD -->
+      <div style="background:#181818;border:1px solid rgba(88,101,242,0.3);border-top:3px solid #5865F2;padding:2rem;text-align:center">
+        <div style="font-size:2.5rem;margin-bottom:1rem">💬</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#fff;margin-bottom:0.75rem">DISCORD BADLAND FR</div>
+        <p style="color:#888;font-size:0.9rem;line-height:1.7;margin-bottom:1.5rem">Rejoins notre communauté Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff.</p>
+        <a href="https://discord.gg/Ak9vM2GDyR" target="_blank" style="display:inline-block;background:#5865F2;color:#fff;padding:12px 28px;font-size:0.9rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865F2'">
+          Rejoindre le Discord
+        </a>
+        <div style="margin-top:1rem;font-size:0.75rem;color:#555">discord.gg/Ak9vM2GDyR</div>
+      </div>
+
+      <!-- CARTE WHITELIST -->
+      <div style="background:#181818;border:1px solid rgba(192,57,43,0.3);border-top:3px solid #c0392b;padding:2rem">
+        <div style="font-size:2.5rem;margin-bottom:1rem;text-align:center">🎮</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#fff;margin-bottom:0.75rem;text-align:center">WHITELIST</div>
+        <p style="color:#888;font-size:0.85rem;margin-bottom:1.25rem;line-height:1.6">Pour rejoindre le serveur, tu dois d'abord faire une demande de whitelist sur notre Discord :</p>
+
+        <div style="display:flex;flex-direction:column;gap:0.75rem">
+          <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
+            <div style="background:#c0392b;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+            <div style="font-size:0.85rem;color:#e8e8e8">Rejoins le Discord via le bouton ci-contre</div>
+          </div>
+          <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
+            <div style="background:#c0392b;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+            <div>
+              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:2px">Va dans le salon <strong style="color:#5865F2">#whitelist</strong></div>
+              <div style="font-size:0.75rem;color:#666">Retrouve le salon dédié aux demandes</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
+            <div style="background:#c0392b;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+            <div>
+              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:4px">Tape la commande :</div>
+              <div style="background:#0a0a0a;border:1px solid rgba(88,101,242,0.4);padding:6px 12px;font-family:'Share Tech Mono',monospace;font-size:0.9rem;color:#5865F2;display:inline-block">/psn <span style="color:#888">TonPseudoPSN-Xbox</span></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
+            <div style="background:#27ae60;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✓</div>
+            <div>
+              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:2px">Le staff traite ta demande</div>
+              <div style="font-size:0.75rem;color:#666">Tu reçois une réponse en message privé Discord</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(212,172,13,0.05);border:1px solid rgba(212,172,13,0.2)">
+          <div style="font-size:0.75rem;color:#d4ac0d;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">⚠️ Important</div>
+          <div style="font-size:0.78rem;color:#888;line-height:1.5">Le pseudo doit correspondre exactement à ton PSN ou Gamertag. Sans whitelist, tu ne pourras pas rejoindre le serveur.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section id="soutenir">
   <div class="container" style="text-align:center">
     <div class="section-title">SOUTENIR <span>BADLAND FR</span></div>
@@ -920,6 +1012,10 @@ footer span{color:var(--red)}
       <span class="dash-nav-icon">💬</span> Messages
       <div class="notif-dot" id="notif-messages"></div>
     </div>
+    <div class="dash-nav-item" onclick="switchDash('tickets')" id="nav-tickets">
+      <span class="dash-nav-icon">🎫</span> Mes Tickets
+      <div class="notif-dot" id="notif-tickets"></div>
+    </div>
     <div class="dash-nav-item" onclick="switchDash('signalement')" id="nav-signalement">
       <span class="dash-nav-icon">🚨</span> Signalement
     </div>
@@ -942,6 +1038,10 @@ footer span{color:var(--red)}
     <div class="dash-nav-item" onclick="switchDash('staff-joueurs')" id="nav-staff-joueurs" style="display:none">
       <span class="dash-nav-icon">👥</span> Joueurs
     </div>
+    <div class="dash-nav-item" onclick="switchDash('staff-tickets')" id="nav-staff-tickets" style="display:none">
+      <span class="dash-nav-icon">🎫</span> Tickets
+      <div class="notif-dot" id="notif-staff-tickets"></div>
+    </div>
     <div class="dash-nav-item" onclick="switchDash('staff-signalements')" id="nav-staff-signalements" style="display:none">
       <span class="dash-nav-icon">🚨</span> Signalements
       <div class="notif-dot" id="notif-staff-signalements"></div>
@@ -959,12 +1059,8 @@ footer span{color:var(--red)}
     <div class="dash-nav-item" onclick="switchDash('staff-presences')" id="nav-staff-presences" style="display:none">
       <span class="dash-nav-icon">⏱️</span> Présences
     </div>
-    <div class="dash-nav-item" onclick="switchDash('staff-planning')" id="nav-staff-planning" style="display:none">
-      <span class="dash-nav-icon">📅</span> Planning
-    </div>
-    <div class="dash-nav-item" onclick="switchDash('staff-rapports')" id="nav-staff-rapports" style="display:none">
-      <span class="dash-nav-icon">📝</span> Rapports
-    </div>
+
+
     <div class="dash-nav-item" onclick="switchDash('staff-journal')" id="nav-staff-journal" style="display:none">
       <span class="dash-nav-icon">📢</span> Annonces
     </div>
@@ -1025,6 +1121,88 @@ footer span{color:var(--red)}
         </div>
       </div>
 
+        <div class="dash-card">
+          <div class="dash-card-title">📋 Mes Tickets</div>
+          <div id="joueur-tickets-list"></div>
+        </div>
+        <div id="joueur-ticket-detail" style="display:none">
+          <div class="dash-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+              <div>
+                <span class="ticket-id" id="detail-ticket-id">#T-0000</span>
+                <span style="font-weight:700;margin-left:8px" id="detail-ticket-sujet"></span>
+              </div>
+              <button class="dash-btn secondary" style="padding:4px 12px;font-size:0.75rem" onclick="closeTicketDetail()">✕ Fermer</button>
+            </div>
+            <div class="ticket-msgs" id="detail-ticket-msgs" style="max-height:280px;overflow-y:auto;border:1px solid var(--border);padding:1rem;margin-bottom:0.75rem;background:var(--bg)"></div>
+            <div id="detail-ticket-input-wrap">
+              <div class="ticket-input-row" style="border:none;padding:0">
+                <input id="detail-ticket-msg" placeholder="Répondre au staff...">
+                <button class="dash-btn" onclick="envoyerReponsJoueur()">Envoyer</button>
+              </div>
+              <div style="margin-top:6px;font-size:0.75rem;color:var(--text-muted)">⏱ Sans réponse de ta part dans 48h, le ticket se ferme automatiquement.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TICKETS JOUEUR -->
+      <div class="dash-panel" id="panel-tickets">
+        <div class="dash-card">
+          <div class="dash-card-title">🎫 Ouvrir un ticket</div>
+          <select class="dash-select" id="ticket-sujet">
+            <option value="">Choisir un sujet</option>
+            <option>Signalement joueur</option>
+            <option>Problème technique</option>
+            <option>Litige / Contestation</option>
+            <option>Demande d'information</option>
+            <option>Autre</option>
+          </select>
+          <textarea class="dash-textarea" id="ticket-desc" placeholder="Décris ton problème en détail..."></textarea>
+          <button class="dash-btn" style="margin-top:0.5rem" onclick="ouvrirTicket()">📩 Envoyer le ticket</button>
+        </div>
+
+
+      <!-- TICKETS JOUEUR -->
+      <div class="dash-panel" id="panel-tickets">
+        <div class="dash-card">
+          <div class="dash-card-title">🎫 Ouvrir un ticket</div>
+          <select class="dash-select" id="ticket-sujet">
+            <option value="">Choisir un sujet</option>
+            <option>Signalement joueur</option>
+            <option>Problème technique</option>
+            <option>Litige / Contestation</option>
+            <option>Demande d'information</option>
+            <option>Autre</option>
+          </select>
+          <textarea class="dash-textarea" id="ticket-desc" placeholder="Décris ton problème en détail..."></textarea>
+          <button class="dash-btn" style="margin-top:0.5rem" onclick="ouvrirTicket()">📩 Envoyer le ticket</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-card-title">📋 Mes Tickets</div>
+          <div id="joueur-tickets-list"></div>
+        </div>
+        <div id="joueur-ticket-detail" style="display:none">
+          <div class="dash-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+              <div>
+                <span class="ticket-id" id="detail-ticket-id">#T-0000</span>
+                <span style="font-weight:700;margin-left:8px" id="detail-ticket-sujet"></span>
+              </div>
+              <button class="dash-btn secondary" style="padding:4px 12px;font-size:0.75rem" onclick="closeTicketDetail()">✕ Fermer</button>
+            </div>
+            <div id="detail-ticket-msgs" style="max-height:280px;overflow-y:auto;border:1px solid var(--border);padding:1rem;margin-bottom:0.75rem;background:var(--bg);display:flex;flex-direction:column;gap:0.75rem"></div>
+            <div id="detail-ticket-input-wrap">
+              <div style="display:flex;gap:6px">
+                <input id="detail-ticket-msg" class="dash-input" placeholder="Répondre au staff..." style="margin-bottom:0;flex:1">
+                <button class="dash-btn" onclick="envoyerReponsJoueur()">Envoyer</button>
+              </div>
+              <div style="margin-top:6px;font-size:0.75rem;color:var(--text-muted)">⏱ Sans réponse dans 48h, le ticket se ferme automatiquement.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- SIGNALEMENT -->
       <div class="dash-panel" id="panel-signalement">
         <div class="dash-card">
@@ -1076,6 +1254,32 @@ footer span{color:var(--red)}
         <div class="dash-card">
           <div class="dash-card-title">📢 Annonces Officielles</div>
           <div id="journal-public-content"></div>
+        </div>
+      </div>
+
+        <div class="ticket-layout">
+          <div class="staff-ticket-list" id="staff-ticket-list"></div>
+          <div class="ticket-conv" id="staff-ticket-conv">
+            <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:0.9rem">
+              ← Sélectionne un ticket
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STAFF TICKETS -->
+      <div class="dash-panel" id="panel-staff-tickets">
+        <div class="dash-card-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;margin-bottom:1rem;color:#fff;padding:0 0 0.75rem;border-bottom:1px solid var(--border)">🎫 Gestion des Tickets</div>
+
+
+      <!-- STAFF TICKETS -->
+      <div class="dash-panel" id="panel-staff-tickets">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;margin-bottom:1rem;color:#fff;padding-bottom:0.75rem;border-bottom:1px solid var(--border)">🎫 Gestion des Tickets</div>
+        <div style="display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--border);height:500px">
+          <div id="staff-ticket-list" style="overflow-y:auto;border-right:1px solid var(--border)"></div>
+          <div id="staff-ticket-conv" style="display:flex;flex-direction:column;height:100%;overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:0.9rem">← Sélectionne un ticket</div>
+          </div>
         </div>
       </div>
 
@@ -1323,6 +1527,8 @@ function init() {
 function initAdminAccount() {
   var accounts = ls.get('accounts');
   if (!Array.isArray(accounts)) accounts = [];
+  // Supprimer les comptes sans pseudo valide
+  accounts = accounts.filter(function(a) { return a && a.username && a.username.trim() !== ''; });
   accounts = accounts.filter(function(a){ return a.username !== 'Steven' && a.username !== 'AdminBadlands'; });
   var idx = accounts.findIndex(function(a){ return a.username === FONDATEUR_USERNAME; });
   if (idx === -1) {
@@ -1336,6 +1542,8 @@ function initAdminAccount() {
 }
 
 function pollUpdates() {
+  checkAutoCloseTickets();
+  checkTicketNotifs();
   renderMapsPublic();
   renderStaff();
   renderPriorities();
@@ -1852,7 +2060,7 @@ function openDashboard() {
   if (!currentUser) { openAuth(); return; }
   document.getElementById('dashboard').classList.add('open');
   var isStaff = STAFF_GRADES.includes((currentUser&&currentUser.grade||"")) || currentUser.isAdmin;
-  ['section-staff','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-planning','nav-staff-rapports','nav-staff-journal','nav-staff-equipe'].forEach(function(id){
+  ['section-staff','nav-staff-tickets','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-journal','nav-staff-equipe'].forEach(function(id){
     var el=document.getElementById(id);
     if(el) el.style.display=isStaff?(id==="section-staff"?"block":"flex"):"none";
   });
@@ -1874,9 +2082,9 @@ function switchDash(panel) {
   var panelEl=document.getElementById('panel-'+panel);
   if(panelEl) panelEl.classList.add('active');
   var titles = {
-    "overview":"Vue d'ensemble","profil":"Mon Profil","achats":"Mes Achats","messages":"Messages",
+    "tickets":"Mes Tickets","overview":"Vue d'ensemble","profil":"Mon Profil","achats":"Mes Achats","messages":"Messages",
     "signalement":"Signalement","reglement":"Règlement","sanctions":"Mes Sanctions","journal-public":"Annonces",
-    "staff-overview":"Vue Staff","staff-joueurs":"Joueurs","staff-signalements":"Signalements",
+    "staff-tickets":"Tickets Joueurs","staff-overview":"Vue Staff","staff-joueurs":"Joueurs","staff-signalements":"Signalements",
     "staff-sanctions":"Sanctions","staff-casier":"Casier Judiciaire","staff-messages":"Messages Joueurs",
     "staff-presences":"Présences","staff-planning":"Planning","staff-rapports":"Rapports",
     "staff-journal":"Annonces","staff-equipe":"Gérer le Staff"
@@ -1884,9 +2092,9 @@ function switchDash(panel) {
   var titleEl=document.getElementById('dash-title');
   if(titleEl) titleEl.textContent=titles[panel]||panel;
   var renders={
-    'overview':renderDashOverview,'profil':renderDashProfil,'achats':renderDashAchats,
+    'tickets':renderTicketsJoueur,'overview':renderDashOverview,'profil':renderDashProfil,'achats':renderDashAchats,
     'messages':renderDashMessages,'signalement':renderDashSignalement,'sanctions':renderDashSanctions,
-    'journal-public':renderJournalPublic,'staff-overview':renderStaffOverview,'staff-joueurs':renderStaffJoueurs,
+    'journal-public':renderJournalPublic,'staff-tickets':renderStaffTickets,'staff-overview':renderStaffOverview,'staff-joueurs':renderStaffJoueurs,
     'staff-signalements':renderStaffSignalements,'staff-sanctions':renderStaffSanctions,
     'staff-casier':renderCasier,'staff-messages':renderStaffMessages,'staff-presences':renderPresences,
     'staff-planning':renderPlanning,'staff-rapports':renderRapports,'staff-journal':renderJournalStaff,
@@ -1896,6 +2104,7 @@ function switchDash(panel) {
 }
 function checkNotifications() {
   if(!currentUser) return;
+  checkTicketNotifs();
   var msgs=ls.get('messages')||[];
   var sanctions=ls.get('sanctions')||[];
   var sigs=ls.get('signalements')||[];
@@ -2000,12 +2209,40 @@ function renderStaffOverview() {
   if(msgEl) msgEl.innerHTML=unread.length>0?unread.map(function(m){ return '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>'+escHtml(m.from_user)+'</strong> : '+escHtml((m.text||'').substring(0,60))+'...</div>'; }).join(''):'<div class="dash-empty">Aucun message non lu</div>';
 }
 function renderStaffJoueurs() {
-  var search=(document.getElementById('search-joueurs')||{}).value||'';
-  var accounts=ls.get('accounts')||[];
-  var filtered=accounts.filter(function(a){ return (a.username||"").toLowerCase().includes((search||"").toLowerCase()); });
-  var el=document.getElementById('staff-joueurs-list'); if(!el) return;
-  el.innerHTML=filtered.length>0?'<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Plateforme</th><th>Crédits</th><th>Inscription</th></tr></thead><tbody>'+filtered.map(function(a){ return '<tr><td style="font-weight:600">'+escHtml(a.username)+'</td><td><span class="grade-badge '+getGradeClass(a.grade)+'">'+escHtml(a.grade||'Joueur')+'</span></td><td>'+escHtml(a.platform||'-')+'</td><td style="color:var(--gold)">'+(a.credits||0)+' CR</td><td>'+escHtml(a.inscription||'-')+'</td></tr>'; }).join('')+'</tbody></table>':'<div class="dash-empty">Aucun joueur trouvé</div>';
+  var search = (document.getElementById("search-joueurs")||{}).value||"";
+  var accounts = ls.get("accounts") || [];
+  accounts = accounts.filter(function(a){ return a && a.username && a.username.trim() !== ""; });
+  var filtered = accounts.filter(function(a){ return (a.username||"").toLowerCase().includes(search.toLowerCase()); });
+  var el = document.getElementById("staff-joueurs-list");
+  if (!el) return;
+  if (!filtered.length) { el.innerHTML = '<div class="dash-empty">Aucun joueur trouvé</div>'; return; }
+  var html = '<table class="dash-table"><thead><tr><th>Pseudo</th><th>Grade</th><th>Plateforme</th><th>Crédits</th><th>Inscription</th><th></th></tr></thead><tbody>';
+  filtered.forEach(function(a) {
+    var isFondateur = a.username === "Arakawa Akihiro";
+    html += "<tr>";
+    html += '<td style="font-weight:600">' + escHtml(a.username) + "</td>";
+    html += '<td><span class="grade-badge ' + getGradeClass(a.grade||"") + '">' + escHtml(a.grade||"Joueur") + "</span></td>";
+    html += "<td>" + escHtml(a.platform||"-") + "</td>";
+    html += '<td style="color:var(--gold)">' + (a.credits||0) + " CR</td>";
+    html += "<td>" + escHtml(a.inscription||"-") + "</td>";
+    html += "<td>" + (isFondateur
+      ? '<span style="font-size:0.7rem;color:var(--text-muted)">🔒</span>'
+      : '<button class="dash-btn secondary" style="padding:3px 10px;font-size:0.7rem" data-user="' + escAttr(a.username) + '" onclick="staffSupprimerCompte(this.dataset.user)">✕</button>'
+    ) + "</td>";
+    html += "</tr>";
+  });
+  el.innerHTML = html + "</tbody></table>";
 }
+
+function staffSupprimerCompte(username) {
+  if (!confirm("Supprimer le compte de " + username + " ?")) return;
+  var accounts = (ls.get("accounts")||[]).filter(function(a){ return a.username !== username; });
+  ls.set("accounts", accounts);
+  renderStaffJoueurs();
+  alert("Compte de " + username + " supprimé !");
+}
+
+
 function renderStaffSignalements() {
   var sigs = ls.get("signalements") || [];
   var el = document.getElementById("staff-signalements-list");
@@ -2527,6 +2764,298 @@ function renderAdminOuverture() {
     var inp=document.getElementById('ouverture-date'); if(inp&&!inp.value) inp.value=date;
   } else {
     el.innerHTML='<span style="color:var(--text-muted)">Aucune date définie — chrono affiche 00:00:00:00</span>';
+  }
+}
+
+
+// ===== TICKETS =====
+var currentTicketId = null;
+var staffCurrentTicket = null;
+var TICKET_AUTO_CLOSE_HOURS = 48;
+
+function genTicketId() {
+  var tickets = ls.get("tickets") || [];
+  return "#T-" + String(tickets.length + 1).padStart(4, "0");
+}
+
+function ouvrirTicket() {
+  var sujet = document.getElementById("ticket-sujet").value;
+  var desc = document.getElementById("ticket-desc").value.trim();
+  if (!sujet) { alert("Choisis un sujet."); return; }
+  if (!desc) { alert("Décris ton problème."); return; }
+  var tickets = ls.get("tickets") || [];
+  var id = genTicketId();
+  var now = new Date();
+  tickets.push({
+    id: id,
+    sujet: sujet,
+    auteur: currentUser.username,
+    statut: "ouvert",
+    date: now.toLocaleDateString("fr-FR"),
+    dateISO: now.toISOString(),
+    derniere_activite: now.toISOString(),
+    messages: [{ de: currentUser.username, role: "joueur", texte: desc, time: now.toLocaleTimeString("fr-FR", {hour:"2-digit",minute:"2-digit"}), date: now.toLocaleDateString("fr-FR") }]
+  });
+  ls.set("tickets", tickets);
+  document.getElementById("ticket-sujet").value = "";
+  document.getElementById("ticket-desc").value = "";
+  renderTicketsJoueur();
+  checkTicketNotifs();
+  alert("Ticket " + id + " ouvert ! Le staff va te répondre bientôt.");
+}
+
+function renderTicketsJoueur() {
+  if (!currentUser) return;
+  var tickets = (ls.get("tickets") || []).filter(function(t) { return t.auteur === currentUser.username; });
+  var el = document.getElementById("joueur-tickets-list");
+  if (!el) return;
+  if (!tickets.length) { el.innerHTML = '<div class="dash-empty">Aucun ticket ouvert pour le moment</div>'; return; }
+  var html = "";
+  tickets.slice().reverse().forEach(function(t) {
+    var timerHtml = "";
+    if (t.statut === "attente_joueur" && t.derniere_activite) {
+      var heures = ticketHeuresRestantes(t);
+      if (heures > 0) timerHtml = '<div class="ticket-timer">⏱ Ferme dans ' + heures + 'h</div>';
+    }
+    var badgeClass = t.statut === "ouvert" ? "green" : t.statut === "attente_joueur" ? "gold" : "grey";
+    var badgeTxt = t.statut === "ouvert" ? "Ouvert" : t.statut === "attente_joueur" ? "Ta réponse attendue" : "Fermé";
+    var cardClass = t.statut === "ouvert" ? "ouvert" : t.statut === "attente_joueur" ? "attente" : "ferme";
+    html += '<div class="ticket-card ' + cardClass + '" data-tid="' + escAttr(t.id) + '" onclick="ouvrirDetailTicket(this.dataset.tid)">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:start">';
+    html += '<div><div class="ticket-id">' + escHtml(t.id) + '</div>';
+    html += '<div class="ticket-sujet">' + escHtml(t.sujet) + '</div>';
+    html += '<div class="ticket-meta">' + escHtml(t.date) + " · " + t.messages.length + " message(s)</div>" + timerHtml + "</div>";
+    html += '<span class="dash-badge ' + badgeClass + '">' + badgeTxt + "</span>";
+    html += "</div></div>";
+  });
+  el.innerHTML = html;
+}
+
+function ticketHeuresRestantes(t) {
+  if (!t.derniere_activite) return 0;
+  var diff = TICKET_AUTO_CLOSE_HOURS * 3600000 - (new Date() - new Date(t.derniere_activite));
+  return Math.max(0, Math.floor(diff / 3600000));
+}
+
+function ouvrirDetailTicket(id) {
+  var tickets = ls.get("tickets") || [];
+  var ticket = tickets.find(function(t) { return t.id === id; });
+  if (!ticket) return;
+  currentTicketId = id;
+  document.getElementById("joueur-ticket-detail").style.display = "block";
+  document.getElementById("detail-ticket-id").textContent = ticket.id;
+  document.getElementById("detail-ticket-sujet").textContent = ticket.sujet;
+  var wrap = document.getElementById("detail-ticket-input-wrap");
+  if (ticket.statut === "ferme") {
+    wrap.innerHTML = '<div style="font-size:0.8rem;color:var(--text-muted);padding:0.5rem 0">🔒 Ticket fermé — Plus de réponse possible</div>';
+  }
+  renderDetailMsgs(ticket, "detail-ticket-msgs", currentUser.username);
+  document.getElementById("joueur-ticket-detail").scrollIntoView({ behavior: "smooth" });
+}
+
+function closeTicketDetail() {
+  document.getElementById("joueur-ticket-detail").style.display = "none";
+  currentTicketId = null;
+}
+
+function envoyerReponsJoueur() {
+  var input = document.getElementById("detail-ticket-msg");
+  var texte = input.value.trim();
+  if (!texte || !currentTicketId) return;
+  var tickets = ls.get("tickets") || [];
+  var idx = tickets.findIndex(function(t) { return t.id === currentTicketId; });
+  if (idx === -1) return;
+  var now = new Date();
+  tickets[idx].messages.push({ de: currentUser.username, role: "joueur", texte: texte, time: now.toLocaleTimeString("fr-FR", {hour:"2-digit",minute:"2-digit"}), date: now.toLocaleDateString("fr-FR") });
+  tickets[idx].statut = "ouvert";
+  tickets[idx].derniere_activite = now.toISOString();
+  ls.set("tickets", tickets);
+  input.value = "";
+  renderDetailMsgs(tickets[idx], "detail-ticket-msgs", currentUser.username);
+  renderTicketsJoueur();
+  checkTicketNotifs();
+}
+
+function renderDetailMsgs(ticket, containerId, myUsername) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  if (!ticket.messages.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Aucun message</div>'; return; }
+  el.innerHTML = ticket.messages.map(function(m) {
+    var isMine = m.de === myUsername;
+    var cls = isMine ? "joueur" : "staff";
+    var from = !isMine ? '<div class="ticket-msg-from">⚙️ ' + escHtml(m.de) + ' — Staff</div>' : "";
+    return '<div class="ticket-msg ' + cls + '">' + from + escHtml(m.texte) + '<div class="ticket-msg-time">' + escHtml(m.de) + ' — ' + escHtml(m.time) + '</div></div>';
+  }).join("");
+  el.scrollTop = el.scrollHeight;
+}
+
+// STAFF TICKETS
+function renderStaffTickets() {
+  var tickets = ls.get("tickets") || [];
+  var listEl = document.getElementById("staff-ticket-list");
+  if (!listEl) return;
+  var ouverts = tickets.filter(function(t) { return t.statut !== "ferme"; });
+  var fermes = tickets.filter(function(t) { return t.statut === "ferme"; });
+
+  var html = "";
+  if (ouverts.length) {
+    html += '<div style="padding:0.75rem 1rem;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-muted)">Actifs (' + ouverts.length + ')</div>';
+    ouverts.forEach(function(t) {
+      var unread = t.messages.length && t.messages[t.messages.length-1].role === "joueur";
+      var timerHtml = t.statut === "attente_joueur" ? '<div class="ticket-timer" style="margin-top:4px">⏱ ' + ticketHeuresRestantes(t) + 'h restantes</div>' : "";
+      var badgeClass = t.statut === "ouvert" ? "green" : "gold";
+      var badgeTxt = t.statut === "ouvert" ? "Ouvert" : "Attente joueur";
+      html += '<div class="staff-ticket-item' + (staffCurrentTicket === t.id ? " active" : "") + '" data-id="' + escAttr(t.id) + '" onclick="selectStaffTicket(this.dataset.id)">';
+      html += '<div style="display:flex;align-items:start;gap:8px">';
+      if (unread) html += '<div class="ticket-unread" style="margin-top:4px"></div>';
+      html += '<div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:center"><span class="ticket-id">' + escHtml(t.id) + '</span><span class="dash-badge ' + badgeClass + '" style="font-size:0.6rem">' + badgeTxt + '</span></div>';
+      html += '<div class="ticket-sujet" style="font-size:0.88rem;margin:2px 0">' + escHtml(t.sujet) + '</div>';
+      html += '<div class="ticket-meta">' + escHtml(t.auteur) + ' · ' + escHtml(t.date) + '</div>' + timerHtml + '</div></div></div>';
+    });
+  }
+  if (fermes.length) {
+    html += '<div style="padding:0.75rem 1rem;font-size:0.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#444">Fermés (' + fermes.length + ')</div>';
+    fermes.slice(-5).forEach(function(t) {
+      html += '<div class="staff-ticket-item" style="opacity:0.5" data-id="' + escAttr(t.id) + '" onclick="selectStaffTicket(this.dataset.id)">';
+      html += '<div><span class="ticket-id">' + escHtml(t.id) + '</span> <span class="dash-badge grey" style="font-size:0.6rem">Fermé</span>';
+      html += '<div class="ticket-sujet" style="font-size:0.88rem;margin:2px 0">' + escHtml(t.sujet) + '</div>';
+      html += '<div class="ticket-meta">' + escHtml(t.auteur) + '</div></div></div>';
+    });
+  }
+  if (!tickets.length) html = '<div class="dash-empty">Aucun ticket</div>';
+  listEl.innerHTML = html;
+
+  if (staffCurrentTicket) renderStaffTicketConv(staffCurrentTicket);
+}
+
+function selectStaffTicket(id) {
+  staffCurrentTicket = id;
+  document.querySelectorAll(".staff-ticket-item").forEach(function(el) { el.classList.remove("active"); });
+  var el = document.querySelector('.staff-ticket-item[data-id="' + id + '"]');
+  if (el) el.classList.add("active");
+  renderStaffTicketConv(id);
+}
+
+function renderStaffTicketConv(id) {
+  staffCurrentTicket = id;
+  var tickets = ls.get("tickets") || [];
+  var ticket = tickets.find(function(t) { return t.id === id; });
+  var conv = document.getElementById("staff-ticket-conv");
+  if (!conv || !ticket) return;
+  var isClosed = ticket.statut === "ferme";
+  var heures = ticketHeuresRestantes(ticket);
+
+  var timerInfo = ticket.statut === "attente_joueur"
+    ? '<div style="padding:8px 12px;background:rgba(212,172,13,0.05);border:1px solid rgba(212,172,13,0.2);font-size:0.75rem;color:#888;margin-top:0.5rem">⚡ <strong style="color:#d4ac0d">Fermeture auto</strong> dans <span style="color:#d4ac0d">' + heures + 'h</span> sans réponse du joueur</div>'
+    : "";
+
+  conv.innerHTML =
+    '<div style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;justify-content:space-between;align-items:center">' +
+      '<div><span class="ticket-id">' + escHtml(ticket.id) + '</span>' +
+      '<strong style="margin-left:6px">' + escHtml(ticket.sujet) + '</strong>' +
+      '<div class="ticket-meta" style="margin-top:2px">' + escHtml(ticket.auteur) + ' · ' + escHtml(ticket.date) + '</div></div>' +
+      '<div style="display:flex;gap:6px;align-items:center">' +
+        (isClosed
+          ? '<span class="dash-badge grey">Fermé</span>'
+          : '<button class="dash-btn" style="padding:5px 12px;font-size:0.75rem;background:#c0392b;color:#fff;border:none;cursor:pointer" onclick="staffFermerTicketCurrent()">🔒 Fermer</button>' +
+            '<button class="dash-btn secondary" style="padding:5px 12px;font-size:0.75rem" onclick="staffAttenteCurrent()">⏳ Attente joueur</button>'
+        ) +
+      '</div>' +
+    '</div>' +
+    '<div id="staff-conv-msgs" style="flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;background:var(--bg);min-height:200px;max-height:280px"></div>' +
+    timerInfo +
+    (isClosed
+      ? '<div style="padding:0.75rem 1rem;background:var(--bg2);font-size:0.8rem;color:var(--text-muted);border-top:1px solid var(--border)">🔒 Ticket fermé</div>'
+      : '<div style="display:flex;gap:6px;padding:0.75rem;border-top:1px solid var(--border);background:var(--bg2)">' +
+          '<input id="staff-reply-input" style="flex:1;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:8px 12px;font-size:0.88rem;font-family:Rajdhani,sans-serif" placeholder="Répondre à ' + ticket.auteur + '...">' +
+          '<button class="dash-btn" onclick="staffEnvoyerReponse()">Envoyer</button>' +
+        '</div>'
+    );
+
+  renderDetailMsgs(ticket, "staff-conv-msgs", currentUser.username);
+}
+function staffFermerTicketCurrent() { staffFermerTicket(staffCurrentTicket); }
+function staffAttenteCurrent() { staffRepondreAttente(staffCurrentTicket); }
+
+function staffEnvoyerReponse() {
+  var id = staffCurrentTicket;
+  var input = document.getElementById("staff-reply-input");
+  var texte = input.value.trim();
+  if (!texte || !id) return;
+  var tickets = ls.get("tickets") || [];
+  var idx = tickets.findIndex(function(t) { return t.id === id; });
+  if (idx === -1) return;
+  var now = new Date();
+  tickets[idx].messages.push({ de: currentUser.username, role: "staff", texte: texte, time: now.toLocaleTimeString("fr-FR", {hour:"2-digit",minute:"2-digit"}), date: now.toLocaleDateString("fr-FR") });
+  tickets[idx].statut = "attente_joueur";
+  tickets[idx].derniere_activite = now.toISOString();
+  ls.set("tickets", tickets);
+  input.value = "";
+  renderStaffTickets();
+  checkTicketNotifs();
+}
+
+function staffFermerTicket(id) {
+  if (!confirm("Fermer ce ticket ?")) return;
+  var tickets = ls.get("tickets") || [];
+  var idx = tickets.findIndex(function(t) { return t.id === id; });
+  if (idx === -1) return;
+  tickets[idx].statut = "ferme";
+  ls.set("tickets", tickets);
+  renderStaffTickets();
+  renderTicketsJoueur();
+  checkTicketNotifs();
+  alert("Ticket fermé !");
+}
+
+function staffRepondreAttente(id) {
+  var tickets = ls.get("tickets") || [];
+  var idx = tickets.findIndex(function(t) { return t.id === id; });
+  if (idx === -1) return;
+  tickets[idx].statut = "attente_joueur";
+  tickets[idx].derniere_activite = new Date().toISOString();
+  ls.set("tickets", tickets);
+  renderStaffTickets();
+  alert("Ticket marqué en attente du joueur. Il se fermera automatiquement dans " + TICKET_AUTO_CLOSE_HOURS + "h sans réponse.");
+}
+
+function checkAutoCloseTickets() {
+  var tickets = ls.get("tickets") || [];
+  var changed = false;
+  tickets.forEach(function(t) {
+    if (t.statut === "attente_joueur" && t.derniere_activite) {
+      var diff = new Date() - new Date(t.derniere_activite);
+      if (diff >= TICKET_AUTO_CLOSE_HOURS * 3600000) {
+        t.statut = "ferme";
+        changed = true;
+      }
+    }
+  });
+  if (changed) {
+    ls.set("tickets", tickets);
+    renderTicketsJoueur();
+    renderStaffTickets();
+  }
+}
+
+function checkTicketNotifs() {
+  if (!currentUser) return;
+  var tickets = ls.get("tickets") || [];
+  // Joueur : tickets avec réponse staff non lue
+  var myTickets = tickets.filter(function(t) { return t.auteur === currentUser.username; });
+  var unreadJoueur = myTickets.some(function(t) {
+    return t.statut === "attente_joueur";
+  });
+  var notif = document.getElementById("notif-tickets");
+  if (notif) notif.classList.toggle("visible", unreadJoueur);
+  // Staff
+  var isStaff = STAFF_GRADES.includes((currentUser.grade||"")) || currentUser.isAdmin;
+  if (isStaff) {
+    var unreadStaff = tickets.some(function(t) {
+      return t.statut === "ouvert" && t.messages.length && t.messages[t.messages.length-1].role === "joueur";
+    });
+    var notifStaff = document.getElementById("notif-staff-tickets");
+    if (notifStaff) notifStaff.classList.toggle("visible", unreadStaff);
   }
 }
 
