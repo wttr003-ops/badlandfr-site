@@ -316,7 +316,7 @@ footer span{color:var(--red)}
 .dash-topbar h2{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px}
 .dash-close{background:none;border:1px solid var(--border);color:var(--text-muted);padding:6px 14px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .2s}
 .dash-close:hover{border-color:var(--red);color:var(--red)}
-.dash-main{flex:1;overflow-y:auto;padding:1.5rem;min-height:0}
+.dash-main{flex:1;overflow-y:auto;padding:0.75rem 1.5rem 1.5rem;min-height:0}
 .dash-panel{display:none}
 .dash-panel.active{display:block}
 .dash-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
@@ -1061,9 +1061,7 @@ footer span{color:var(--red)}
     <div class="dash-nav-item" onclick="switchDash('staff-sanctions')" id="nav-staff-sanctions" style="display:none">
       <span class="dash-nav-icon">⚖️</span> Sanctions
     </div>
-    <div class="dash-nav-item" onclick="switchDash('staff-casier')" id="nav-staff-casier" style="display:none">
-      <span class="dash-nav-icon">📁</span> Casier Judiciaire
-    </div>
+
     <div class="dash-nav-item" onclick="switchDash('staff-messages')" id="nav-staff-messages" style="display:none">
       <span class="dash-nav-icon">📨</span> Messages Joueurs
       <div class="notif-dot" id="notif-staff-messages"></div>
@@ -1282,8 +1280,11 @@ footer span{color:var(--red)}
       <!-- SANCTIONS JOUEUR -->
       <div class="dash-panel" id="panel-sanctions">
         <div class="dash-card">
-          <div class="dash-card-title">⚠️ Mes Sanctions</div>
+          <div class="dash-card-title">⚠️ Mon Dossier de Sanctions</div>
           <div id="sanctions-content"><div class="dash-empty">✅ Aucune sanction sur votre compte</div></div>
+          <div style="margin-top:1rem;padding:10px 14px;background:rgba(192,57,43,0.05);border:1px solid rgba(192,57,43,0.15);font-size:0.8rem;color:#666;line-height:1.6">
+            La sanction la plus récente apparaît toujours en premier. Pour contester une sanction, ouvre un ticket via <strong style="color:#c0392b">Mes Tickets</strong>.
+          </div>
         </div>
       </div>
 
@@ -1395,53 +1396,28 @@ footer span{color:var(--red)}
       <div class="dash-panel" id="panel-staff-sanctions">
         <div class="dash-card">
           <div class="dash-card-title">⚖️ Donner une Sanction</div>
-          <div class="dash-row">
-            <input class="dash-input" id="sanc-joueur" placeholder="Pseudo du joueur">
-            <select class="dash-select" id="sanc-type">
-              <option value="">Type de sanction</option>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.75rem">
+            <input class="dash-input" id="sanc-joueur" placeholder="Pseudo du joueur" style="flex:1;margin-bottom:0">
+            <select class="dash-select" id="sanc-type" style="flex:1;margin-bottom:0">
+              <option value="">Type</option>
               <option>Avertissement</option>
-              <option>Mute (Discord)</option>
-              <option>Kick (Serveur)</option>
-              <option>Ban Temporaire</option>
-              <option>Ban Permanent</option>
+              <option>Mute</option>
+              <option>Kick</option>
+              <option>Ban temporaire</option>
+              <option>Ban permanent</option>
             </select>
+            <input class="dash-input" id="sanc-duree" placeholder="Durée (ex: 7j)" style="width:120px;margin-bottom:0">
           </div>
-          <input class="dash-input" id="sanc-duree" placeholder="Durée (ex: 24h, 7j, permanent)">
-          <textarea class="dash-textarea" id="sanc-motif" placeholder="Motif de la sanction..."></textarea>
-          <button class="dash-btn" style="margin-top:0.5rem" onclick="addSanction()">Appliquer la sanction</button>
+          <input class="dash-input" id="sanc-motif" placeholder="Motif détaillé...">
+          <button class="dash-btn" onclick="addSanction()">⚖️ Appliquer la sanction</button>
         </div>
         <div class="dash-card">
-          <div class="dash-card-title">📋 Historique des Sanctions</div>
-          <div id="sanctions-list"></div>
+          <div class="dash-card-title">📋 Historique — plus récent en premier</div>
+          <div id="sanctions-list"><div class="dash-empty">Aucune sanction</div></div>
         </div>
       </div>
 
-      <!-- STAFF CASIER -->
-      <div class="dash-panel" id="panel-staff-casier">
-        <div class="dash-card">
-          <div class="dash-card-title">📁 Casier Judiciaire</div>
-          <div class="dash-row">
-            <input class="dash-input" id="casier-nom" placeholder="Nom du joueur">
-            <select class="dash-select" id="casier-type">
-              <option value="">Infraction</option>
-              <option>Triche</option>
-              <option>Toxicité</option>
-              <option>Bug Abuse</option>
-              <option>Hors-RP</option>
-              <option>Raid illégal</option>
-              <option>KOS interdit</option>
-            </select>
-          </div>
-          <textarea class="dash-textarea" id="casier-motif" placeholder="Description de l'infraction..."></textarea>
-          <input class="dash-input" id="casier-sanction" placeholder="Sanction appliquée">
-          <button class="dash-btn" style="margin-top:0.25rem" onclick="addCasier()">Ajouter au casier</button>
-        </div>
-        <div class="dash-card">
-          <div class="dash-card-title">📋 Registre des Casiers</div>
-          <div style="margin-bottom:0.75rem"><input class="dash-input" id="search-casier" placeholder="Rechercher..." oninput="renderCasier()" style="margin-bottom:0"></div>
-          <div id="casier-list"></div>
-        </div>
-      </div>
+
 
       <!-- STAFF MESSAGES -->
       <div class="dash-panel" id="panel-staff-messages">
@@ -2140,7 +2116,7 @@ function openDashboard() {
   if (!currentUser) { openAuth(); return; }
   document.getElementById('dashboard').classList.add('open');
   var isStaff = STAFF_GRADES.includes((currentUser&&currentUser.grade||"")) || currentUser.isAdmin;
-  ['section-staff','nav-staff-tickets','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-casier','nav-staff-messages','nav-staff-presences','nav-staff-journal','nav-staff-equipe'].forEach(function(id){
+  ['section-staff','nav-staff-tickets','nav-staff-overview','nav-staff-joueurs','nav-staff-signalements','nav-staff-sanctions','nav-staff-messages','nav-staff-presences','nav-staff-journal','nav-staff-equipe'].forEach(function(id){
     var el=document.getElementById(id);
     if(el) el.style.display=isStaff?(id==="section-staff"?"block":"flex"):"none";
   });
@@ -2165,7 +2141,7 @@ function switchDash(panel) {
     "tickets":"Mes Tickets","overview":"Vue d'ensemble","profil":"Mon Profil","achats":"Mes Achats","messages":"Messages",
     "signalement":"Signalement","reglement":"Règlement","sanctions":"Mes Sanctions","journal-public":"Annonces",
     "staff-tickets":"Tickets Joueurs","staff-overview":"Vue Staff","staff-joueurs":"Joueurs","staff-signalements":"Signalements",
-    "staff-sanctions":"Sanctions","staff-casier":"Casier Judiciaire","staff-messages":"Messages Joueurs",
+    "staff-sanctions":"Sanctions","staff-messages":"Messages Joueurs",
     "staff-presences":"Présences","staff-planning":"Planning","staff-rapports":"Rapports",
     "staff-journal":"Annonces","staff-equipe":"Gérer le Staff"
   };
@@ -2176,7 +2152,7 @@ function switchDash(panel) {
     'messages':renderDashMessages,'signalement':renderDashSignalement,'sanctions':renderDashSanctions,
     'journal-public':renderJournalPublic,'staff-tickets':renderStaffTickets,'staff-overview':renderStaffOverview,'staff-joueurs':renderStaffJoueurs,
     'staff-signalements':renderStaffSignalements,'staff-sanctions':renderStaffSanctions,
-    'staff-casier':renderCasier,'staff-messages':renderStaffMessages,'staff-presences':renderPresences,
+    'staff-messages':renderStaffMessages,'staff-presences':renderPresences,
     'staff-planning':renderPlanning,'staff-rapports':renderRapports,'staff-journal':renderJournalStaff,
     'staff-equipe':renderStaffManage
   };
