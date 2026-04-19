@@ -661,6 +661,204 @@ footer span{color:var(--red)}
     <div class="stat-item">🧱 <span>BASE BUILDING :</span> Facilité</div>
     <div class="stat-item">☢️ <span>ZONE NBC :</span> Prison permanente</div>
   </div>
+
+
+<!-- ===== REGLEMENT PUBLIC ===== -->
+<section id="reglement-public">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;margin-bottom:0.5rem">RÈGLE<span style="color:#c0392b">MENT</span></div>
+    <div style="width:60px;height:3px;background:#c0392b;margin:0 0 2rem"></div>
+
+    <div class="reg-pub-tabs">
+      <button class="reg-pub-tab active-serveur" onclick="switchRegPub('serveur',this)">🎮 Serveur en jeu</button>
+      <button class="reg-pub-tab" onclick="switchRegPub('discord',this)">💬 Discord</button>
+      <button class="reg-pub-tab" onclick="switchRegPub('dons',this)">⚠️ Dons &amp; Boutique</button>
+    </div>
+
+    <div class="reg-pub-content active" id="regpub-serveur">
+      <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px">▼ Cliquez sur un article pour les détails</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Communauté <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary">Comportement entre joueurs — insultes, conflits, sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Le respect est obligatoire. Si deux joueurs s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception. Nous voulons une communauté exemplaire.<div class="rules-grid"><div class="rule-ok">✅ Débattre sainement en jeu</div><div class="rule-ko">❌ Insulter un joueur</div><div class="rule-ok">✅ Signaler via ticket</div><div class="rule-ko">❌ Harcèlement ou discrimination</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Ce qui se passe en jeu reste en jeu</div><div class="art-summary">Conflits en jeu — gestion des disputes, rôle du staff</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Les conflits en jeu (raid, KOS, vol) restent en jeu. Ne remontez pas vos disputes sur le Discord. Si un conflit remonte, <strong style="color:#c0392b">le staff tranche et les deux joueurs sont sanctionnés.</strong><div class="rules-grid"><div class="rule-ok">✅ Régler ses conflits en jeu</div><div class="rule-ko">❌ Amener un conflit sur le Discord</div><div class="rule-ok">✅ Ouvrir un ticket pour litige grave</div><div class="rule-ko">❌ Insulter en dehors du jeu</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Triche &amp; Exploits <span class="art-tag art-tag-red">BAN PERMANENT</span></div><div class="art-summary">Hacks, cheats, exploits de bugs — tolérance zéro</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">L'utilisation de logiciel de triche, hack ou exploit intentionnel de bug entraîne un <strong style="color:#c0392b">ban permanent immédiat</strong> sans appel.<div class="rules-grid"><div class="rule-ok">✅ Jouer de façon fair-play</div><div class="rule-ko">❌ Utiliser un hack ou cheat</div><div class="rule-ok">✅ Signaler un bug au staff</div><div class="rule-ko">❌ Exploiter un bug intentionnellement</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">KOS &amp; Combat</div><div class="art-summary">Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Le KOS est autorisé uniquement en zones militaires Tier 3+. Ailleurs, une interaction vocale est obligatoire avant toute attaque. Pas de Metagaming ni Ghosting.<div class="rules-grid"><div class="rule-ok">✅ KOS en zone militaire T3+</div><div class="rule-ko">❌ KOS hors zone sans interaction</div><div class="rule-ok">✅ PvP fair-play partout</div><div class="rule-ko">❌ Metagaming ou Ghosting</div></div></div>
+            </div>
+
+            <div class="art-wrap green" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Véhicules <span class="art-tag art-tag-green">VOL AUTORISÉ</span></div><div class="art-summary">Vol dans les bases autorisé — accessoires, destruction, équipements</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Le vol de véhicules est autorisé partout, y compris dans les bases. Mais vous avez des responsabilités.<div class="rules-grid"><div class="rule-ok">✅ Voler un véhicule dans une base</div><div class="rule-ko">❌ Retirer les accessoires et les abandonner</div><div class="rule-ok">✅ Utiliser le véhicule normalement</div><div class="rule-ko">❌ Laisser un véhicule inutilisable sans le détruire</div><div class="rule-ok">✅ Récupérer vos équipements avant le wipe</div><div class="rule-ko">❌ Réclamer un remboursement après wipe</div></div></div>
+            </div>
+
+            <div class="art-wrap gold" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Wipe des véhicules <span class="art-tag art-tag-gold">DIMANCHE 20H</span></div><div class="art-summary">Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Wipe des véhicules <strong style="color:#d4ac0d">chaque dimanche à 20h00</strong>. Tout équipement laissé dans un véhicule au moment du wipe est perdu définitivement.<div class="rules-grid"><div class="rule-ok">✅ Récupérer ses affaires avant 20h dimanche</div><div class="rule-ko">❌ Laisser des équipements dans un véhicule</div><div class="rule-ok">✅ Détruire les véhicules inutilisables</div><div class="rule-ko">❌ Demander un remboursement post-wipe</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">07</span><div class="art-title-wrap"><div class="art-title-main">Base Building</div><div class="art-summary">Limite 2 bases, pas de blocage de routes ou villes</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Maximum 2 bases par groupe. Interdiction de bloquer l'accès aux villes, routes principales ou zones de spawn.<div class="rules-grid"><div class="rule-ok">✅ 2 bases maximum par groupe</div><div class="rule-ko">❌ Bloquer une route ou ville</div><div class="rule-ok">✅ Construire en zone libre</div><div class="rule-ko">❌ Bloquer une zone de spawn</div></div></div>
+            </div>
+
+            <div class="art-wrap gold" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">08</span><div class="art-title-wrap"><div class="art-title-main">Raids <span class="art-tag art-tag-gold">RÈGLE 2 SEMAINES</span></div><div class="art-summary">Raid autorisé partout — mais interdiction de re-raider pendant 14 jours</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Le raid est autorisé dans toutes les zones. Mais si une base vient d'être raidée, <strong style="color:#d4ac0d">impossible de la raider à nouveau pendant 14 jours.</strong><div class="rules-grid"><div class="rule-ok">✅ Raider n'importe quelle base</div><div class="rule-ko">❌ Re-raider une base dans les 14 jours</div><div class="rule-ok">✅ Raider une base non-raidée récemment</div><div class="rule-ko">❌ Contourner la règle des 2 semaines</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">09</span><div class="art-title-wrap"><div class="art-title-main">Comportement général</div><div class="art-summary">Grief, stream sniping, nuisances — PvP fair-play uniquement</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Le grief gratuit, le stream sniping et toute action visant à nuire délibérément sont interdits.<div class="rules-grid"><div class="rule-ok">✅ PvP fair-play et compétitif</div><div class="rule-ko">❌ Grief gratuit sans objectif</div><div class="rule-ok">✅ Jouer pour la survie et le fun</div><div class="rule-ko">❌ Stream sniping</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Staff &amp; Décisions</div><div class="art-summary">Respect du staff obligatoire — décisions finales, contestation via ticket</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Les décisions du staff sont finales. Tout manque de respect entraîne une sanction immédiate.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket pour contester</div><div class="rule-ko">❌ Manquer de respect au staff</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Contester publiquement sur Discord</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">11</span><div class="art-title-wrap"><div class="art-title-main">Sanctions</div><div class="art-summary">Système progressif — avertissement, kick, ban temporaire, ban permanent</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Les sanctions sont progressives : Avertissement → Kick → Ban temporaire (24h à 30j) → Ban permanent. Certaines infractions graves entraînent un ban direct.<div class="rules-grid"><div class="rule-ok">✅ Contester une sanction via ticket</div><div class="rule-ko">❌ Récidiver après un avertissement</div><div class="rule-ok">✅ Respecter la durée du ban</div><div class="rule-ko">❌ Contourner un ban avec un autre compte</div></div></div>
+            </div>
+
+            <div class="art-wrap gold" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">12</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement <span class="art-tag art-tag-gold">IMPORTANT</span></div><div class="art-summary">Règlement modifiable à tout moment — notification obligatoire</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Ce règlement peut être modifié à tout moment. Vous serez notifié sur Discord et le site, et invité à le relire. Continuer à jouer vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer une mise à jour du règlement</div><div class="rule-ok">✅ Poser vos questions via ticket</div><div class="rule-ko">❌ Invoquer l'ignorance après notification</div></div></div>
+            </div>
+
+            <div class="art-wrap gold" onclick="toggleArt(this)" style="border:2px solid #d4ac0d;background:rgba(212,172,13,0.04)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">13</span><div class="art-title-wrap"><div class="art-title-main">Blacklist <span class="art-tag art-tag-red">BAN DÉFINITIF</span></div><div class="art-summary">Système de blacklist avancé — détection automatique, tolérance zéro absolue</div></div></div><span class="art-chevron" style="color:#d4ac0d">▼</span></div>
+              <div class="art-body">
+                <div style="padding:8px 12px;background:rgba(212,172,13,0.08);border:1px solid rgba(212,172,13,0.3);margin-bottom:10px;font-size:0.8rem;color:#d4ac0d">⚠️ Badland FR dispose d'une blacklist très avancée, interconnectée avec d'autres serveurs. La détection est automatique.</div>
+                Tout joueur présent dans notre blacklist sera <strong style="color:#c0392b">refusé automatiquement</strong> à la connexion. Nous faisons confiance à tout le monde, même les joueurs avec un lourd palmarès. Cependant, <strong style="color:#fff">une seule remarque à votre encontre</strong> entraîne un <strong style="color:#c0392b">ban définitif immédiat</strong> et une inscription automatique dans notre base de données partagée.
+                <div class="rules-grid"><div class="rule-ok">✅ Joueur sans antécédent — accès accordé</div><div class="rule-ko">❌ Joueur blacklisté — refus automatique</div><div class="rule-ok">✅ Seconde chance accordée avec confiance</div><div class="rule-ko">❌ 1 seul écart = ban définitif + blacklist</div></div>
+              </div>
+            </div>
+
+            <div style="padding:1rem 1.25rem;background:rgba(212,172,13,0.05);border:2px solid #d4ac0d;margin-top:0.5rem">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:3px;color:#d4ac0d;margin-bottom:0.5rem">⚔️ AVIS OFFICIEL — CIBLE DÉSIGNÉE</div>
+              <div style="font-size:0.85rem;color:#e8e8e8;line-height:1.7">Le joueur <strong style="font-family:'Share Tech Mono',monospace;font-size:1rem;color:#d4ac0d;letter-spacing:2px">RBXZ90</strong> est officiellement désigné comme cible sur le serveur.<br><strong style="color:#fff">Vous avez carte blanche pour interagir avec ce joueur de toutes les façons possibles en jeu.</strong><br><span style="color:#888;font-size:0.78rem">— Décision officielle du staff Badland FR</span></div>
+            </div>
+
+          </div>
+    </div>
+
+    <div class="reg-pub-content" id="regpub-discord">
+      <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px">▼ Cliquez sur un article pour les détails</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+
+            <div class="art-wrap blue" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">01</span><div class="art-title-wrap"><div class="art-title-main">Rejoindre le Discord <span class="art-tag art-tag-blue">OBLIGATOIRE</span></div><div class="art-summary">Condition obligatoire pour jouer — canal officiel du serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Rejoindre le Discord est obligatoire pour jouer sur Badland FR. C'est le seul canal officiel pour les annonces, la whitelist et les tickets.<div class="rules-grid"><div class="rule-ok">✅ Rejoindre le Discord via le lien officiel</div><div class="rule-ko">❌ Jouer sans être membre du Discord</div></div></div>
+            </div>
+
+            <div class="art-wrap blue" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">02</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Comportement <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary">Insultes, provocations, comportement toxique — sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Le respect est obligatoire. Si deux membres s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses</div><div class="rule-ko">❌ Insulter un membre</div><div class="rule-ok">✅ Signaler un comportement via ticket</div><div class="rule-ko">❌ Provoquer ou harceler</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Liens &amp; Publicité <span class="art-tag art-tag-red">STRICTEMENT INTERDIT</span></div><div class="art-summary">Aucun lien autorisé — bot automatisé, suppression et sanction immédiates</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Partager des liens dans les salons est <strong style="color:#c0392b">strictement interdit</strong>. Un bot supprime automatiquement tout lien posté et applique une sanction immédiate.<div style="margin:8px 0;padding:8px 12px;background:rgba(88,101,242,0.08);border:1px solid rgba(88,101,242,0.3);font-size:0.78rem;color:#888">🤖 Bot actif 24h/24 — tout lien supprimé instantanément, aucune exception.</div><div class="rules-grid"><div class="rule-ok">✅ Partager du texte et des captures</div><div class="rule-ko">❌ Poster un lien quelconque</div><div class="rule-ok">✅ Mentionner un contenu sans lien</div><div class="rule-ko">❌ Pub pour un autre serveur</div></div></div>
+            </div>
+
+            <div class="art-wrap blue" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">04</span><div class="art-title-wrap"><div class="art-title-main">Salons &amp; Canaux</div><div class="art-summary">Utilisation correcte des salons — spam et hors-sujet interdits</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Chaque salon a un objectif précis. Utilisez le bon salon pour chaque sujet.<div class="rules-grid"><div class="rule-ok">✅ Poster dans le bon salon</div><div class="rule-ko">❌ Spam ou messages répétés</div><div class="rule-ok">✅ Messages clairs et lisibles</div><div class="rule-ko">❌ Messages entièrement en majuscules</div></div></div>
+            </div>
+
+            <div class="art-wrap blue" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">05</span><div class="art-title-wrap"><div class="art-title-main">Whitelist</div><div class="art-summary">Commande /psn dans #whitelist — obligatoire pour accéder au serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Allez dans <strong style="color:#5865F2">#whitelist</strong> et tapez <code style="background:#111;padding:1px 6px;color:#5865F2">/psn VotrePseudo</code>. Sans whitelist validée, impossible de jouer.<div class="rules-grid"><div class="rule-ok">✅ Utiliser son vrai PSN/Gamertag</div><div class="rule-ko">❌ Mettre un pseudo incorrect</div><div class="rule-ok">✅ Attendre la validation staff</div><div class="rule-ko">❌ Spammer la commande plusieurs fois</div></div></div>
+            </div>
+
+            <div class="art-wrap gold" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Tickets Discord <span class="art-tag art-tag-gold">DÉLAI 2H</span></div><div class="art-summary">Fermeture automatique après 2h sans réponse — disponible sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body"><strong style="color:#d4ac0d">Si vous ne répondez pas dans les 2 heures</strong> suivant une réponse staff, le ticket est fermé automatiquement. Vous pouvez aussi ouvrir un ticket sur le site via <strong style="color:#c0392b">Mon Espace → Mes Tickets</strong> — les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Répondre rapidement au staff</div><div class="rule-ko">❌ Laisser un ticket sans réponse 2h+</div><div class="rule-ok">✅ Ouvrir un ticket sur Discord ET le site</div><div class="rule-ko">❌ Ouvrir plusieurs tickets pour le même problème</div></div></div>
+            </div>
+
+            <div class="art-wrap blue" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">07</span><div class="art-title-wrap"><div class="art-title-main">Litiges &amp; Contestations</div><div class="art-summary">Via ticket uniquement — pas de disputes publiques dans les salons</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Tous les litiges se règlent via ticket. Les disputes publiques sont interdites et sanctionnées. Le staff prend la décision finale.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket privé</div><div class="rule-ko">❌ Débattre publiquement dans un salon</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Relancer un litige clôturé</div></div></div>
+            </div>
+
+            <div class="art-wrap blue" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">08</span><div class="art-title-wrap"><div class="art-title-main">Contenu partagé</div><div class="art-summary">Aucun contenu illégal, NSFW ou choquant — ban immédiat</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Aucun contenu illégal, offensant, NSFW ou violent. Violation = ban Discord et serveur immédiat et définitif.<div class="rules-grid"><div class="rule-ok">✅ Partager des captures de jeu</div><div class="rule-ko">❌ Contenu NSFW ou illégal</div><div class="rule-ok">✅ Mèmes respectueux liés au jeu</div><div class="rule-ko">❌ Contenu violent ou choquant</div></div></div>
+            </div>
+
+            <div class="art-wrap blue" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">09</span><div class="art-title-wrap"><div class="art-title-main">Vocal</div><div class="art-summary">Mêmes règles que le texte — respect obligatoire dans les canaux vocaux</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Les canaux vocaux suivent les mêmes règles que les salons texte.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses en vocal</div><div class="rule-ko">❌ Perturber une conversation</div><div class="rule-ok">✅ Utiliser Push-to-Talk si besoin</div><div class="rule-ko">❌ Diffuser des sons agressifs</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Sanctions Discord</div><div class="art-summary">Progressif : avertissement → mute → kick → ban Discord = ban serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Sanctions progressives : Avertissement → Mute temporaire → Kick → Ban Discord. <strong style="color:#c0392b">Un ban Discord entraîne automatiquement un ban du serveur de jeu.</strong><div class="rules-grid"><div class="rule-ok">✅ Respecter le règlement pour éviter tout</div><div class="rule-ko">❌ Ban Discord = ban jeu automatique</div><div class="rule-ok">✅ Contester via ticket</div><div class="rule-ko">❌ Créer un nouveau compte pour contourner</div></div></div>
+            </div>
+
+          </div>
+    </div>
+
+    <div class="reg-pub-content" id="regpub-dons">
+      <div style="padding:10px 14px;background:#1a0808;border:1px solid rgba(192,57,43,0.4);border-left:3px solid #c0392b;font-size:0.82rem;color:#c0392b;margin-bottom:10px;animation:blink-border 1.2s infinite">⚠️ IMPORTANT — Lisez attentivement avant tout achat. Les dons et achats sont <strong>définitifs et non remboursables.</strong></div>
+      <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px">▼ Cliquez sur un article pour les détails</div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Nature des dons &amp; avantages</div><div class="art-summary">Priorité de connexion, crédits boutique — aucun avantage de gameplay direct</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Les dons couvrent les frais Nitrado. En échange : <strong style="color:#d4ac0d">priorité de connexion sur le serveur</strong>, accès aux crédits boutique. Aucun avantage de gameplay direct (pas de loot, pas d'équipement).<div class="rules-grid"><div class="rule-ok">✅ Priorité de connexion serveur</div><div class="rule-ko">❌ Avantage direct en jeu</div><div class="rule-ok">✅ Accès aux packs de crédits boutique</div><div class="rule-ko">❌ Réclamation de remboursement</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Crédits boutique</div><div class="art-summary">Non échangeables contre argent réel — valables uniquement sur Badland FR</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Les crédits sont valables uniquement sur Badland FR. Non échangeables contre argent réel ni transférables entre comptes.<div class="rules-grid"><div class="rule-ok">✅ Utiliser ses crédits sur la boutique</div><div class="rule-ko">❌ Demander un échange contre argent réel</div><div class="rule-ok">✅ Crédits actifs tant que serveur en ligne</div><div class="rule-ko">❌ Transférer des crédits entre comptes</div></div></div>
+            </div>
+
+            <div class="art-wrap gold" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">03</span><div class="art-title-wrap"><div class="art-title-main">Avant tout achat <span class="art-tag art-tag-gold">RECOMMANDÉ</span></div><div class="art-summary">Ouvrir un ticket avant d'acheter — Discord et site disponibles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">En cas de doute, ouvrez un ticket <strong>avant</strong> tout achat. Disponible sur <strong style="color:#5865F2">Discord</strong> (salon #tickets) ou <strong style="color:#c0392b">site internet</strong> (Mon Espace → Mes Tickets). Les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket avant d'acheter</div><div class="rule-ko">❌ Acheter sans avoir lu le règlement</div><div class="rule-ok">✅ Ticket sur Discord ET sur le site</div><div class="rule-ko">❌ Acheter puis réclamer un remboursement</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">Litiges de paiement</div><div class="art-summary">48h pour contacter le staff — chargeback = ban permanent immédiat</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">En cas de litige, contactez le staff <strong>dans les 48h</strong> avec votre preuve PayPal. Chargeback non justifié = <strong style="color:#c0392b">ban permanent immédiat.</strong><div class="rules-grid"><div class="rule-ok">✅ Contacter le staff dans les 48h</div><div class="rule-ko">❌ Initier un chargeback sans contact</div><div class="rule-ok">✅ Fournir la preuve de paiement PayPal</div><div class="rule-ko">❌ Chargeback = ban permanent automatique</div></div></div>
+            </div>
+
+            <div class="art-wrap" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Fermeture du serveur</div><div class="art-summary">Crédits non remboursés — préavis minimum de 7 jours</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">En cas de fermeture définitive, les crédits non utilisés restent acquis à l'administration. Préavis minimum de 7 jours publié sur Discord et le site.<div class="rules-grid"><div class="rule-ok">✅ Être notifié 7 jours à l'avance</div><div class="rule-ko">❌ Remboursement des crédits non utilisés</div></div></div>
+            </div>
+
+            <div class="art-wrap gold" onclick="toggleArt(this)">
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement dons</div><div class="art-summary">Modifiable à tout moment — notification sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-body">Ce règlement peut être modifié à tout moment. Notification via Discord et site. Continuer à utiliser la boutique vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer les mises à jour</div></div></div>
+            </div>
+
+            <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite;margin-top:0.5rem">
+              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
+            </div>
+
+          </div>
+      <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite;margin-top:0.5rem">
+              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
+            </div>
+    </div>
+  </div>
+</section>
 </div>
 
 <!-- ===== PRESENTATION ===== -->
@@ -980,202 +1178,6 @@ footer span{color:var(--red)}
 </section>
 
 
-<!-- ===== REGLEMENT PUBLIC ===== -->
-<section id="reglement-public">
-  <div style="max-width:900px;margin:0 auto">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;margin-bottom:0.5rem">RÈGLE<span style="color:#c0392b">MENT</span></div>
-    <div style="width:60px;height:3px;background:#c0392b;margin:0 0 2rem"></div>
-
-    <div class="reg-pub-tabs">
-      <button class="reg-pub-tab active-serveur" onclick="switchRegPub('serveur',this)">🎮 Serveur en jeu</button>
-      <button class="reg-pub-tab" onclick="switchRegPub('discord',this)">💬 Discord</button>
-      <button class="reg-pub-tab" onclick="switchRegPub('dons',this)">⚠️ Dons &amp; Boutique</button>
-    </div>
-
-    <div class="reg-pub-content active" id="regpub-serveur">
-      <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px">▼ Cliquez sur un article pour les détails</div>
-      <div style="display:flex;flex-direction:column;gap:5px">
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Communauté <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary">Comportement entre joueurs — insultes, conflits, sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le respect est obligatoire. Si deux joueurs s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception. Nous voulons une communauté exemplaire.<div class="rules-grid"><div class="rule-ok">✅ Débattre sainement en jeu</div><div class="rule-ko">❌ Insulter un joueur</div><div class="rule-ok">✅ Signaler via ticket</div><div class="rule-ko">❌ Harcèlement ou discrimination</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Ce qui se passe en jeu reste en jeu</div><div class="art-summary">Conflits en jeu — gestion des disputes, rôle du staff</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les conflits en jeu (raid, KOS, vol) restent en jeu. Ne remontez pas vos disputes sur le Discord. Si un conflit remonte, <strong style="color:#c0392b">le staff tranche et les deux joueurs sont sanctionnés.</strong><div class="rules-grid"><div class="rule-ok">✅ Régler ses conflits en jeu</div><div class="rule-ko">❌ Amener un conflit sur le Discord</div><div class="rule-ok">✅ Ouvrir un ticket pour litige grave</div><div class="rule-ko">❌ Insulter en dehors du jeu</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Triche &amp; Exploits <span class="art-tag art-tag-red">BAN PERMANENT</span></div><div class="art-summary">Hacks, cheats, exploits de bugs — tolérance zéro</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">L'utilisation de logiciel de triche, hack ou exploit intentionnel de bug entraîne un <strong style="color:#c0392b">ban permanent immédiat</strong> sans appel.<div class="rules-grid"><div class="rule-ok">✅ Jouer de façon fair-play</div><div class="rule-ko">❌ Utiliser un hack ou cheat</div><div class="rule-ok">✅ Signaler un bug au staff</div><div class="rule-ko">❌ Exploiter un bug intentionnellement</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">KOS &amp; Combat</div><div class="art-summary">Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le KOS est autorisé uniquement en zones militaires Tier 3+. Ailleurs, une interaction vocale est obligatoire avant toute attaque. Pas de Metagaming ni Ghosting.<div class="rules-grid"><div class="rule-ok">✅ KOS en zone militaire T3+</div><div class="rule-ko">❌ KOS hors zone sans interaction</div><div class="rule-ok">✅ PvP fair-play partout</div><div class="rule-ko">❌ Metagaming ou Ghosting</div></div></div>
-            </div>
-
-            <div class="art-wrap green" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Véhicules <span class="art-tag art-tag-green">VOL AUTORISÉ</span></div><div class="art-summary">Vol dans les bases autorisé — accessoires, destruction, équipements</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le vol de véhicules est autorisé partout, y compris dans les bases. Mais vous avez des responsabilités.<div class="rules-grid"><div class="rule-ok">✅ Voler un véhicule dans une base</div><div class="rule-ko">❌ Retirer les accessoires et les abandonner</div><div class="rule-ok">✅ Utiliser le véhicule normalement</div><div class="rule-ko">❌ Laisser un véhicule inutilisable sans le détruire</div><div class="rule-ok">✅ Récupérer vos équipements avant le wipe</div><div class="rule-ko">❌ Réclamer un remboursement après wipe</div></div></div>
-            </div>
-
-            <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Wipe des véhicules <span class="art-tag art-tag-gold">DIMANCHE 20H</span></div><div class="art-summary">Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Wipe des véhicules <strong style="color:#d4ac0d">chaque dimanche à 20h00</strong>. Tout équipement laissé dans un véhicule au moment du wipe est perdu définitivement.<div class="rules-grid"><div class="rule-ok">✅ Récupérer ses affaires avant 20h dimanche</div><div class="rule-ko">❌ Laisser des équipements dans un véhicule</div><div class="rule-ok">✅ Détruire les véhicules inutilisables</div><div class="rule-ko">❌ Demander un remboursement post-wipe</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">07</span><div class="art-title-wrap"><div class="art-title-main">Base Building</div><div class="art-summary">Limite 2 bases, pas de blocage de routes ou villes</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Maximum 2 bases par groupe. Interdiction de bloquer l'accès aux villes, routes principales ou zones de spawn.<div class="rules-grid"><div class="rule-ok">✅ 2 bases maximum par groupe</div><div class="rule-ko">❌ Bloquer une route ou ville</div><div class="rule-ok">✅ Construire en zone libre</div><div class="rule-ko">❌ Bloquer une zone de spawn</div></div></div>
-            </div>
-
-            <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">08</span><div class="art-title-wrap"><div class="art-title-main">Raids <span class="art-tag art-tag-gold">RÈGLE 2 SEMAINES</span></div><div class="art-summary">Raid autorisé partout — mais interdiction de re-raider pendant 14 jours</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le raid est autorisé dans toutes les zones. Mais si une base vient d'être raidée, <strong style="color:#d4ac0d">impossible de la raider à nouveau pendant 14 jours.</strong><div class="rules-grid"><div class="rule-ok">✅ Raider n'importe quelle base</div><div class="rule-ko">❌ Re-raider une base dans les 14 jours</div><div class="rule-ok">✅ Raider une base non-raidée récemment</div><div class="rule-ko">❌ Contourner la règle des 2 semaines</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">09</span><div class="art-title-wrap"><div class="art-title-main">Comportement général</div><div class="art-summary">Grief, stream sniping, nuisances — PvP fair-play uniquement</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le grief gratuit, le stream sniping et toute action visant à nuire délibérément sont interdits.<div class="rules-grid"><div class="rule-ok">✅ PvP fair-play et compétitif</div><div class="rule-ko">❌ Grief gratuit sans objectif</div><div class="rule-ok">✅ Jouer pour la survie et le fun</div><div class="rule-ko">❌ Stream sniping</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Staff &amp; Décisions</div><div class="art-summary">Respect du staff obligatoire — décisions finales, contestation via ticket</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les décisions du staff sont finales. Tout manque de respect entraîne une sanction immédiate.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket pour contester</div><div class="rule-ko">❌ Manquer de respect au staff</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Contester publiquement sur Discord</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">11</span><div class="art-title-wrap"><div class="art-title-main">Sanctions</div><div class="art-summary">Système progressif — avertissement, kick, ban temporaire, ban permanent</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les sanctions sont progressives : Avertissement → Kick → Ban temporaire (24h à 30j) → Ban permanent. Certaines infractions graves entraînent un ban direct.<div class="rules-grid"><div class="rule-ok">✅ Contester une sanction via ticket</div><div class="rule-ko">❌ Récidiver après un avertissement</div><div class="rule-ok">✅ Respecter la durée du ban</div><div class="rule-ko">❌ Contourner un ban avec un autre compte</div></div></div>
-            </div>
-
-            <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">12</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement <span class="art-tag art-tag-gold">IMPORTANT</span></div><div class="art-summary">Règlement modifiable à tout moment — notification obligatoire</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Ce règlement peut être modifié à tout moment. Vous serez notifié sur Discord et le site, et invité à le relire. Continuer à jouer vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer une mise à jour du règlement</div><div class="rule-ok">✅ Poser vos questions via ticket</div><div class="rule-ko">❌ Invoquer l'ignorance après notification</div></div></div>
-            </div>
-
-            <div class="art-wrap gold" onclick="toggleArt(this)" style="border:2px solid #d4ac0d;background:rgba(212,172,13,0.04)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">13</span><div class="art-title-wrap"><div class="art-title-main">Blacklist <span class="art-tag art-tag-red">BAN DÉFINITIF</span></div><div class="art-summary">Système de blacklist avancé — détection automatique, tolérance zéro absolue</div></div></div><span class="art-chevron" style="color:#d4ac0d">▼</span></div>
-              <div class="art-body">
-                <div style="padding:8px 12px;background:rgba(212,172,13,0.08);border:1px solid rgba(212,172,13,0.3);margin-bottom:10px;font-size:0.8rem;color:#d4ac0d">⚠️ Badland FR dispose d'une blacklist très avancée, interconnectée avec d'autres serveurs. La détection est automatique.</div>
-                Tout joueur présent dans notre blacklist sera <strong style="color:#c0392b">refusé automatiquement</strong> à la connexion. Nous faisons confiance à tout le monde, même les joueurs avec un lourd palmarès. Cependant, <strong style="color:#fff">une seule remarque à votre encontre</strong> entraîne un <strong style="color:#c0392b">ban définitif immédiat</strong> et une inscription automatique dans notre base de données partagée.
-                <div class="rules-grid"><div class="rule-ok">✅ Joueur sans antécédent — accès accordé</div><div class="rule-ko">❌ Joueur blacklisté — refus automatique</div><div class="rule-ok">✅ Seconde chance accordée avec confiance</div><div class="rule-ko">❌ 1 seul écart = ban définitif + blacklist</div></div>
-              </div>
-            </div>
-
-            <div style="padding:1rem 1.25rem;background:rgba(212,172,13,0.05);border:2px solid #d4ac0d;margin-top:0.5rem">
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:3px;color:#d4ac0d;margin-bottom:0.5rem">⚔️ AVIS OFFICIEL — CIBLE DÉSIGNÉE</div>
-              <div style="font-size:0.85rem;color:#e8e8e8;line-height:1.7">Le joueur <strong style="font-family:'Share Tech Mono',monospace;font-size:1rem;color:#d4ac0d;letter-spacing:2px">RBXZ90</strong> est officiellement désigné comme cible sur le serveur.<br><strong style="color:#fff">Vous avez carte blanche pour interagir avec ce joueur de toutes les façons possibles en jeu.</strong><br><span style="color:#888;font-size:0.78rem">— Décision officielle du staff Badland FR</span></div>
-            </div>
-
-          </div>
-    </div>
-
-    <div class="reg-pub-content" id="regpub-discord">
-      <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px">▼ Cliquez sur un article pour les détails</div>
-      <div style="display:flex;flex-direction:column;gap:5px">
-
-            <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">01</span><div class="art-title-wrap"><div class="art-title-main">Rejoindre le Discord <span class="art-tag art-tag-blue">OBLIGATOIRE</span></div><div class="art-summary">Condition obligatoire pour jouer — canal officiel du serveur</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Rejoindre le Discord est obligatoire pour jouer sur Badland FR. C'est le seul canal officiel pour les annonces, la whitelist et les tickets.<div class="rules-grid"><div class="rule-ok">✅ Rejoindre le Discord via le lien officiel</div><div class="rule-ko">❌ Jouer sans être membre du Discord</div></div></div>
-            </div>
-
-            <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">02</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Comportement <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary">Insultes, provocations, comportement toxique — sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le respect est obligatoire. Si deux membres s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses</div><div class="rule-ko">❌ Insulter un membre</div><div class="rule-ok">✅ Signaler un comportement via ticket</div><div class="rule-ko">❌ Provoquer ou harceler</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Liens &amp; Publicité <span class="art-tag art-tag-red">STRICTEMENT INTERDIT</span></div><div class="art-summary">Aucun lien autorisé — bot automatisé, suppression et sanction immédiates</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Partager des liens dans les salons est <strong style="color:#c0392b">strictement interdit</strong>. Un bot supprime automatiquement tout lien posté et applique une sanction immédiate.<div style="margin:8px 0;padding:8px 12px;background:rgba(88,101,242,0.08);border:1px solid rgba(88,101,242,0.3);font-size:0.78rem;color:#888">🤖 Bot actif 24h/24 — tout lien supprimé instantanément, aucune exception.</div><div class="rules-grid"><div class="rule-ok">✅ Partager du texte et des captures</div><div class="rule-ko">❌ Poster un lien quelconque</div><div class="rule-ok">✅ Mentionner un contenu sans lien</div><div class="rule-ko">❌ Pub pour un autre serveur</div></div></div>
-            </div>
-
-            <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">04</span><div class="art-title-wrap"><div class="art-title-main">Salons &amp; Canaux</div><div class="art-summary">Utilisation correcte des salons — spam et hors-sujet interdits</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Chaque salon a un objectif précis. Utilisez le bon salon pour chaque sujet.<div class="rules-grid"><div class="rule-ok">✅ Poster dans le bon salon</div><div class="rule-ko">❌ Spam ou messages répétés</div><div class="rule-ok">✅ Messages clairs et lisibles</div><div class="rule-ko">❌ Messages entièrement en majuscules</div></div></div>
-            </div>
-
-            <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">05</span><div class="art-title-wrap"><div class="art-title-main">Whitelist</div><div class="art-summary">Commande /psn dans #whitelist — obligatoire pour accéder au serveur</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Allez dans <strong style="color:#5865F2">#whitelist</strong> et tapez <code style="background:#111;padding:1px 6px;color:#5865F2">/psn VotrePseudo</code>. Sans whitelist validée, impossible de jouer.<div class="rules-grid"><div class="rule-ok">✅ Utiliser son vrai PSN/Gamertag</div><div class="rule-ko">❌ Mettre un pseudo incorrect</div><div class="rule-ok">✅ Attendre la validation staff</div><div class="rule-ko">❌ Spammer la commande plusieurs fois</div></div></div>
-            </div>
-
-            <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Tickets Discord <span class="art-tag art-tag-gold">DÉLAI 2H</span></div><div class="art-summary">Fermeture automatique après 2h sans réponse — disponible sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body"><strong style="color:#d4ac0d">Si vous ne répondez pas dans les 2 heures</strong> suivant une réponse staff, le ticket est fermé automatiquement. Vous pouvez aussi ouvrir un ticket sur le site via <strong style="color:#c0392b">Mon Espace → Mes Tickets</strong> — les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Répondre rapidement au staff</div><div class="rule-ko">❌ Laisser un ticket sans réponse 2h+</div><div class="rule-ok">✅ Ouvrir un ticket sur Discord ET le site</div><div class="rule-ko">❌ Ouvrir plusieurs tickets pour le même problème</div></div></div>
-            </div>
-
-            <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">07</span><div class="art-title-wrap"><div class="art-title-main">Litiges &amp; Contestations</div><div class="art-summary">Via ticket uniquement — pas de disputes publiques dans les salons</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Tous les litiges se règlent via ticket. Les disputes publiques sont interdites et sanctionnées. Le staff prend la décision finale.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket privé</div><div class="rule-ko">❌ Débattre publiquement dans un salon</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Relancer un litige clôturé</div></div></div>
-            </div>
-
-            <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">08</span><div class="art-title-wrap"><div class="art-title-main">Contenu partagé</div><div class="art-summary">Aucun contenu illégal, NSFW ou choquant — ban immédiat</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Aucun contenu illégal, offensant, NSFW ou violent. Violation = ban Discord et serveur immédiat et définitif.<div class="rules-grid"><div class="rule-ok">✅ Partager des captures de jeu</div><div class="rule-ko">❌ Contenu NSFW ou illégal</div><div class="rule-ok">✅ Mèmes respectueux liés au jeu</div><div class="rule-ko">❌ Contenu violent ou choquant</div></div></div>
-            </div>
-
-            <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">09</span><div class="art-title-wrap"><div class="art-title-main">Vocal</div><div class="art-summary">Mêmes règles que le texte — respect obligatoire dans les canaux vocaux</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les canaux vocaux suivent les mêmes règles que les salons texte.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses en vocal</div><div class="rule-ko">❌ Perturber une conversation</div><div class="rule-ok">✅ Utiliser Push-to-Talk si besoin</div><div class="rule-ko">❌ Diffuser des sons agressifs</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Sanctions Discord</div><div class="art-summary">Progressif : avertissement → mute → kick → ban Discord = ban serveur</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Sanctions progressives : Avertissement → Mute temporaire → Kick → Ban Discord. <strong style="color:#c0392b">Un ban Discord entraîne automatiquement un ban du serveur de jeu.</strong><div class="rules-grid"><div class="rule-ok">✅ Respecter le règlement pour éviter tout</div><div class="rule-ko">❌ Ban Discord = ban jeu automatique</div><div class="rule-ok">✅ Contester via ticket</div><div class="rule-ko">❌ Créer un nouveau compte pour contourner</div></div></div>
-            </div>
-
-          </div>
-    </div>
-
-    <div class="reg-pub-content" id="regpub-dons">
-      <div style="padding:10px 14px;background:#1a0808;border:1px solid rgba(192,57,43,0.4);border-left:3px solid #c0392b;font-size:0.82rem;color:#c0392b;margin-bottom:10px;animation:blink-border 1.2s infinite">⚠️ IMPORTANT — Lisez attentivement avant tout achat. Les dons et achats sont <strong>définitifs et non remboursables.</strong></div>
-      <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px">▼ Cliquez sur un article pour les détails</div>
-      <div style="display:flex;flex-direction:column;gap:5px">
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Nature des dons &amp; avantages</div><div class="art-summary">Priorité de connexion, crédits boutique — aucun avantage de gameplay direct</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les dons couvrent les frais Nitrado. En échange : <strong style="color:#d4ac0d">priorité de connexion sur le serveur</strong>, accès aux crédits boutique. Aucun avantage de gameplay direct (pas de loot, pas d'équipement).<div class="rules-grid"><div class="rule-ok">✅ Priorité de connexion serveur</div><div class="rule-ko">❌ Avantage direct en jeu</div><div class="rule-ok">✅ Accès aux packs de crédits boutique</div><div class="rule-ko">❌ Réclamation de remboursement</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Crédits boutique</div><div class="art-summary">Non échangeables contre argent réel — valables uniquement sur Badland FR</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les crédits sont valables uniquement sur Badland FR. Non échangeables contre argent réel ni transférables entre comptes.<div class="rules-grid"><div class="rule-ok">✅ Utiliser ses crédits sur la boutique</div><div class="rule-ko">❌ Demander un échange contre argent réel</div><div class="rule-ok">✅ Crédits actifs tant que serveur en ligne</div><div class="rule-ko">❌ Transférer des crédits entre comptes</div></div></div>
-            </div>
-
-            <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">03</span><div class="art-title-wrap"><div class="art-title-main">Avant tout achat <span class="art-tag art-tag-gold">RECOMMANDÉ</span></div><div class="art-summary">Ouvrir un ticket avant d'acheter — Discord et site disponibles</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">En cas de doute, ouvrez un ticket <strong>avant</strong> tout achat. Disponible sur <strong style="color:#5865F2">Discord</strong> (salon #tickets) ou <strong style="color:#c0392b">site internet</strong> (Mon Espace → Mes Tickets). Les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket avant d'acheter</div><div class="rule-ko">❌ Acheter sans avoir lu le règlement</div><div class="rule-ok">✅ Ticket sur Discord ET sur le site</div><div class="rule-ko">❌ Acheter puis réclamer un remboursement</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">Litiges de paiement</div><div class="art-summary">48h pour contacter le staff — chargeback = ban permanent immédiat</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">En cas de litige, contactez le staff <strong>dans les 48h</strong> avec votre preuve PayPal. Chargeback non justifié = <strong style="color:#c0392b">ban permanent immédiat.</strong><div class="rules-grid"><div class="rule-ok">✅ Contacter le staff dans les 48h</div><div class="rule-ko">❌ Initier un chargeback sans contact</div><div class="rule-ok">✅ Fournir la preuve de paiement PayPal</div><div class="rule-ko">❌ Chargeback = ban permanent automatique</div></div></div>
-            </div>
-
-            <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Fermeture du serveur</div><div class="art-summary">Crédits non remboursés — préavis minimum de 7 jours</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">En cas de fermeture définitive, les crédits non utilisés restent acquis à l'administration. Préavis minimum de 7 jours publié sur Discord et le site.<div class="rules-grid"><div class="rule-ok">✅ Être notifié 7 jours à l'avance</div><div class="rule-ko">❌ Remboursement des crédits non utilisés</div></div></div>
-            </div>
-
-            <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement dons</div><div class="art-summary">Modifiable à tout moment — notification sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Ce règlement peut être modifié à tout moment. Notification via Discord et site. Continuer à utiliser la boutique vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer les mises à jour</div></div></div>
-            </div>
-
-            <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite;margin-top:0.5rem">
-              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
-            </div>
-
-          </div>
-      <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite;margin-top:0.5rem">
-              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
-            </div>
-    </div>
-  </div>
-</section>
 
 <section id="soutenir">
   <div class="container" style="text-align:center">
