@@ -1348,11 +1348,16 @@ footer span{color:var(--red)}
 
       <!-- STAFF TICKETS -->
       <div class="dash-panel" id="panel-staff-tickets">
-        <div class="dash-card-title" style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:2px;margin-bottom:1rem;color:#fff;padding:0 0 0.75rem;border-bottom:1px solid var(--border)">🎫 Gestion des Tickets</div>
-
-
-      <!-- STAFF TICKETS -->
-      
+        <div class="dash-card">
+          <div class="dash-card-title">🎫 Gestion des Tickets</div>
+          <div style="display:grid;grid-template-columns:280px 1fr;gap:0;border:1px solid var(--border);min-height:400px">
+            <div id="staff-ticket-list" style="overflow-y:auto;border-right:1px solid var(--border);padding:0.5rem 0"></div>
+            <div id="staff-ticket-conv" style="display:flex;flex-direction:column;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-muted);font-size:0.9rem;padding:2rem">← Sélectionne un ticket dans la liste</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- STAFF OVERVIEW -->
       <div class="dash-panel" id="panel-staff-overview">
@@ -1371,6 +1376,7 @@ footer span{color:var(--red)}
       <div class="dash-panel" id="panel-staff-joueurs">
         <div class="dash-card">
           <div class="dash-card-title">👥 Liste des Joueurs</div>
+          <input class="dash-input" id="search-joueurs" placeholder="Rechercher un joueur..." oninput="renderStaffJoueurs()" style="margin-bottom:1rem">
           <div style="margin-bottom:1rem"><input class="dash-input" id="search-joueurs" placeholder="Rechercher un joueur..." oninput="renderStaffJoueurs()" style="margin-bottom:0"></div>
           <div id="staff-joueurs-list"></div>
         </div>
@@ -1380,6 +1386,7 @@ footer span{color:var(--red)}
       <div class="dash-panel" id="panel-staff-signalements">
         <div class="dash-card">
           <div class="dash-card-title">🚨 Signalements Joueurs</div>
+          <div id="staff-signalements-list"><div class="dash-empty">Aucun signalement</div></div>
           <div id="staff-signalements-list"></div>
         </div>
       </div>
