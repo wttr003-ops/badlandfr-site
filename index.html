@@ -603,13 +603,18 @@ footer span{color:var(--red)}
 #toast-notif{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#181818;border:1px solid rgba(39,174,96,0.4);border-left:3px solid #27ae60;padding:10px 20px;font-size:0.82rem;color:#e8e8e8;white-space:nowrap;z-index:9998;display:none;animation:modal-fade .3s ease}
 #toast-notif.error{border-color:rgba(192,57,43,0.4);border-left-color:#c0392b}
 
-/* ===== VIDEO SECTION ===== */
-#video-section{background:#0a0a0a;padding:5rem 2rem}
-.video-inner{max-width:900px;margin:0 auto}
-.video-wrapper{position:relative;width:100%;padding-bottom:56.25%;background:#000;border:1px solid rgba(192,57,43,0.3)}
-.video-wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-.video-badge{display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#c0392b;border:1px solid rgba(192,57,43,0.3);padding:4px 14px;margin-bottom:1rem}
-.video-caption{text-align:center;font-size:0.78rem;color:#444;letter-spacing:2px;text-transform:uppercase;margin-top:1rem}
+/* ===== GALERIE SCREENSHOTS ===== */
+#galerie-section{background:#0a0a0a;padding:5rem 2rem}
+.galerie-inner{max-width:1100px;margin:0 auto}
+.galerie-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px;margin-top:2rem}
+.galerie-item{position:relative;overflow:hidden;aspect-ratio:16/9;cursor:pointer;border:1px solid rgba(192,57,43,0.2)}
+.galerie-item img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease,filter .4s ease;filter:brightness(0.85)}
+.galerie-item:hover img{transform:scale(1.06);filter:brightness(1)}
+.galerie-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.5) 0%,transparent 60%);pointer-events:none}
+.galerie-item .galerie-label{position:absolute;bottom:10px;left:14px;font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;z-index:1;opacity:0;transition:opacity .3s}
+.galerie-item:hover .galerie-label{opacity:1}
+.galerie-featured{grid-column:span 2}
+@media(max-width:600px){.galerie-featured{grid-column:span 1}}
 
 /* ===== BLINK ===== */
 @keyframes blink-red{0%,100%{color:#c0392b}50%{color:#e74c3c;text-shadow:0 0 8px rgba(192,57,43,0.8)}}
@@ -655,7 +660,7 @@ footer span{color:var(--red)}
     <a href="#staff">Staff</a>
     <a href="#communaute">Communauté</a>
     <a href="#soutenir">Don</a>
-    <a href="#video-section" style="color:#888">🎬 Vidéo</a>
+    <a href="#galerie-section" style="color:#888">📸 Galerie</a>
     <a href="#reglement-public" style="color:#d4ac0d;font-weight:700;border:1px solid rgba(212,172,13,0.3);padding:4px 10px">📜 Règlement</a>
     <a href="#discord" style="color:#5865F2;font-weight:700">Discord</a>
   </div>
@@ -698,13 +703,13 @@ footer span{color:var(--red)}
   <div class="hero-content fade-up">
     <div class="hero-badge" style="margin-bottom:1.5rem">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <h1 class="hero-title">BADLAND<span>FR</span></h1>
-    <p class="hero-sub">Survie · Combat · Construction · Communauté</p>
+    <p class="hero-sub">Survie - Combat - Construction - Communauté</p>
     <div class="hero-btns">
       <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Boutique</button>
       <button class="btn-secondary" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})">Découvrir</button>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-val">60</div><div class="hero-stat-label">Joueurs max</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">68</div><div class="hero-stat-label">Joueurs max</div></div>
       <div class="hero-stat"><div class="hero-stat-val">x3</div><div class="hero-stat-label">Loot</div></div>
       <div class="hero-stat"><div class="hero-stat-val">2H</div><div class="hero-stat-label">Jour</div></div>
       <div class="hero-stat"><div class="hero-stat-val">30'</div><div class="hero-stat-label">Nuit</div></div>
@@ -953,35 +958,34 @@ footer span{color:var(--red)}
 </section>
 </div>
 
-<!-- ===== VIDEO CINEMATIQUE ===== -->
-<section id="video-section">
-  <div class="video-inner">
-    <div style="text-align:center;margin-bottom:2rem">
-      <div class="video-badge">🎬 Bande-annonce officielle</div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;line-height:1">AMBIANCE <span style="color:#c0392b">BADLAND FR</span></div>
+<!-- ===== GALERIE SCREENSHOTS ===== -->
+<section id="galerie-section">
+  <div class="galerie-inner">
+    <div style="text-align:center;margin-bottom:0.5rem">
+      <div style="display:inline-block;font-size:0.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#c0392b;border:1px solid rgba(192,57,43,0.3);padding:4px 14px;margin-bottom:1rem">📸 Screenshots</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;line-height:1">AMBIANCE <span style="color:#c0392b">DU SERVEUR</span></div>
       <div style="width:50px;height:3px;background:#c0392b;margin:0.75rem auto 0"></div>
     </div>
-    <a href="https://www.youtube.com/watch?v=2oad7AX7gWM" target="_blank" rel="noopener" style="display:block;text-decoration:none">
-      <div class="video-wrapper">
-        <img
-          src="https://img.youtube.com/vi/2oad7AX7gWM/maxresdefault.jpg"
-          alt="Badland FR — Bande-annonce DayZ"
-          style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover"
-          onerror="this.src='https://img.youtube.com/vi/2oad7AX7gWM/hqdefault.jpg'"
-        >
-        <!-- Overlay sombre au hover -->
-        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.3);transition:background .2s" onmouseover="this.style.background='rgba(0,0,0,0.1)'" onmouseout="this.style.background='rgba(0,0,0,0.3)'"></div>
-        <!-- Bouton play -->
-        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90px;height:90px;background:rgba(192,57,43,0.92);border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid rgba(255,255,255,0.3)">
-          <div style="width:0;height:0;border-top:22px solid transparent;border-bottom:22px solid transparent;border-left:36px solid #fff;margin-left:8px"></div>
-        </div>
-        <!-- Badge YouTube -->
-        <div style="position:absolute;bottom:16px;right:16px;background:rgba(0,0,0,0.8);color:#fff;font-size:0.7rem;font-weight:700;letter-spacing:1px;padding:4px 12px;text-transform:uppercase">▶ Voir sur YouTube</div>
+    <div class="galerie-grid">
+      <div class="galerie-item galerie-featured">
+        <img src="https://karmakrew.tv/wp-content/uploads/2025/06/DayZ_Badlands_Screenshots_1.jpg" alt="DayZ Badland FR" loading="lazy" onerror="this.parentElement.style.display=\'none\'">
+        <div class="galerie-label">🎮 Survie en jeu</div>
       </div>
-    </a>
-    <div class="video-caption">🎮 Badland FR — Serveur DayZ Console PS4 / PS5 — Bientôt disponible</div>
+      <div class="galerie-item">
+        <img src="https://tse3.mm.bing.net/th/id/OIP.tQWRfjAvViPhZDFvWxGIgAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="DayZ screenshot" loading="lazy" onerror="this.parentElement.style.display='none'">
+        <div class="galerie-label">⚔️ Combat</div>
+      </div>
+      <div class="galerie-item">
+        <img src="https://th.bing.com/th/id/OIP.zX4ZbYKVig7dgmxMHnrcdwHaEK?w=291&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="DayZ ambiance" loading="lazy" onerror="this.parentElement.style.display='none'">
+        <div class="galerie-label">🌆 Exploration</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;font-size:0.75rem;color:#444;letter-spacing:2px;text-transform:uppercase">
+      🎮 Badland FR — Serveur DayZ Console PS4 / PS5 — Bientôt disponible
+    </div>
   </div>
 </section>
+
 
 <!-- ===== PRESENTATION ===== -->
 <section id="presentation">
@@ -2353,7 +2357,7 @@ function updateCartUI() {
   if (!il) return;
   if (!cart.length) { il.innerHTML='<p style="color:var(--text-muted);padding:1rem">Panier vide</p>'; return; }
   il.innerHTML = cart.map(function(item,idx) {
-    return '<div class="cart-item"><div><div style="font-weight:600">'+escHtml(item.name)+'</div><div style="font-size:0.75rem;color:var(--text-muted)">'+item.credits+' CR'+(item.price>0?' — '+item.price+'€':'')+'</div></div><button class="cart-item-remove" onclick="removeFromCart('+idx+')">✕</button></div>';
+    return '<div class="cart-item"><div><div style="font-weight:600">'+escHtml(item.name)+'</div><div style="font-size:0.75rem;color:var(--text-muted)">'+item.credits+' CR'+(item.price>0?' - '+item.price+'€':'')+'</div></div><button class="cart-item-remove" onclick="removeFromCart('+idx+')">✕</button></div>';
   }).join('');
 }
 function removeFromCart(idx) { var cart=ls.get('cart')||[]; cart.splice(idx,1); ls.set('cart',cart); updateCartUI(); }
@@ -2453,12 +2457,7 @@ function addComment() {
 }
 
 // ===== GALLERY =====
-function renderGallery() {
-  var gallery = ls.get('gallery') || [];
-  var el = document.getElementById('gallery-grid');
-  if (!el) return;
-  el.innerHTML = gallery.length>0?gallery.map(function(g){ return '<div class="gallery-item"><img src="'+escAttr(g.url)+'" alt="Screenshot" onerror="this.parentNode.style.display=\'none\'"></div>'; }).join(''):'<p style="color:var(--text-muted);font-size:0.9rem">Aucune photo.</p>';
-}
+
 
 // ===== MAPS =====
 var MAPS_IDS = ['nasdara','chernarus','livonia','sakhal'];
@@ -2496,7 +2495,7 @@ function renderMapsPublic() {
   var ids = ['nasdara','chernarus','livonia','sakhal'];
   ids.forEach(function(id) { if (maps[id] && maps[id].active) activeId = id; });
   var names = {nasdara:'NASDARA', chernarus:'CHERNARUS', livonia:'LIVONIA', sakhal:'SAKHAL'};
-  if (badge) badge.textContent = activeId ? ('🟢 ' + names[activeId] + ' — ACTIF') : '🗺️ Map en attente';
+  if (badge) badge.textContent = activeId ? ('🟢 ' + names[activeId] + ' - ACTIF') : '🗺️ Map en attente';
   ids.forEach(function(id) {
     var row = document.getElementById('maprow-' + id);
     var badgeEl = document.getElementById('mapbadge-' + id);
@@ -2598,7 +2597,7 @@ function openDashboard() {
     if(el) el.style.display=isStaff?(id==="section-staff"?"block":"flex"):"none";
   });
   var userInfo=document.getElementById('dash-user-info');
-  if(userInfo) userInfo.textContent=currentUser.username+' — '+((currentUser&&currentUser.grade||"")||'Joueur');
+  if(userInfo) userInfo.textContent=currentUser.username+' - '+((currentUser&&currentUser.grade||"")||'Joueur');
   switchDash('overview');
   checkNotifications();
 }
@@ -2687,7 +2686,7 @@ function renderDashMessages() {
   allMsgs.forEach(function(m){ if(m.to_user===currentUser.username) m.read_user=true; });
   ls.set('messages',allMsgs);
   var el=document.getElementById('msg-bubbles-joueur'); if(!el) return;
-  el.innerHTML=myMsgs.length>0?myMsgs.map(function(m){ var sent=m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?"sent":"received")+'">'+((!sent)?'<div style="font-size:0.7rem;color:var(--red);margin-bottom:3px">Staff — '+escHtml(m.from_user)+'</div>':'')+escHtml(m.text)+'<div class="msg-bubble-meta">'+(m.time||'')+'</div></div>'; }).join(''):'<div style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Pas encore de messages.</div>';
+  el.innerHTML=myMsgs.length>0?myMsgs.map(function(m){ var sent=m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?"sent":"received")+'">'+((!sent)?'<div style="font-size:0.7rem;color:var(--red);margin-bottom:3px">Staff - '+escHtml(m.from_user)+'</div>':'')+escHtml(m.text)+'<div class="msg-bubble-meta">'+(m.time||'')+'</div></div>'; }).join(''):'<div style="color:var(--text-muted);font-size:0.85rem;text-align:center;padding:1rem">Pas encore de messages.</div>';
   el.scrollTop=el.scrollHeight;
 }
 function sendMessageJoueur() {
@@ -2764,7 +2763,7 @@ function renderStaffOverview() {
   var kEl=document.getElementById('staff-kpis');
   if(kEl) kEl.innerHTML='<div class="dash-kpi"><div class="dash-kpi-val">'+accounts.length+'</div><div class="dash-kpi-label">Comptes</div></div><div class="dash-kpi"><div class="dash-kpi-val" style="color:var(--red)">'+sigs.length+'</div><div class="dash-kpi-label">Signalements</div></div><div class="dash-kpi"><div class="dash-kpi-val">'+msgs.filter(function(m){ return !m.read_staff; }).length+'</div><div class="dash-kpi-label">Msg non lus</div></div><div class="dash-kpi"><div class="dash-kpi-val">'+sanctions.length+'</div><div class="dash-kpi-label">Sanctions total</div></div>';
   var sigEl=document.getElementById('staff-signalements-quick');
-  if(sigEl) sigEl.innerHTML=sigs.length>0?sigs.slice(0,3).map(function(s){ return '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>'+escHtml(s.auteur)+'</strong> signale <strong style="color:var(--red)">'+escHtml(s.joueur)+'</strong> — '+escHtml(s.type)+'</div>'; }).join(''):'<div class="dash-empty">✅ Aucun signalement en attente</div>';
+  if(sigEl) sigEl.innerHTML=sigs.length>0?sigs.slice(0,3).map(function(s){ return '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>'+escHtml(s.auteur)+'</strong> signale <strong style="color:var(--red)">'+escHtml(s.joueur)+'</strong> - '+escHtml(s.type)+'</div>'; }).join(''):'<div class="dash-empty">✅ Aucun signalement en attente</div>';
   var msgEl=document.getElementById('staff-messages-quick');
   var unread=msgs.filter(function(m){ return !m.read_staff; }).slice(0,3);
   if(msgEl) msgEl.innerHTML=unread.length>0?unread.map(function(m){ return '<div style="padding:0.6rem 0;border-bottom:1px solid var(--border);font-size:0.85rem"><strong>'+escHtml(m.from_user)+'</strong> : '+escHtml((m.text||'').substring(0,60))+'...</div>'; }).join(''):'<div class="dash-empty">Aucun message non lu</div>';
@@ -2909,7 +2908,7 @@ function openStaffThread(username) {
 }
 function renderStaffConversation(msgs) {
   var el=document.getElementById('staff-msg-bubbles'); if(!el) return;
-  el.innerHTML=msgs.map(function(m){ var sent=m.from_user==="staff"||m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?"sent":"received")+'">'+escHtml(m.text)+'<div class="msg-bubble-meta">'+escHtml(m.from_user)+' — '+(m.time||'')+'</div></div>'; }).join('');
+  el.innerHTML=msgs.map(function(m){ var sent=m.from_user==="staff"||m.from_user===currentUser.username; return '<div class="msg-bubble '+(sent?"sent":"received")+'">'+escHtml(m.text)+'<div class="msg-bubble-meta">'+escHtml(m.from_user)+' - '+(m.time||'')+'</div></div>'; }).join('');
   el.scrollTop=el.scrollHeight;
 }
 function sendStaffMessage() {
@@ -2940,7 +2939,7 @@ function finService() {
   var b1=document.getElementById('btn-prise-service'); if(b1) b1.style.display='block';
   var b2=document.getElementById('btn-fin-service'); if(b2) b2.style.display='none';
   var t=document.getElementById('presence-timer'); if(t) t.textContent='00:00:00';
-  var ps=document.getElementById('presence-status'); if(ps) ps.innerHTML='<span class="dash-badge green">✅ Service terminé — '+duree+' min</span>';
+  var ps=document.getElementById('presence-status'); if(ps) ps.innerHTML='<span class="dash-badge green">✅ Service terminé - '+duree+' min</span>';
   renderPresences();
 }
 function updatePresenceTimer() {
@@ -2980,7 +2979,7 @@ function renderPlanning() {
   var days=['Lun','Mar','Mer','Jeu','Ven','Sam','Dim'];
   var today=new Date(); var monday=new Date(today);
   monday.setDate(today.getDate()-(today.getDay()||7)+1);
-  el.innerHTML=days.map(function(d,i){ var day=new Date(monday); day.setDate(monday.getDate()+i); var ds=day.toISOString().split('T')[0]; var events=planning.filter(function(p){ return p.date===ds; }); return '<div class="planning-day"><div class="planning-day-name">'+d+' '+day.getDate()+'</div>'+events.map(function(e){ return '<div class="planning-event">'+escHtml(e.user)+'<br>'+e.debut+'–'+e.fin+'</div>'; }).join('')+'</div>'; }).join('');
+  el.innerHTML=days.map(function(d,i){ var day=new Date(monday); day.setDate(monday.getDate()+i); var ds=day.toISOString().split('T')[0]; var events=planning.filter(function(p){ return p.date===ds; }); return '<div class="planning-day"><div class="planning-day-name">'+d+' '+day.getDate()+'</div>'+events.map(function(e){ return '<div class="planning-event">'+escHtml(e.user)+'<br>'+e.debut+'-'+e.fin+'</div>'; }).join('')+'</div>'; }).join('');
 }
 function addRapport() {
   var type=document.getElementById('rapport-type').value;
@@ -2996,7 +2995,7 @@ function addRapport() {
 function renderRapports() {
   var rapports=ls.get('rapports')||[];
   var el=document.getElementById('rapports-list'); if(!el) return;
-  el.innerHTML=rapports.length>0?rapports.slice().reverse().map(function(r){ return '<div class="report-card"><div class="report-card-header"><div class="report-title">'+escHtml(r.type)+'</div><div class="report-meta">'+escHtml(r.user)+' — '+escHtml(r.date)+'</div></div><div style="font-size:0.85rem;color:var(--text-muted)">'+escHtml(r.desc)+'</div>'+(r.agents?'<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem">Agents : '+escHtml(r.agents)+'</div>':'')+'</div>'; }).join(''):'<div class="dash-empty">Aucun rapport</div>';
+  el.innerHTML=rapports.length>0?rapports.slice().reverse().map(function(r){ return '<div class="report-card"><div class="report-card-header"><div class="report-title">'+escHtml(r.type)+'</div><div class="report-meta">'+escHtml(r.user)+' - '+escHtml(r.date)+'</div></div><div style="font-size:0.85rem;color:var(--text-muted)">'+escHtml(r.desc)+'</div>'+(r.agents?'<div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.5rem">Agents : '+escHtml(r.agents)+'</div>':'')+'</div>'; }).join(''):'<div class="dash-empty">Aucun rapport</div>';
 }
 function addJournal() {
   var titre=document.getElementById('journal-titre').value.trim();
@@ -3178,8 +3177,8 @@ function renderAdminPromos() {
   var html = '<table class="admin-table"><thead><tr><th>Pack</th><th>Réduction</th><th>Bonus CR</th><th></th></tr></thead><tbody>';
   keys.forEach(function(k) {
     html += "<tr><td>" + (names[k]||k) + "</td>";
-    html += "<td>" + (promos[k].pct>0?"-"+promos[k].pct+"%":"—") + "</td>";
-    html += "<td>" + (promos[k].bonus>0?"+"+promos[k].bonus+" CR":"—") + "</td>";
+    html += "<td>" + (promos[k].pct>0?"-"+promos[k].pct+"%":"-") + "</td>";
+    html += "<td>" + (promos[k].bonus>0?"+"+promos[k].bonus+" CR":"-") + "</td>";
     html += '<td><button class="admin-btn red" style="padding:4px 10px;font-size:0.7rem" data-key="' + escAttr(k) + '" onclick="removePromo(this.dataset.key)">✕</button></td></tr>';
   });
   el.innerHTML = html + "</tbody></table>";
@@ -3324,7 +3323,7 @@ function renderAdminOuverture() {
     else { el.innerHTML='<span style="color:var(--green)">✅ Serveur ouvert depuis le '+dateStr+'</span>'; }
     var inp=document.getElementById('ouverture-date'); if(inp&&!inp.value) inp.value=date;
   } else {
-    el.innerHTML='<span style="color:var(--text-muted)">Aucune date définie — chrono affiche 00:00:00:00</span>';
+    el.innerHTML='<span style="color:var(--text-muted)">Aucune date définie - chrono affiche 00:00:00:00</span>';
   }
 }
 
@@ -3385,7 +3384,7 @@ function renderTicketsJoueur() {
     html += '<div style="display:flex;justify-content:space-between;align-items:start">';
     html += '<div><div class="ticket-id">' + escHtml(t.id) + '</div>';
     html += '<div class="ticket-sujet">' + escHtml(t.sujet) + '</div>';
-    html += '<div class="ticket-meta">' + escHtml(t.date) + " · " + t.messages.length + " message(s)</div>" + timerHtml + "</div>";
+    html += '<div class="ticket-meta">' + escHtml(t.date) + " - " + t.messages.length + " message(s)</div>" + timerHtml + "</div>";
     html += '<span class="dash-badge ' + badgeClass + '">' + badgeTxt + "</span>";
     html += "</div></div>";
   });
@@ -3408,7 +3407,7 @@ function ouvrirDetailTicket(id) {
   document.getElementById("detail-ticket-sujet").textContent = ticket.sujet;
   var wrap = document.getElementById("detail-ticket-input-wrap");
   if (ticket.statut === "ferme") {
-    wrap.innerHTML = '<div style="font-size:0.8rem;color:var(--text-muted);padding:0.5rem 0">🔒 Ticket fermé — Plus de réponse possible</div>';
+    wrap.innerHTML = '<div style="font-size:0.8rem;color:var(--text-muted);padding:0.5rem 0">🔒 Ticket fermé - Plus de réponse possible</div>';
   }
   renderDetailMsgs(ticket, "detail-ticket-msgs", currentUser.username);
   document.getElementById("joueur-ticket-detail").scrollIntoView({ behavior: "smooth" });
@@ -3444,8 +3443,8 @@ function renderDetailMsgs(ticket, containerId, myUsername) {
   el.innerHTML = ticket.messages.map(function(m) {
     var isMine = m.de === myUsername;
     var cls = isMine ? "joueur" : "staff";
-    var from = !isMine ? '<div class="ticket-msg-from">⚙️ ' + escHtml(m.de) + ' — Staff</div>' : "";
-    return '<div class="ticket-msg ' + cls + '">' + from + escHtml(m.texte) + '<div class="ticket-msg-time">' + escHtml(m.de) + ' — ' + escHtml(m.time) + '</div></div>';
+    var from = !isMine ? '<div class="ticket-msg-from">⚙️ ' + escHtml(m.de) + ' - Staff</div>' : "";
+    return '<div class="ticket-msg ' + cls + '">' + from + escHtml(m.texte) + '<div class="ticket-msg-time">' + escHtml(m.de) + ' - ' + escHtml(m.time) + '</div></div>';
   }).join("");
   el.scrollTop = el.scrollHeight;
 }
@@ -3471,7 +3470,7 @@ function renderStaffTickets() {
       if (unread) html += '<div class="ticket-unread" style="margin-top:4px"></div>';
       html += '<div style="flex:1"><div style="display:flex;justify-content:space-between;align-items:center"><span class="ticket-id">' + escHtml(t.id) + '</span><span class="dash-badge ' + badgeClass + '" style="font-size:0.6rem">' + badgeTxt + '</span></div>';
       html += '<div class="ticket-sujet" style="font-size:0.88rem;margin:2px 0">' + escHtml(t.sujet) + '</div>';
-      html += '<div class="ticket-meta">' + escHtml(t.auteur) + ' · ' + escHtml(t.date) + '</div>' + timerHtml + '</div></div></div>';
+      html += '<div class="ticket-meta">' + escHtml(t.auteur) + ' - ' + escHtml(t.date) + '</div>' + timerHtml + '</div></div></div>';
     });
   }
   if (fermes.length) {
@@ -3514,7 +3513,7 @@ function renderStaffTicketConv(id) {
     '<div style="padding:0.75rem 1rem;border-bottom:1px solid var(--border);background:var(--bg2);display:flex;justify-content:space-between;align-items:center">' +
       '<div><span class="ticket-id">' + escHtml(ticket.id) + '</span>' +
       '<strong style="margin-left:6px">' + escHtml(ticket.sujet) + '</strong>' +
-      '<div class="ticket-meta" style="margin-top:2px">' + escHtml(ticket.auteur) + ' · ' + escHtml(ticket.date) + '</div></div>' +
+      '<div class="ticket-meta" style="margin-top:2px">' + escHtml(ticket.auteur) + ' - ' + escHtml(ticket.date) + '</div></div>' +
       '<div style="display:flex;gap:6px;align-items:center">' +
         (isClosed
           ? '<span class="dash-badge grey">Fermé</span>'
@@ -3577,7 +3576,7 @@ function staffRepondreAttente(id) {
   tickets[idx].derniere_activite = new Date().toISOString();
   ls.set("tickets", tickets);
   renderStaffTickets();
-  showToast("Ticket en attente — fermeture auto dans " + TICKET_AUTO_CLOSE_HOURS + "h sans réponse");
+  showToast("Ticket en attente - fermeture auto dans " + TICKET_AUTO_CLOSE_HOURS + "h sans réponse");
 }
 
 function checkAutoCloseTickets() {
@@ -3736,7 +3735,7 @@ window.addEventListener('load', function() {
       if (label) label.textContent = '♪ Ambiance DayZ';
     });
   }).catch(function() {
-    // Navigateur bloque — démarrer au PREMIER geste (scroll de 1px suffit)
+    // Navigateur bloque - démarrer au PREMIER geste (scroll de 1px suffit)
     ['click','scroll','mousemove','touchstart','keydown'].forEach(function(ev) {
       document.addEventListener(ev, startMusic);
     });
@@ -3811,11 +3810,154 @@ function closeModalSuccess() {
 });
 
 
-// ===== YOUTUBE PLAYER =====
-function loadYT() {
-  var wrapper = document.getElementById('yt-player');
-  if (!wrapper) return;
-  wrapper.innerHTML = '<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="https://www.youtube.com/embed/2oad7AX7gWM?autoplay=1&rel=0&modestbranding=1&color=red" title="Badland FR DayZ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+
+// ===== GALERIE ADMIN =====
+var galerieFileData = null;
+
+function switchGalerieTab(tab) {
+  document.getElementById('tab-url').style.display = tab === 'url' ? 'block' : 'none';
+  document.getElementById('tab-file').style.display = tab === 'file' ? 'block' : 'none';
+  document.getElementById('tab-url-btn').style.color = tab === 'url' ? '#c0392b' : '#555';
+  document.getElementById('tab-url-btn').style.borderBottomColor = tab === 'url' ? '#c0392b' : 'transparent';
+  document.getElementById('tab-file-btn').style.color = tab === 'file' ? '#c0392b' : '#555';
+  document.getElementById('tab-file-btn').style.borderBottomColor = tab === 'file' ? '#c0392b' : 'transparent';
+  if (tab === 'url') galerieFileData = null;
+}
+
+function handleGalerieFile(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    galerieFileData = e.target.result;
+    document.getElementById('gallery-preview-img').src = galerieFileData;
+    document.getElementById('gallery-preview-name').textContent = '✅ ' + file.name;
+    document.getElementById('gallery-preview').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function handleGalerieDrop(e) {
+  e.preventDefault();
+  document.getElementById('drop-zone').style.borderColor = 'rgba(192,57,43,0.3)';
+  var file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    var input = document.getElementById('gallery-file-input');
+    var dt = new DataTransfer();
+    dt.items.add(file);
+    input.files = dt.files;
+    handleGalerieFile(input);
+  }
+}
+
+function addGalerieImage() {
+  var urlInput = document.getElementById('gallery-url');
+  var caption = document.getElementById('gallery-caption').value.trim();
+  var featured = document.getElementById('gallery-featured').checked;
+
+  var src = galerieFileData || (urlInput ? urlInput.value.trim() : '');
+  if (!src) { showToast('Ajoute une image (URL ou fichier)', true); return; }
+
+  var gallery = ls.get('gallery') || [];
+  var id = 'img-' + Date.now();
+  gallery.unshift({ id: id, src: src, caption: caption, featured: featured, date: new Date().toLocaleDateString('fr-FR') });
+  ls.set('gallery', gallery);
+
+  // Reset
+  if (urlInput) urlInput.value = '';
+  document.getElementById('gallery-caption').value = '';
+  document.getElementById('gallery-featured').checked = false;
+  galerieFileData = null;
+  document.getElementById('gallery-preview').style.display = 'none';
+
+  renderAdminGalerie();
+  renderGaleriePublic();
+  showToast('Image ajoutée à la galerie !');
+}
+
+function deleteGalerieImage(id) {
+  var gallery = (ls.get('gallery') || []).filter(function(g){ return g.id !== id; });
+  ls.set('gallery', gallery);
+  renderAdminGalerie();
+  renderGaleriePublic();
+  showToast('Image supprimée');
+}
+
+function renderAdminGalerie() {
+  var grid = document.getElementById('admin-galerie-grid');
+  var empty = document.getElementById('admin-galerie-empty');
+  var count = document.getElementById('galerie-count');
+  if (!grid) return;
+  var gallery = ls.get('gallery') || [];
+  if (count) count.textContent = gallery.length + ' image' + (gallery.length > 1 ? 's' : '');
+  if (!gallery.length) {
+    grid.innerHTML = '<div class="dash-empty" id="admin-galerie-empty">Aucune image - ajoutez-en une ci-dessus</div>';
+    return;
+  }
+  grid.innerHTML = gallery.map(function(img) {
+    return '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;border:1px solid rgba(255,255,255,0.07)">' +
+      '<img src="' + escAttr(img.src) + '" style="width:100%;height:100%;object-fit:cover" onerror="this.style.opacity=0.2">' +
+      (img.featured ? '<div style="position:absolute;top:4px;left:4px;background:#c0392b;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;letter-spacing:1px">⭐ UNE</div>' : '') +
+      '<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.7);padding:4px 8px;display:flex;justify-content:space-between;align-items:center">' +
+      '<span style="font-size:10px;color:#aaa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:80%">' + escHtml(img.caption || 'Sans légende') + '</span>' +
+      '<button data-gid="' + escAttr(img.id) + '" onclick="deleteGalerieImage(this.dataset.gid)" style="background:#c0392b;border:none;color:#fff;font-size:10px;padding:2px 6px;cursor:pointer;font-weight:700">✕</button>' +
+      '</div></div>';
+  }).join('');
+}
+
+function renderGaleriePublic() {
+  var grid = document.getElementById('galerie-public-grid');
+  var emptyMsg = document.getElementById('galerie-empty-msg');
+  if (!grid) return;
+  var gallery = ls.get('gallery') || [];
+  if (!gallery.length) {
+    if (emptyMsg) emptyMsg.style.display = 'block';
+    Array.from(grid.children).forEach(function(c){ if (c.id !== 'galerie-empty-msg') c.remove(); });
+    return;
+  }
+  if (emptyMsg) emptyMsg.style.display = 'none';
+  Array.from(grid.children).forEach(function(c){ if (c.id !== 'galerie-empty-msg') c.remove(); });
+  gallery.forEach(function(img) {
+    var div = document.createElement('div');
+    div.className = 'galerie-item' + (img.featured ? ' galerie-featured' : '');
+    var im = document.createElement('img');
+    im.src = img.src;
+    im.alt = img.caption || 'DayZ Badland FR';
+    im.loading = 'lazy';
+    im.onerror = function() { div.style.display = 'none'; };
+    var lbl = document.createElement('div');
+    lbl.className = 'galerie-label';
+    lbl.textContent = img.caption || '';
+    div.appendChild(im);
+    if (img.caption) div.appendChild(lbl);
+    grid.appendChild(div);
+  });
+}
+
+
+// ===== RENDER GALLERY =====
+function renderGallery() {
+  var el = document.getElementById('gallery-list');
+  if (!el) return;
+  var gallery = ls.get('gallery') || [];
+  if (!gallery.length) {
+    el.innerHTML = '<div class="dash-empty">Aucune image dans la galerie</div>';
+    return;
+  }
+  el.innerHTML = gallery.map(function(img, i) {
+    return '<div style="position:relative;aspect-ratio:16/9;overflow:hidden;border:1px solid rgba(255,255,255,0.07)">' +
+      '<img src="' + escAttr(img.url) + '" alt="Screenshot" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.style.display=&quot;none&quot;">' +
+      '<button onclick="deleteGalleryImg(' + i + ')" style="position:absolute;top:6px;right:6px;background:rgba(192,57,43,0.85);border:none;color:#fff;font-size:10px;padding:3px 8px;cursor:pointer">✕</button>' +
+      '</div>';
+  }).join('');
+}
+
+function deleteGalleryImg(idx) {
+  var gallery = ls.get('gallery') || [];
+  gallery.splice(idx, 1);
+  ls.set('gallery', gallery);
+  renderGallery();
+  showToast('Image supprimée');
 }
 
 // ===== RESET =====
@@ -4078,12 +4220,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
       <!-- GALERIE -->
       <div class="admin-panel-section" id="admin-galerie">
+
         <div class="admin-card">
-          <div class="admin-card-title">➕ Ajouter une photo</div>
-          <input class="admin-input" id="gallery-url" aria-label="URL image galerie" placeholder="URL de l'image">
-          <button class="admin-btn" onclick="adminAddGallery()">Ajouter</button>
+          <div class="admin-card-title">➕ Ajouter une image</div>
+
+          <!-- Onglets URL / Fichier local -->
+          <div style="display:flex;gap:0;margin-bottom:1rem;border-bottom:1px solid rgba(255,255,255,0.07)">
+            <button id="tab-url-btn" onclick="switchGalerieTab('url')" style="padding:8px 20px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:none;color:#c0392b;border:none;border-bottom:2px solid #c0392b;cursor:pointer;font-family:'Rajdhani',sans-serif">🔗 Via URL</button>
+            <button id="tab-file-btn" onclick="switchGalerieTab('file')" style="padding:8px 20px;font-size:0.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:none;color:#555;border:none;border-bottom:2px solid transparent;cursor:pointer;font-family:'Rajdhani',sans-serif">📁 Depuis mon dossier</button>
+          </div>
+
+          <!-- Tab URL -->
+          <div id="tab-url">
+            <input class="admin-input" id="gallery-url" aria-label="URL image galerie" placeholder="https://... (lien direct vers l'image)" style="margin-bottom:0.75rem">
+          </div>
+
+          <!-- Tab Fichier -->
+          <div id="tab-file" style="display:none">
+            <div style="border:2px dashed rgba(192,57,43,0.3);padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s;margin-bottom:0.75rem" onclick="document.getElementById('gallery-file-input').click()" id="drop-zone" ondragover="event.preventDefault();this.style.borderColor='#c0392b'" ondragleave="this.style.borderColor='rgba(192,57,43,0.3)'" ondrop="handleGalerieDrop(event)">
+              <div style="font-size:2rem;margin-bottom:0.5rem">📁</div>
+              <div style="font-size:0.85rem;color:#888">Clique ici ou glisse une image</div>
+              <div style="font-size:0.75rem;color:#555;margin-top:0.25rem">JPG, PNG, WEBP acceptés</div>
+              <input type="file" id="gallery-file-input" accept="image/*" style="display:none" onchange="handleGalerieFile(this)">
+            </div>
+            <div id="gallery-preview" style="display:none;margin-bottom:0.75rem">
+              <img id="gallery-preview-img" style="max-height:120px;max-width:100%;border:1px solid rgba(255,255,255,0.1);object-fit:cover">
+              <div style="font-size:0.75rem;color:#27ae60;margin-top:4px" id="gallery-preview-name"></div>
+            </div>
+          </div>
+
+          <input class="admin-input" id="gallery-caption" placeholder="Légende (optionnel, ex: Survie en jeu)" style="margin-bottom:0.75rem">
+          <div style="display:flex;gap:8px;align-items:center">
+            <label style="font-size:0.8rem;color:#888;display:flex;align-items:center;gap:6px;cursor:pointer">
+              <input type="checkbox" id="gallery-featured" style="accent-color:#c0392b"> Image mise en avant (grande taille)
+            </label>
+          </div>
+          <button class="admin-btn" onclick="addGalerieImage()" style="margin-top:0.75rem">➕ Ajouter à la galerie</button>
         </div>
-        <div class="admin-card"><div class="admin-card-title">📸 Photos</div><div id="admin-gallery-list"></div></div>
+
+        <div class="admin-card">
+          <div class="admin-card-title">🖼️ Galerie actuelle <span id="galerie-count" style="font-size:0.75rem;color:#555;font-weight:400;margin-left:8px"></span></div>
+          <div id="admin-galerie-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:0.5rem">
+            <div class="dash-empty" id="admin-galerie-empty">Aucune image — ajoutez-en une ci-dessus</div>
+          </div>
+        </div>
+
       </div>
 
       <!-- OUVERTURE -->
