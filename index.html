@@ -664,14 +664,14 @@ footer span{color:var(--red)}
     <div class="nav-logo">Badland<span>FR</span></div>
   </div>
   <div class="nav-links">
-    <a href="#presentation" data-fr="Serveur" data-en="Server">Serveur</a>
-    <a href="#map" data-fr="Map" data-en="Map">Map</a>
+    <a href="#presentation" id="nav-a-server" data-fr="Serveur" data-en="Server">Serveur</a>
+    <a href="#map" id="nav-a-map" data-fr="Map" data-en="Map">Map</a>
     <a href="#updates">MAJ</a>
-    <a href="#evenements" data-fr="Événements" data-en="Events">Événements</a>
-    <a href="#boutique" data-fr="Boutique" data-en="Shop">Boutique</a>
-    <a href="#staff" data-fr="Staff" data-en="Staff">Staff</a>
-    <a href="#communaute" data-fr="Communauté" data-en="Community">Communauté</a>
-    <a href="#soutenir" data-fr="Don" data-en="Donate">Don</a>
+    <a href="#evenements" id="nav-a-events" data-fr="Événements" data-en="Events">Événements</a>
+    <a href="#boutique" id="nav-a-shop" data-fr="Boutique" data-en="Shop">Boutique</a>
+    <a href="#staff" id="nav-a-staff" data-fr="Staff" data-en="Staff">Staff</a>
+    <a href="#communaute" id="nav-a-community" data-fr="Communauté" data-en="Community">Communauté</a>
+    <a href="#soutenir" id="nav-a-donate" data-fr="Don" data-en="Donate">Don</a>
     <a href="#galerie-section" style="color:#888">📸 Galerie</a>
     <a href="#reglement-public" style="color:#d4ac0d;font-weight:700;border:1px solid rgba(212,172,13,0.3);padding:4px 10px">📜 Règlement</a>
     <a href="#discord" style="color:#5865F2;font-weight:700">Discord</a>
@@ -692,10 +692,10 @@ footer span{color:var(--red)}
         <span style="font-size:0.6rem;color:var(--text-muted)">▼</span>
       </button>
       <div class="profile-menu" id="profile-menu">
-        <button class="profile-menu-item" onclick="openDashboard()" data-fr="🎮 Mon Espace" data-en="🎮 My Space">🎮 Mon Espace</button>
-        <button class="profile-menu-item" onclick="openEditProfile()" data-fr="✏️ Mon Profil" data-en="✏️ My Profile">✏️ Mon Profil</button>
+        <button class="profile-menu-item" id="profile-menu-space" onclick="openDashboard()" data-fr="🎮 Mon Espace" data-en="🎮 My Space">🎮 Mon Espace</button>
+        <button class="profile-menu-item" id="profile-menu-profile" onclick="openEditProfile()" data-fr="✏️ Mon Profil" data-en="✏️ My Profile">✏️ Mon Profil</button>
         <button class="profile-menu-item admin-only" id="admin-menu-btn" onclick="goAdmin()" data-fr="⚙️ Administration" data-en="⚙️ Administration">⚙️ Administration</button>
-        <button class="profile-menu-item danger" onclick="logout()" data-fr="🚪 Déconnexion" data-en="🚪 Logout">🚪 Déconnexion</button>
+        <button class="profile-menu-item danger" id="profile-menu-logout" onclick="logout()" data-fr="🚪 Déconnexion" data-en="🚪 Logout">🚪 Déconnexion</button>
       </div>
     </div>
   </div>
@@ -717,20 +717,20 @@ footer span{color:var(--red)}
   <div class="hero-spark" style="top:37%;left:50%;animation-delay:0.04s"></div>
   <div class="hero-spark" style="top:42%;left:47%;animation-delay:0.12s"></div>
   <div class="hero-content fade-up">
-    <div class="hero-badge" style="margin-bottom:1.5rem" data-fr="🎮 Serveur DayZ Console — PS4/PS5/XBOX" data-en="🎮 DayZ Console Server — PS4/PS5/XBOX">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
+    <div class="hero-badge" id="hero-badge-text" style="margin-bottom:1.5rem" data-fr="🎮 Serveur DayZ Console — PS4/PS5/XBOX" data-en="🎮 DayZ Console Server — PS4/PS5/XBOX">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <h1 class="hero-title">BADLAND<span>FR</span></h1>
-    <p class="hero-sub" data-fr="Survie - Combat - Construction - Communauté" data-en="Survival - Combat - Building - Community">Survie - Combat - Construction - Communauté</p>
+    <p class="hero-sub" id="hero-sub-text" data-fr="Survie - Combat - Construction - Communauté" data-en="Survival - Combat - Building - Community">Survie - Combat - Construction - Communauté</p>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})" data-fr="Boutique" data-en="Shop">Boutique</button>
-      <button class="btn-secondary" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})" data-fr="Découvrir" data-en="Discover">Découvrir</button>
+      <button id="hero-btn-shop" class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})" data-fr="Boutique" data-en="Shop">Boutique</button>
+      <button id="hero-btn-disc" class="btn-secondary" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})" data-fr="Découvrir" data-en="Discover">Découvrir</button>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-val">68</div><div class="hero-stat-label" data-fr="Joueurs max" data-en="Max players">Joueurs max</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">68</div><div id="stat-lbl-players" class="hero-stat-label" data-fr="Joueurs max" data-en="Max players">Joueurs max</div></div>
       <div class="hero-stat"><div class="hero-stat-val">x3</div><div class="hero-stat-label">Loot</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">2H</div><div class="hero-stat-label" data-fr="Jour" data-en="Day">Jour</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">30'</div><div class="hero-stat-label" data-fr="Nuit" data-en="Night">Nuit</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">50</div><div class="hero-stat-label" data-fr="Armes T3" data-en="T3 Weapons">Armes T3</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">15'</div><div class="hero-stat-label" data-fr="Corps" data-en="Body">Corps</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">2H</div><div id="stat-lbl-day" class="hero-stat-label" data-fr="Jour" data-en="Day">Jour</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">30'</div><div id="stat-lbl-night" class="hero-stat-label" data-fr="Nuit" data-en="Night">Nuit</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">50</div><div id="stat-lbl-weapons" class="hero-stat-label" data-fr="Armes T3" data-en="T3 Weapons">Armes T3</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">15'</div><div id="stat-lbl-body" class="hero-stat-label" data-fr="Corps" data-en="Body">Corps</div></div>
     </div>
 
     <!-- COUNTDOWN -->
@@ -739,22 +739,22 @@ footer span{color:var(--red)}
       <div class="countdown-wrap" id="countdown-running">
         <div class="countdown-block">
           <span class="countdown-val" id="cd-days">00</span>
-          <div class="countdown-unit" data-fr="Jours" data-en="Days">Jours</div>
+          <div id="cd-unit-days" class="countdown-unit" data-fr="Jours" data-en="Days">Jours</div>
         </div>
         <div class="countdown-sep">:</div>
         <div class="countdown-block">
           <span class="countdown-val" id="cd-hours">00</span>
-          <div class="countdown-unit" data-fr="Heures" data-en="Hours">Heures</div>
+          <div id="cd-unit-hours" class="countdown-unit" data-fr="Heures" data-en="Hours">Heures</div>
         </div>
         <div class="countdown-sep">:</div>
         <div class="countdown-block">
           <span class="countdown-val" id="cd-minutes">00</span>
-          <div class="countdown-unit" data-fr="Minutes" data-en="Minutes">Minutes</div>
+          <div id="cd-unit-minutes" class="countdown-unit" data-fr="Minutes" data-en="Minutes">Minutes</div>
         </div>
         <div class="countdown-sep">:</div>
         <div class="countdown-block">
           <span class="countdown-val" id="cd-seconds">00</span>
-          <div class="countdown-unit" data-fr="Secondes" data-en="Seconds">Secondes</div>
+          <div id="cd-unit-seconds" class="countdown-unit" data-fr="Secondes" data-en="Seconds">Secondes</div>
         </div>
       </div>
       <div id="countdown-open" style="display:none">
@@ -779,81 +779,81 @@ footer span{color:var(--red)}
 <!-- ===== REGLEMENT PUBLIC ===== -->
 <section id="reglement-public">
   <div style="max-width:900px;margin:0 auto">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;margin-bottom:0.5rem" data-fr-html="RÈGLE<span style='color:#c0392b'>MENT</span>" data-en-html="REGU<span style='color:#c0392b'>LATIONS</span>">RÈGLE<span style="color:#c0392b">MENT</span></div>
+    <div id="reg-main-title" style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.5rem);letter-spacing:4px;color:#fff;margin-bottom:0.5rem" data-fr-html="RÈGLE<span style='color:#c0392b'>MENT</span>" data-en-html="REGU<span style='color:#c0392b'>LATIONS</span>">RÈGLE<span style="color:#c0392b">MENT</span></div>
     <div style="width:60px;height:3px;background:#c0392b;margin:0 0 2rem"></div>
 
     <div class="reg-pub-tabs">
-      <button class="reg-pub-tab active-serveur" onclick="switchRegPub('serveur',this)" data-fr="🎮 Serveur en jeu" data-en="🎮 In-game Server">🎮 Serveur en jeu</button>
-      <button class="reg-pub-tab" onclick="switchRegPub('discord',this)" data-fr="💬 Discord" data-en="💬 Discord">💬 Discord</button>
-      <button class="reg-pub-tab" onclick="switchRegPub('dons',this)" data-fr="⚠️ Dons &amp; Boutique" data-en="⚠️ Donations &amp; Shop">⚠️ Dons &amp; Boutique</button>
+      <button id="reg-tab-server" class="reg-pub-tab active-serveur" onclick="switchRegPub('serveur',this)" data-fr="🎮 Serveur en jeu" data-en="🎮 In-game Server">🎮 Serveur en jeu</button>
+      <button id="reg-tab-discord" class="reg-pub-tab" onclick="switchRegPub('discord',this)" data-fr="💬 Discord" data-en="💬 Discord">💬 Discord</button>
+      <button id="reg-tab-dons" class="reg-pub-tab" onclick="switchRegPub('dons',this)" data-fr="⚠️ Dons &amp; Boutique" data-en="⚠️ Donations &amp; Shop">⚠️ Dons &amp; Boutique</button>
     </div>
 
     <div class="reg-pub-content active" id="regpub-serveur">
-      <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px" data-fr="▼ Cliquez sur un article pour les détails" data-en="▼ Click on an article for details">▼ Cliquez sur un article pour les détails</div>
+      <div id="reg-click-hint" class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px" data-fr="▼ Cliquez sur un article pour les détails" data-en="▼ Click on an article for details">▼ Cliquez sur un article pour les détails</div>
       <div style="display:flex;flex-direction:column;gap:5px">
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Respect &amp; Communauté <span class='art-tag art-tag-red'>TOLÉRANCE ZÉRO</span>" data-en-html="Respect &amp; Community <span class='art-tag art-tag-red'>ZERO TOLERANCE</span>">Respect &amp; Communauté <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary" data-fr="Comportement entre joueurs — insultes, conflits, sanctions mutuelles" data-en="Player behaviour — insults, conflicts, mutual sanctions">Comportement entre joueurs — insultes, conflits, sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div id="rs01-title" class="art-title-main" data-fr-html="Respect &amp; Communauté <span class='art-tag art-tag-red'>TOLÉRANCE ZÉRO</span>" data-en-html="Respect &amp; Community <span class='art-tag art-tag-red'>ZERO TOLERANCE</span>">Respect &amp; Communauté <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary" data-fr="Comportement entre joueurs — insultes, conflits, sanctions mutuelles" data-en="Player behaviour — insults, conflicts, mutual sanctions">Comportement entre joueurs — insultes, conflits, sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body" data-fr-html="Le respect est obligatoire. Si deux joueurs s'insultent mutuellement, <strong style='color:#c0392b'>les deux sont sanctionnés</strong> sans exception. Nous voulons une communauté exemplaire.<div class='rules-grid'><div class='rule-ok'>✅ Débattre sainement en jeu</div><div class='rule-ko'>❌ Insulter un joueur</div><div class='rule-ok'>✅ Signaler via ticket</div><div class='rule-ko'>❌ Harcèlement ou discrimination</div></div>" data-en-html="Respect is mandatory. If two players insult each other, <strong style='color:#c0392b'>both are sanctioned</strong> without exception. We want an exemplary community.<div class='rules-grid'><div class='rule-ok'>✅ Debate fairly in-game</div><div class='rule-ko'>❌ Insult a player</div><div class='rule-ok'>✅ Report via ticket</div><div class='rule-ko'>❌ Harassment or discrimination</div></div>">Le respect est obligatoire. Si deux joueurs s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception. Nous voulons une communauté exemplaire.<div class="rules-grid"><div class="rule-ok">✅ Débattre sainement en jeu</div><div class="rule-ko">❌ Insulter un joueur</div><div class="rule-ok">✅ Signaler via ticket</div><div class="rule-ko">❌ Harcèlement ou discrimination</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Ce qui se passe en jeu reste en jeu" data-en="What happens in-game stays in-game">Ce qui se passe en jeu reste en jeu</div><div class="art-summary" data-fr="Conflits en jeu — gestion des disputes, rôle du staff" data-en="In-game conflicts — dispute management, staff role">Conflits en jeu — gestion des disputes, rôle du staff</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les conflits en jeu (raid, KOS, vol) restent en jeu. Ne remontez pas vos disputes sur le Discord. Si un conflit remonte, <strong style="color:#c0392b">le staff tranche et les deux joueurs sont sanctionnés.</strong><div class="rules-grid"><div class="rule-ok">✅ Régler ses conflits en jeu</div><div class="rule-ko">❌ Amener un conflit sur le Discord</div><div class="rule-ok">✅ Ouvrir un ticket pour litige grave</div><div class="rule-ko">❌ Insulter en dehors du jeu</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div id="rs02-title" class="art-title-main" data-fr="Ce qui se passe en jeu reste en jeu" data-en="What happens in-game stays in-game">Ce qui se passe en jeu reste en jeu</div><div class="art-summary" data-fr="Conflits en jeu — gestion des disputes, rôle du staff" data-en="In-game conflicts — dispute management, staff role">Conflits en jeu — gestion des disputes, rôle du staff</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs02-body" class="art-body">Les conflits en jeu (raid, KOS, vol) restent en jeu. Ne remontez pas vos disputes sur le Discord. Si un conflit remonte, <strong style="color:#c0392b">le staff tranche et les deux joueurs sont sanctionnés.</strong><div class="rules-grid"><div class="rule-ok">✅ Régler ses conflits en jeu</div><div class="rule-ko">❌ Amener un conflit sur le Discord</div><div class="rule-ok">✅ Ouvrir un ticket pour litige grave</div><div class="rule-ko">❌ Insulter en dehors du jeu</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Triche &amp; Exploits <span class='art-tag art-tag-red'>BAN PERMANENT</span>" data-en-html="Cheating &amp; Exploits <span class='art-tag art-tag-red'>PERMANENT BAN</span>">Triche &amp; Exploits <span class="art-tag art-tag-red">BAN PERMANENT</span></div><div class="art-summary" data-fr="Hacks, cheats, exploits de bugs — tolérance zéro" data-en="Hacks, cheats, bug exploits — zero tolerance">Hacks, cheats, exploits de bugs — tolérance zéro</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">L'utilisation de logiciel de triche, hack ou exploit intentionnel de bug entraîne un <strong style="color:#c0392b">ban permanent immédiat</strong> sans appel.<div class="rules-grid"><div class="rule-ok">✅ Jouer de façon fair-play</div><div class="rule-ko">❌ Utiliser un hack ou cheat</div><div class="rule-ok">✅ Signaler un bug au staff</div><div class="rule-ko">❌ Exploiter un bug intentionnellement</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div id="rs03-title" class="art-title-main" data-fr-html="Triche &amp; Exploits <span class='art-tag art-tag-red'>BAN PERMANENT</span>" data-en-html="Cheating &amp; Exploits <span class='art-tag art-tag-red'>PERMANENT BAN</span>">Triche &amp; Exploits <span class="art-tag art-tag-red">BAN PERMANENT</span></div><div class="art-summary" data-fr="Hacks, cheats, exploits de bugs — tolérance zéro" data-en="Hacks, cheats, bug exploits — zero tolerance">Hacks, cheats, exploits de bugs — tolérance zéro</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs03-body" class="art-body">L'utilisation de logiciel de triche, hack ou exploit intentionnel de bug entraîne un <strong style="color:#c0392b">ban permanent immédiat</strong> sans appel.<div class="rules-grid"><div class="rule-ok">✅ Jouer de façon fair-play</div><div class="rule-ko">❌ Utiliser un hack ou cheat</div><div class="rule-ok">✅ Signaler un bug au staff</div><div class="rule-ko">❌ Exploiter un bug intentionnellement</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main" data-fr="KOS &amp; Combat" data-en="KOS &amp; Combat">KOS &amp; Combat</div><div class="art-summary" data-fr="Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs" data-en="KOS allowed zones — Tier 3+, voice interaction required elsewhere">Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le KOS est autorisé uniquement en zones militaires Tier 3+. Ailleurs, une interaction vocale est obligatoire avant toute attaque. Pas de Metagaming ni Ghosting.<div class="rules-grid"><div class="rule-ok">✅ KOS en zone militaire T3+</div><div class="rule-ko">❌ KOS hors zone sans interaction</div><div class="rule-ok">✅ PvP fair-play partout</div><div class="rule-ko">❌ Metagaming ou Ghosting</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div id="rs04-title" class="art-title-main" data-fr="KOS &amp; Combat" data-en="KOS &amp; Combat">KOS &amp; Combat</div><div class="art-summary" data-fr="Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs" data-en="KOS allowed zones — Tier 3+, voice interaction required elsewhere">Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs04-body" class="art-body">Le KOS est autorisé uniquement en zones militaires Tier 3+. Ailleurs, une interaction vocale est obligatoire avant toute attaque. Pas de Metagaming ni Ghosting.<div class="rules-grid"><div class="rule-ok">✅ KOS en zone militaire T3+</div><div class="rule-ko">❌ KOS hors zone sans interaction</div><div class="rule-ok">✅ PvP fair-play partout</div><div class="rule-ko">❌ Metagaming ou Ghosting</div></div></div>
             </div>
 
             <div class="art-wrap green" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Véhicules <span class='art-tag art-tag-green'>VOL AUTORISÉ</span>" data-en-html="Vehicles <span class='art-tag art-tag-green'>THEFT ALLOWED</span>">Véhicules <span class="art-tag art-tag-green">VOL AUTORISÉ</span></div><div class="art-summary" data-fr="Vol dans les bases autorisé — accessoires, destruction, équipements" data-en="Theft in bases allowed — accessories, destruction, equipment">Vol dans les bases autorisé — accessoires, destruction, équipements</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le vol de véhicules est autorisé partout, y compris dans les bases. Mais vous avez des responsabilités.<div class="rules-grid"><div class="rule-ok">✅ Voler un véhicule dans une base</div><div class="rule-ko">❌ Retirer les accessoires et les abandonner</div><div class="rule-ok">✅ Utiliser le véhicule normalement</div><div class="rule-ko">❌ Laisser un véhicule inutilisable sans le détruire</div><div class="rule-ok">✅ Récupérer vos équipements avant le wipe</div><div class="rule-ko">❌ Réclamer un remboursement après wipe</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div id="rs05-title" class="art-title-main" data-fr-html="Véhicules <span class='art-tag art-tag-green'>VOL AUTORISÉ</span>" data-en-html="Vehicles <span class='art-tag art-tag-green'>THEFT ALLOWED</span>">Véhicules <span class="art-tag art-tag-green">VOL AUTORISÉ</span></div><div class="art-summary" data-fr="Vol dans les bases autorisé — accessoires, destruction, équipements" data-en="Theft in bases allowed — accessories, destruction, equipment">Vol dans les bases autorisé — accessoires, destruction, équipements</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs05-body" class="art-body">Le vol de véhicules est autorisé partout, y compris dans les bases. Mais vous avez des responsabilités.<div class="rules-grid"><div class="rule-ok">✅ Voler un véhicule dans une base</div><div class="rule-ko">❌ Retirer les accessoires et les abandonner</div><div class="rule-ok">✅ Utiliser le véhicule normalement</div><div class="rule-ko">❌ Laisser un véhicule inutilisable sans le détruire</div><div class="rule-ok">✅ Récupérer vos équipements avant le wipe</div><div class="rule-ko">❌ Réclamer un remboursement après wipe</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Wipe des véhicules <span class='art-tag art-tag-gold'>DIMANCHE 20H</span>" data-en-html="Vehicle Wipe <span class='art-tag art-tag-gold'>SUNDAY 8PM</span>">Wipe des véhicules <span class="art-tag art-tag-gold">DIMANCHE 20H</span></div><div class="art-summary" data-fr="Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement" data-en="Weekly wipe every Sunday at 8PM — equipment lost without refund">Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Wipe des véhicules <strong style="color:#d4ac0d">chaque dimanche à 20h00</strong>. Tout équipement laissé dans un véhicule au moment du wipe est perdu définitivement.<div class="rules-grid"><div class="rule-ok">✅ Récupérer ses affaires avant 20h dimanche</div><div class="rule-ko">❌ Laisser des équipements dans un véhicule</div><div class="rule-ok">✅ Détruire les véhicules inutilisables</div><div class="rule-ko">❌ Demander un remboursement post-wipe</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div id="rs06-title" class="art-title-main" data-fr-html="Wipe des véhicules <span class='art-tag art-tag-gold'>DIMANCHE 20H</span>" data-en-html="Vehicle Wipe <span class='art-tag art-tag-gold'>SUNDAY 8PM</span>">Wipe des véhicules <span class="art-tag art-tag-gold">DIMANCHE 20H</span></div><div class="art-summary" data-fr="Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement" data-en="Weekly wipe every Sunday at 8PM — equipment lost without refund">Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs06-body" class="art-body">Wipe des véhicules <strong style="color:#d4ac0d">chaque dimanche à 20h00</strong>. Tout équipement laissé dans un véhicule au moment du wipe est perdu définitivement.<div class="rules-grid"><div class="rule-ok">✅ Récupérer ses affaires avant 20h dimanche</div><div class="rule-ko">❌ Laisser des équipements dans un véhicule</div><div class="rule-ok">✅ Détruire les véhicules inutilisables</div><div class="rule-ko">❌ Demander un remboursement post-wipe</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">07</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Base Building" data-en="Base Building">Base Building</div><div class="art-summary" data-fr="Limite 2 bases, pas de blocage de routes ou villes" data-en="2 bases limit, no blocking roads or towns">Limite 2 bases, pas de blocage de routes ou villes</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Maximum 2 bases par groupe. Interdiction de bloquer l'accès aux villes, routes principales ou zones de spawn.<div class="rules-grid"><div class="rule-ok">✅ 2 bases maximum par groupe</div><div class="rule-ko">❌ Bloquer une route ou ville</div><div class="rule-ok">✅ Construire en zone libre</div><div class="rule-ko">❌ Bloquer une zone de spawn</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">07</span><div class="art-title-wrap"><div id="rs07-title" class="art-title-main" data-fr="Base Building" data-en="Base Building">Base Building</div><div class="art-summary" data-fr="Limite 2 bases, pas de blocage de routes ou villes" data-en="2 bases limit, no blocking roads or towns">Limite 2 bases, pas de blocage de routes ou villes</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs07-body" class="art-body">Maximum 2 bases par groupe. Interdiction de bloquer l'accès aux villes, routes principales ou zones de spawn.<div class="rules-grid"><div class="rule-ok">✅ 2 bases maximum par groupe</div><div class="rule-ko">❌ Bloquer une route ou ville</div><div class="rule-ok">✅ Construire en zone libre</div><div class="rule-ko">❌ Bloquer une zone de spawn</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">08</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Raids <span class='art-tag art-tag-gold'>RÈGLE 2 SEMAINES</span>" data-en-html="Raids <span class='art-tag art-tag-gold'>2-WEEK RULE</span>">Raids <span class="art-tag art-tag-gold">RÈGLE 2 SEMAINES</span></div><div class="art-summary" data-fr="Raid autorisé partout — mais interdiction de re-raider pendant 14 jours" data-en="Raid allowed everywhere — but no re-raiding for 14 days">Raid autorisé partout — mais interdiction de re-raider pendant 14 jours</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le raid est autorisé dans toutes les zones. Mais si une base vient d'être raidée, <strong style="color:#d4ac0d">impossible de la raider à nouveau pendant 14 jours.</strong><div class="rules-grid"><div class="rule-ok">✅ Raider n'importe quelle base</div><div class="rule-ko">❌ Re-raider une base dans les 14 jours</div><div class="rule-ok">✅ Raider une base non-raidée récemment</div><div class="rule-ko">❌ Contourner la règle des 2 semaines</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">08</span><div class="art-title-wrap"><div id="rs08-title" class="art-title-main" data-fr-html="Raids <span class='art-tag art-tag-gold'>RÈGLE 2 SEMAINES</span>" data-en-html="Raids <span class='art-tag art-tag-gold'>2-WEEK RULE</span>">Raids <span class="art-tag art-tag-gold">RÈGLE 2 SEMAINES</span></div><div class="art-summary" data-fr="Raid autorisé partout — mais interdiction de re-raider pendant 14 jours" data-en="Raid allowed everywhere — but no re-raiding for 14 days">Raid autorisé partout — mais interdiction de re-raider pendant 14 jours</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs08-body" class="art-body">Le raid est autorisé dans toutes les zones. Mais si une base vient d'être raidée, <strong style="color:#d4ac0d">impossible de la raider à nouveau pendant 14 jours.</strong><div class="rules-grid"><div class="rule-ok">✅ Raider n'importe quelle base</div><div class="rule-ko">❌ Re-raider une base dans les 14 jours</div><div class="rule-ok">✅ Raider une base non-raidée récemment</div><div class="rule-ko">❌ Contourner la règle des 2 semaines</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">09</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Comportement général" data-en="General behaviour">Comportement général</div><div class="art-summary" data-fr="Grief, stream sniping, nuisances — PvP fair-play uniquement" data-en="Grief, stream sniping, nuisances — fair-play PvP only">Grief, stream sniping, nuisances — PvP fair-play uniquement</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le grief gratuit, le stream sniping et toute action visant à nuire délibérément sont interdits.<div class="rules-grid"><div class="rule-ok">✅ PvP fair-play et compétitif</div><div class="rule-ko">❌ Grief gratuit sans objectif</div><div class="rule-ok">✅ Jouer pour la survie et le fun</div><div class="rule-ko">❌ Stream sniping</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">09</span><div class="art-title-wrap"><div id="rs09-title" class="art-title-main" data-fr="Comportement général" data-en="General behaviour">Comportement général</div><div class="art-summary" data-fr="Grief, stream sniping, nuisances — PvP fair-play uniquement" data-en="Grief, stream sniping, nuisances — fair-play PvP only">Grief, stream sniping, nuisances — PvP fair-play uniquement</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs09-body" class="art-body">Le grief gratuit, le stream sniping et toute action visant à nuire délibérément sont interdits.<div class="rules-grid"><div class="rule-ok">✅ PvP fair-play et compétitif</div><div class="rule-ko">❌ Grief gratuit sans objectif</div><div class="rule-ok">✅ Jouer pour la survie et le fun</div><div class="rule-ko">❌ Stream sniping</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Staff &amp; Décisions" data-en="Staff &amp; Decisions">Staff &amp; Décisions</div><div class="art-summary" data-fr="Respect du staff obligatoire — décisions finales, contestation via ticket" data-en="Staff respect mandatory — final decisions, contest via ticket">Respect du staff obligatoire — décisions finales, contestation via ticket</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les décisions du staff sont finales. Tout manque de respect entraîne une sanction immédiate.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket pour contester</div><div class="rule-ko">❌ Manquer de respect au staff</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Contester publiquement sur Discord</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div id="rs10-title" class="art-title-main" data-fr="Staff &amp; Décisions" data-en="Staff &amp; Decisions">Staff &amp; Décisions</div><div class="art-summary" data-fr="Respect du staff obligatoire — décisions finales, contestation via ticket" data-en="Staff respect mandatory — final decisions, contest via ticket">Respect du staff obligatoire — décisions finales, contestation via ticket</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs10-body" class="art-body">Les décisions du staff sont finales. Tout manque de respect entraîne une sanction immédiate.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket pour contester</div><div class="rule-ko">❌ Manquer de respect au staff</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Contester publiquement sur Discord</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">11</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Sanctions" data-en="Sanctions">Sanctions</div><div class="art-summary" data-fr="Système progressif — avertissement, kick, ban temporaire, ban permanent" data-en="Progressive system — warning, kick, temporary ban, permanent ban">Système progressif — avertissement, kick, ban temporaire, ban permanent</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Les sanctions sont progressives : Avertissement → Kick → Ban temporaire (24h à 30j) → Ban permanent. Certaines infractions graves entraînent un ban direct.<div class="rules-grid"><div class="rule-ok">✅ Contester une sanction via ticket</div><div class="rule-ko">❌ Récidiver après un avertissement</div><div class="rule-ok">✅ Respecter la durée du ban</div><div class="rule-ko">❌ Contourner un ban avec un autre compte</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">11</span><div class="art-title-wrap"><div id="rs11-title" class="art-title-main" data-fr="Sanctions" data-en="Sanctions">Sanctions</div><div class="art-summary" data-fr="Système progressif — avertissement, kick, ban temporaire, ban permanent" data-en="Progressive system — warning, kick, temporary ban, permanent ban">Système progressif — avertissement, kick, ban temporaire, ban permanent</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs11-body" class="art-body">Les sanctions sont progressives : Avertissement → Kick → Ban temporaire (24h à 30j) → Ban permanent. Certaines infractions graves entraînent un ban direct.<div class="rules-grid"><div class="rule-ok">✅ Contester une sanction via ticket</div><div class="rule-ko">❌ Récidiver après un avertissement</div><div class="rule-ok">✅ Respecter la durée du ban</div><div class="rule-ko">❌ Contourner un ban avec un autre compte</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">12</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Modification du règlement <span class='art-tag art-tag-gold'>IMPORTANT</span>" data-en-html="Rules update <span class='art-tag art-tag-gold'>IMPORTANT</span>">Modification du règlement <span class="art-tag art-tag-gold">IMPORTANT</span></div><div class="art-summary" data-fr="Règlement modifiable à tout moment — notification obligatoire" data-en="Rules may change at any time — mandatory notification">Règlement modifiable à tout moment — notification obligatoire</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Ce règlement peut être modifié à tout moment. Vous serez notifié sur Discord et le site, et invité à le relire. Continuer à jouer vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer une mise à jour du règlement</div><div class="rule-ok">✅ Poser vos questions via ticket</div><div class="rule-ko">❌ Invoquer l'ignorance après notification</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">12</span><div class="art-title-wrap"><div id="rs12-title" class="art-title-main" data-fr-html="Modification du règlement <span class='art-tag art-tag-gold'>IMPORTANT</span>" data-en-html="Rules update <span class='art-tag art-tag-gold'>IMPORTANT</span>">Modification du règlement <span class="art-tag art-tag-gold">IMPORTANT</span></div><div class="art-summary" data-fr="Règlement modifiable à tout moment — notification obligatoire" data-en="Rules may change at any time — mandatory notification">Règlement modifiable à tout moment — notification obligatoire</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs12-body" class="art-body">Ce règlement peut être modifié à tout moment. Vous serez notifié sur Discord et le site, et invité à le relire. Continuer à jouer vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer une mise à jour du règlement</div><div class="rule-ok">✅ Poser vos questions via ticket</div><div class="rule-ko">❌ Invoquer l'ignorance après notification</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)" style="border:2px solid #d4ac0d;background:rgba(212,172,13,0.04)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">13</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Blacklist <span class='art-tag art-tag-red'>BAN DÉFINITIF</span>" data-en-html="Blacklist <span class='art-tag art-tag-red'>PERMANENT BAN</span>">Blacklist <span class="art-tag art-tag-red">BAN DÉFINITIF</span></div><div class="art-summary" data-fr="Système de blacklist avancé — détection automatique, tolérance zéro absolue" data-en="Advanced blacklist system — automatic detection, absolute zero tolerance">Système de blacklist avancé — détection automatique, tolérance zéro absolue</div></div></div><span class="art-chevron" style="color:#d4ac0d">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">13</span><div class="art-title-wrap"><div id="rs13-title" class="art-title-main" data-fr-html="Blacklist <span class='art-tag art-tag-red'>BAN DÉFINITIF</span>" data-en-html="Blacklist <span class='art-tag art-tag-red'>PERMANENT BAN</span>">Blacklist <span class="art-tag art-tag-red">BAN DÉFINITIF</span></div><div class="art-summary" data-fr="Système de blacklist avancé — détection automatique, tolérance zéro absolue" data-en="Advanced blacklist system — automatic detection, absolute zero tolerance">Système de blacklist avancé — détection automatique, tolérance zéro absolue</div></div></div><span class="art-chevron" style="color:#d4ac0d">▼</span></div>
               <div class="art-body">
                 <div style="padding:8px 12px;background:rgba(212,172,13,0.08);border:1px solid rgba(212,172,13,0.3);margin-bottom:10px;font-size:0.8rem;color:#d4ac0d">⚠️ Badland FR dispose d'une blacklist très avancée, interconnectée avec d'autres serveurs. La détection est automatique.</div>
                 Tout joueur présent dans notre blacklist sera <strong style="color:#c0392b">refusé automatiquement</strong> à la connexion. Nous faisons confiance à tout le monde, même les joueurs avec un lourd palmarès. Cependant, <strong style="color:#fff">une seule remarque à votre encontre</strong> entraîne un <strong style="color:#c0392b">ban définitif immédiat</strong> et une inscription automatique dans notre base de données partagée.
@@ -874,52 +874,52 @@ footer span{color:var(--red)}
       <div style="display:flex;flex-direction:column;gap:5px">
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">01</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Rejoindre le Discord <span class='art-tag art-tag-blue'>OBLIGATOIRE</span>" data-en-html="Join Discord <span class='art-tag art-tag-blue'>MANDATORY</span>">Rejoindre le Discord <span class="art-tag art-tag-blue">OBLIGATOIRE</span></div><div class="art-summary" data-fr="Condition obligatoire pour jouer — canal officiel du serveur" data-en="Mandatory to play — official server channel">Condition obligatoire pour jouer — canal officiel du serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">01</span><div class="art-title-wrap"><div id="rd01-title" class="art-title-main" data-fr-html="Rejoindre le Discord <span class='art-tag art-tag-blue'>OBLIGATOIRE</span>" data-en-html="Join Discord <span class='art-tag art-tag-blue'>MANDATORY</span>">Rejoindre le Discord <span class="art-tag art-tag-blue">OBLIGATOIRE</span></div><div class="art-summary" data-fr="Condition obligatoire pour jouer — canal officiel du serveur" data-en="Mandatory to play — official server channel">Condition obligatoire pour jouer — canal officiel du serveur</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Rejoindre le Discord est obligatoire pour jouer sur Badland FR. C'est le seul canal officiel pour les annonces, la whitelist et les tickets.<div class="rules-grid"><div class="rule-ok">✅ Rejoindre le Discord via le lien officiel</div><div class="rule-ko">❌ Jouer sans être membre du Discord</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">02</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Respect &amp; Comportement <span class='art-tag art-tag-red'>TOLÉRANCE ZÉRO</span>" data-en-html="Respect &amp; Behaviour <span class='art-tag art-tag-red'>ZERO TOLERANCE</span>">Respect &amp; Comportement <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary" data-fr="Insultes, provocations, comportement toxique — sanctions mutuelles" data-en="Insults, provocation, toxic behaviour — mutual sanctions">Insultes, provocations, comportement toxique — sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
-              <div class="art-body">Le respect est obligatoire. Si deux membres s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses</div><div class="rule-ko">❌ Insulter un membre</div><div class="rule-ok">✅ Signaler un comportement via ticket</div><div class="rule-ko">❌ Provoquer ou harceler</div></div></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">02</span><div class="art-title-wrap"><div id="rd02-title" class="art-title-main" data-fr-html="Respect &amp; Comportement <span class='art-tag art-tag-red'>TOLÉRANCE ZÉRO</span>" data-en-html="Respect &amp; Behaviour <span class='art-tag art-tag-red'>ZERO TOLERANCE</span>">Respect &amp; Comportement <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary" data-fr="Insultes, provocations, comportement toxique — sanctions mutuelles" data-en="Insults, provocation, toxic behaviour — mutual sanctions">Insultes, provocations, comportement toxique — sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
+              <div id="rs01-body" class="art-body">Le respect est obligatoire. Si deux membres s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses</div><div class="rule-ko">❌ Insulter un membre</div><div class="rule-ok">✅ Signaler un comportement via ticket</div><div class="rule-ko">❌ Provoquer ou harceler</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Liens &amp; Publicité <span class='art-tag art-tag-red'>STRICTEMENT INTERDIT</span>" data-en-html="Links &amp; Advertising <span class='art-tag art-tag-red'>STRICTLY FORBIDDEN</span>">Liens &amp; Publicité <span class="art-tag art-tag-red">STRICTEMENT INTERDIT</span></div><div class="art-summary" data-fr="Aucun lien autorisé — bot automatisé, suppression et sanction immédiates" data-en="No links allowed — automated bot, instant deletion and sanction">Aucun lien autorisé — bot automatisé, suppression et sanction immédiates</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div id="rd03-title" class="art-title-main" data-fr-html="Liens &amp; Publicité <span class='art-tag art-tag-red'>STRICTEMENT INTERDIT</span>" data-en-html="Links &amp; Advertising <span class='art-tag art-tag-red'>STRICTLY FORBIDDEN</span>">Liens &amp; Publicité <span class="art-tag art-tag-red">STRICTEMENT INTERDIT</span></div><div class="art-summary" data-fr="Aucun lien autorisé — bot automatisé, suppression et sanction immédiates" data-en="No links allowed — automated bot, instant deletion and sanction">Aucun lien autorisé — bot automatisé, suppression et sanction immédiates</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Partager des liens dans les salons est <strong style="color:#c0392b">strictement interdit</strong>. Un bot supprime automatiquement tout lien posté et applique une sanction immédiate.<div style="margin:8px 0;padding:8px 12px;background:rgba(88,101,242,0.08);border:1px solid rgba(88,101,242,0.3);font-size:0.78rem;color:#888">🤖 Bot actif 24h/24 — tout lien supprimé instantanément, aucune exception.</div><div class="rules-grid"><div class="rule-ok">✅ Partager du texte et des captures</div><div class="rule-ko">❌ Poster un lien quelconque</div><div class="rule-ok">✅ Mentionner un contenu sans lien</div><div class="rule-ko">❌ Pub pour un autre serveur</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">04</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Salons &amp; Canaux" data-en="Channels &amp; Rooms">Salons &amp; Canaux</div><div class="art-summary" data-fr="Utilisation correcte des salons — spam et hors-sujet interdits" data-en="Correct channel usage — spam and off-topic forbidden">Utilisation correcte des salons — spam et hors-sujet interdits</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">04</span><div class="art-title-wrap"><div id="rd04-title" class="art-title-main" data-fr="Salons &amp; Canaux" data-en="Channels &amp; Rooms">Salons &amp; Canaux</div><div class="art-summary" data-fr="Utilisation correcte des salons — spam et hors-sujet interdits" data-en="Correct channel usage — spam and off-topic forbidden">Utilisation correcte des salons — spam et hors-sujet interdits</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Chaque salon a un objectif précis. Utilisez le bon salon pour chaque sujet.<div class="rules-grid"><div class="rule-ok">✅ Poster dans le bon salon</div><div class="rule-ko">❌ Spam ou messages répétés</div><div class="rule-ok">✅ Messages clairs et lisibles</div><div class="rule-ko">❌ Messages entièrement en majuscules</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">05</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Whitelist" data-en="Whitelist">Whitelist</div><div class="art-summary" data-fr="Commande /psn dans #whitelist — obligatoire pour accéder au serveur" data-en="/psn command in #whitelist — mandatory to access the server">Commande /psn dans #whitelist — obligatoire pour accéder au serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">05</span><div class="art-title-wrap"><div id="rd05-title" class="art-title-main" data-fr="Whitelist" data-en="Whitelist">Whitelist</div><div class="art-summary" data-fr="Commande /psn dans #whitelist — obligatoire pour accéder au serveur" data-en="/psn command in #whitelist — mandatory to access the server">Commande /psn dans #whitelist — obligatoire pour accéder au serveur</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Allez dans <strong style="color:#5865F2">#whitelist</strong> et tapez <code style="background:#111;padding:1px 6px;color:#5865F2">/psn VotrePseudo</code>. Sans whitelist validée, impossible de jouer.<div class="rules-grid"><div class="rule-ok">✅ Utiliser son vrai PSN/Gamertag</div><div class="rule-ko">❌ Mettre un pseudo incorrect</div><div class="rule-ok">✅ Attendre la validation staff</div><div class="rule-ko">❌ Spammer la commande plusieurs fois</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Tickets Discord <span class='art-tag art-tag-gold'>DÉLAI 2H</span>" data-en-html="Discord Tickets <span class='art-tag art-tag-gold'>2H DELAY</span>">Tickets Discord <span class="art-tag art-tag-gold">DÉLAI 2H</span></div><div class="art-summary" data-fr="Fermeture automatique après 2h sans réponse — disponible sur Discord et site" data-en="Auto-close after 2h with no reply — available on Discord and website">Fermeture automatique après 2h sans réponse — disponible sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div id="rd06-title" class="art-title-main" data-fr-html="Tickets Discord <span class='art-tag art-tag-gold'>DÉLAI 2H</span>" data-en-html="Discord Tickets <span class='art-tag art-tag-gold'>2H DELAY</span>">Tickets Discord <span class="art-tag art-tag-gold">DÉLAI 2H</span></div><div class="art-summary" data-fr="Fermeture automatique après 2h sans réponse — disponible sur Discord et site" data-en="Auto-close after 2h with no reply — available on Discord and website">Fermeture automatique après 2h sans réponse — disponible sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body"><strong style="color:#d4ac0d">Si vous ne répondez pas dans les 2 heures</strong> suivant une réponse staff, le ticket est fermé automatiquement. Vous pouvez aussi ouvrir un ticket sur le site via <strong style="color:#c0392b">Mon Espace → Mes Tickets</strong> — les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Répondre rapidement au staff</div><div class="rule-ko">❌ Laisser un ticket sans réponse 2h+</div><div class="rule-ok">✅ Ouvrir un ticket sur Discord ET le site</div><div class="rule-ko">❌ Ouvrir plusieurs tickets pour le même problème</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">07</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Litiges &amp; Contestations" data-en="Disputes &amp; Appeals">Litiges &amp; Contestations</div><div class="art-summary" data-fr="Via ticket uniquement — pas de disputes publiques dans les salons" data-en="Via ticket only — no public disputes in channels">Via ticket uniquement — pas de disputes publiques dans les salons</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">07</span><div class="art-title-wrap"><div id="rd07-title" class="art-title-main" data-fr="Litiges &amp; Contestations" data-en="Disputes &amp; Appeals">Litiges &amp; Contestations</div><div class="art-summary" data-fr="Via ticket uniquement — pas de disputes publiques dans les salons" data-en="Via ticket only — no public disputes in channels">Via ticket uniquement — pas de disputes publiques dans les salons</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Tous les litiges se règlent via ticket. Les disputes publiques sont interdites et sanctionnées. Le staff prend la décision finale.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket privé</div><div class="rule-ko">❌ Débattre publiquement dans un salon</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Relancer un litige clôturé</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">08</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Contenu partagé" data-en="Shared content">Contenu partagé</div><div class="art-summary" data-fr="Aucun contenu illégal, NSFW ou choquant — ban immédiat" data-en="No illegal, NSFW or shocking content — immediate ban">Aucun contenu illégal, NSFW ou choquant — ban immédiat</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">08</span><div class="art-title-wrap"><div id="rd08-title" class="art-title-main" data-fr="Contenu partagé" data-en="Shared content">Contenu partagé</div><div class="art-summary" data-fr="Aucun contenu illégal, NSFW ou choquant — ban immédiat" data-en="No illegal, NSFW or shocking content — immediate ban">Aucun contenu illégal, NSFW ou choquant — ban immédiat</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Aucun contenu illégal, offensant, NSFW ou violent. Violation = ban Discord et serveur immédiat et définitif.<div class="rules-grid"><div class="rule-ok">✅ Partager des captures de jeu</div><div class="rule-ko">❌ Contenu NSFW ou illégal</div><div class="rule-ok">✅ Mèmes respectueux liés au jeu</div><div class="rule-ko">❌ Contenu violent ou choquant</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">09</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Vocal" data-en="Voice">Vocal</div><div class="art-summary" data-fr="Mêmes règles que le texte — respect obligatoire dans les canaux vocaux" data-en="Same rules as text — respect mandatory in voice channels">Mêmes règles que le texte — respect obligatoire dans les canaux vocaux</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">09</span><div class="art-title-wrap"><div id="rd09-title" class="art-title-main" data-fr="Vocal" data-en="Voice">Vocal</div><div class="art-summary" data-fr="Mêmes règles que le texte — respect obligatoire dans les canaux vocaux" data-en="Same rules as text — respect mandatory in voice channels">Mêmes règles que le texte — respect obligatoire dans les canaux vocaux</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les canaux vocaux suivent les mêmes règles que les salons texte.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses en vocal</div><div class="rule-ko">❌ Perturber une conversation</div><div class="rule-ok">✅ Utiliser Push-to-Talk si besoin</div><div class="rule-ko">❌ Diffuser des sons agressifs</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Sanctions Discord" data-en="Discord Sanctions">Sanctions Discord</div><div class="art-summary" data-fr="Progressif : avertissement → mute → kick → ban Discord = ban serveur" data-en="Progressive: warning → mute → kick → Discord ban = server ban">Progressif : avertissement → mute → kick → ban Discord = ban serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div id="rd10-title" class="art-title-main" data-fr="Sanctions Discord" data-en="Discord Sanctions">Sanctions Discord</div><div class="art-summary" data-fr="Progressif : avertissement → mute → kick → ban Discord = ban serveur" data-en="Progressive: warning → mute → kick → Discord ban = server ban">Progressif : avertissement → mute → kick → ban Discord = ban serveur</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Sanctions progressives : Avertissement → Mute temporaire → Kick → Ban Discord. <strong style="color:#c0392b">Un ban Discord entraîne automatiquement un ban du serveur de jeu.</strong><div class="rules-grid"><div class="rule-ok">✅ Respecter le règlement pour éviter tout</div><div class="rule-ko">❌ Ban Discord = ban jeu automatique</div><div class="rule-ok">✅ Contester via ticket</div><div class="rule-ko">❌ Créer un nouveau compte pour contourner</div></div></div>
             </div>
 
@@ -932,32 +932,32 @@ footer span{color:var(--red)}
       <div style="display:flex;flex-direction:column;gap:5px">
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Nature des dons &amp; avantages" data-en="Nature of donations &amp; benefits">Nature des dons &amp; avantages</div><div class="art-summary" data-fr="Priorité de connexion, crédits boutique — aucun avantage de gameplay direct" data-en="Connection priority, shop credits — no direct gameplay advantage">Priorité de connexion, crédits boutique — aucun avantage de gameplay direct</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div id="rdon01-title" class="art-title-main" data-fr="Nature des dons &amp; avantages" data-en="Nature of donations &amp; benefits">Nature des dons &amp; avantages</div><div class="art-summary" data-fr="Priorité de connexion, crédits boutique — aucun avantage de gameplay direct" data-en="Connection priority, shop credits — no direct gameplay advantage">Priorité de connexion, crédits boutique — aucun avantage de gameplay direct</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les dons couvrent les frais Nitrado. En échange : <strong style="color:#d4ac0d">priorité de connexion sur le serveur</strong>, accès aux crédits boutique. Aucun avantage de gameplay direct (pas de loot, pas d'équipement).<div class="rules-grid"><div class="rule-ok">✅ Priorité de connexion serveur</div><div class="rule-ko">❌ Avantage direct en jeu</div><div class="rule-ok">✅ Accès aux packs de crédits boutique</div><div class="rule-ko">❌ Réclamation de remboursement</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Crédits boutique" data-en="Shop credits">Crédits boutique</div><div class="art-summary" data-fr="Non échangeables contre argent réel — valables uniquement sur Badland FR" data-en="Non-exchangeable for real money — valid on Badland FR only">Non échangeables contre argent réel — valables uniquement sur Badland FR</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div id="rdon02-title" class="art-title-main" data-fr="Crédits boutique" data-en="Shop credits">Crédits boutique</div><div class="art-summary" data-fr="Non échangeables contre argent réel — valables uniquement sur Badland FR" data-en="Non-exchangeable for real money — valid on Badland FR only">Non échangeables contre argent réel — valables uniquement sur Badland FR</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les crédits sont valables uniquement sur Badland FR. Non échangeables contre argent réel ni transférables entre comptes.<div class="rules-grid"><div class="rule-ok">✅ Utiliser ses crédits sur la boutique</div><div class="rule-ko">❌ Demander un échange contre argent réel</div><div class="rule-ok">✅ Crédits actifs tant que serveur en ligne</div><div class="rule-ko">❌ Transférer des crédits entre comptes</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">03</span><div class="art-title-wrap"><div class="art-title-main" data-fr-html="Avant tout achat <span class='art-tag art-tag-gold'>RECOMMANDÉ</span>" data-en-html="Before any purchase <span class='art-tag art-tag-gold'>RECOMMENDED</span>">Avant tout achat <span class="art-tag art-tag-gold">RECOMMANDÉ</span></div><div class="art-summary" data-fr="Ouvrir un ticket avant d'acheter — Discord et site disponibles" data-en="Open a ticket before buying — Discord and website available">Ouvrir un ticket avant d'acheter — Discord et site disponibles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">03</span><div class="art-title-wrap"><div id="rdon03-title" class="art-title-main" data-fr-html="Avant tout achat <span class='art-tag art-tag-gold'>RECOMMANDÉ</span>" data-en-html="Before any purchase <span class='art-tag art-tag-gold'>RECOMMENDED</span>">Avant tout achat <span class="art-tag art-tag-gold">RECOMMANDÉ</span></div><div class="art-summary" data-fr="Ouvrir un ticket avant d'acheter — Discord et site disponibles" data-en="Open a ticket before buying — Discord and website available">Ouvrir un ticket avant d'acheter — Discord et site disponibles</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">En cas de doute, ouvrez un ticket <strong>avant</strong> tout achat. Disponible sur <strong style="color:#5865F2">Discord</strong> (salon #tickets) ou <strong style="color:#c0392b">site internet</strong> (Mon Espace → Mes Tickets). Les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket avant d'acheter</div><div class="rule-ko">❌ Acheter sans avoir lu le règlement</div><div class="rule-ok">✅ Ticket sur Discord ET sur le site</div><div class="rule-ko">❌ Acheter puis réclamer un remboursement</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Litiges de paiement" data-en="Payment disputes">Litiges de paiement</div><div class="art-summary" data-fr="48h pour contacter le staff — chargeback = ban permanent immédiat" data-en="48h to contact staff — chargeback = immediate permanent ban">48h pour contacter le staff — chargeback = ban permanent immédiat</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div id="rdon04-title" class="art-title-main" data-fr="Litiges de paiement" data-en="Payment disputes">Litiges de paiement</div><div class="art-summary" data-fr="48h pour contacter le staff — chargeback = ban permanent immédiat" data-en="48h to contact staff — chargeback = immediate permanent ban">48h pour contacter le staff — chargeback = ban permanent immédiat</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">En cas de litige, contactez le staff <strong>dans les 48h</strong> avec votre preuve PayPal. Chargeback non justifié = <strong style="color:#c0392b">ban permanent immédiat.</strong><div class="rules-grid"><div class="rule-ok">✅ Contacter le staff dans les 48h</div><div class="rule-ko">❌ Initier un chargeback sans contact</div><div class="rule-ok">✅ Fournir la preuve de paiement PayPal</div><div class="rule-ko">❌ Chargeback = ban permanent automatique</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Fermeture du serveur" data-en="Server closure">Fermeture du serveur</div><div class="art-summary" data-fr="Crédits non remboursés — préavis minimum de 7 jours" data-en="Credits non-refundable — minimum 7 days notice">Crédits non remboursés — préavis minimum de 7 jours</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div id="rdon05-title" class="art-title-main" data-fr="Fermeture du serveur" data-en="Server closure">Fermeture du serveur</div><div class="art-summary" data-fr="Crédits non remboursés — préavis minimum de 7 jours" data-en="Credits non-refundable — minimum 7 days notice">Crédits non remboursés — préavis minimum de 7 jours</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">En cas de fermeture définitive, les crédits non utilisés restent acquis à l'administration. Préavis minimum de 7 jours publié sur Discord et le site.<div class="rules-grid"><div class="rule-ok">✅ Être notifié 7 jours à l'avance</div><div class="rule-ko">❌ Remboursement des crédits non utilisés</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main" data-fr="Modification du règlement dons" data-en="Donation rules update">Modification du règlement dons</div><div class="art-summary" data-fr="Modifiable à tout moment — notification sur Discord et site" data-en="May change at any time — notification on Discord and website">Modifiable à tout moment — notification sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div id="rdon06-title" class="art-title-main" data-fr="Modification du règlement dons" data-en="Donation rules update">Modification du règlement dons</div><div class="art-summary" data-fr="Modifiable à tout moment — notification sur Discord et site" data-en="May change at any time — notification on Discord and website">Modifiable à tout moment — notification sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Ce règlement peut être modifié à tout moment. Notification via Discord et site. Continuer à utiliser la boutique vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer les mises à jour</div></div></div>
             </div>
 
@@ -1006,38 +1006,38 @@ footer span{color:var(--red)}
 <!-- ===== PRESENTATION ===== -->
 <section id="presentation">
   <div class="container">
-    <div class="section-title" data-fr="LE SERVEUR" data-en="THE SERVER">LE SERVEUR <span>BADLAND FR</span></div>
+    <div id="sec-title-server" class="section-title" data-fr="LE SERVEUR" data-en="THE SERVER">LE SERVEUR <span>BADLAND FR</span></div>
     <div class="divider"></div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🔫</div>
-        <h3 data-fr="Loot x3 Militaire" data-en="Military Loot x3">Loot x3 Militaire</h3>
-        <p data-fr="Armes Tier 1 à Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS… zones militaires progressives avec danger croissant." data-en="Tier 1 to Tier 3 weapons in abundance. M4A1, AKM, SVD, FAL, VSS… progressive military zones with increasing danger.">Armes Tier 1 à Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS… zones militaires progressives avec danger croissant.</p>
+        <h3 id="feat1-title" data-fr="Loot x3 Militaire" data-en="Military Loot x3">Loot x3 Militaire</h3>
+        <p id="feat1-desc" data-fr="Armes Tier 1 à Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS… zones militaires progressives avec danger croissant." data-en="Tier 1 to Tier 3 weapons in abundance. M4A1, AKM, SVD, FAL, VSS… progressive military zones with increasing danger.">Armes Tier 1 à Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS… zones militaires progressives avec danger croissant.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🚗</div>
-        <h3 data-fr="Véhicules Complets" data-en="Full Vehicles">Véhicules Complets</h3>
-        <p data-fr="Tous les véhicules spawnent intacts avec provisions à bord. Camions chargés de matériaux de construction." data-en="All vehicles spawn intact with supplies on board. Trucks loaded with building materials.">Tous les véhicules spawnent intacts avec provisions à bord. Camions chargés de matériaux de construction.</p>
+        <h3 id="feat2-title" data-fr="Véhicules Complets" data-en="Full Vehicles">Véhicules Complets</h3>
+        <p id="feat2-desc" data-fr="Tous les véhicules spawnent intacts avec provisions à bord. Camions chargés de matériaux de construction." data-en="All vehicles spawn intact with supplies on board. Trucks loaded with building materials.">Tous les véhicules spawnent intacts avec provisions à bord. Camions chargés de matériaux de construction.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🧱</div>
-        <h3 data-fr="Base Building Facilité" data-en="Easy Base Building">Base Building Facilité</h3>
-        <p data-fr="Outils et matériaux partout sur la map. Cadenas, fils barbelés, câbles, planches — tout est disponible." data-en="Tools and materials everywhere on the map. Padlocks, barbed wire, cables, planks — everything is available.">Outils et matériaux partout sur la map. Cadenas, fils barbelés, câbles, planches — tout est disponible.</p>
+        <h3 id="feat3-title" data-fr="Base Building Facilité" data-en="Easy Base Building">Base Building Facilité</h3>
+        <p id="feat3-desc" data-fr="Outils et matériaux partout sur la map. Cadenas, fils barbelés, câbles, planches — tout est disponible." data-en="Tools and materials everywhere on the map. Padlocks, barbed wire, cables, planks — everything is available.">Outils et matériaux partout sur la map. Cadenas, fils barbelés, câbles, planches — tout est disponible.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">☢️</div>
-        <h3 data-fr="Zone Contaminée" data-en="Contaminated Zone">Zone Contaminée</h3>
-        <p data-fr="Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux." data-en="Permanent NBC Prison with 85+ zombies. Hazmat suit required. Ultra-rare loot for the bravest.">Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux.</p>
+        <h3 id="feat4-title" data-fr="Zone Contaminée" data-en="Contaminated Zone">Zone Contaminée</h3>
+        <p id="feat4-desc" data-fr="Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux." data-en="Permanent NBC Prison with 85+ zombies. Hazmat suit required. Ultra-rare loot for the bravest.">Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">💼</div>
-        <h3 data-fr="Mallettes Secrètes" data-en="Secret Briefcases">Mallettes Secrètes</h3>
-        <p data-fr="ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, clés rares. Débloquée par les crashs héli." data-en="ScientificBriefcase in crashes. 300 bullets, chemical grenades, rare keys. Unlocked by heli crashes.">ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, clés rares. Débloquée par les crashs héli.</p>
+        <h3 id="feat5-title" data-fr="Mallettes Secrètes" data-en="Secret Briefcases">Mallettes Secrètes</h3>
+        <p id="feat5-desc" data-fr="ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, clés rares. Débloquée par les crashs héli." data-en="ScientificBriefcase in crashes. 300 bullets, chemical grenades, rare keys. Unlocked by heli crashes.">ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, clés rares. Débloquée par les crashs héli.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌙</div>
-        <h3 data-fr="Cycle Jour/Nuit" data-en="Day/Night Cycle">Cycle Jour/Nuit</h3>
-        <p data-fr="Journée x6 (2h réelles), nuit x16 (30 min réelles). Spawn avec équipement de survie de base inclus." data-en="Day x6 (2 real hours), night x16 (30 real minutes). Spawn with basic survival gear included.">Journée x6 (2h réelles), nuit x16 (30 min réelles). Spawn avec équipement de survie de base inclus.</p>
+        <h3 id="feat6-title" data-fr="Cycle Jour/Nuit" data-en="Day/Night Cycle">Cycle Jour/Nuit</h3>
+        <p id="feat6-desc" data-fr="Journée x6 (2h réelles), nuit x16 (30 min réelles). Spawn avec équipement de survie de base inclus." data-en="Day x6 (2 real hours), night x16 (30 real minutes). Spawn with basic survival gear included.">Journée x6 (2h réelles), nuit x16 (30 min réelles). Spawn avec équipement de survie de base inclus.</p>
       </div>
     </div>
   </div>
@@ -1046,7 +1046,7 @@ footer span{color:var(--red)}
 <!-- ===== MAP ===== -->
 <section id="map" style="background:#111111;padding:80px 32px">
   <div style="max-width:900px;margin:0 auto">
-    <div style="font-size:32px;font-weight:900;letter-spacing:4px;color:#ffffff;margin-bottom:6px;font-family:Bebas Neue,sans-serif" data-fr-html="LA <span style='color:#c0392b'>MAP</span>" data-en-html="THE <span style='color:#c0392b'>MAP</span>">LA <span style="color:#c0392b">MAP</span></div>
+    <div id="map-section-title" style="font-size:32px;font-weight:900;letter-spacing:4px;color:#ffffff;margin-bottom:6px;font-family:Bebas Neue,sans-serif" data-fr-html="LA <span style='color:#c0392b'>MAP</span>" data-en-html="THE <span style='color:#c0392b'>MAP</span>">LA <span style="color:#c0392b">MAP</span></div>
     <div style="width:60px;height:3px;background:#c0392b;margin:0 0 32px"></div>
     <div style="background:#181818;border:1px solid rgba(192,57,43,0.3);padding:32px">
       <div style="font-size:20px;font-weight:900;letter-spacing:3px;color:#ffffff;margin-bottom:4px;font-family:Bebas Neue,sans-serif">NASDARA / BADLANDS <span style="color:#c0392b">DLC 2026</span></div>
@@ -1091,7 +1091,7 @@ footer span{color:var(--red)}
 <!-- ===== UPDATES ===== -->
 <section id="updates">
   <div class="container">
-    <div class="section-title" data-fr-html="MISES À <span>JOUR</span>" data-en-html="LATEST <span>UPDATES</span>">MISES À <span>JOUR</span></div>
+    <div id="sec-title-updates" class="section-title" data-fr-html="MISES À <span>JOUR</span>" data-en-html="LATEST <span>UPDATES</span>">MISES À <span>JOUR</span></div>
     <div class="divider"></div>
     <div id="updates-list"></div>
   </div>
@@ -1100,38 +1100,38 @@ footer span{color:var(--red)}
 <!-- ===== EVENEMENTS ===== -->
 <section id="evenements" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-title" data-fr-html="ÉVÉNEMENTS <span>SERVEUR</span>" data-en-html="SERVER <span>EVENTS</span>">ÉVÉNEMENTS <span>SERVEUR</span></div>
+    <div id="sec-title-events" class="section-title" data-fr-html="ÉVÉNEMENTS <span>SERVEUR</span>" data-en-html="SERVER <span>EVENTS</span>">ÉVÉNEMENTS <span>SERVEUR</span></div>
     <div class="divider"></div>
     <div class="events-grid">
       <div class="event-card">
-        <div class="event-card-header"><div class="event-icon">🚁</div><h3 data-fr="Crash Hélicoptère" data-en="Helicopter Crash">Crash Hélicoptère</h3></div>
-        <p data-fr="25+ zombies militaires autour de l'épave. Chance rare de trouver une ScientificBriefcase contenant équipement ultra-rare." data-en="25+ military zombies around the wreck. Rare chance to find a ScientificBriefcase with ultra-rare equipment.">25+ zombies militaires autour de l'épave. Chance rare de trouver une ScientificBriefcase contenant équipement ultra-rare.</p>
-        <div class="event-tags"><span class="event-tag">25+ Zombies</span><span class="event-tag">Mallette rare</span><span class="event-tag">Loot T3</span></div>
+        <div class="event-card-header"><div class="event-icon">🚁</div><h3 id="evt1-title" data-fr="Crash Hélicoptère" data-en="Helicopter Crash">Crash Hélicoptère</h3></div>
+        <p id="evt1-desc" data-fr="25+ zombies militaires autour de l'épave. Chance rare de trouver une ScientificBriefcase contenant équipement ultra-rare." data-en="25+ military zombies around the wreck. Rare chance to find a ScientificBriefcase with ultra-rare equipment.">25+ zombies militaires autour de l'épave. Chance rare de trouver une ScientificBriefcase contenant équipement ultra-rare.</p>
+        <div class="event-tags"><span class="event-tag" data-fr="25+ Zombies" data-en="25+ Zombies">25+ Zombies</span><span class="event-tag" data-fr="Mallette rare" data-en="Rare Briefcase">Mallette rare</span><span class="event-tag" data-fr="Loot T3" data-en="T3 Loot">Loot T3</span></div>
       </div>
       <div class="event-card">
-        <div class="event-card-header"><div class="event-icon">🚛</div><h3 data-fr="Crash Camion" data-en="Truck Crash">Crash Camion</h3></div>
-        <p data-fr="20+ zombies autour du camion militaire accidenté. Possibilité de mallette secrète dans la cargaison." data-en="20+ zombies around the crashed military truck. Possible secret briefcase in the cargo.">20+ zombies autour du camion militaire accidenté. Possibilité de mallette secrète dans la cargaison.</p>
-        <div class="event-tags"><span class="event-tag">20+ Zombies</span><span class="event-tag">Mallette rare</span><span class="event-tag">Carburant</span></div>
+        <div class="event-card-header"><div class="event-icon">🚛</div><h3 id="evt2-title" data-fr="Crash Camion" data-en="Truck Crash">Crash Camion</h3></div>
+        <p id="evt2-desc" data-fr="20+ zombies autour du camion militaire accidenté. Possibilité de mallette secrète dans la cargaison." data-en="20+ zombies around the crashed military truck. Possible secret briefcase in the cargo.">20+ zombies autour du camion militaire accidenté. Possibilité de mallette secrète dans la cargaison.</p>
+        <div class="event-tags"><span class="event-tag" data-fr="20+ Zombies" data-en="20+ Zombies">20+ Zombies</span><span class="event-tag" data-fr="Mallette rare" data-en="Rare Briefcase">Mallette rare</span><span class="event-tag" data-fr="Carburant" data-en="Fuel">Carburant</span></div>
       </div>
       <div class="event-card">
-        <div class="event-card-header"><div class="event-icon">☢️</div><h3>Zone NBC Prison</h3></div>
-        <p>Zone contaminée permanente sur l'île. 85+ zombies NBC en permanence. Combinaison obligatoire. Loot T3 exclusif.</p>
-        <div class="event-tags"><span class="event-tag">85+ Zombies</span><span class="event-tag">NBC requis</span><span class="event-tag">Permanent</span></div>
+        <div class="event-card-header"><div class="event-icon">☢️</div><h3 data-fr="Zone NBC Prison" data-en="NBC Prison Zone">Zone NBC Prison</h3></div>
+        <p data-fr="Zone contaminée permanente sur l'île. 85+ zombies NBC en permanence. Combinaison obligatoire. Loot T3 exclusif." data-en="Permanent contaminated zone on the island. 85+ NBC zombies permanently. Hazmat suit required. Exclusive T3 loot.">Zone contaminée permanente sur l'île. 85+ zombies NBC en permanence. Combinaison obligatoire. Loot T3 exclusif.</p>
+        <div class="event-tags"><span class="event-tag" data-fr="85+ Zombies" data-en="85+ Zombies">85+ Zombies</span><span class="event-tag" data-fr="NBC requis" data-en="NBC Required">NBC requis</span><span class="event-tag" data-fr="Permanent" data-en="Permanent">Permanent</span></div>
       </div>
       <div class="event-card">
-        <div class="event-card-header"><div class="event-icon">🪖</div><h3>Bases Militaires</h3></div>
-        <p>NW Airfield et Tisy infestés en permanence. Jusqu'à 105 zombies costauds. Clés de mallette possibles dans les zones.</p>
-        <div class="event-tags"><span class="event-tag">105 Zombies</span><span class="event-tag">Clé mallette</span><span class="event-tag">Permanent</span></div>
+        <div class="event-card-header"><div class="event-icon">🪖</div><h3 data-fr="Bases Militaires" data-en="Military Bases">Bases Militaires</h3></div>
+        <p data-fr="NW Airfield et Tisy infestés en permanence. Jusqu'à 105 zombies costauds. Clés de mallette possibles dans les zones." data-en="NW Airfield and Tisy permanently infested. Up to 105 tough zombies. Briefcase keys possible in the zones.">NW Airfield et Tisy infestés en permanence. Jusqu'à 105 zombies costauds. Clés de mallette possibles dans les zones.</p>
+        <div class="event-tags"><span class="event-tag" data-fr="105 Zombies" data-en="105 Zombies">105 Zombies</span><span class="event-tag" data-fr="Clé mallette" data-en="Briefcase Key">Clé mallette</span><span class="event-tag" data-fr="Permanent" data-en="Permanent">Permanent</span></div>
       </div>
       <div class="event-card">
-        <div class="event-card-header"><div class="event-icon">💼</div><h3>Mallette Secrète</h3></div>
-        <p>ScientificBriefcase contenant 300 balles (STANAG 60rnd / AKM 75rnd), grenades M67, RGD5, grenades chimiques et silencieux.</p>
-        <div class="event-tags"><span class="event-tag">300 Balles</span><span class="event-tag">Grenades</span><span class="event-tag">Ultra-rare</span></div>
+        <div class="event-card-header"><div class="event-icon">💼</div><h3 data-fr="Mallette Secrète" data-en="Secret Briefcase">Mallette Secrète</h3></div>
+        <p data-fr="ScientificBriefcase contenant 300 balles (STANAG 60rnd / AKM 75rnd), grenades M67, RGD5, grenades chimiques et silencieux." data-en="ScientificBriefcase containing 300 bullets (STANAG 60rnd / AKM 75rnd), M67 grenades, RGD5, chemical grenades and suppressors.">ScientificBriefcase contenant 300 balles (STANAG 60rnd / AKM 75rnd), grenades M67, RGD5, grenades chimiques et silencieux.</p>
+        <div class="event-tags"><span class="event-tag" data-fr="300 Balles" data-en="300 Bullets">300 Balles</span><span class="event-tag" data-fr="Grenades" data-en="Grenades">Grenades</span><span class="event-tag" data-fr="Ultra-rare" data-en="Ultra-rare">Ultra-rare</span></div>
       </div>
       <div class="event-card">
-        <div class="event-card-header"><div class="event-icon">🚔</div><h3>Voiture de Police</h3></div>
-        <p>Voiture de police abandonnée avec équipement policier. Gilets pare-balles, armes de poing, equip médical. Aucun zombie.</p>
-        <div class="event-tags"><span class="event-tag">Safe zone</span><span class="event-tag">Gilets police</span><span class="event-tag">Médical</span></div>
+        <div class="event-card-header"><div class="event-icon">🚔</div><h3 data-fr="Voiture de Police" data-en="Police Car">Voiture de Police</h3></div>
+        <p data-fr="Voiture de police abandonnée avec équipement policier. Gilets pare-balles, armes de poing, equip médical. Aucun zombie." data-en="Abandoned police car with police equipment. Bulletproof vests, handguns, medical gear. No zombies.">Voiture de police abandonnée avec équipement policier. Gilets pare-balles, armes de poing, equip médical. Aucun zombie.</p>
+        <div class="event-tags"><span class="event-tag" data-fr="Safe zone" data-en="Safe zone">Safe zone</span><span class="event-tag" data-fr="Gilets police" data-en="Police Vests">Gilets police</span><span class="event-tag" data-fr="Médical" data-en="Medical">Médical</span></div>
       </div>
     </div>
   </div>
@@ -1140,7 +1140,7 @@ footer span{color:var(--red)}
 <!-- ===== BOUTIQUE ===== -->
 <section id="boutique">
   <div class="container">
-    <div class="section-title" data-fr-html="BOUTIQUE <span>CRÉDITS</span>" data-en-html="CREDITS <span>SHOP</span>">BOUTIQUE <span>CRÉDITS</span></div>
+    <div id="sec-title-shop" class="section-title" data-fr-html="BOUTIQUE <span>CRÉDITS</span>" data-en-html="CREDITS <span>SHOP</span>">BOUTIQUE <span>CRÉDITS</span></div>
     <div class="divider"></div>
     <div class="shop-grid" id="packs-grid"></div>
     <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;margin:2.5rem 0 1rem">SERVICES <span style="color:var(--red)">EN JEU</span></h3>
@@ -1177,7 +1177,7 @@ footer span{color:var(--red)}
 <!-- ===== STAFF ===== -->
 <section id="staff">
   <div class="container">
-    <div class="section-title" data-fr-html="L'ÉQUIPE <span>STAFF</span>" data-en-html="THE <span>STAFF</span>">L'ÉQUIPE <span>STAFF</span></div>
+    <div id="sec-title-staff" class="section-title" data-fr-html="L'ÉQUIPE <span>STAFF</span>" data-en-html="THE <span>STAFF</span>">L'ÉQUIPE <span>STAFF</span></div>
     <div class="divider"></div>
     <div class="staff-grid" id="staff-grid"></div>
   </div>
@@ -1186,7 +1186,7 @@ footer span{color:var(--red)}
 <!-- ===== VIP ===== -->
 <section id="vip" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-title" data-fr-html="STATUT <span>VIP</span>" data-en-html="VIP <span>STATUS</span>">STATUT <span>VIP</span></div>
+    <div id="sec-title-vip" class="section-title" data-fr-html="STATUT <span>VIP</span>" data-en-html="VIP <span>STATUS</span>">STATUT <span>VIP</span></div>
     <div class="divider"></div>
     <div class="vip-grid">
       <div class="vip-card premium">
@@ -1218,7 +1218,7 @@ footer span{color:var(--red)}
 <!-- ===== PVP ===== -->
 <section id="pvp">
   <div class="container">
-    <div class="section-title" data-fr-html="CLASSEMENT <span>PVP</span>" data-en-html="PVP <span>RANKING</span>">CLASSEMENT <span>PVP</span></div>
+    <div id="sec-title-pvp" class="section-title" data-fr-html="CLASSEMENT <span>PVP</span>" data-en-html="PVP <span>RANKING</span>">CLASSEMENT <span>PVP</span></div>
     <div class="divider"></div>
     <div class="pvp-podium" id="pvp-podium"></div>
     <table class="pvp-table">
@@ -1231,7 +1231,7 @@ footer span{color:var(--red)}
 <!-- ===== COMMUNAUTE ===== -->
 <section id="communaute" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-title" data-fr-html="COMMUNAUTÉ <span>&amp; AVIS</span>" data-en-html="COMMUNITY <span>&amp; REVIEWS</span>">COMMUNAUTÉ <span>&amp; AVIS</span></div>
+    <div id="sec-title-community" class="section-title" data-fr-html="COMMUNAUTÉ <span>&amp; AVIS</span>" data-en-html="COMMUNITY <span>&amp; REVIEWS</span>">COMMUNAUTÉ <span>&amp; AVIS</span></div>
     <div class="divider"></div>
     <div class="comments-grid" id="comments-grid"></div>
     <div class="add-comment">
@@ -1259,7 +1259,7 @@ footer span{color:var(--red)}
 <!-- ===== DISCORD ===== -->
 <section id="discord" style="background:#111111;padding:5rem 2rem">
   <div class="container">
-    <div class="section-title" data-fr="REJOINDRE" data-en="JOIN">REJOINDRE <span>BADLAND FR</span></div>
+    <div id="sec-title-join" class="section-title" data-fr="REJOINDRE" data-en="JOIN">REJOINDRE <span>BADLAND FR</span></div>
     <div class="divider"></div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:900px;margin:0 auto">
@@ -1268,8 +1268,8 @@ footer span{color:var(--red)}
       <div style="background:#181818;border:1px solid rgba(88,101,242,0.3);border-top:3px solid #5865F2;padding:2rem;text-align:center">
         <div style="font-size:2.5rem;margin-bottom:1rem">💬</div>
         <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#fff;margin-bottom:0.75rem">DISCORD BADLAND FR</div>
-        <p style="color:#888;font-size:0.9rem;line-height:1.7;margin-bottom:1.5rem" data-fr="Rejoins notre communauté Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff." data-en="Join our Discord community to follow announcements, chat with other players and contact the staff.">Rejoins notre communauté Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff.</p>
-        <a href="https://discord.gg/Ak9vM2GDyR" target="_blank" style="display:inline-block;background:#5865F2;color:#fff;padding:12px 28px;font-size:0.9rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865F2'" data-fr="Rejoindre le Discord" data-en="Join Discord">
+        <p id="disc-section-desc" style="color:#888;font-size:0.9rem;line-height:1.7;margin-bottom:1.5rem" data-fr="Rejoins notre communauté Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff." data-en="Join our Discord community to follow announcements, chat with other players and contact the staff.">Rejoins notre communauté Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff.</p>
+        <a id="disc-section-btn" href="https://discord.gg/Ak9vM2GDyR" target="_blank" style="display:inline-block;background:#5865F2;color:#fff;padding:12px 28px;font-size:0.9rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865F2'" data-fr="Rejoindre le Discord" data-en="Join Discord">
           Rejoindre le Discord
         </a>
         <div style="margin-top:1rem;font-size:0.75rem;color:#555">discord.gg/Ak9vM2GDyR</div>
@@ -1323,12 +1323,12 @@ footer span{color:var(--red)}
 
 <section id="soutenir">
   <div class="container" style="text-align:center">
-    <div class="section-title" data-fr="SOUTENIR" data-en="SUPPORT">SOUTENIR <span>BADLAND FR</span></div>
+    <div id="sec-title-support" class="section-title" data-fr="SOUTENIR" data-en="SUPPORT">SOUTENIR <span>BADLAND FR</span></div>
     <div class="divider" style="margin:1rem auto 3rem"></div>
     <div class="support-box">
-      <p data-fr="Le serveur tourne grâce à votre soutien. Chaque don aide à maintenir les frais d'hébergement Nitrado et à améliorer l'expérience de jeu pour tous." data-en="The server runs thanks to your support. Every donation helps cover Nitrado hosting costs and improve the gaming experience for everyone.">Le serveur tourne grâce à votre soutien. Chaque don aide à maintenir les frais d'hébergement Nitrado et à améliorer l'expérience de jeu pour tous.</p>
-      <a href="https://www.paypal.com" target="_blank" class="btn-primary" style="display:inline-block" data-fr="💳 Faire un don via PayPal" data-en="💳 Donate via PayPal">💳 Faire un don via PayPal</a>
-      <p style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted)" data-fr="Les dons ne donnent aucun avantage en jeu. Merci pour votre soutien ❤️" data-en="Donations give no in-game advantage. Thank you for your support ❤️">Les dons ne donnent aucun avantage en jeu. Merci pour votre soutien ❤️</p>
+      <p id="sup-section-desc" data-fr="Le serveur tourne grâce à votre soutien. Chaque don aide à maintenir les frais d'hébergement Nitrado et à améliorer l'expérience de jeu pour tous." data-en="The server runs thanks to your support. Every donation helps cover Nitrado hosting costs and improve the gaming experience for everyone.">Le serveur tourne grâce à votre soutien. Chaque don aide à maintenir les frais d'hébergement Nitrado et à améliorer l'expérience de jeu pour tous.</p>
+      <a id="sup-section-btn" href="https://www.paypal.com" target="_blank" class="btn-primary" style="display:inline-block" data-fr="💳 Faire un don via PayPal" data-en="💳 Donate via PayPal">💳 Faire un don via PayPal</a>
+      <p id="sup-section-note" style="margin-top:1.5rem;font-size:0.8rem;color:var(--text-muted)" data-fr="Les dons ne donnent aucun avantage en jeu. Merci pour votre soutien ❤️" data-en="Donations give no in-game advantage. Thank you for your support ❤️">Les dons ne donnent aucun avantage en jeu. Merci pour votre soutien ❤️</p>
     </div>
   </div>
 </section>
@@ -1594,67 +1594,80 @@ footer span{color:var(--red)}
           <div style="display:flex;flex-direction:column;gap:5px">
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Communauté <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary">Comportement entre joueurs — insultes, conflits, sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Communauté <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div>
+<div id="rs01-summary" class="art-summary">Comportement entre joueurs — insultes, conflits, sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Le respect est obligatoire. Si deux joueurs s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception. Nous voulons une communauté exemplaire.<div class="rules-grid"><div class="rule-ok">✅ Débattre sainement en jeu</div><div class="rule-ko">❌ Insulter un joueur</div><div class="rule-ok">✅ Signaler via ticket</div><div class="rule-ko">❌ Harcèlement ou discrimination</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Ce qui se passe en jeu reste en jeu</div><div class="art-summary">Conflits en jeu — gestion des disputes, rôle du staff</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Ce qui se passe en jeu reste en jeu</div>
+<div id="rs02-summary" class="art-summary">Conflits en jeu — gestion des disputes, rôle du staff</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les conflits en jeu (raid, KOS, vol) restent en jeu. Ne remontez pas vos disputes sur le Discord. Si un conflit remonte, <strong style="color:#c0392b">le staff tranche et les deux joueurs sont sanctionnés.</strong><div class="rules-grid"><div class="rule-ok">✅ Régler ses conflits en jeu</div><div class="rule-ko">❌ Amener un conflit sur le Discord</div><div class="rule-ok">✅ Ouvrir un ticket pour litige grave</div><div class="rule-ko">❌ Insulter en dehors du jeu</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Triche &amp; Exploits <span class="art-tag art-tag-red">BAN PERMANENT</span></div><div class="art-summary">Hacks, cheats, exploits de bugs — tolérance zéro</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Triche &amp; Exploits <span class="art-tag art-tag-red">BAN PERMANENT</span></div>
+<div id="rs03-summary" class="art-summary">Hacks, cheats, exploits de bugs — tolérance zéro</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">L'utilisation de logiciel de triche, hack ou exploit intentionnel de bug entraîne un <strong style="color:#c0392b">ban permanent immédiat</strong> sans appel.<div class="rules-grid"><div class="rule-ok">✅ Jouer de façon fair-play</div><div class="rule-ko">❌ Utiliser un hack ou cheat</div><div class="rule-ok">✅ Signaler un bug au staff</div><div class="rule-ko">❌ Exploiter un bug intentionnellement</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">KOS &amp; Combat</div><div class="art-summary">Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">KOS &amp; Combat</div>
+<div id="rs04-summary" class="art-summary">Zones autorisées pour le KOS — Tier 3+, interaction vocale requise ailleurs</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Le KOS est autorisé uniquement en zones militaires Tier 3+. Ailleurs, une interaction vocale est obligatoire avant toute attaque. Pas de Metagaming ni Ghosting.<div class="rules-grid"><div class="rule-ok">✅ KOS en zone militaire T3+</div><div class="rule-ko">❌ KOS hors zone sans interaction</div><div class="rule-ok">✅ PvP fair-play partout</div><div class="rule-ko">❌ Metagaming ou Ghosting</div></div></div>
             </div>
 
             <div class="art-wrap green" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Véhicules <span class="art-tag art-tag-green">VOL AUTORISÉ</span></div><div class="art-summary">Vol dans les bases autorisé — accessoires, destruction, équipements</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Véhicules <span class="art-tag art-tag-green">VOL AUTORISÉ</span></div>
+<div id="rs05-summary" class="art-summary">Vol dans les bases autorisé — accessoires, destruction, équipements</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Le vol de véhicules est autorisé partout, y compris dans les bases. Mais vous avez des responsabilités.<div class="rules-grid"><div class="rule-ok">✅ Voler un véhicule dans une base</div><div class="rule-ko">❌ Retirer les accessoires et les abandonner</div><div class="rule-ok">✅ Utiliser le véhicule normalement</div><div class="rule-ko">❌ Laisser un véhicule inutilisable sans le détruire</div><div class="rule-ok">✅ Récupérer vos équipements avant le wipe</div><div class="rule-ko">❌ Réclamer un remboursement après wipe</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Wipe des véhicules <span class="art-tag art-tag-gold">DIMANCHE 20H</span></div><div class="art-summary">Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Wipe des véhicules <span class="art-tag art-tag-gold">DIMANCHE 20H</span></div>
+<div id="rs06-summary" class="art-summary">Wipe hebdomadaire chaque dimanche à 20h — équipements perdus sans remboursement</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Wipe des véhicules <strong style="color:#d4ac0d">chaque dimanche à 20h00</strong>. Tout équipement laissé dans un véhicule au moment du wipe est perdu définitivement.<div class="rules-grid"><div class="rule-ok">✅ Récupérer ses affaires avant 20h dimanche</div><div class="rule-ko">❌ Laisser des équipements dans un véhicule</div><div class="rule-ok">✅ Détruire les véhicules inutilisables</div><div class="rule-ko">❌ Demander un remboursement post-wipe</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">07</span><div class="art-title-wrap"><div class="art-title-main">Base Building</div><div class="art-summary">Limite 2 bases, pas de blocage de routes ou villes</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">07</span><div class="art-title-wrap"><div class="art-title-main">Base Building</div>
+<div id="rs07-summary" class="art-summary">Limite 2 bases, pas de blocage de routes ou villes</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Maximum 2 bases par groupe. Interdiction de bloquer l'accès aux villes, routes principales ou zones de spawn.<div class="rules-grid"><div class="rule-ok">✅ 2 bases maximum par groupe</div><div class="rule-ko">❌ Bloquer une route ou ville</div><div class="rule-ok">✅ Construire en zone libre</div><div class="rule-ko">❌ Bloquer une zone de spawn</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">08</span><div class="art-title-wrap"><div class="art-title-main">Raids <span class="art-tag art-tag-gold">RÈGLE 2 SEMAINES</span></div><div class="art-summary">Raid autorisé partout — mais interdiction de re-raider pendant 14 jours</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">08</span><div class="art-title-wrap"><div class="art-title-main">Raids <span class="art-tag art-tag-gold">RÈGLE 2 SEMAINES</span></div>
+<div id="rs08-summary" class="art-summary">Raid autorisé partout — mais interdiction de re-raider pendant 14 jours</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Le raid est autorisé dans toutes les zones. Mais si une base vient d'être raidée, <strong style="color:#d4ac0d">impossible de la raider à nouveau pendant 14 jours.</strong><div class="rules-grid"><div class="rule-ok">✅ Raider n'importe quelle base</div><div class="rule-ko">❌ Re-raider une base dans les 14 jours</div><div class="rule-ok">✅ Raider une base non-raidée récemment</div><div class="rule-ko">❌ Contourner la règle des 2 semaines</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">09</span><div class="art-title-wrap"><div class="art-title-main">Comportement général</div><div class="art-summary">Grief, stream sniping, nuisances — PvP fair-play uniquement</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">09</span><div class="art-title-wrap"><div class="art-title-main">Comportement général</div>
+<div id="rs09-summary" class="art-summary">Grief, stream sniping, nuisances — PvP fair-play uniquement</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Le grief gratuit, le stream sniping et toute action visant à nuire délibérément sont interdits.<div class="rules-grid"><div class="rule-ok">✅ PvP fair-play et compétitif</div><div class="rule-ko">❌ Grief gratuit sans objectif</div><div class="rule-ok">✅ Jouer pour la survie et le fun</div><div class="rule-ko">❌ Stream sniping</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Staff &amp; Décisions</div><div class="art-summary">Respect du staff obligatoire — décisions finales, contestation via ticket</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Staff &amp; Décisions</div>
+<div id="rs10-summary" class="art-summary">Respect du staff obligatoire — décisions finales, contestation via ticket</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les décisions du staff sont finales. Tout manque de respect entraîne une sanction immédiate.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket pour contester</div><div class="rule-ko">❌ Manquer de respect au staff</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Contester publiquement sur Discord</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">11</span><div class="art-title-wrap"><div class="art-title-main">Sanctions</div><div class="art-summary">Système progressif — avertissement, kick, ban temporaire, ban permanent</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">11</span><div class="art-title-wrap"><div class="art-title-main">Sanctions</div>
+<div id="rs11-summary" class="art-summary">Système progressif — avertissement, kick, ban temporaire, ban permanent</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les sanctions sont progressives : Avertissement → Kick → Ban temporaire (24h à 30j) → Ban permanent. Certaines infractions graves entraînent un ban direct.<div class="rules-grid"><div class="rule-ok">✅ Contester une sanction via ticket</div><div class="rule-ko">❌ Récidiver après un avertissement</div><div class="rule-ok">✅ Respecter la durée du ban</div><div class="rule-ko">❌ Contourner un ban avec un autre compte</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">12</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement <span class="art-tag art-tag-gold">IMPORTANT</span></div><div class="art-summary">Règlement modifiable à tout moment — notification obligatoire</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">12</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement <span class="art-tag art-tag-gold">IMPORTANT</span></div>
+<div id="rs12-summary" class="art-summary">Règlement modifiable à tout moment — notification obligatoire</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Ce règlement peut être modifié à tout moment. Vous serez notifié sur Discord et le site, et invité à le relire. Continuer à jouer vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer une mise à jour du règlement</div><div class="rule-ok">✅ Poser vos questions via ticket</div><div class="rule-ko">❌ Invoquer l'ignorance après notification</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)" style="border:2px solid #d4ac0d;background:rgba(212,172,13,0.04)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">13</span><div class="art-title-wrap"><div class="art-title-main">Blacklist <span class="art-tag art-tag-red">BAN DÉFINITIF</span></div><div class="art-summary">Système de blacklist avancé — détection automatique, tolérance zéro absolue</div></div></div><span class="art-chevron" style="color:#d4ac0d">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">13</span><div class="art-title-wrap"><div class="art-title-main">Blacklist <span class="art-tag art-tag-red">BAN DÉFINITIF</span></div>
+<div id="rs13-summary" class="art-summary">Système de blacklist avancé — détection automatique, tolérance zéro absolue</div></div></div><span class="art-chevron" style="color:#d4ac0d">▼</span></div>
               <div class="art-body">
                 <div style="padding:8px 12px;background:rgba(212,172,13,0.08);border:1px solid rgba(212,172,13,0.3);margin-bottom:10px;font-size:0.8rem;color:#d4ac0d">⚠️ Badland FR dispose d'une blacklist très avancée, interconnectée avec d'autres serveurs. La détection est automatique.</div>
                 Tout joueur présent dans notre blacklist sera <strong style="color:#c0392b">refusé automatiquement</strong> à la connexion. Nous faisons confiance à tout le monde, même les joueurs avec un lourd palmarès. Cependant, <strong style="color:#fff">une seule remarque à votre encontre</strong> entraîne un <strong style="color:#c0392b">ban définitif immédiat</strong> et une inscription automatique dans notre base de données partagée.
@@ -1678,52 +1691,62 @@ footer span{color:var(--red)}
           <div style="display:flex;flex-direction:column;gap:5px">
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">01</span><div class="art-title-wrap"><div class="art-title-main">Rejoindre le Discord <span class="art-tag art-tag-blue">OBLIGATOIRE</span></div><div class="art-summary">Condition obligatoire pour jouer — canal officiel du serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">01</span><div class="art-title-wrap"><div class="art-title-main">Rejoindre le Discord <span class="art-tag art-tag-blue">OBLIGATOIRE</span></div>
+<div id="rd01-summary" class="art-summary">Condition obligatoire pour jouer — canal officiel du serveur</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Rejoindre le Discord est obligatoire pour jouer sur Badland FR. C'est le seul canal officiel pour les annonces, la whitelist et les tickets.<div class="rules-grid"><div class="rule-ok">✅ Rejoindre le Discord via le lien officiel</div><div class="rule-ko">❌ Jouer sans être membre du Discord</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">02</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Comportement <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div><div class="art-summary">Insultes, provocations, comportement toxique — sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">02</span><div class="art-title-wrap"><div class="art-title-main">Respect &amp; Comportement <span class="art-tag art-tag-red">TOLÉRANCE ZÉRO</span></div>
+<div id="rd02-summary" class="art-summary">Insultes, provocations, comportement toxique — sanctions mutuelles</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Le respect est obligatoire. Si deux membres s'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionnés</strong> sans exception.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses</div><div class="rule-ko">❌ Insulter un membre</div><div class="rule-ok">✅ Signaler un comportement via ticket</div><div class="rule-ko">❌ Provoquer ou harceler</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Liens &amp; Publicité <span class="art-tag art-tag-red">STRICTEMENT INTERDIT</span></div><div class="art-summary">Aucun lien autorisé — bot automatisé, suppression et sanction immédiates</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">03</span><div class="art-title-wrap"><div class="art-title-main">Liens &amp; Publicité <span class="art-tag art-tag-red">STRICTEMENT INTERDIT</span></div>
+<div id="rd03-summary" class="art-summary">Aucun lien autorisé — bot automatisé, suppression et sanction immédiates</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Partager des liens dans les salons est <strong style="color:#c0392b">strictement interdit</strong>. Un bot supprime automatiquement tout lien posté et applique une sanction immédiate.<div style="margin:8px 0;padding:8px 12px;background:rgba(88,101,242,0.08);border:1px solid rgba(88,101,242,0.3);font-size:0.78rem;color:#888">🤖 Bot actif 24h/24 — tout lien supprimé instantanément, aucune exception.</div><div class="rules-grid"><div class="rule-ok">✅ Partager du texte et des captures</div><div class="rule-ko">❌ Poster un lien quelconque</div><div class="rule-ok">✅ Mentionner un contenu sans lien</div><div class="rule-ko">❌ Pub pour un autre serveur</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">04</span><div class="art-title-wrap"><div class="art-title-main">Salons &amp; Canaux</div><div class="art-summary">Utilisation correcte des salons — spam et hors-sujet interdits</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">04</span><div class="art-title-wrap"><div class="art-title-main">Salons &amp; Canaux</div>
+<div id="rd04-summary" class="art-summary">Utilisation correcte des salons — spam et hors-sujet interdits</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Chaque salon a un objectif précis. Utilisez le bon salon pour chaque sujet.<div class="rules-grid"><div class="rule-ok">✅ Poster dans le bon salon</div><div class="rule-ko">❌ Spam ou messages répétés</div><div class="rule-ok">✅ Messages clairs et lisibles</div><div class="rule-ko">❌ Messages entièrement en majuscules</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">05</span><div class="art-title-wrap"><div class="art-title-main">Whitelist</div><div class="art-summary">Commande /psn dans #whitelist — obligatoire pour accéder au serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">05</span><div class="art-title-wrap"><div class="art-title-main">Whitelist</div>
+<div id="rd05-summary" class="art-summary">Commande /psn dans #whitelist — obligatoire pour accéder au serveur</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Allez dans <strong style="color:#5865F2">#whitelist</strong> et tapez <code style="background:#111;padding:1px 6px;color:#5865F2">/psn VotrePseudo</code>. Sans whitelist validée, impossible de jouer.<div class="rules-grid"><div class="rule-ok">✅ Utiliser son vrai PSN/Gamertag</div><div class="rule-ko">❌ Mettre un pseudo incorrect</div><div class="rule-ok">✅ Attendre la validation staff</div><div class="rule-ko">❌ Spammer la commande plusieurs fois</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Tickets Discord <span class="art-tag art-tag-gold">DÉLAI 2H</span></div><div class="art-summary">Fermeture automatique après 2h sans réponse — disponible sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Tickets Discord <span class="art-tag art-tag-gold">DÉLAI 2H</span></div>
+<div id="rd06-summary" class="art-summary">Fermeture automatique après 2h sans réponse — disponible sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body"><strong style="color:#d4ac0d">Si vous ne répondez pas dans les 2 heures</strong> suivant une réponse staff, le ticket est fermé automatiquement. Vous pouvez aussi ouvrir un ticket sur le site via <strong style="color:#c0392b">Mon Espace → Mes Tickets</strong> — les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Répondre rapidement au staff</div><div class="rule-ko">❌ Laisser un ticket sans réponse 2h+</div><div class="rule-ok">✅ Ouvrir un ticket sur Discord ET le site</div><div class="rule-ko">❌ Ouvrir plusieurs tickets pour le même problème</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">07</span><div class="art-title-wrap"><div class="art-title-main">Litiges &amp; Contestations</div><div class="art-summary">Via ticket uniquement — pas de disputes publiques dans les salons</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">07</span><div class="art-title-wrap"><div class="art-title-main">Litiges &amp; Contestations</div>
+<div id="rd07-summary" class="art-summary">Via ticket uniquement — pas de disputes publiques dans les salons</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Tous les litiges se règlent via ticket. Les disputes publiques sont interdites et sanctionnées. Le staff prend la décision finale.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket privé</div><div class="rule-ko">❌ Débattre publiquement dans un salon</div><div class="rule-ok">✅ Accepter la décision du staff</div><div class="rule-ko">❌ Relancer un litige clôturé</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">08</span><div class="art-title-wrap"><div class="art-title-main">Contenu partagé</div><div class="art-summary">Aucun contenu illégal, NSFW ou choquant — ban immédiat</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">08</span><div class="art-title-wrap"><div class="art-title-main">Contenu partagé</div>
+<div id="rd08-summary" class="art-summary">Aucun contenu illégal, NSFW ou choquant — ban immédiat</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Aucun contenu illégal, offensant, NSFW ou violent. Violation = ban Discord et serveur immédiat et définitif.<div class="rules-grid"><div class="rule-ok">✅ Partager des captures de jeu</div><div class="rule-ko">❌ Contenu NSFW ou illégal</div><div class="rule-ok">✅ Mèmes respectueux liés au jeu</div><div class="rule-ko">❌ Contenu violent ou choquant</div></div></div>
             </div>
 
             <div class="art-wrap blue" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">09</span><div class="art-title-wrap"><div class="art-title-main">Vocal</div><div class="art-summary">Mêmes règles que le texte — respect obligatoire dans les canaux vocaux</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num" style="color:#5865F2">09</span><div class="art-title-wrap"><div class="art-title-main">Vocal</div>
+<div id="rd09-summary" class="art-summary">Mêmes règles que le texte — respect obligatoire dans les canaux vocaux</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les canaux vocaux suivent les mêmes règles que les salons texte.<div class="rules-grid"><div class="rule-ok">✅ Discussions respectueuses en vocal</div><div class="rule-ko">❌ Perturber une conversation</div><div class="rule-ok">✅ Utiliser Push-to-Talk si besoin</div><div class="rule-ko">❌ Diffuser des sons agressifs</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Sanctions Discord</div><div class="art-summary">Progressif : avertissement → mute → kick → ban Discord = ban serveur</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">10</span><div class="art-title-wrap"><div class="art-title-main">Sanctions Discord</div>
+<div id="rd10-summary" class="art-summary">Progressif : avertissement → mute → kick → ban Discord = ban serveur</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Sanctions progressives : Avertissement → Mute temporaire → Kick → Ban Discord. <strong style="color:#c0392b">Un ban Discord entraîne automatiquement un ban du serveur de jeu.</strong><div class="rules-grid"><div class="rule-ok">✅ Respecter le règlement pour éviter tout</div><div class="rule-ko">❌ Ban Discord = ban jeu automatique</div><div class="rule-ok">✅ Contester via ticket</div><div class="rule-ko">❌ Créer un nouveau compte pour contourner</div></div></div>
             </div>
 
@@ -1738,32 +1761,38 @@ footer span{color:var(--red)}
           <div style="display:flex;flex-direction:column;gap:5px">
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Nature des dons &amp; avantages</div><div class="art-summary">Priorité de connexion, crédits boutique — aucun avantage de gameplay direct</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">01</span><div class="art-title-wrap"><div class="art-title-main">Nature des dons &amp; avantages</div>
+<div id="rdon01-summary" class="art-summary">Priorité de connexion, crédits boutique — aucun avantage de gameplay direct</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les dons couvrent les frais Nitrado. En échange : <strong style="color:#d4ac0d">priorité de connexion sur le serveur</strong>, accès aux crédits boutique. Aucun avantage de gameplay direct (pas de loot, pas d'équipement).<div class="rules-grid"><div class="rule-ok">✅ Priorité de connexion serveur</div><div class="rule-ko">❌ Avantage direct en jeu</div><div class="rule-ok">✅ Accès aux packs de crédits boutique</div><div class="rule-ko">❌ Réclamation de remboursement</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Crédits boutique</div><div class="art-summary">Non échangeables contre argent réel — valables uniquement sur Badland FR</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">02</span><div class="art-title-wrap"><div class="art-title-main">Crédits boutique</div>
+<div id="rdon02-summary" class="art-summary">Non échangeables contre argent réel — valables uniquement sur Badland FR</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Les crédits sont valables uniquement sur Badland FR. Non échangeables contre argent réel ni transférables entre comptes.<div class="rules-grid"><div class="rule-ok">✅ Utiliser ses crédits sur la boutique</div><div class="rule-ko">❌ Demander un échange contre argent réel</div><div class="rule-ok">✅ Crédits actifs tant que serveur en ligne</div><div class="rule-ko">❌ Transférer des crédits entre comptes</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">03</span><div class="art-title-wrap"><div class="art-title-main">Avant tout achat <span class="art-tag art-tag-gold">RECOMMANDÉ</span></div><div class="art-summary">Ouvrir un ticket avant d'acheter — Discord et site disponibles</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">03</span><div class="art-title-wrap"><div class="art-title-main">Avant tout achat <span class="art-tag art-tag-gold">RECOMMANDÉ</span></div>
+<div id="rdon03-summary" class="art-summary">Ouvrir un ticket avant d'acheter — Discord et site disponibles</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">En cas de doute, ouvrez un ticket <strong>avant</strong> tout achat. Disponible sur <strong style="color:#5865F2">Discord</strong> (salon #tickets) ou <strong style="color:#c0392b">site internet</strong> (Mon Espace → Mes Tickets). Les deux plateformes peuvent être utilisées simultanément.<div class="rules-grid"><div class="rule-ok">✅ Ouvrir un ticket avant d'acheter</div><div class="rule-ko">❌ Acheter sans avoir lu le règlement</div><div class="rule-ok">✅ Ticket sur Discord ET sur le site</div><div class="rule-ko">❌ Acheter puis réclamer un remboursement</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">Litiges de paiement</div><div class="art-summary">48h pour contacter le staff — chargeback = ban permanent immédiat</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">04</span><div class="art-title-wrap"><div class="art-title-main">Litiges de paiement</div>
+<div id="rdon04-summary" class="art-summary">48h pour contacter le staff — chargeback = ban permanent immédiat</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">En cas de litige, contactez le staff <strong>dans les 48h</strong> avec votre preuve PayPal. Chargeback non justifié = <strong style="color:#c0392b">ban permanent immédiat.</strong><div class="rules-grid"><div class="rule-ok">✅ Contacter le staff dans les 48h</div><div class="rule-ko">❌ Initier un chargeback sans contact</div><div class="rule-ok">✅ Fournir la preuve de paiement PayPal</div><div class="rule-ko">❌ Chargeback = ban permanent automatique</div></div></div>
             </div>
 
             <div class="art-wrap" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Fermeture du serveur</div><div class="art-summary">Crédits non remboursés — préavis minimum de 7 jours</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num">05</span><div class="art-title-wrap"><div class="art-title-main">Fermeture du serveur</div>
+<div id="rdon05-summary" class="art-summary">Crédits non remboursés — préavis minimum de 7 jours</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">En cas de fermeture définitive, les crédits non utilisés restent acquis à l'administration. Préavis minimum de 7 jours publié sur Discord et le site.<div class="rules-grid"><div class="rule-ok">✅ Être notifié 7 jours à l'avance</div><div class="rule-ko">❌ Remboursement des crédits non utilisés</div></div></div>
             </div>
 
             <div class="art-wrap gold" onclick="toggleArt(this)">
-              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement dons</div><div class="art-summary">Modifiable à tout moment — notification sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
+              <div class="art-header"><div class="art-header-left"><span class="art-num gold">06</span><div class="art-title-wrap"><div class="art-title-main">Modification du règlement dons</div>
+<div id="rdon06-summary" class="art-summary">Modifiable à tout moment — notification sur Discord et site</div></div></div><span class="art-chevron">▼</span></div>
               <div class="art-body">Ce règlement peut être modifié à tout moment. Notification via Discord et site. Continuer à utiliser la boutique vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer les mises à jour</div></div></div>
             </div>
 
@@ -4015,6 +4044,232 @@ document.addEventListener('DOMContentLoaded', function() {
 // ===== LANGUAGE SWITCHER =====
 var currentLang = localStorage.getItem('badlandfr_lang') || 'fr';
 
+// ===== DICTIONNAIRE DE TRADUCTIONS =====
+var TRANSLATIONS = {
+  // NAVBAR
+  'nav-server':     {fr:'Serveur',       en:'Server'},
+  'nav-map':        {fr:'Map',           en:'Map'},
+  'nav-events':     {fr:'\u00c9v\u00e9nements', en:'Events'},
+  'nav-shop':       {fr:'Boutique',      en:'Shop'},
+  'nav-staff':      {fr:'Staff',         en:'Staff'},
+  'nav-community':  {fr:'Communaut\u00e9', en:'Community'},
+  'nav-donate':     {fr:'Don',           en:'Donate'},
+  'btn-login':      {fr:'Connexion',     en:'Login'},
+  'menu-space':     {fr:'\ud83c\udfae Mon Espace',  en:'\ud83c\udfae My Space'},
+  'menu-profile':   {fr:'\u270f\ufe0f Mon Profil',  en:'\u270f\ufe0f My Profile'},
+  'menu-logout':    {fr:'\ud83d\udea6 D\u00e9connexion', en:'\ud83d\udea6 Logout'},
+  // HERO
+  'hero-badge':     {fr:'\ud83c\udfae Serveur DayZ Console \u2014 PS4/PS5/XBOX', en:'\ud83c\udfae DayZ Console Server \u2014 PS4/PS5/XBOX'},
+  'hero-sub':       {fr:'Survie - Combat - Construction - Communaut\u00e9', en:'Survival - Combat - Building - Community'},
+  'hero-btn-shop':  {fr:'Boutique',      en:'Shop'},
+  'hero-btn-disc':  {fr:'D\u00e9couvrir', en:'Discover'},
+  'stat-players':   {fr:'Joueurs max',   en:'Max players'},
+  'stat-day':       {fr:'Jour',          en:'Day'},
+  'stat-night':     {fr:'Nuit',          en:'Night'},
+  'stat-weapons':   {fr:'Armes T3',      en:'T3 Weapons'},
+  'stat-body':      {fr:'Corps',         en:'Body'},
+  'cd-days':        {fr:'Jours',         en:'Days'},
+  'cd-hours':       {fr:'Heures',        en:'Hours'},
+  'cd-minutes':     {fr:'Minutes',       en:'Minutes'},
+  'cd-seconds':     {fr:'Secondes',      en:'Seconds'},
+  // SECTIONS TITRES
+  'sec-server':     {fr:'LE SERVEUR',    en:'THE SERVER'},
+  'sec-updates':    {fr:'MISES \u00c0 <span>JOUR</span>', en:'LATEST <span>UPDATES</span>'},
+  'sec-events':     {fr:'\u00c9V\u00c9NEMENTS <span>SERVEUR</span>', en:'SERVER <span>EVENTS</span>'},
+  'sec-shop':       {fr:'BOUTIQUE <span>CR\u00c9DITS</span>', en:'CREDITS <span>SHOP</span>'},
+  'sec-staff':      {fr:"L'\u00c9QUIPE <span>STAFF</span>", en:'THE <span>STAFF</span>'},
+  'sec-vip':        {fr:'STATUT <span>VIP</span>', en:'VIP <span>STATUS</span>'},
+  'sec-pvp':        {fr:'CLASSEMENT <span>PVP</span>', en:'PVP <span>RANKING</span>'},
+  'sec-community':  {fr:'COMMUNAUT\u00c9 <span>&amp; AVIS</span>', en:'COMMUNITY <span>&amp; REVIEWS</span>'},
+  'sec-join':       {fr:'REJOINDRE',     en:'JOIN'},
+  'sec-support':    {fr:'SOUTENIR',      en:'SUPPORT'},
+  // FEATURES
+  'feat1-title':    {fr:'Loot x3 Militaire', en:'Military Loot x3'},
+  'feat1-desc':     {fr:'Armes Tier 1 \u00e0 Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS\u2026 zones militaires progressives avec danger croissant.', en:'Tier 1 to Tier 3 weapons in abundance. M4A1, AKM, SVD, FAL, VSS\u2026 progressive military zones with increasing danger.'},
+  'feat2-title':    {fr:'V\u00e9hicules Complets', en:'Full Vehicles'},
+  'feat2-desc':     {fr:'Tous les v\u00e9hicules spawnent intacts avec provisions \u00e0 bord. Camions charg\u00e9s de mat\u00e9riaux de construction.', en:'All vehicles spawn intact with supplies on board. Trucks loaded with building materials.'},
+  'feat3-title':    {fr:'Base Building Facilit\u00e9', en:'Easy Base Building'},
+  'feat3-desc':     {fr:'Outils et mat\u00e9riaux partout sur la map. Cadenas, fils barbel\u00e9s, c\u00e2bles, planches \u2014 tout est disponible.', en:'Tools and materials everywhere on the map. Padlocks, barbed wire, cables, planks \u2014 everything is available.'},
+  'feat4-title':    {fr:'Zone Contamin\u00e9e', en:'Contaminated Zone'},
+  'feat4-desc':     {fr:'Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux.', en:'Permanent NBC Prison with 85+ zombies. Hazmat suit required. Ultra-rare loot for the bravest.'},
+  'feat5-title':    {fr:'Mallettes Secr\u00e8tes', en:'Secret Briefcases'},
+  'feat5-desc':     {fr:'ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, cl\u00e9s rares. D\u00e9bloqu\u00e9e par les crashs h\u00e9li.', en:'ScientificBriefcase in crashes. 300 bullets, chemical grenades, rare keys. Unlocked by heli crashes.'},
+  'feat6-title':    {fr:'Cycle Jour/Nuit', en:'Day/Night Cycle'},
+  'feat6-desc':     {fr:'Journ\u00e9e x6 (2h r\u00e9elles), nuit x16 (30 min r\u00e9elles). Spawn avec \u00e9quipement de survie de base inclus.', en:'Day x6 (2 real hours), night x16 (30 real minutes). Spawn with basic survival gear included.'},
+  // RÈGLEMENT
+  'reg-title':      {fr:'R\u00c8GLE<span style="color:#c0392b">MENT</span>', en:'REGU<span style="color:#c0392b">LATIONS</span>'},
+  'reg-tab-server': {fr:'\ud83c\udfae Serveur en jeu', en:'\ud83c\udfae In-game Server'},
+  'reg-tab-discord':{fr:'\ud83d\udcac Discord', en:'\ud83d\udcac Discord'},
+  'reg-tab-dons':   {fr:'\u26a0\ufe0f Dons &amp; Boutique', en:'\u26a0\ufe0f Donations &amp; Shop'},
+  'reg-hint':       {fr:'\u25bc Cliquez sur un article pour les d\u00e9tails', en:'\u25bc Click on an article for details'},
+  // RÈGLEMENT SERVEUR
+  'rs01t': {fr:'Respect &amp; Communaut\u00e9 <span class="art-tag art-tag-red">TOL\u00c9RANCE Z\u00c9RO</span>', en:'Respect &amp; Community <span class="art-tag art-tag-red">ZERO TOLERANCE</span>'},
+  'rs01s': {fr:'Comportement entre joueurs \u2014 insultes, conflits, sanctions mutuelles', en:'Player behaviour \u2014 insults, conflicts, mutual sanctions'},
+  'rs01b': {fr:'Le respect est obligatoire. Si deux joueurs s\'insultent mutuellement, <strong style="color:#c0392b">les deux sont sanctionn\u00e9s</strong> sans exception. Nous voulons une communaut\u00e9 exemplaire.<div class="rules-grid"><div class="rule-ok">\u2705 D\u00e9battre sainement en jeu</div><div class="rule-ko">\u274c Insulter un joueur</div><div class="rule-ok">\u2705 Signaler via ticket</div><div class="rule-ko">\u274c Harc\u00e8lement ou discrimination</div></div>', en:'Respect is mandatory. If two players insult each other, <strong style="color:#c0392b">both are sanctioned</strong> without exception. We want an exemplary community.<div class="rules-grid"><div class="rule-ok">\u2705 Debate fairly in-game</div><div class="rule-ko">\u274c Insult a player</div><div class="rule-ok">\u2705 Report via ticket</div><div class="rule-ko">\u274c Harassment or discrimination</div></div>'},
+  'rs02t': {fr:'Ce qui se passe en jeu reste en jeu', en:'What happens in-game stays in-game'},
+  'rs02s': {fr:'Conflits en jeu \u2014 gestion des disputes, r\u00f4le du staff', en:'In-game conflicts \u2014 dispute management, staff role'},
+  'rs02b': {fr:'Les conflits en jeu (raid, KOS, vol) restent en jeu. Ne remontez pas vos disputes sur le Discord. Si un conflit remonte, <strong style="color:#c0392b">le staff tranche et les deux joueurs sont sanctionn\u00e9s.</strong><div class="rules-grid"><div class="rule-ok">\u2705 R\u00e9gler ses conflits en jeu</div><div class="rule-ko">\u274c Amener un conflit sur le Discord</div><div class="rule-ok">\u2705 Ouvrir un ticket pour litige grave</div><div class="rule-ko">\u274c Insulter en dehors du jeu</div></div>', en:'In-game conflicts (raid, KOS, theft) stay in-game. Do not bring disputes to Discord. If a conflict escalates, <strong style="color:#c0392b">staff decides and both players are sanctioned.</strong><div class="rules-grid"><div class="rule-ok">\u2705 Resolve conflicts in-game</div><div class="rule-ko">\u274c Bring a conflict to Discord</div><div class="rule-ok">\u2705 Open a ticket for serious disputes</div><div class="rule-ko">\u274c Insult outside the game</div></div>'},
+  'rs03t': {fr:'Triche &amp; Exploits <span class="art-tag art-tag-red">BAN PERMANENT</span>', en:'Cheating &amp; Exploits <span class="art-tag art-tag-red">PERMANENT BAN</span>'},
+  'rs03s': {fr:'Hacks, cheats, exploits de bugs \u2014 tol\u00e9rance z\u00e9ro', en:'Hacks, cheats, bug exploits \u2014 zero tolerance'},
+  'rs03b': {fr:'L\'utilisation de logiciel de triche, hack ou exploit intentionnel de bug entra\u00eene un <strong style="color:#c0392b">ban permanent imm\u00e9diat</strong> sans appel.<div class="rules-grid"><div class="rule-ok">\u2705 Jouer de fa\u00e7on fair-play</div><div class="rule-ko">\u274c Utiliser un hack ou cheat</div><div class="rule-ok">\u2705 Signaler un bug au staff</div><div class="rule-ko">\u274c Exploiter un bug intentionnellement</div></div>', en:'Using cheat software, hacks or intentional bug exploits results in an <strong style="color:#c0392b">immediate permanent ban</strong> with no appeal.<div class="rules-grid"><div class="rule-ok">\u2705 Play fair</div><div class="rule-ko">\u274c Use a hack or cheat</div><div class="rule-ok">\u2705 Report a bug to staff</div><div class="rule-ko">\u274c Intentionally exploit a bug</div></div>'},
+  'rs04t': {fr:'KOS &amp; Combat', en:'KOS &amp; Combat'},
+  'rs04s': {fr:'Zones autoris\u00e9es pour le KOS \u2014 Tier 3+, interaction vocale requise ailleurs', en:'KOS allowed zones \u2014 Tier 3+, voice interaction required elsewhere'},
+  'rs04b': {fr:'Le KOS est autoris\u00e9 uniquement en zones militaires Tier 3+. Ailleurs, une interaction vocale est obligatoire avant toute attaque. Pas de Metagaming ni Ghosting.<div class="rules-grid"><div class="rule-ok">\u2705 KOS en zone militaire T3+</div><div class="rule-ko">\u274c KOS hors zone sans interaction</div><div class="rule-ok">\u2705 PvP fair-play partout</div><div class="rule-ko">\u274c Metagaming ou Ghosting</div></div>', en:'KOS is allowed only in Tier 3+ military zones. Elsewhere, voice interaction is mandatory before any attack. No Metagaming or Ghosting.<div class="rules-grid"><div class="rule-ok">\u2705 KOS in T3+ military zone</div><div class="rule-ko">\u274c KOS outside zone without interaction</div><div class="rule-ok">\u2705 Fair-play PvP everywhere</div><div class="rule-ko">\u274c Metagaming or Ghosting</div></div>'},
+  'rs05t': {fr:'V\u00e9hicules <span class="art-tag art-tag-green">VOL AUTORIS\u00c9</span>', en:'Vehicles <span class="art-tag art-tag-green">THEFT ALLOWED</span>'},
+  'rs05s': {fr:'Vol dans les bases autoris\u00e9 \u2014 accessoires, destruction, \u00e9quipements', en:'Theft in bases allowed \u2014 accessories, destruction, equipment'},
+  'rs05b': {fr:'Le vol de v\u00e9hicules est autoris\u00e9 partout, y compris dans les bases. Mais vous avez des responsabilit\u00e9s.<div class="rules-grid"><div class="rule-ok">\u2705 Voler un v\u00e9hicule dans une base</div><div class="rule-ko">\u274c Retirer les accessoires et les abandonner</div><div class="rule-ok">\u2705 Utiliser le v\u00e9hicule normalement</div><div class="rule-ko">\u274c Laisser un v\u00e9hicule inutilisable sans le d\u00e9truire</div><div class="rule-ok">\u2705 R\u00e9cup\u00e9rer vos \u00e9quipements avant le wipe</div><div class="rule-ko">\u274c R\u00e9clamer un remboursement apr\u00e8s wipe</div></div>', en:'Vehicle theft is allowed everywhere, including inside bases. But you have responsibilities.<div class="rules-grid"><div class="rule-ok">\u2705 Steal a vehicle from a base</div><div class="rule-ko">\u274c Remove accessories and abandon them</div><div class="rule-ok">\u2705 Use the vehicle normally</div><div class="rule-ko">\u274c Leave a vehicle unusable without destroying it</div><div class="rule-ok">\u2705 Retrieve your gear before the wipe</div><div class="rule-ko">\u274c Claim a refund after the wipe</div></div>'},
+  'rs06t': {fr:'Wipe des v\u00e9hicules <span class="art-tag art-tag-gold">DIMANCHE 20H</span>', en:'Vehicle Wipe <span class="art-tag art-tag-gold">SUNDAY 8PM</span>'},
+  'rs06s': {fr:'Wipe hebdomadaire chaque dimanche \u00e0 20h \u2014 \u00e9quipements perdus sans remboursement', en:'Weekly wipe every Sunday at 8PM \u2014 equipment lost without refund'},
+  'rs06b': {fr:'Wipe des v\u00e9hicules <strong style="color:#d4ac0d">chaque dimanche \u00e0 20h00</strong>. Tout \u00e9quipement laiss\u00e9 dans un v\u00e9hicule au moment du wipe est perdu d\u00e9finitivement.<div class="rules-grid"><div class="rule-ok">\u2705 R\u00e9cup\u00e9rer ses affaires avant 20h dimanche</div><div class="rule-ko">\u274c Laisser des \u00e9quipements dans un v\u00e9hicule</div><div class="rule-ok">\u2705 D\u00e9truire les v\u00e9hicules inutilisables</div><div class="rule-ko">\u274c Demander un remboursement post-wipe</div></div>', en:'Vehicle wipe <strong style="color:#d4ac0d">every Sunday at 8PM</strong>. Any equipment left in a vehicle at wipe time is permanently lost.<div class="rules-grid"><div class="rule-ok">\u2705 Retrieve your gear before Sunday 8PM</div><div class="rule-ko">\u274c Leave equipment in a vehicle</div><div class="rule-ok">\u2705 Destroy unusable vehicles</div><div class="rule-ko">\u274c Request a refund after the wipe</div></div>'},
+  'rs07t': {fr:'Base Building', en:'Base Building'},
+  'rs07s': {fr:'Limite 2 bases, pas de blocage de routes ou villes', en:'2 bases limit, no blocking roads or towns'},
+  'rs07b': {fr:'Maximum 2 bases par groupe. Interdiction de bloquer l\'acc\u00e8s aux villes, routes principales ou zones de spawn.<div class="rules-grid"><div class="rule-ok">\u2705 2 bases maximum par groupe</div><div class="rule-ko">\u274c Bloquer une route ou ville</div><div class="rule-ok">\u2705 Construire en zone libre</div><div class="rule-ko">\u274c Bloquer une zone de spawn</div></div>', en:'Maximum 2 bases per group. Blocking access to towns, main roads or spawn zones is forbidden.<div class="rules-grid"><div class="rule-ok">\u2705 2 bases maximum per group</div><div class="rule-ko">\u274c Block a road or town</div><div class="rule-ok">\u2705 Build in a free zone</div><div class="rule-ko">\u274c Block a spawn zone</div></div>'},
+  'rs08t': {fr:'Raids <span class="art-tag art-tag-gold">R\u00c8GLE 2 SEMAINES</span>', en:'Raids <span class="art-tag art-tag-gold">2-WEEK RULE</span>'},
+  'rs08s': {fr:'Raid autoris\u00e9 partout \u2014 mais interdiction de re-raider pendant 14 jours', en:'Raid allowed everywhere \u2014 but no re-raiding for 14 days'},
+  'rs08b': {fr:'Le raid est autoris\u00e9 dans toutes les zones. Mais si une base vient d\'être raidie, <strong style="color:#d4ac0d">impossible de la raider \u00e0 nouveau pendant 14 jours.</strong><div class="rules-grid"><div class="rule-ok">\u2705 Raider n\'importe quelle base</div><div class="rule-ko">\u274c Re-raider une base dans les 14 jours</div><div class="rule-ok">\u2705 Raider une base non-raid\u00e9e r\u00e9cemment</div><div class="rule-ko">\u274c Contourner la r\u00e8gle des 2 semaines</div></div>', en:'Raiding is allowed in all zones. But if a base was just raided, <strong style="color:#d4ac0d">it cannot be raided again for 14 days.</strong><div class="rules-grid"><div class="rule-ok">\u2705 Raid any base</div><div class="rule-ko">\u274c Re-raid a base within 14 days</div><div class="rule-ok">\u2705 Raid a recently un-raided base</div><div class="rule-ko">\u274c Bypass the 2-week rule</div></div>'},
+  'rs09t': {fr:'Comportement g\u00e9n\u00e9ral', en:'General behaviour'},
+  'rs09s': {fr:'Grief, stream sniping, nuisances \u2014 PvP fair-play uniquement', en:'Grief, stream sniping, nuisances \u2014 fair-play PvP only'},
+  'rs09b': {fr:'Le grief gratuit, le stream sniping et toute action visant \u00e0 nuire d\u00e9lib\u00e9r\u00e9ment sont interdits.<div class="rules-grid"><div class="rule-ok">\u2705 PvP fair-play et comp\u00e9titif</div><div class="rule-ko">\u274c Grief gratuit sans objectif</div><div class="rule-ok">\u2705 Jouer pour la survie et le fun</div><div class="rule-ko">\u274c Stream sniping</div></div>', en:'Pointless grief, stream sniping and any action aimed at deliberately harming others are forbidden.<div class="rules-grid"><div class="rule-ok">\u2705 Fair and competitive PvP</div><div class="rule-ko">\u274c Pointless grief</div><div class="rule-ok">\u2705 Play for survival and fun</div><div class="rule-ko">\u274c Stream sniping</div></div>'},
+  'rs10t': {fr:'Staff &amp; D\u00e9cisions', en:'Staff &amp; Decisions'},
+  'rs10s': {fr:'Respect du staff obligatoire \u2014 d\u00e9cisions finales, contestation via ticket', en:'Staff respect mandatory \u2014 final decisions, contest via ticket'},
+  'rs10b': {fr:'Les d\u00e9cisions du staff sont finales. Tout manque de respect entra\u00eene une sanction imm\u00e9diate.<div class="rules-grid"><div class="rule-ok">\u2705 Ouvrir un ticket pour contester</div><div class="rule-ko">\u274c Manquer de respect au staff</div><div class="rule-ok">\u2705 Accepter la d\u00e9cision du staff</div><div class="rule-ko">\u274c Contester publiquement sur Discord</div></div>', en:'Staff decisions are final. Any disrespect results in an immediate sanction.<div class="rules-grid"><div class="rule-ok">\u2705 Open a ticket to contest</div><div class="rule-ko">\u274c Disrespect staff</div><div class="rule-ok">\u2705 Accept staff decisions</div><div class="rule-ko">\u274c Publicly challenge on Discord</div></div>'},
+  'rs11t': {fr:'Sanctions', en:'Sanctions'},
+  'rs11s': {fr:'Syst\u00e8me progressif \u2014 avertissement, kick, ban temporaire, ban permanent', en:'Progressive system \u2014 warning, kick, temporary ban, permanent ban'},
+  'rs11b': {fr:'Les sanctions sont progressives : Avertissement \u2192 Kick \u2192 Ban temporaire (24h \u00e0 30j) \u2192 Ban permanent. Certaines infractions graves entra\u00eenent un ban direct.<div class="rules-grid"><div class="rule-ok">\u2705 Contester une sanction via ticket</div><div class="rule-ko">\u274c R\u00e9cidiver apr\u00e8s un avertissement</div><div class="rule-ok">\u2705 Respecter la dur\u00e9e du ban</div><div class="rule-ko">\u274c Contourner un ban avec un autre compte</div></div>', en:'Sanctions are progressive: Warning \u2192 Kick \u2192 Temporary ban (24h to 30d) \u2192 Permanent ban. Some serious violations lead to a direct ban.<div class="rules-grid"><div class="rule-ok">\u2705 Contest a sanction via ticket</div><div class="rule-ko">\u274c Repeat offend after a warning</div><div class="rule-ok">\u2705 Respect the ban duration</div><div class="rule-ko">\u274c Bypass a ban with another account</div></div>'},
+  'rs12t': {fr:'Modification du r\u00e8glement <span class="art-tag art-tag-gold">IMPORTANT</span>', en:'Rules update <span class="art-tag art-tag-gold">IMPORTANT</span>'},
+  'rs12s': {fr:'R\u00e8glement modifiable \u00e0 tout moment \u2014 notification obligatoire', en:'Rules may change at any time \u2014 mandatory notification'},
+  'rs12b': {fr:'Ce r\u00e8glement peut \u00eatre modifi\u00e9 \u00e0 tout moment. Vous serez notifi\u00e9 sur Discord et le site, et invit\u00e9 \u00e0 le relire. Continuer \u00e0 jouer vaut acceptation.<div class="rules-grid"><div class="rule-ok">\u2705 \u00catre notifi\u00e9 de chaque changement</div><div class="rule-ko">\u274c Ignorer une mise \u00e0 jour du r\u00e8glement</div><div class="rule-ok">\u2705 Poser vos questions via ticket</div><div class="rule-ko">\u274c Invoquer l\'ignorance apr\u00e8s notification</div></div>', en:'These rules may be updated at any time. You will be notified on Discord and the website and asked to re-read them. Continuing to play counts as acceptance.<div class="rules-grid"><div class="rule-ok">\u2705 Be notified of each change</div><div class="rule-ko">\u274c Ignore a rules update</div><div class="rule-ok">\u2705 Ask questions via ticket</div><div class="rule-ko">\u274c Claim ignorance after notification</div></div>'},
+  'rs13t': {fr:'Blacklist <span class="art-tag art-tag-red">BAN D\u00c9FINITIF</span>', en:'Blacklist <span class="art-tag art-tag-red">PERMANENT BAN</span>'},
+  'rs13s': {fr:'Syst\u00e8me de blacklist avanc\u00e9 \u2014 d\u00e9tection automatique, tol\u00e9rance z\u00e9ro absolue', en:'Advanced blacklist system \u2014 automatic detection, absolute zero tolerance'},
+  // RÈGLEMENT DISCORD
+  'rd01t': {fr:'Rejoindre le Discord <span class="art-tag art-tag-blue">OBLIGATOIRE</span>', en:'Join Discord <span class="art-tag art-tag-blue">MANDATORY</span>'},
+  'rd01s': {fr:'Condition obligatoire pour jouer \u2014 canal officiel du serveur', en:'Mandatory to play \u2014 official server channel'},
+  'rd02t': {fr:'Respect &amp; Comportement <span class="art-tag art-tag-red">TOL\u00c9RANCE Z\u00c9RO</span>', en:'Respect &amp; Behaviour <span class="art-tag art-tag-red">ZERO TOLERANCE</span>'},
+  'rd02s': {fr:'Insultes, provocations, comportement toxique \u2014 sanctions mutuelles', en:'Insults, provocation, toxic behaviour \u2014 mutual sanctions'},
+  'rd03t': {fr:'Liens &amp; Publicit\u00e9 <span class="art-tag art-tag-red">STRICTEMENT INTERDIT</span>', en:'Links &amp; Advertising <span class="art-tag art-tag-red">STRICTLY FORBIDDEN</span>'},
+  'rd03s': {fr:'Aucun lien autoris\u00e9 \u2014 bot automatis\u00e9, suppression et sanction imm\u00e9diates', en:'No links allowed \u2014 automated bot, instant deletion and sanction'},
+  'rd04t': {fr:'Salons &amp; Canaux', en:'Channels &amp; Rooms'},
+  'rd04s': {fr:'Utilisation correcte des salons \u2014 spam et hors-sujet interdits', en:'Correct channel usage \u2014 spam and off-topic forbidden'},
+  'rd05t': {fr:'Whitelist', en:'Whitelist'},
+  'rd05s': {fr:'Commande /psn dans #whitelist \u2014 obligatoire pour acc\u00e9der au serveur', en:'/psn command in #whitelist \u2014 mandatory to access the server'},
+  'rd06t': {fr:'Tickets Discord <span class="art-tag art-tag-gold">D\u00c9LAI 2H</span>', en:'Discord Tickets <span class="art-tag art-tag-gold">2H DELAY</span>'},
+  'rd06s': {fr:'Fermeture automatique apr\u00e8s 2h sans r\u00e9ponse \u2014 disponible sur Discord et site', en:'Auto-close after 2h with no reply \u2014 available on Discord and website'},
+  'rd07t': {fr:'Litiges &amp; Contestations', en:'Disputes &amp; Appeals'},
+  'rd07s': {fr:'Via ticket uniquement \u2014 pas de disputes publiques dans les salons', en:'Via ticket only \u2014 no public disputes in channels'},
+  'rd08t': {fr:'Contenu partag\u00e9', en:'Shared content'},
+  'rd08s': {fr:'Aucun contenu ill\u00e9gal, NSFW ou choquant \u2014 ban imm\u00e9diat', en:'No illegal, NSFW or shocking content \u2014 immediate ban'},
+  'rd09t': {fr:'Vocal', en:'Voice'},
+  'rd09s': {fr:'M\u00eames r\u00e8gles que le texte \u2014 respect obligatoire dans les canaux vocaux', en:'Same rules as text \u2014 respect mandatory in voice channels'},
+  'rd10t': {fr:'Sanctions Discord', en:'Discord Sanctions'},
+  'rd10s': {fr:'Progressif : avertissement \u2192 mute \u2192 kick \u2192 ban Discord = ban serveur', en:'Progressive: warning \u2192 mute \u2192 kick \u2192 Discord ban = server ban'},
+  // RÈGLEMENT DONS
+  'rdon01t': {fr:'Nature des dons &amp; avantages', en:'Nature of donations &amp; benefits'},
+  'rdon01s': {fr:'Priorit\u00e9 de connexion, cr\u00e9dits boutique \u2014 aucun avantage de gameplay direct', en:'Connection priority, shop credits \u2014 no direct gameplay advantage'},
+  'rdon02t': {fr:'Cr\u00e9dits boutique', en:'Shop credits'},
+  'rdon02s': {fr:'Non \u00e9changeables contre argent r\u00e9el \u2014 valables uniquement sur Badland FR', en:'Non-exchangeable for real money \u2014 valid on Badland FR only'},
+  'rdon03t': {fr:'Avant tout achat <span class="art-tag art-tag-gold">RECOMMAND\u00c9</span>', en:'Before any purchase <span class="art-tag art-tag-gold">RECOMMENDED</span>'},
+  'rdon03s': {fr:"Ouvrir un ticket avant d'acheter \u2014 Discord et site disponibles", en:'Open a ticket before buying \u2014 Discord and website available'},
+  'rdon04t': {fr:'Litiges de paiement', en:'Payment disputes'},
+  'rdon04s': {fr:'48h pour contacter le staff \u2014 chargeback = ban permanent imm\u00e9diat', en:'48h to contact staff \u2014 chargeback = immediate permanent ban'},
+  'rdon05t': {fr:'Fermeture du serveur', en:'Server closure'},
+  'rdon05s': {fr:'Cr\u00e9dits non rembours\u00e9s \u2014 pr\u00e9avis minimum de 7 jours', en:'Credits non-refundable \u2014 minimum 7 days notice'},
+  'rdon06t': {fr:'Modification du r\u00e8glement dons', en:'Donation rules update'},
+  'rdon06s': {fr:'Modifiable \u00e0 tout moment \u2014 notification sur Discord et site', en:'May change at any time \u2014 notification on Discord and website'},
+  // EVENEMENTS
+  'evt1-title': {fr:'Crash H\u00e9licopt\u00e8re', en:'Helicopter Crash'},
+  'evt1-desc':  {fr:'25+ zombies militaires autour de l\'\u00e9pave. Chance rare de trouver une ScientificBriefcase contenant \u00e9quipement ultra-rare.', en:'25+ military zombies around the wreck. Rare chance to find a ScientificBriefcase with ultra-rare equipment.'},
+  'evt2-title': {fr:'Crash Camion', en:'Truck Crash'},
+  'evt2-desc':  {fr:'20+ zombies autour du camion militaire accident\u00e9. Possibilit\u00e9 de mallette secr\u00e8te dans la cargaison.', en:'20+ zombies around the crashed military truck. Possible secret briefcase in the cargo.'},
+  // MAP
+  'map-title':  {fr:'LA <span style="color:#c0392b">MAP</span>', en:'THE <span style="color:#c0392b">MAP</span>'},
+  'map-sub':    {fr:'La map officielle de Badland FR \u2014 sortie pr\u00e9vue en 2026', en:'The official Badland FR map \u2014 release planned for 2026'},
+  // DISCORD SECTION
+  'disc-desc':  {fr:'Rejoins notre communaut\u00e9 Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff.', en:'Join our Discord community to follow announcements, chat with other players and contact the staff.'},
+  'disc-btn':   {fr:'Rejoindre le Discord', en:'Join Discord'},
+  // SOUTENIR
+  'sup-desc':   {fr:"Le serveur tourne gr\u00e2ce \u00e0 votre soutien. Chaque don aide \u00e0 maintenir les frais d'h\u00e9bergement Nitrado et \u00e0 am\u00e9liorer l'exp\u00e9rience de jeu pour tous.", en:'The server runs thanks to your support. Every donation helps cover Nitrado hosting costs and improve the gaming experience for everyone.'},
+  'sup-btn':    {fr:'\ud83d\udcb3 Faire un don via PayPal', en:'\ud83d\udcb3 Donate via PayPal'},
+  'sup-note':   {fr:'Les dons ne donnent aucun avantage en jeu. Merci pour votre soutien \u2764\ufe0f', en:'Donations give no in-game advantage. Thank you for your support \u2764\ufe0f'},
+};
+
+// IDs des éléments à traduire (id => clé de traduction, mode: text|html)
+var TRANS_ELEMENTS = [
+  // NAVBAR
+  ['nav-a-server','nav-server','text'], ['nav-a-map','nav-map','text'],
+  ['nav-a-events','nav-events','text'], ['nav-a-shop','nav-shop','text'],
+  ['nav-a-staff','nav-staff','text'], ['nav-a-community','nav-community','text'],
+  ['nav-a-donate','nav-donate','text'], ['btn-open-auth','btn-login','text'],
+  ['profile-menu-space','menu-space','text'], ['profile-menu-profile','menu-profile','text'],
+  ['profile-menu-logout','menu-logout','text'],
+  // HERO
+  ['hero-badge-text','hero-badge','text'], ['hero-sub-text','hero-sub','text'],
+  ['hero-btn-shop','hero-btn-shop','text'], ['hero-btn-disc','hero-btn-disc','text'],
+  ['stat-lbl-players','stat-players','text'], ['stat-lbl-day','stat-day','text'],
+  ['stat-lbl-night','stat-night','text'], ['stat-lbl-weapons','stat-weapons','text'],
+  ['stat-lbl-body','stat-body','text'],
+  ['cd-unit-days','cd-days','text'], ['cd-unit-hours','cd-hours','text'],
+  ['cd-unit-minutes','cd-minutes','text'], ['cd-unit-seconds','cd-seconds','text'],
+  // SECTIONS
+  ['sec-title-server','sec-server','text-span'], ['sec-title-updates','sec-updates','html'],
+  ['sec-title-events','sec-events','html'], ['sec-title-shop','sec-shop','html'],
+  ['sec-title-staff','sec-staff','html'], ['sec-title-vip','sec-vip','html'],
+  ['sec-title-pvp','sec-pvp','html'], ['sec-title-community','sec-community','html'],
+  ['sec-title-join','sec-join','text-span'], ['sec-title-support','sec-support','text-span'],
+  // FEATURES
+  ['feat1-title','feat1-title','text'], ['feat1-desc','feat1-desc','text'],
+  ['feat2-title','feat2-title','text'], ['feat2-desc','feat2-desc','text'],
+  ['feat3-title','feat3-title','text'], ['feat3-desc','feat3-desc','text'],
+  ['feat4-title','feat4-title','text'], ['feat4-desc','feat4-desc','text'],
+  ['feat5-title','feat5-title','text'], ['feat5-desc','feat5-desc','text'],
+  ['feat6-title','feat6-title','text'], ['feat6-desc','feat6-desc','text'],
+  // RÈGLEMENT
+  ['reg-main-title','reg-title','html'],
+  ['reg-tab-server','reg-tab-server','html'], ['reg-tab-discord','reg-tab-discord','html'],
+  ['reg-tab-dons','reg-tab-dons','html'], ['reg-click-hint','reg-hint','text'],
+  // RÈGLEMENT SERVEUR - titres, résumés, corps
+  ['rs01-title','rs01t','html'],['rs01-summary','rs01s','text'],['rs01-body','rs01b','html'],
+  ['rs02-title','rs02t','html'],['rs02-summary','rs02s','text'],['rs02-body','rs02b','html'],
+  ['rs03-title','rs03t','html'],['rs03-summary','rs03s','text'],['rs03-body','rs03b','html'],
+  ['rs04-title','rs04t','html'],['rs04-summary','rs04s','text'],['rs04-body','rs04b','html'],
+  ['rs05-title','rs05t','html'],['rs05-summary','rs05s','text'],['rs05-body','rs05b','html'],
+  ['rs06-title','rs06t','html'],['rs06-summary','rs06s','text'],['rs06-body','rs06b','html'],
+  ['rs07-title','rs07t','html'],['rs07-summary','rs07s','text'],['rs07-body','rs07b','html'],
+  ['rs08-title','rs08t','html'],['rs08-summary','rs08s','text'],['rs08-body','rs08b','html'],
+  ['rs09-title','rs09t','html'],['rs09-summary','rs09s','text'],['rs09-body','rs09b','html'],
+  ['rs10-title','rs10t','html'],['rs10-summary','rs10s','text'],['rs10-body','rs10b','html'],
+  ['rs11-title','rs11t','html'],['rs11-summary','rs11s','text'],['rs11-body','rs11b','html'],
+  ['rs12-title','rs12t','html'],['rs12-summary','rs12s','text'],['rs12-body','rs12b','html'],
+  ['rs13-title','rs13t','html'],['rs13-summary','rs13s','text'],
+  // RÈGLEMENT DISCORD
+  ['rd01-title','rd01t','html'],['rd01-summary','rd01s','text'],
+  ['rd02-title','rd02t','html'],['rd02-summary','rd02s','text'],
+  ['rd03-title','rd03t','html'],['rd03-summary','rd03s','text'],
+  ['rd04-title','rd04t','html'],['rd04-summary','rd04s','text'],
+  ['rd05-title','rd05t','html'],['rd05-summary','rd05s','text'],
+  ['rd06-title','rd06t','html'],['rd06-summary','rd06s','text'],
+  ['rd07-title','rd07t','html'],['rd07-summary','rd07s','text'],
+  ['rd08-title','rd08t','html'],['rd08-summary','rd08s','text'],
+  ['rd09-title','rd09t','html'],['rd09-summary','rd09s','text'],
+  ['rd10-title','rd10t','html'],['rd10-summary','rd10s','text'],
+  // RÈGLEMENT DONS
+  ['rdon01-title','rdon01t','html'],['rdon01-summary','rdon01s','text'],
+  ['rdon02-title','rdon02t','html'],['rdon02-summary','rdon02s','text'],
+  ['rdon03-title','rdon03t','html'],['rdon03-summary','rdon03s','text'],
+  ['rdon04-title','rdon04t','html'],['rdon04-summary','rdon04s','text'],
+  ['rdon05-title','rdon05t','html'],['rdon05-summary','rdon05s','text'],
+  ['rdon06-title','rdon06t','html'],['rdon06-summary','rdon06s','text'],
+  // EVENEMENTS
+  ['evt1-title','evt1-title','text'],['evt1-desc','evt1-desc','text'],
+  ['evt2-title','evt2-title','text'],['evt2-desc','evt2-desc','text'],
+  // MAP
+  ['map-section-title','map-title','html'], ['map-section-sub','map-sub','text'],
+  // DISCORD
+  ['disc-section-desc','disc-desc','text'], ['disc-section-btn','disc-btn','text'],
+  // SOUTENIR
+  ['sup-section-desc','sup-desc','text'], ['sup-section-btn','sup-btn','text'],
+  ['sup-section-note','sup-note','text'],
+];
+
 function setLang(lang) {
   currentLang = lang;
   localStorage.setItem('badlandfr_lang', lang);
@@ -4025,28 +4280,36 @@ function setLang(lang) {
 
 function applyLang() {
   var lang = currentLang;
-  // Éléments avec data-fr / data-en (texte simple)
-  document.querySelectorAll('[data-fr]').forEach(function(el) {
-    var val = el.getAttribute('data-' + lang);
-    if (val !== null) el.textContent = val;
+  TRANS_ELEMENTS.forEach(function(item) {
+    var elId = item[0], key = item[1], mode = item[2];
+    var el = document.getElementById(elId);
+    if (!el || !TRANSLATIONS[key]) return;
+    var val = TRANSLATIONS[key][lang];
+    if (val === undefined) return;
+    if (mode === 'text') { el.textContent = val; }
+    else if (mode === 'html') { el.innerHTML = val; }
+    else if (mode === 'text-span') {
+      // Garde le <span> enfant intact, change seulement le texte avant
+      var span = el.querySelector('span');
+      if (span) {
+        el.childNodes[0].textContent = val + ' ';
+      } else {
+        el.textContent = val;
+      }
+    }
   });
-  // Éléments avec data-fr-html / data-en-html (innerHTML)
-  document.querySelectorAll('[data-fr-html]').forEach(function(el) {
-    var val = el.getAttribute('data-' + lang + '-html');
-    if (val !== null) el.innerHTML = val;
-  });
-  // Countdown label spécial
+  // Countdown label
   var cdLabel = document.querySelector('.countdown-label');
   if (cdLabel) {
     var cdSpan = cdLabel.querySelector('#countdown-target-date');
     var cdText = cdSpan ? cdSpan.outerHTML : '';
     cdLabel.innerHTML = (lang === 'fr' ? '\u23F3 OUVERTURE DU SERVEUR DANS ' : '\u23F3 SERVER OPENING IN ') + cdText;
   }
-  // Titre page
+  // Titre onglet
   document.title = lang === 'fr' ? 'Badland FR \u2014 Serveur DayZ Console' : 'Badland FR \u2014 DayZ Console Server';
 }
 
-// Init au chargement
+// Init
 document.addEventListener('DOMContentLoaded', function() {
   if (currentLang === 'en') {
     document.getElementById('lang-en').classList.add('active');
