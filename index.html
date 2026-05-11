@@ -6,6 +6,17 @@
 <title>Badland FR — Serveur DayZ Console</title>
 <style>
 @import url('https://fonts.bunny.net/css?family=bebas-neue:400|rajdhani:400,500,600,700|share-tech-mono:400&display=swap');
+
+/* ===== LANGUAGE SWITCHER ===== */
+#lang-switcher {
+  display:flex;align-items:center;gap:0;border:1px solid rgba(192,57,43,0.4);overflow:hidden;margin-left:0.5rem;
+}
+.lang-btn {
+  background:transparent;border:none;color:var(--text-muted);font-size:0.7rem;font-weight:700;letter-spacing:1px;
+  padding:5px 10px;cursor:pointer;transition:all .2s;text-transform:uppercase;
+}
+.lang-btn.active { background:var(--red);color:#fff; }
+.lang-btn:hover:not(.active) { color:#fff; }
 </style>
 <style>
 :root {
@@ -652,20 +663,24 @@ footer span{color:var(--red)}
     <div class="nav-logo">Badland<span>FR</span></div>
   </div>
   <div class="nav-links">
-    <a href="#presentation">Serveur</a>
-    <a href="#map">Map</a>
+    <a href="#presentation" data-fr="Serveur" data-en="Server">Serveur</a>
+    <a href="#map" data-fr="Map" data-en="Map">Map</a>
     <a href="#updates">MAJ</a>
-    <a href="#evenements">Événements</a>
-    <a href="#boutique">Boutique</a>
-    <a href="#staff">Staff</a>
-    <a href="#communaute">Communauté</a>
-    <a href="#soutenir">Don</a>
+    <a href="#evenements" data-fr="Événements" data-en="Events">Événements</a>
+    <a href="#boutique" data-fr="Boutique" data-en="Shop">Boutique</a>
+    <a href="#staff" data-fr="Staff" data-en="Staff">Staff</a>
+    <a href="#communaute" data-fr="Communauté" data-en="Community">Communauté</a>
+    <a href="#soutenir" data-fr="Don" data-en="Donate">Don</a>
     <a href="#galerie-section" style="color:#888">📸 Galerie</a>
     <a href="#reglement-public" style="color:#d4ac0d;font-weight:700;border:1px solid rgba(212,172,13,0.3);padding:4px 10px">📜 Règlement</a>
     <a href="#discord" style="color:#5865F2;font-weight:700">Discord</a>
   </div>
   <div class="nav-right">
-    <button class="btn-login" id="btn-open-auth" onclick="openAuth()">Connexion</button>
+    <button class="btn-login" id="btn-open-auth" onclick="openAuth()" data-fr="Connexion" data-en="Login">Connexion</button>
+    <div id="lang-switcher">
+      <button class="lang-btn active" id="lang-fr" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+    </div>
     <div class="profile-btn" id="profile-btn-wrap" style="display:none">
       <button onclick="toggleProfileMenu()" style="background:none;border:none;display:flex;align-items:center;gap:8px;color:var(--text);cursor:pointer">
         <div class="profile-avatar" id="nav-avatar-wrap">
@@ -676,10 +691,10 @@ footer span{color:var(--red)}
         <span style="font-size:0.6rem;color:var(--text-muted)">▼</span>
       </button>
       <div class="profile-menu" id="profile-menu">
-        <button class="profile-menu-item" onclick="openDashboard()">🎮 Mon Espace</button>
-        <button class="profile-menu-item" onclick="openEditProfile()">✏️ Mon Profil</button>
-        <button class="profile-menu-item admin-only" id="admin-menu-btn" onclick="goAdmin()">⚙️ Administration</button>
-        <button class="profile-menu-item danger" onclick="logout()">🚪 Déconnexion</button>
+        <button class="profile-menu-item" onclick="openDashboard()" data-fr="🎮 Mon Espace" data-en="🎮 My Space">🎮 Mon Espace</button>
+        <button class="profile-menu-item" onclick="openEditProfile()" data-fr="✏️ Mon Profil" data-en="✏️ My Profile">✏️ Mon Profil</button>
+        <button class="profile-menu-item admin-only" id="admin-menu-btn" onclick="goAdmin()" data-fr="⚙️ Administration" data-en="⚙️ Administration">⚙️ Administration</button>
+        <button class="profile-menu-item danger" onclick="logout()" data-fr="🚪 Déconnexion" data-en="🚪 Logout">🚪 Déconnexion</button>
       </div>
     </div>
   </div>
@@ -701,20 +716,20 @@ footer span{color:var(--red)}
   <div class="hero-spark" style="top:37%;left:50%;animation-delay:0.04s"></div>
   <div class="hero-spark" style="top:42%;left:47%;animation-delay:0.12s"></div>
   <div class="hero-content fade-up">
-    <div class="hero-badge" style="margin-bottom:1.5rem">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
+    <div class="hero-badge" style="margin-bottom:1.5rem" data-fr="🎮 Serveur DayZ Console — PS4/PS5/XBOX" data-en="🎮 DayZ Console Server — PS4/PS5/XBOX">🎮 Serveur DayZ Console — PS4/PS5/XBOX</div>
     <h1 class="hero-title">BADLAND<span>FR</span></h1>
-    <p class="hero-sub">Survie - Combat - Construction - Communauté</p>
+    <p class="hero-sub" data-fr="Survie - Combat - Construction - Communauté" data-en="Survival - Combat - Building - Community">Survie - Combat - Construction - Communauté</p>
     <div class="hero-btns">
-      <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})">Boutique</button>
-      <button class="btn-secondary" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})">Découvrir</button>
+      <button class="btn-primary" onclick="document.getElementById('boutique').scrollIntoView({behavior:'smooth'})" data-fr="Boutique" data-en="Shop">Boutique</button>
+      <button class="btn-secondary" onclick="document.getElementById('presentation').scrollIntoView({behavior:'smooth'})" data-fr="Découvrir" data-en="Discover">Découvrir</button>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="hero-stat-val">68</div><div class="hero-stat-label">Joueurs max</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">68</div><div class="hero-stat-label" data-fr="Joueurs max" data-en="Max players">Joueurs max</div></div>
       <div class="hero-stat"><div class="hero-stat-val">x3</div><div class="hero-stat-label">Loot</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">2H</div><div class="hero-stat-label">Jour</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">30'</div><div class="hero-stat-label">Nuit</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">50</div><div class="hero-stat-label">Armes T3</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">15'</div><div class="hero-stat-label">Corps</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">2H</div><div class="hero-stat-label" data-fr="Jour" data-en="Day">Jour</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">30'</div><div class="hero-stat-label" data-fr="Nuit" data-en="Night">Nuit</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">50</div><div class="hero-stat-label" data-fr="Armes T3" data-en="T3 Weapons">Armes T3</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">15'</div><div class="hero-stat-label" data-fr="Corps" data-en="Body">Corps</div></div>
     </div>
 
     <!-- COUNTDOWN -->
@@ -723,22 +738,22 @@ footer span{color:var(--red)}
       <div class="countdown-wrap" id="countdown-running">
         <div class="countdown-block">
           <span class="countdown-val" id="cd-days">00</span>
-          <div class="countdown-unit">Jours</div>
+          <div class="countdown-unit" data-fr="Jours" data-en="Days">Jours</div>
         </div>
         <div class="countdown-sep">:</div>
         <div class="countdown-block">
           <span class="countdown-val" id="cd-hours">00</span>
-          <div class="countdown-unit">Heures</div>
+          <div class="countdown-unit" data-fr="Heures" data-en="Hours">Heures</div>
         </div>
         <div class="countdown-sep">:</div>
         <div class="countdown-block">
           <span class="countdown-val" id="cd-minutes">00</span>
-          <div class="countdown-unit">Minutes</div>
+          <div class="countdown-unit" data-fr="Minutes" data-en="Minutes">Minutes</div>
         </div>
         <div class="countdown-sep">:</div>
         <div class="countdown-block">
           <span class="countdown-val" id="cd-seconds">00</span>
-          <div class="countdown-unit">Secondes</div>
+          <div class="countdown-unit" data-fr="Secondes" data-en="Seconds">Secondes</div>
         </div>
       </div>
       <div id="countdown-open" style="display:none">
@@ -990,33 +1005,33 @@ footer span{color:var(--red)}
 <!-- ===== PRESENTATION ===== -->
 <section id="presentation">
   <div class="container">
-    <div class="section-title">LE SERVEUR <span>BADLAND FR</span></div>
+    <div class="section-title" data-fr="LE SERVEUR" data-en="THE SERVER">LE SERVEUR <span>BADLAND FR</span></div>
     <div class="divider"></div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🔫</div>
-        <h3>Loot x3 Militaire</h3>
-        <p>Armes Tier 1 à Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS… zones militaires progressives avec danger croissant.</p>
+        <h3 data-fr="Loot x3 Militaire" data-en="Military Loot x3">Loot x3 Militaire</h3>
+        <p data-fr="Armes Tier 1 à Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS… zones militaires progressives avec danger croissant." data-en="Tier 1 to Tier 3 weapons in abundance. M4A1, AKM, SVD, FAL, VSS… progressive military zones with increasing danger.">Armes Tier 1 à Tier 3 en abondance. M4A1, AKM, SVD, FAL, VSS… zones militaires progressives avec danger croissant.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🚗</div>
-        <h3>Véhicules Complets</h3>
-        <p>Tous les véhicules spawnent intacts avec provisions à bord. Camions chargés de matériaux de construction.</p>
+        <h3 data-fr="Véhicules Complets" data-en="Full Vehicles">Véhicules Complets</h3>
+        <p data-fr="Tous les véhicules spawnent intacts avec provisions à bord. Camions chargés de matériaux de construction." data-en="All vehicles spawn intact with supplies on board. Trucks loaded with building materials.">Tous les véhicules spawnent intacts avec provisions à bord. Camions chargés de matériaux de construction.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🧱</div>
-        <h3>Base Building Facilité</h3>
-        <p>Outils et matériaux partout sur la map. Cadenas, fils barbelés, câbles, planches — tout est disponible.</p>
+        <h3 data-fr="Base Building Facilité" data-en="Easy Base Building">Base Building Facilité</h3>
+        <p data-fr="Outils et matériaux partout sur la map. Cadenas, fils barbelés, câbles, planches — tout est disponible." data-en="Tools and materials everywhere on the map. Padlocks, barbed wire, cables, planks — everything is available.">Outils et matériaux partout sur la map. Cadenas, fils barbelés, câbles, planches — tout est disponible.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">☢️</div>
-        <h3>Zone Contaminée</h3>
-        <p>Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux.</p>
+        <h3 data-fr="Zone Contaminée" data-en="Contaminated Zone">Zone Contaminée</h3>
+        <p data-fr="Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux." data-en="Permanent NBC Prison with 85+ zombies. Hazmat suit required. Ultra-rare loot for the bravest.">Prison permanente NBC avec 85+ zombies. Combinaison obligatoire. Loot ultra-rare pour les plus courageux.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">💼</div>
-        <h3>Mallettes Secrètes</h3>
-        <p>ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, clés rares. Débloquée par les crashs héli.</p>
+        <h3 data-fr="Mallettes Secrètes" data-en="Secret Briefcases">Mallettes Secrètes</h3>
+        <p data-fr="ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, clés rares. Débloquée par les crashs héli." data-en="ScientificBriefcase in crashes. 300 bullets, chemical grenades, rare keys. Unlocked by heli crashes.">ScientificBriefcase dans les crashs. 300 balles, grenades chimiques, clés rares. Débloquée par les crashs héli.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌙</div>
@@ -1075,7 +1090,7 @@ footer span{color:var(--red)}
 <!-- ===== UPDATES ===== -->
 <section id="updates">
   <div class="container">
-    <div class="section-title">MISES À <span>JOUR</span></div>
+    <div class="section-title" data-fr-html="MISES À <span>JOUR</span>" data-en-html="LATEST <span>UPDATES</span>">MISES À <span>JOUR</span></div>
     <div class="divider"></div>
     <div id="updates-list"></div>
   </div>
@@ -1084,7 +1099,7 @@ footer span{color:var(--red)}
 <!-- ===== EVENEMENTS ===== -->
 <section id="evenements" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-title">ÉVÉNEMENTS <span>SERVEUR</span></div>
+    <div class="section-title" data-fr-html="ÉVÉNEMENTS <span>SERVEUR</span>" data-en-html="SERVER <span>EVENTS</span>">ÉVÉNEMENTS <span>SERVEUR</span></div>
     <div class="divider"></div>
     <div class="events-grid">
       <div class="event-card">
@@ -1124,7 +1139,7 @@ footer span{color:var(--red)}
 <!-- ===== BOUTIQUE ===== -->
 <section id="boutique">
   <div class="container">
-    <div class="section-title">BOUTIQUE <span>CRÉDITS</span></div>
+    <div class="section-title" data-fr-html="BOUTIQUE <span>CRÉDITS</span>" data-en-html="CREDITS <span>SHOP</span>">BOUTIQUE <span>CRÉDITS</span></div>
     <div class="divider"></div>
     <div class="shop-grid" id="packs-grid"></div>
     <h3 style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;margin:2.5rem 0 1rem">SERVICES <span style="color:var(--red)">EN JEU</span></h3>
@@ -1161,7 +1176,7 @@ footer span{color:var(--red)}
 <!-- ===== STAFF ===== -->
 <section id="staff">
   <div class="container">
-    <div class="section-title">L'ÉQUIPE <span>STAFF</span></div>
+    <div class="section-title" data-fr-html="L'ÉQUIPE <span>STAFF</span>" data-en-html="THE <span>STAFF</span>">L'ÉQUIPE <span>STAFF</span></div>
     <div class="divider"></div>
     <div class="staff-grid" id="staff-grid"></div>
   </div>
@@ -1170,7 +1185,7 @@ footer span{color:var(--red)}
 <!-- ===== VIP ===== -->
 <section id="vip" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-title">STATUT <span>VIP</span></div>
+    <div class="section-title" data-fr-html="STATUT <span>VIP</span>" data-en-html="VIP <span>STATUS</span>">STATUT <span>VIP</span></div>
     <div class="divider"></div>
     <div class="vip-grid">
       <div class="vip-card premium">
@@ -1202,7 +1217,7 @@ footer span{color:var(--red)}
 <!-- ===== PVP ===== -->
 <section id="pvp">
   <div class="container">
-    <div class="section-title">CLASSEMENT <span>PVP</span></div>
+    <div class="section-title" data-fr-html="CLASSEMENT <span>PVP</span>" data-en-html="PVP <span>RANKING</span>">CLASSEMENT <span>PVP</span></div>
     <div class="divider"></div>
     <div class="pvp-podium" id="pvp-podium"></div>
     <table class="pvp-table">
@@ -1215,7 +1230,7 @@ footer span{color:var(--red)}
 <!-- ===== COMMUNAUTE ===== -->
 <section id="communaute" style="background:var(--bg2)">
   <div class="container">
-    <div class="section-title">COMMUNAUTÉ <span>&amp; AVIS</span></div>
+    <div class="section-title" data-fr-html="COMMUNAUTÉ <span>&amp; AVIS</span>" data-en-html="COMMUNITY <span>&amp; REVIEWS</span>">COMMUNAUTÉ <span>&amp; AVIS</span></div>
     <div class="divider"></div>
     <div class="comments-grid" id="comments-grid"></div>
     <div class="add-comment">
@@ -1243,7 +1258,7 @@ footer span{color:var(--red)}
 <!-- ===== DISCORD ===== -->
 <section id="discord" style="background:#111111;padding:5rem 2rem">
   <div class="container">
-    <div class="section-title">REJOINDRE <span>BADLAND FR</span></div>
+    <div class="section-title" data-fr="REJOINDRE" data-en="JOIN">REJOINDRE <span>BADLAND FR</span></div>
     <div class="divider"></div>
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;max-width:900px;margin:0 auto">
@@ -1307,7 +1322,7 @@ footer span{color:var(--red)}
 
 <section id="soutenir">
   <div class="container" style="text-align:center">
-    <div class="section-title">SOUTENIR <span>BADLAND FR</span></div>
+    <div class="section-title" data-fr="SOUTENIR" data-en="SUPPORT">SOUTENIR <span>BADLAND FR</span></div>
     <div class="divider" style="margin:1rem auto 3rem"></div>
     <div class="support-box">
       <p>Le serveur tourne grâce à votre soutien. Chaque don aide à maintenir les frais d'hébergement Nitrado et à améliorer l'expérience de jeu pour tous.</p>
@@ -1319,7 +1334,7 @@ footer span{color:var(--red)}
 
 <!-- ===== FOOTER ===== -->
 <footer>
-  <p>© 2026 <span>Badland FR</span> — Serveur DayZ Console non-officiel — Tous droits réservés</p>
+  <p data-fr="© 2026 Badland FR — Serveur DayZ Console non-officiel — Tous droits réservés" data-en="© 2026 Badland FR — Unofficial DayZ Console Server — All rights reserved">© 2026 <span>Badland FR</span> — Serveur DayZ Console non-officiel — Tous droits réservés</p>
   <p style="margin-top:0.5rem">Contact : <span>badlandfr.contact@gmail.com</span></p>
 </footer>
 
@@ -3995,6 +4010,50 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(function() { renderMapsPublic(); }, 100);
   setTimeout(function() { renderMapsPublic(); }, 500);
 });
+
+// ===== LANGUAGE SWITCHER =====
+var currentLang = localStorage.getItem('badlandfr_lang') || 'fr';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('badlandfr_lang', lang);
+  document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  applyLang();
+}
+
+function applyLang() {
+  var lang = currentLang;
+  // Éléments avec data-fr / data-en (texte simple)
+  document.querySelectorAll('[data-fr]').forEach(function(el) {
+    var val = el.getAttribute('data-' + lang);
+    if (val !== null) el.textContent = val;
+  });
+  // Éléments avec data-fr-html / data-en-html (innerHTML)
+  document.querySelectorAll('[data-fr-html]').forEach(function(el) {
+    var val = el.getAttribute('data-' + lang + '-html');
+    if (val !== null) el.innerHTML = val;
+  });
+  // Countdown label spécial
+  var cdLabel = document.querySelector('.countdown-label');
+  if (cdLabel) {
+    var cdSpan = cdLabel.querySelector('#countdown-target-date');
+    var cdText = cdSpan ? cdSpan.outerHTML : '';
+    cdLabel.innerHTML = (lang === 'fr' ? '\u23F3 OUVERTURE DU SERVEUR DANS ' : '\u23F3 SERVER OPENING IN ') + cdText;
+  }
+  // Titre page
+  document.title = lang === 'fr' ? 'Badland FR \u2014 Serveur DayZ Console' : 'Badland FR \u2014 DayZ Console Server';
+}
+
+// Init au chargement
+document.addEventListener('DOMContentLoaded', function() {
+  if (currentLang === 'en') {
+    document.getElementById('lang-en').classList.add('active');
+    document.getElementById('lang-fr').classList.remove('active');
+    applyLang();
+  }
+});
+
 </script>
 
 <script>
