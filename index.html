@@ -1190,23 +1190,23 @@ footer span{color:var(--red)}
       <div class="vip-card premium">
         <div class="vip-name gold">⭐ VIP Premium</div>
         <ul class="vip-perks">
-          <li>Priorité de connexion</li>
-          <li>Skin exclusif</li>
-          <li>Badge sur Discord</li>
-          <li>Accès salon privé</li>
-          <li>Support prioritaire</li>
+          <li data-fr="Priorité de connexion" data-en="Connection priority">Priorité de connexion</li>
+          <li data-fr="Skin exclusif" data-en="Exclusive skin">Skin exclusif</li>
+          <li data-fr="Badge sur Discord" data-en="Discord badge">Badge sur Discord</li>
+          <li data-fr="Accès salon privé" data-en="Private channel access">Accès salon privé</li>
+          <li data-fr="Support prioritaire" data-en="Priority support">Support prioritaire</li>
         </ul>
-        <div><span style="font-size:0.75rem;font-weight:700;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase">Joueurs VIP Premium :</span></div>
+        <div><span style="font-size:0.75rem;font-weight:700;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase" data-fr="Joueurs VIP Premium :" data-en="VIP Premium Players :">Joueurs VIP Premium :</span></div>
         <div class="vip-list" id="vip-premium-list"></div>
       </div>
       <div class="vip-card standard">
         <div class="vip-name" style="color:var(--text-muted)">🎖️ VIP Standard</div>
         <ul class="vip-perks">
-          <li>Priorité de connexion</li>
-          <li>Badge sur Discord</li>
-          <li>Accès salon dédié</li>
+          <li data-fr="Priorité de connexion" data-en="Connection priority">Priorité de connexion</li>
+          <li data-fr="Badge sur Discord" data-en="Discord badge">Badge sur Discord</li>
+          <li data-fr="Accès salon dédié" data-en="Dedicated channel access">Accès salon dédié</li>
         </ul>
-        <div><span style="font-size:0.75rem;font-weight:700;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase">Joueurs VIP :</span></div>
+        <div><span style="font-size:0.75rem;font-weight:700;letter-spacing:1px;color:var(--text-muted);text-transform:uppercase" data-fr="Joueurs VIP :" data-en="VIP Players :">Joueurs VIP :</span></div>
         <div class="vip-list" id="vip-standard-list"></div>
       </div>
     </div>
@@ -1220,7 +1220,7 @@ footer span{color:var(--red)}
     <div class="divider"></div>
     <div class="pvp-podium" id="pvp-podium"></div>
     <table class="pvp-table">
-      <thead><tr><th>#</th><th>Joueur</th><th>Kills</th><th>Morts</th><th>K/D</th></tr></thead>
+      <thead><tr><th>#</th><th data-fr="Joueur" data-en="Player">Joueur</th><th>Kills</th><th data-fr="Morts" data-en="Deaths">Morts</th><th>K/D</th></tr></thead>
       <tbody id="pvp-tbody"></tbody>
     </table>
   </div>
@@ -1233,21 +1233,21 @@ footer span{color:var(--red)}
     <div class="divider"></div>
     <div class="comments-grid" id="comments-grid"></div>
     <div class="add-comment">
-      <h4 style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;margin-bottom:1rem">Laisser un avis</h4>
+      <h4 style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;margin-bottom:1rem" data-fr="Laisser un avis" data-en="Leave a review">Laisser un avis</h4>
       <div class="form-row">
-        <div class="form-group"><label>Pseudo</label><input id="cmt-pseudo" class="form-group" placeholder="Ton pseudo PSN/Xbox"></div>
+        <div class="form-group"><label data-fr="Pseudo" data-en="Username">Pseudo</label><input id="cmt-pseudo" class="form-group" placeholder="Ton pseudo PSN/Xbox"></div>
         <div class="form-group" style="max-width:180px">
-          <label>Note</label>
+          <label data-fr="Note" data-en="Rating">Note</label>
           <div class="stars-select" id="stars-select">
             <span onclick="setStars(1)">★</span><span onclick="setStars(2)">★</span><span onclick="setStars(3)">★</span><span onclick="setStars(4)">★</span><span onclick="setStars(5)">★</span>
           </div>
         </div>
       </div>
-      <div class="form-group"><label>Commentaire</label><textarea id="cmt-text" rows="3" placeholder="Ton avis sur le serveur..." style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 12px;font-size:0.9rem;font-family:'Rajdhani',sans-serif;resize:vertical"></textarea></div>
-      <button class="btn-primary" style="margin-top:0.75rem" onclick="addComment()">Publier l'avis</button>
+      <div class="form-group"><label data-fr="Commentaire" data-en="Comment">Commentaire</label><textarea id="cmt-text" rows="3" placeholder="Ton avis sur le serveur..." style="width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:10px 12px;font-size:0.9rem;font-family:'Rajdhani',sans-serif;resize:vertical"></textarea></div>
+      <button class="btn-primary" style="margin-top:0.75rem" onclick="addComment()" data-fr="Publier l'avis" data-en="Post review">Publier l'avis</button>
     </div>
     <div style="margin-top:2rem">
-      <h4 style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;margin-bottom:1rem">📸 Galerie Photos</h4>
+      <h4 style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:2px;margin-bottom:1rem" data-fr="📸 Galerie Photos" data-en="📸 Photo Gallery">📸 Galerie Photos</h4>
       <div class="gallery-grid" id="gallery-grid"></div>
     </div>
   </div>
@@ -1265,7 +1265,7 @@ footer span{color:var(--red)}
       <!-- CARTE DISCORD -->
       <div style="background:#181818;border:1px solid rgba(88,101,242,0.3);border-top:3px solid #5865F2;padding:2rem;text-align:center">
         <div style="font-size:2.5rem;margin-bottom:1rem">💬</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#fff;margin-bottom:0.75rem">DISCORD BADLAND FR</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#fff;margin-bottom:0.75rem" data-fr="DISCORD BADLAND FR" data-en="DISCORD BADLAND FR">DISCORD BADLAND FR</div>
         <p id="disc-section-desc" style="color:#888;font-size:0.9rem;line-height:1.7;margin-bottom:1.5rem" data-fr="Rejoins notre communauté Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff." data-en="Join our Discord community to follow announcements, chat with other players and contact the staff.">Rejoins notre communauté Discord pour suivre les annonces, discuter avec les autres joueurs et contacter le staff.</p>
         <a id="disc-section-btn" href="https://discord.gg/Ak9vM2GDyR" target="_blank" style="display:inline-block;background:#5865F2;color:#fff;padding:12px 28px;font-size:0.9rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:background .2s" onmouseover="this.style.background='#4752c4'" onmouseout="this.style.background='#5865F2'" data-fr="Rejoindre le Discord" data-en="Join Discord">
           Rejoindre le Discord
@@ -1276,40 +1276,40 @@ footer span{color:var(--red)}
       <!-- CARTE WHITELIST -->
       <div style="background:#181818;border:1px solid rgba(192,57,43,0.3);border-top:3px solid #c0392b;padding:2rem">
         <div style="font-size:2.5rem;margin-bottom:1rem;text-align:center">🎮</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#fff;margin-bottom:0.75rem;text-align:center">WHITELIST</div>
-        <p style="color:#888;font-size:0.85rem;margin-bottom:1.25rem;line-height:1.6">Pour rejoindre le serveur, tu dois d'abord faire une demande de whitelist sur notre Discord :</p>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;color:#fff;margin-bottom:0.75rem;text-align:center" data-fr="WHITELIST" data-en="WHITELIST">WHITELIST</div>
+        <p style="color:#888;font-size:0.85rem;margin-bottom:1.25rem;line-height:1.6" data-fr="Pour rejoindre le serveur, tu dois d'abord faire une demande de whitelist sur notre Discord :" data-en="To join the server, you must first submit a whitelist request on our Discord :">Pour rejoindre le serveur, tu dois d'abord faire une demande de whitelist sur notre Discord :</p>
 
         <div style="display:flex;flex-direction:column;gap:0.75rem">
           <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
             <div style="background:#c0392b;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
-            <div style="font-size:0.85rem;color:#e8e8e8">Rejoins le Discord via le bouton ci-contre</div>
+            <div style="font-size:0.85rem;color:#e8e8e8" data-fr="Rejoins le Discord via le bouton ci-contre" data-en="Join Discord via the button on the left">Rejoins le Discord via le bouton ci-contre</div>
           </div>
           <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
             <div style="background:#c0392b;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
             <div>
-              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:2px">Va dans le salon <strong style="color:#5865F2">#whitelist</strong></div>
-              <div style="font-size:0.75rem;color:#666">Retrouve le salon dédié aux demandes</div>
+              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:2px" data-fr-html="Va dans le salon <strong style='color:#5865F2'>#whitelist</strong>" data-en-html="Go to the <strong style='color:#5865F2'>#whitelist</strong> channel">Va dans le salon <strong style="color:#5865F2">#whitelist</strong></div>
+              <div style="font-size:0.75rem;color:#666" data-fr="Retrouve le salon dédié aux demandes" data-en="Find the channel dedicated to requests">Retrouve le salon dédié aux demandes</div>
             </div>
           </div>
           <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
             <div style="background:#c0392b;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
             <div>
-              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:4px">Tape la commande :</div>
-              <div style="background:#0a0a0a;border:1px solid rgba(88,101,242,0.4);padding:6px 12px;font-family:'Share Tech Mono',monospace;font-size:0.9rem;color:#5865F2;display:inline-block">/psn <span style="color:#888">TonPseudoPSN-Xbox</span></div>
+              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:4px" data-fr="Tape la commande :" data-en="Type the command :">Tape la commande :</div>
+              <div style="background:#0a0a0a;border:1px solid rgba(88,101,242,0.4);padding:6px 12px;font-family:'Share Tech Mono',monospace;font-size:0.9rem;color:#5865F2;display:inline-block">/psn <span style="color:#888" data-fr="TonPseudoPSN-Xbox" data-en="YourPSN-XboxUsername">TonPseudoPSN-Xbox</span></div>
             </div>
           </div>
           <div style="display:flex;align-items:start;gap:0.75rem;padding:0.75rem;background:#0d0d0d;border:1px solid rgba(255,255,255,0.06)">
             <div style="background:#27ae60;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1rem;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✓</div>
             <div>
-              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:2px">Le staff traite ta demande</div>
-              <div style="font-size:0.75rem;color:#666">Tu reçois une réponse en message privé Discord</div>
+              <div style="font-size:0.85rem;color:#e8e8e8;margin-bottom:2px" data-fr="Le staff traite ta demande" data-en="Staff processes your request">Le staff traite ta demande</div>
+              <div style="font-size:0.75rem;color:#666" data-fr="Tu reçois une réponse en message privé Discord" data-en="You receive a reply via Discord private message">Tu reçois une réponse en message privé Discord</div>
             </div>
           </div>
         </div>
 
         <div style="margin-top:1.25rem;padding:0.75rem 1rem;background:rgba(212,172,13,0.05);border:1px solid rgba(212,172,13,0.2)">
-          <div style="font-size:0.75rem;color:#d4ac0d;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px">⚠️ Important</div>
-          <div style="font-size:0.78rem;color:#888;line-height:1.5">Le pseudo doit correspondre exactement à ton PSN ou Gamertag. Sans whitelist, tu ne pourras pas rejoindre le serveur.</div>
+          <div style="font-size:0.75rem;color:#d4ac0d;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px" data-fr="⚠️ Important" data-en="⚠️ Important">⚠️ Important</div>
+          <div style="font-size:0.78rem;color:#888;line-height:1.5" data-fr="Le pseudo doit correspondre exactement à ton PSN ou Gamertag. Sans whitelist, tu ne pourras pas rejoindre le serveur." data-en="The username must exactly match your PSN or Gamertag. Without a whitelist, you will not be able to join the server.">Le pseudo doit correspondre exactement à ton PSN ou Gamertag. Sans whitelist, tu ne pourras pas rejoindre le serveur.</div>
         </div>
       </div>
 
@@ -2474,15 +2474,29 @@ function setStars(n) {
   selectedStars = n;
   document.querySelectorAll('#stars-select span').forEach(function(s,i){ s.classList.toggle('active',i<n); });
 }
+var DEFAULT_COMMENTS = [
+  { pseudo:"DarkWolf92", stars:5,
+    text:"Serveur incroyable ! Le loot x3 cest parfait. Je recommande !",
+    text_en:"Incredible server! The x3 loot is perfect. Highly recommended!",
+    date:"10/04/2026" },
+  { pseudo:"Sniper_FR", stars:4,
+    text:"Bonne ambiance, staff réactif. Zone NBC avec les 85 zombies cest intense !",
+    text_en:"Great atmosphere, responsive staff. The NBC zone with 85 zombies is intense!",
+    date:"12/04/2026" },
+  { pseudo:"CryWolf44", stars:5,
+    text:"Le meilleur serveur DayZ console FR. Base building facile.",
+    text_en:"The best French DayZ console server. Easy base building.",
+    date:"14/04/2026" }
+];
 function renderComments() {
-  var comments = ls.get('comments') || [
-    { pseudo:"DarkWolf92", stars:5, text:"Serveur incroyable ! Le loot x3 cest parfait. Je recommande !", date:"10/04/2026" },
-    { pseudo:"Sniper_FR", stars:4, text:"Bonne ambiance, staff réactif. Zone NBC avec les 85 zombies cest intense !", date:"12/04/2026" },
-    { pseudo:"CryWolf44", stars:5, text:"Le meilleur serveur DayZ console FR. Base building facile.", date:"14/04/2026" }
-  ];
+  var comments = ls.get('comments') || DEFAULT_COMMENTS;
   var el = document.getElementById('comments-grid');
   if (!el) return;
-  el.innerHTML = comments.slice(-9).reverse().map(function(c){ return '<div class="comment-card"><div class="comment-header"><div class="comment-author">'+escHtml(c.pseudo)+'</div><div class="comment-stars">'+'★'.repeat(c.stars||5)+'☆'.repeat(5-(c.stars||5))+'</div></div><div class="comment-text">'+escHtml(c.text)+'</div><div class="comment-date">'+(c.date||'')+'</div></div>'; }).join('');
+  var lang = currentLang || 'fr';
+  el.innerHTML = comments.slice(-9).reverse().map(function(c){
+    var txt = (lang === 'en' && c.text_en) ? c.text_en : c.text;
+    return '<div class="comment-card"><div class="comment-header"><div class="comment-author">'+escHtml(c.pseudo)+'</div><div class="comment-stars">'+'★'.repeat(c.stars||5)+'☆'.repeat(5-(c.stars||5))+'</div></div><div class="comment-text">'+escHtml(txt)+'</div><div class="comment-date">'+(c.date||'')+'</div></div>';
+  }).join('');
 }
 function addComment() {
   var pseudo = document.getElementById('cmt-pseudo').value.trim();
@@ -4360,6 +4374,9 @@ function applyLang() {
 
   // 5. Titre onglet
   document.title = lang === 'fr' ? 'Badland FR \u2014 Serveur DayZ Console' : 'Badland FR \u2014 DayZ Console Server';
+
+  // 6. Re-render les commentaires pour changer la langue des avis par défaut
+  if (typeof renderComments === 'function') renderComments();
 }
 
 // Init
