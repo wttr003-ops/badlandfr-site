@@ -927,7 +927,7 @@ footer span{color:var(--red)}
     </div>
 
     <div class="reg-pub-content" id="regpub-dons">
-      <div style="padding:10px 14px;background:#1a0808;border:1px solid rgba(192,57,43,0.4);border-left:3px solid #c0392b;font-size:0.82rem;color:#c0392b;margin-bottom:10px;animation:blink-border 1.2s infinite">⚠️ IMPORTANT — Lisez attentivement avant tout achat. Les dons et achats sont <strong>définitifs et non remboursables.</strong></div>
+      <div style="padding:10px 14px;background:#1a0808;border:1px solid rgba(192,57,43,0.4);border-left:3px solid #c0392b;font-size:0.82rem;color:#c0392b;margin-bottom:10px;animation:blink-border 1.2s infinite" data-fr="⚠️ IMPORTANT — Lisez attentivement avant tout achat. Les dons et achats sont définitifs et non remboursables." data-en="⚠️ IMPORTANT — Read carefully before any purchase. Donations and purchases are final and non-refundable.">⚠️ IMPORTANT — Lisez attentivement avant tout achat. Les dons et achats sont <strong>définitifs et non remboursables.</strong></div>
       <div class="reg-click-hint" style="font-size:0.65rem;color:#444;letter-spacing:1px;text-transform:uppercase;text-align:right;margin-bottom:8px">▼ Cliquez sur un article pour les détails</div>
       <div style="display:flex;flex-direction:column;gap:5px">
 
@@ -962,13 +962,11 @@ footer span{color:var(--red)}
             </div>
 
             <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite;margin-top:0.5rem">
-              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
+              <strong style="color:#c0392b;animation:blink-text 1.2s infinite" data-fr="🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l’intégralité de ce règlement." data-en="🚨 By making a donation or purchase, you fully and unreservedly accept these rules in their entirety.">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
             </div>
 
           </div>
-      <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite;margin-top:0.5rem">
-              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
-            </div>
+      
     </div>
   </div>
 </section>
@@ -1796,9 +1794,7 @@ footer span{color:var(--red)}
               <div class="art-body">Ce règlement peut être modifié à tout moment. Notification via Discord et site. Continuer à utiliser la boutique vaut acceptation.<div class="rules-grid"><div class="rule-ok">✅ Être notifié de chaque changement</div><div class="rule-ko">❌ Ignorer les mises à jour</div></div></div>
             </div>
 
-            <div style="padding:0.75rem 1rem;background:#1a0808;border:1px solid rgba(192,57,43,0.4);animation:blink-border 1.2s infinite;margin-top:0.5rem">
-              <strong style="color:#c0392b;animation:blink-text 1.2s infinite">🚨 En effectuant un don ou un achat, vous acceptez pleinement et sans réserve l'intégralité de ce règlement.</strong>
-            </div>
+            
 
           </div>
         </div>
@@ -4325,6 +4321,20 @@ function setLang(lang) {
 
 function applyLang() {
   var lang = currentLang;
+
+  // 1. Tous les éléments avec data-fr / data-en (texte simple)
+  document.querySelectorAll('[data-fr]').forEach(function(el) {
+    var val = lang === 'fr' ? el.getAttribute('data-fr') : el.getAttribute('data-en');
+    if (val !== null) el.textContent = val;
+  });
+
+  // 2. Tous les éléments avec data-fr-html / data-en-html (innerHTML)
+  document.querySelectorAll('[data-fr-html]').forEach(function(el) {
+    var val = lang === 'fr' ? el.getAttribute('data-fr-html') : el.getAttribute('data-en-html');
+    if (val !== null) el.innerHTML = val;
+  });
+
+  // 3. IDs avec TRANS_ELEMENTS (pour les éléments qui n'ont pas data-fr/data-en direct)
   TRANS_ELEMENTS.forEach(function(item) {
     var elId = item[0], key = item[1], mode = item[2];
     var el = document.getElementById(elId);
@@ -4334,23 +4344,21 @@ function applyLang() {
     if (mode === 'text') { el.textContent = val; }
     else if (mode === 'html') { el.innerHTML = val; }
     else if (mode === 'text-span') {
-      // Garde le <span> enfant intact, change seulement le texte avant
       var span = el.querySelector('span');
-      if (span) {
-        el.childNodes[0].textContent = val + ' ';
-      } else {
-        el.textContent = val;
-      }
+      if (span) { el.childNodes[0].textContent = val + ' '; }
+      else { el.textContent = val; }
     }
   });
-  // Countdown label
+
+  // 4. Countdown label
   var cdLabel = document.querySelector('.countdown-label');
   if (cdLabel) {
     var cdSpan = cdLabel.querySelector('#countdown-target-date');
     var cdText = cdSpan ? cdSpan.outerHTML : '';
     cdLabel.innerHTML = (lang === 'fr' ? '\u23F3 OUVERTURE DU SERVEUR DANS ' : '\u23F3 SERVER OPENING IN ') + cdText;
   }
-  // Titre onglet
+
+  // 5. Titre onglet
   document.title = lang === 'fr' ? 'Badland FR \u2014 Serveur DayZ Console' : 'Badland FR \u2014 DayZ Console Server';
 }
 
